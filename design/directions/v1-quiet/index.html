@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Direction A — Quiet & Trustworthy · Demo</title>
+<style>
+:root {
+  --color-paper: #FAFAF7;
+  --color-ink: #131618;
+  --color-ink-soft: #3A4045;
+  --color-ink-muted: #7A8086;
+  --color-rule: #DDDDD7;
+  --color-accent: #1F3B5A; /* deep navy */
+  --font-sans: "Söhne", "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --type-h1: clamp(3rem, 6vw, 6rem);
+  --type-h2: clamp(2rem, 3vw, 3.25rem);
+  --type-h3: 1.5rem;
+  --type-body: 1.0625rem;
+  --type-eyebrow: 0.8125rem;
+  --line-tight: 1.05;
+  --line-body: 1.55;
+  --tracking-tight: -0.04em;
+  --tracking-loose: 0.18em;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+* { box-sizing: border-box; }
+body { margin: 0; font: var(--type-body)/var(--line-body) var(--font-sans); color: var(--color-ink); background: var(--color-paper); }
+h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: var(--tracking-tight); line-height: var(--line-tight); margin: 0 0 var(--space-6); }
+h1 { font-size: var(--type-h1); }
+h2 { font-size: var(--type-h2); }
+h3 { font-size: var(--type-h3); }
+p { margin: 0 0 var(--space-4); }
+.wrap { max-width: 80rem; margin: 0 auto; padding-inline: var(--space-6); }
+@media (min-width: 768px) { .wrap { padding-inline: var(--space-12); } }
+
+.site-header { background: var(--color-paper); border-bottom: 1px solid var(--color-rule); position: sticky; top: 0; z-index: 10; }
+.header-row { display: flex; align-items: center; justify-content: space-between; padding: var(--space-6) 0; gap: var(--space-4); }
+.brand { font-family: var(--font-sans); font-weight: 500; font-size: 1rem; color: var(--color-ink); text-decoration: none; line-height: 1.1; letter-spacing: var(--tracking-loose); text-transform: uppercase; }
+.brand small { color: var(--color-ink-muted); font-size: 0.7rem; display: block; letter-spacing: var(--tracking-loose); text-transform: uppercase; margin-top: 4px; font-weight: 400; }
+nav { display: flex; gap: var(--space-6); }
+nav a { color: var(--color-ink); text-decoration: none; padding: var(--space-2); font-size: var(--type-eyebrow); letter-spacing: var(--tracking-loose); text-transform: uppercase; }
+nav a:hover, nav a:focus-visible { color: var(--color-accent); }
+
+.btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-4) var(--space-8); border: none; font: 500 1rem var(--font-sans); cursor: pointer; text-decoration: none; border-radius: 0; }
+.btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.btn--primary { background: var(--color-ink); color: var(--color-paper); }
+.btn--primary:hover { background: var(--color-accent); }
+.btn--secondary { background: transparent; color: var(--color-ink); border: 1px solid var(--color-ink); }
+.btn--secondary:hover { background: var(--color-ink); color: var(--color-paper); }
+
+.hero { padding: var(--space-32) 0; }
+.hero .eyebrow { font: 500 var(--type-eyebrow) var(--font-sans); letter-spacing: var(--tracking-loose); text-transform: uppercase; color: var(--color-accent); margin: 0 0 var(--space-8); }
+.hero h1 { margin-bottom: var(--space-12); max-width: 18ch; }
+.hero .lede { font-size: 1.375rem; color: var(--color-ink-soft); max-width: 42rem; margin-bottom: var(--space-12); line-height: 1.4; }
+.cta-row { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+
+.section { padding: var(--space-32) 0; }
+.section--alt { background: transparent; border-top: 1px solid var(--color-rule); }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: var(--space-12); margin-top: var(--space-16); }
+.card { background: transparent; border-top: 1px solid var(--color-rule); border-radius: 0; padding: var(--space-8) 0; box-shadow: none; }
+.card h3 { margin-bottom: var(--space-4); }
+.card p { color: var(--color-ink-soft); }
+
+.staff-card { display: grid; grid-template-columns: 280px 1fr; gap: var(--space-16); align-items: start; }
+.staff-photo { background: var(--color-rule); aspect-ratio: 1; border-radius: 0; display: flex; align-items: center; justify-content: center; color: var(--color-ink-muted); font-size: 0.75rem; text-align: center; padding: var(--space-4); }
+.greeting { font-family: var(--font-sans); font-weight: 500; font-size: 2rem; letter-spacing: var(--tracking-tight); margin: 0 0 var(--space-3); }
+.role { color: var(--color-ink-muted); font-size: var(--type-eyebrow); letter-spacing: var(--tracking-loose); text-transform: uppercase; margin: 0 0 var(--space-6); }
+
+.chatbot-launcher { position: fixed; bottom: var(--space-8); right: var(--space-8); width: 56px; height: 56px; border-radius: 0; background: var(--color-ink); color: var(--color-paper); border: none; font-size: 1.25rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+@media (max-width: 640px) {
+  .staff-card { grid-template-columns: 1fr; gap: var(--space-8); }
+  .header-row nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="#" class="brand">Urbane Ethos<small>Early Intervention Center</small></a>
+    <nav aria-label="Primary">
+      <a href="#services">Services</a><a href="#staff">Team</a><a href="#contact">Contact</a>
+    </nav>
+    <a href="#book" class="btn btn--primary">Book Now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Urbane Ethos</p>
+    <h1>Early intervention, made human.</h1>
+    <p class="lede">For families finding their way. Speech, motor, learning, behaviour — supported by people, not algorithms.</p>
+    <div class="cta-row">
+      <button class="btn btn--primary">Find out more</button>
+      <button class="btn btn--secondary">Watch our intro</button>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section">
+  <div class="wrap">
+    <h2>How we can help</h2>
+    <div class="grid-3">
+      <article class="card"><h3>Screening</h3><p>A gentle first step to understand where your child is.</p></article>
+      <article class="card"><h3>Speech Therapy</h3><p>Helping your child find their voice.</p></article>
+      <article class="card"><h3>Occupational Therapy</h3><p>Building everyday skills that build confidence.</p></article>
+      <article class="card"><h3>Special Education</h3><p>Tailored learning that meets each child where they are.</p></article>
+      <article class="card"><h3>Early Intervention</h3><p>Structured support across the early years.</p></article>
+      <article class="card"><h3>Clinical Psychology</h3><p>Compassionate assessment and counselling.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="staff" class="section section--alt">
+  <div class="wrap">
+    <h2>Meet the people who'll be there</h2>
+    <div class="staff-card">
+      <div class="staff-photo" aria-hidden="true">[REAL PHOTO REQUIRED]</div>
+      <div>
+        <p class="greeting">Hi, I'm Dr. Sarah</p>
+        <p class="role">Clinical Psychologist · 12 years with kids 0–9</p>
+        <p>I came into this work because of my niece. I stayed because of every parent I've watched exhale at the end of a hard week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<button class="chatbot-launcher" aria-label="Open chat assistant">💬</button>
+</body>
+</html>
