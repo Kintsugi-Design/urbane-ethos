@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Direction B — Warm & Handcrafted · Demo</title>
+<style>
+:root {
+  --color-cream: #F6EFE3;
+  --color-cream-soft: #FBF6EC;
+  --color-ink: #2B1F14;
+  --color-ink-soft: #4A372A;
+  --color-ink-muted: #7A6A5C;
+  --color-sage: #8FA68A;
+  --color-sage-deep: #5C7758;
+  --color-terracotta: #C77B5C;
+  --color-terracotta-deep: #A05A3D;
+  --color-sun: #E6B25C;
+  --color-line: #E2D4BD;
+  --color-error: #B5403B;
+
+  --font-serif: "Source Serif 4", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --type-h1: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --type-h2: clamp(2rem, 3vw + 1rem, 3rem);
+  --type-h3: clamp(1.5rem, 1.5vw + 1rem, 2rem);
+  --type-body: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
+  --type-eyebrow: 0.875rem;
+  --line-tight: 1.15;
+  --line-body: 1.6;
+  --tracking-tight: -0.02em;
+  --tracking-loose: 0.15em;
+
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  --radius-1: 6px;
+  --radius-2: 14px;
+  --radius-3: 28px;
+  --radius-pill: 999px;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-1: 180ms;
+
+  --shadow-1: 0 1px 2px rgba(43,31,20,0.08);
+  --shadow-2: 0 10px 30px -10px rgba(43,31,20,0.18);
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+* { box-sizing: border-box; }
+body { margin: 0; font: var(--type-body)/var(--line-body) var(--font-sans); color: var(--color-ink); background: var(--color-cream); }
+h1, h2, h3 { font-family: var(--font-serif); letter-spacing: var(--tracking-tight); line-height: var(--line-tight); margin: 0 0 var(--space-4); }
+h1 { font-size: var(--type-h1); }
+h2 { font-size: var(--type-h2); }
+h3 { font-size: var(--type-h3); }
+p { margin: 0 0 var(--space-4); }
+.wrap { max-width: 72rem; margin: 0 auto; padding-inline: var(--space-6); }
+@media (min-width: 768px) { .wrap { padding-inline: var(--space-8); } }
+
+.site-header {
+  background: color-mix(in srgb, var(--color-cream-soft) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-line);
+  position: sticky; top: 0; z-index: 10;
+}
+.header-row { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) 0; gap: var(--space-4); }
+.brand { font-family: var(--font-serif); font-size: 1.25rem; color: var(--color-ink); text-decoration: none; line-height: 1.1; }
+.brand small { color: var(--color-ink-muted); font-size: 0.8rem; display: block; }
+nav { display: flex; gap: var(--space-4); }
+nav a { color: var(--color-ink); text-decoration: none; padding: var(--space-2); }
+nav a:hover, nav a:focus-visible { color: var(--color-terracotta-deep); }
+
+.btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-6); border-radius: var(--radius-pill); border: none; font: 600 1rem var(--font-sans); cursor: pointer; text-decoration: none; transition: transform var(--dur-1) var(--ease); }
+.btn:focus-visible { outline: 3px solid var(--color-sun); outline-offset: 3px; }
+.btn--primary { background: var(--color-ink); color: var(--color-cream-soft); }
+.btn--primary:hover { transform: translateY(-1px); }
+.btn--secondary { background: transparent; color: var(--color-ink); border: 1.5px solid var(--color-ink); }
+
+.hero { padding: var(--space-24) 0; background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-cream-soft) 100%); }
+.hero .eyebrow { font: 600 var(--type-eyebrow) var(--font-sans); letter-spacing: var(--tracking-loose); text-transform: uppercase; color: var(--color-terracotta-deep); margin: 0 0 var(--space-4); }
+.hero h1 { margin-bottom: var(--space-6); }
+.hero .lede { font-size: 1.25rem; color: var(--color-ink-soft); max-width: 36rem; margin-bottom: var(--space-8); }
+.cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+.section { padding: var(--space-24) 0; }
+.section--alt { background: var(--color-cream-soft); }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: var(--space-6); margin-top: var(--space-8); }
+.card { background: var(--color-cream-soft); border-radius: var(--radius-3); padding: var(--space-8); box-shadow: var(--shadow-1); }
+
+.staff-card { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-8); align-items: start; }
+.staff-photo { background: var(--color-line); aspect-ratio: 4/5; border-radius: var(--radius-3); display: flex; align-items: center; justify-content: center; color: var(--color-ink-muted); font-size: 0.75rem; text-align: center; padding: var(--space-4); }
+.greeting { font-family: var(--font-serif); font-size: 1.75rem; margin: 0 0 var(--space-2); }
+.role { color: var(--color-ink-muted); margin: 0 0 var(--space-4); }
+
+.chatbot-launcher { position: fixed; bottom: var(--space-6); right: var(--space-6); width: 56px; height: 56px; border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-cream-soft); border: none; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow-2); display: flex; align-items: center; justify-content: center; }
+
+@media (max-width: 640px) {
+  .staff-card { grid-template-columns: 1fr; }
+  .header-row nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="#" class="brand">Urbane Ethos<br><small>Early Intervention Center</small></a>
+    <nav aria-label="Primary">
+      <a href="#services">Services</a><a href="#staff">Team</a><a href="#contact">Contact</a>
+    </nav>
+    <a href="#book" class="btn btn--primary">Book Now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Urbane Ethos</p>
+    <h1>Early intervention,<br>made human.</h1>
+    <p class="lede">For families finding their way. Speech, motor, learning, behaviour — supported by people, not algorithms.</p>
+    <div class="cta-row">
+      <button class="btn btn--primary">Find out more</button>
+      <button class="btn btn--secondary">Watch our intro</button>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section">
+  <div class="wrap">
+    <h2>How we can help</h2>
+    <div class="grid-3">
+      <article class="card"><h3>Screening</h3><p>A gentle first step to understand where your child is.</p></article>
+      <article class="card"><h3>Speech Therapy</h3><p>Helping your child find their voice.</p></article>
+      <article class="card"><h3>Occupational Therapy</h3><p>Building everyday skills that build confidence.</p></article>
+      <article class="card"><h3>Special Education</h3><p>Tailored learning that meets each child where they are.</p></article>
+      <article class="card"><h3>Early Intervention</h3><p>Structured support across the early years.</p></article>
+      <article class="card"><h3>Clinical Psychology</h3><p>Compassionate assessment and counselling.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="staff" class="section section--alt">
+  <div class="wrap">
+    <h2>Meet the people who'll be there</h2>
+    <div class="staff-card">
+      <div class="staff-photo" aria-hidden="true">[REAL PHOTO REQUIRED]</div>
+      <div>
+        <p class="greeting">Hi, I'm Dr. Sarah</p>
+        <p class="role">Clinical Psychologist · 12 years with kids 0–9</p>
+        <p>I came into this work because of my niece. I stayed because of every parent I've watched exhale at the end of a hard week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<button class="chatbot-launcher" aria-label="Open chat assistant">💬</button>
+</body>
+</html>
