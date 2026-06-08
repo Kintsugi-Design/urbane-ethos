@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" data-fs="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-i18n="services.hero.title">Services — Urbane Ethos</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/motion.css">
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/">
+      <span>Urbane Ethos</span>
+      <small data-i18n="home.hero.title">Early Intervention Center</small>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="/about.html" data-i18n="common.nav.about">About</a></li>
+        <li><a href="/staff.html" data-i18n="common.nav.staff">Staff</a></li>
+        <li><a href="/services.html" aria-current="page" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="/blog.html" data-i18n="common.nav.blog">Blog</a></li>
+        <li><a href="/contact.html" data-i18n="common.nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      <span class="locale-toggle" aria-label="Language">
+        <button data-locale-set="en">EN</button>
+        <button data-locale-set="ms">BM</button>
+      </span>
+      <button class="fs-toggle" data-fs-cycle aria-label="Text size">A&#x2195;</button>
+      <a class="btn btn--primary" href="/contact.html" data-i18n="common.cta.bookSession">Book Now</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap">
+      <h1 data-i18n="services.hero.title">Services</h1>
+      <p class="lede" data-i18n="services.hero.subtitle"></p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap" id="services-blocks"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap grid">
+    <div>
+      <h4>Address</h4>
+      <p data-i18n="common.footer.address"></p>
+      <p data-i18n="common.footer.phone1"></p>
+    </div>
+    <div>
+      <h4 data-i18n="common.footer.hoursLabel">Hours</h4>
+      <ul id="footer-hours"></ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/services.html" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="/staff.html" data-i18n="common.nav.staff">Staff</a></li>
+        <li><a href="/blog.html" data-i18n="common.nav.blog">Blog</a></li>
+        <li><a href="/contact.html" data-i18n="common.nav.contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Privacy</h4>
+      <ul>
+        <li><a href="/privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
+        <li><a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a></li>
+        <li><a href="/analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot">&#x1F4AC;</button>
+
+<script type="module">
+import { getLocale, translatePage } from "/assets/js/i18n.js";
+import "/assets/js/consent.js";
+import "/assets/js/a11y.js";
+import "/assets/js/chatbot.js";
+
+const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+async function renderServices() {
+  const locale = getLocale();
+  const [services, common] = await Promise.all([
+    fetch(`/content/${locale}/services.json`).then(r => r.json()),
+    fetch(`/content/${locale}/common.json`).then(r => r.json())
+  ]);
+
+  const fhrs = document.getElementById("footer-hours");
+  if (fhrs) fhrs.replaceChildren(...(common.footer?.hours || []).map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
+
+  const root = document.getElementById("services-blocks");
+  root.replaceChildren(...(services.items || []).map(item => {
+    const sec = document.createElement("article");
+    sec.className = "service-block";
+    sec.id = item.key;
+    sec.innerHTML = `
+      <h2>${esc(item.title)}</h2>
+      ${item.whatItIs ? `<p><strong>What it is:</strong> ${esc(item.whatItIs)}</p>` : ""}
+      ${item.whoItsFor ? `<p><strong>Who it's for:</strong> ${esc(item.whoItsFor)}</p>` : ""}
+      ${item.whatToExpect ? `<p><strong>What to expect:</strong> ${esc(item.whatToExpect)}</p>` : ""}
+      ${(item.faqs || []).map(f => `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}
+      <a class="btn btn--primary" href="/contact.html?service=${encodeURIComponent(item.key)}">${esc(item.cta || "Enquire")}</a>`;
+    return sec;
+  }));
+  await translatePage(locale);
+}
+renderServices();
+document.addEventListener("i18n:changed", renderServices);
+</script>
+</body>
+</html>
