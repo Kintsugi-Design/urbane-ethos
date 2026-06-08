@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>i18n smoke test</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+</head>
+<body>
+<main class="wrap">
+<h1>i18n smoke test</h1>
+<p>
+  <span class="locale-toggle">
+    <button data-locale-set="en">EN</button>
+    <button data-locale-set="ms">BM</button>
+  </span>
+</p>
+<h2 data-i18n="home.hero.title">[fallback heading]</h2>
+<p data-i18n="home.hero.subtitle">[fallback subtitle]</p>
+<button class="btn btn--primary" data-i18n="common.cta.findOutMore"
+        data-i18n-attr="aria-label:common.a11y.openChatbot">Fallback</button>
+
+<h3>Assertions</h3>
+<ul id="assertions"></ul>
+
+<script type="module">
+import { setLocale, t } from "/assets/js/i18n.js";
+
+async function check(name, fn) {
+  const li = document.createElement("li");
+  try {
+    await fn();
+    li.textContent = `PASS — ${name}`;
+    li.style.color = "var(--color-success)";
+  } catch (e) {
+    li.textContent = `FAIL — ${name}: ${e.message}`;
+    li.style.color = "var(--color-error)";
+  }
+  document.getElementById("assertions").append(li);
+}
+
+(async () => {
+  await setLocale("en");
+  await check("EN hero title is a non-empty string", async () => {
+    const v = await t("home.hero.title");
+    if (typeof v !== "string" || !v.length) throw new Error(`got ${JSON.stringify(v)}`);
+  });
+  await setLocale("ms");
+  await check("BM hero title differs from EN", async () => {
+    const en = await t("home.hero.title", "en");
+    const ms = await t("home.hero.title", "ms");
+    if (en === ms) throw new Error("EN == MS — translation missing?");
+  });
+  await check("html lang attribute updates", async () => {
+    if (document.documentElement.lang !== "ms") throw new Error(document.documentElement.lang);
+  });
+})();
+</script>
+</main>
+</body>
+</html>
