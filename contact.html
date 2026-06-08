@@ -57,13 +57,13 @@
         <form id="contact-form" novalidate>
           <div class="form-field">
             <label for="cf-name" data-i18n="contact.form.fields.nameLabel">Your name</label>
-            <input id="cf-name" name="name" required data-i18n-attr="placeholder:contact.form.fields.namePlaceholder">
-            <p class="form-error" id="cf-name-err" hidden data-i18n="contact.form.errors.nameRequired"></p>
+            <input id="cf-name" name="name" required aria-describedby="cf-name-err" data-i18n-attr="placeholder:contact.form.fields.namePlaceholder">
+            <p class="form-error" id="cf-name-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.nameRequired"></p>
           </div>
           <div class="form-field">
             <label for="cf-email" data-i18n="contact.form.fields.emailLabel">Email</label>
-            <input id="cf-email" name="email" type="email" required data-i18n-attr="placeholder:contact.form.fields.emailPlaceholder">
-            <p class="form-error" id="cf-email-err" hidden data-i18n="contact.form.errors.emailRequired"></p>
+            <input id="cf-email" name="email" type="email" required aria-describedby="cf-email-err" data-i18n-attr="placeholder:contact.form.fields.emailPlaceholder">
+            <p class="form-error" id="cf-email-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.emailRequired"></p>
           </div>
           <div class="form-field">
             <label for="cf-phone" data-i18n="contact.form.fields.phoneLabel">Phone (optional)</label>
@@ -71,8 +71,8 @@
           </div>
           <div class="form-field">
             <label for="cf-concern" data-i18n="contact.form.fields.concernLabel">What's on your mind?</label>
-            <textarea id="cf-concern" name="concern" rows="5" required data-i18n-attr="placeholder:contact.form.fields.concernPlaceholder"></textarea>
-            <p class="form-error" id="cf-concern-err" hidden data-i18n="contact.form.errors.concernRequired"></p>
+            <textarea id="cf-concern" name="concern" rows="5" required aria-describedby="cf-concern-err" data-i18n-attr="placeholder:contact.form.fields.concernPlaceholder"></textarea>
+            <p class="form-error" id="cf-concern-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.concernRequired"></p>
           </div>
           <div class="form-field">
             <label for="cf-tellmore" data-i18n="contact.form.fields.tellUsMoreLabel">Anything else we should know? (Optional)</label>
