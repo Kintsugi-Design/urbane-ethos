@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>sage-stamp smoke</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/motion.css">
+</head>
+<body>
+<main class="wrap">
+<h1>Sage stamp smoke</h1>
+<p>Click the button to render the sage stamp. Should see a sage-coloured circle drawing in over ~360ms, followed by a checkmark drawing over ~160ms starting at 320ms.</p>
+<button class="btn btn--primary" id="trigger">Render stamp</button>
+<p style="margin-top:1rem"><span id="target"><span aria-live="polite">Saved.</span></span></p>
+<ul id="log"></ul>
+</main>
+<script type="module">
+import { renderSageStamp } from "/assets/js/sage-stamp.js";
+
+const log = m => {
+  const li = document.createElement("li");
+  li.textContent = m;
+  document.getElementById("log").append(li);
+};
+
+document.getElementById("trigger").addEventListener("click", () => {
+  const target = document.getElementById("target");
+  const stamp = renderSageStamp(target);
+  log(`Rendered. SVG count in target: ${target.querySelectorAll("svg").length}. Has aria-hidden: ${stamp?.getAttribute("aria-hidden") === "true"}`);
+});
+</script>
+</body>
+</html>

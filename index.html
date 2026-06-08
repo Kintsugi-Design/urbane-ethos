@@ -240,7 +240,7 @@ async function renderHome() {
       a.href = "/services.html#" + item.key;
       a.className = "card";
       a.dataset.serviceKey = item.key;
-      a.innerHTML = `<h3>${item.title}</h3><p>${item.blurb ?? ""}</p>`;
+      a.innerHTML = `<div class="card-inner"><h3>${item.title}</h3><p>${item.blurb ?? ""}</p></div>`;
       return a;
     }));
   }
@@ -279,14 +279,14 @@ async function renderHome() {
         const a = document.createElement("a");
         a.href = p.externalUrl;
         a.className = "card";
-        a.innerHTML = `<h3>${p.title}</h3><p>${p.excerpt}</p>`;
+        a.innerHTML = `<div class="card-inner"><h3>${p.title}</h3><p>${p.excerpt}</p></div>`;
         recGrid.append(a);
       });
       if (recStaff) {
         const a = document.createElement("a");
         a.href = "/staff.html#" + recStaff.id;
         a.className = "card";
-        a.innerHTML = `<h3>${recStaff.name}</h3><p>${recStaff.role}</p>`;
+        a.innerHTML = `<div class="card-inner"><h3>${recStaff.name}</h3><p>${recStaff.role}</p></div>`;
         recGrid.append(a);
       }
     } else {
@@ -301,7 +301,7 @@ async function renderHome() {
       const a = document.createElement("a");
       a.href = p.externalUrl;
       a.className = "card";
-      a.innerHTML = `<small>${p.date} &middot; ${p.category}</small><h3>${p.title}</h3><p>${p.excerpt}</p>`;
+      a.innerHTML = `<div class="card-inner"><small>${p.date} &middot; ${p.category}</small><h3>${p.title}</h3><p>${p.excerpt}</p></div>`;
       return a;
     }));
   }

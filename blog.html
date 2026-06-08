@@ -123,7 +123,7 @@ async function renderBlog() {
       a.className = "card";
       a.target = "_blank";
       a.rel = "noopener";
-      a.innerHTML = `<small>${esc(p.date)} &middot; ${esc(p.category)}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p>`;
+      a.innerHTML = `<div class="card-inner"><small>${esc(p.date)} &middot; ${esc(p.category)}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p></div>`;
       return a;
     }));
   }

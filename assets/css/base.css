@@ -8,8 +8,28 @@
   h3 { font-size: var(--type-h3); }
   h4 { font-size: var(--type-h4); font-family: var(--font-sans); font-weight: 700; }
   p { margin: 0 0 var(--space-4); }
-  a { color: var(--color-terracotta-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  a:hover { text-decoration-thickness: 2px; }
+  a {
+    color: var(--color-terracotta-deep);
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--dur-draw) var(--ease-ink);
+    padding-bottom: 1px;
+  }
+  a:hover { background-size: 100% 2px; }
+  @media (prefers-reduced-motion: no-preference) {
+    main a:not(:hover):not(:focus-visible),
+    footer a:not(:hover):not(:focus-visible) { background-size: 0% 1px; }
+    main a:hover,
+    main a:focus-visible,
+    footer a:hover,
+    footer a:focus-visible { background-size: 100% 1px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a { background-size: 100% 1px; }
+  }
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
     outline: 3px solid var(--color-sun);
     outline-offset: 3px;

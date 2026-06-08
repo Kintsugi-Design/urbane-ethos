@@ -1,4 +1,5 @@
 import { isAllowed } from "/assets/js/consent.js";
+import { renderSageStamp } from "/assets/js/sage-stamp.js";
 
 const KEY = "urbane-ethos:personalization";
 
@@ -83,7 +84,24 @@ function attachSurvey(form) {
       concern: data.get("concern"),
       stage: data.get("stage")
     });
-    form.querySelector("[data-personalize-feedback]")?.removeAttribute("hidden");
+    const feedback = form.querySelector("[data-personalize-feedback]");
+    if (feedback) {
+      feedback.removeAttribute("hidden");
+      if (!feedback.textContent.trim()) feedback.textContent = "Saved.";
+      feedback.setAttribute("aria-live", "polite");
+      renderSageStamp(feedback);
+      // After 720ms (stamp completes ~480ms + brief pause), fade out then hide
+      setTimeout(() => {
+        feedback.style.transition = "opacity 200ms var(--ease-paper)";
+        feedback.style.opacity = "0";
+        setTimeout(() => {
+          feedback.setAttribute("hidden", "");
+          feedback.style.opacity = "";
+          feedback.style.transition = "";
+          feedback.querySelectorAll(".sage-stamp").forEach(el => el.remove());
+        }, 200);
+      }, 720);
+    }
   });
   form.querySelectorAll("[data-personalize-skip]").forEach(btn =>
     btn.addEventListener("click", () => form.toggleAttribute("hidden")));

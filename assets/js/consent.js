@@ -1,4 +1,5 @@
 import { translatePage } from "/assets/js/i18n.js";
+import { renderSageStamp } from "/assets/js/sage-stamp.js";
 
 const CONSENT_KEY = "urbane-ethos:consent";
 const CONSENT_VERSION = 1;
@@ -54,11 +55,8 @@ function buildCard() {
           <button class="btn btn--primary" data-consent-action="all" data-i18n="consent.banner.acceptAll"></button>
         </div>
       </div>
-      <div class="consent-saved" hidden aria-live="polite">
-        <svg class="consent-saved-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-          <path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span data-i18n="consent.banner.saved"></span>
+      <div class="consent-saved" hidden>
+        <span class="consent-saved-text" aria-live="polite" data-i18n="consent.banner.saved"></span>
       </div>
     </aside>
   `;
@@ -122,9 +120,10 @@ function showSavedThenDismiss(card) {
   if (body && saved) {
     body.hidden = true;
     saved.hidden = false;
+    renderSageStamp(saved);
   }
   card.classList.add("is-saving");
-  setTimeout(() => dismissCard(card), 700);
+  setTimeout(() => dismissCard(card), 720);
 }
 
 function dismissCard(card) {

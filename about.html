@@ -116,7 +116,7 @@ async function renderAbout() {
   grid.replaceChildren(...(data.values?.items || []).map(v => {
     const c = document.createElement("article");
     c.className = "card";
-    c.innerHTML = `<h3>${v.title}</h3><p>${v.body}</p>`;
+    c.innerHTML = `<div class="card-inner"><h3>${v.title}</h3><p>${v.body}</p></div>`;
     return c;
   }));
 
