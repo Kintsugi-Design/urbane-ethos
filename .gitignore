@@ -4,3 +4,4 @@
 vendor/bundle/
 .bundle/
 content/scraped-raw/
+.gstack/
