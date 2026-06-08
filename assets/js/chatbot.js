@@ -163,7 +163,13 @@ export async function initChatbot() {
     input.value = "";
   });
 
-  document.querySelectorAll(".chatbot-launcher").forEach(btn => btn.addEventListener("click", open));
+  document.querySelectorAll(".chatbot-launcher").forEach(btn => {
+    btn.classList.add("is-idle");
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".chatbot-launcher").forEach(b => b.classList.remove("is-idle"));
+      open();
+    });
+  });
 
   attachVoice();
   go("start");

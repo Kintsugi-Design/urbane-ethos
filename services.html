@@ -104,7 +104,7 @@ async function renderServices() {
   const root = document.getElementById("services-blocks");
   root.replaceChildren(...(services.items || []).map(item => {
     const sec = document.createElement("article");
-    sec.className = "service-block";
+    sec.className = "service-block fade-in-up";
     sec.id = item.key;
     sec.innerHTML = `
       <h2>${esc(item.title)}</h2>
@@ -116,6 +116,10 @@ async function renderServices() {
     return sec;
   }));
   await translatePage(locale);
+  // Re-observe newly-rendered .fade-in-up elements for scroll-reveal.
+  const reveal = () => window.__rerunScrollReveal?.();
+  if (window.__rerunScrollReveal) reveal();
+  else document.addEventListener("DOMContentLoaded", reveal, { once: true });
 }
 renderServices();
 document.addEventListener("i18n:changed", renderServices);

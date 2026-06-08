@@ -12,6 +12,9 @@
     "banner.save": true,
     "banner.manage": true,
     "banner.readFullNotice": true,
+    "banner.cancel": true,
+    "banner.saved": true,
+    "modal.title": true,
     "toggles.necessary.label": true,
     "toggles.necessary.description": true,
     "toggles.necessary.locked": true,
@@ -30,7 +33,12 @@
     "customize": "Customize",
     "save": "Save my choices",
     "manage": "Manage cookies",
-    "readFullNotice": "Read the full privacy notice"
+    "readFullNotice": "Read the full privacy notice",
+    "cancel": "Cancel",
+    "saved": "Saved."
+  },
+  "modal": {
+    "title": "Customize your data choices"
   },
   "toggles": {
     "necessary": {

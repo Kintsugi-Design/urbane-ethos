@@ -15,6 +15,9 @@
     "banner.save": true,
     "banner.manage": true,
     "banner.readFullNotice": true,
+    "banner.cancel": true,
+    "banner.saved": true,
+    "modal.title": true,
     "toggles.necessary.label": true,
     "toggles.necessary.description": true,
     "toggles.necessary.locked": true,
@@ -33,7 +36,12 @@
     "customize": "Sesuaikan",
     "save": "Simpan pilihan saya",
     "manage": "Urus kuki",
-    "readFullNotice": "Baca notis privasi penuh"
+    "readFullNotice": "Baca notis privasi penuh",
+    "cancel": "Batal",
+    "saved": "Disimpan."
+  },
+  "modal": {
+    "title": "Sesuaikan pilihan data anda"
   },
   "toggles": {
     "necessary": {
