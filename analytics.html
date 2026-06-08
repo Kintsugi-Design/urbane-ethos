@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Analytics demo — Urbane Ethos</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap header-row"><a class="brand" href="/">Urbane Ethos<small>Analytics demo</small></a></div></header>
+
+<main id="main" class="wrap" style="padding-block: var(--space-12)">
+  <p class="locale-notice"><strong>Demo dashboard.</strong> Illustrates what data we'd collect if analytics is wired in production. No real telemetry runs.</p>
+
+  <h1>Last 30 days</h1>
+
+  <section class="stat-grid">
+    <div class="stat-card"><div class="stat-value" id="stat-visits">—</div><div>Total visits</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-chat-opens">—</div><div>Chatbot opens</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-survey-complete">—</div><div>Surveys completed</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-locale-ms-pct">—</div><div>BM share</div></div>
+  </section>
+
+  <section>
+    <h2>Top pages</h2>
+    <svg id="chart-pages" width="100%" height="200" role="img" aria-label="Top pages bar chart"></svg>
+  </section>
+
+  <section>
+    <h2>Survey concerns</h2>
+    <svg id="chart-concerns" width="100%" height="200" role="img" aria-label="Concerns bar chart"></svg>
+  </section>
+
+  <section>
+    <h2>Conversion funnel</h2>
+    <svg id="chart-funnel" width="100%" height="200" role="img" aria-label="Funnel chart"></svg>
+  </section>
+
+  <section>
+    <h2>This session (live)</h2>
+    <pre id="session-events" style="background:var(--color-cream-soft);padding:var(--space-4);border-radius:var(--radius-2);overflow:auto">—</pre>
+  </section>
+</main>
+
+<script type="module">
+import { seedData, liveSessionEvents } from "/assets/js/analytics-demo-data.js";
+
+document.getElementById("stat-visits").textContent = seedData.totalVisits30d.toLocaleString();
+document.getElementById("stat-chat-opens").textContent = seedData.chatbot.opens.toLocaleString();
+document.getElementById("stat-survey-complete").textContent = seedData.microSurvey.completed.toLocaleString();
+const msPct = Math.round(100 * seedData.localeSplit.find(x => x.label === "BM").value / seedData.totalVisits30d);
+document.getElementById("stat-locale-ms-pct").textContent = `${msPct}%`;
+
+function barChart(svgId, data, accessor = d => d.value, labelKey = "label") {
+  const svg = document.getElementById(svgId);
+  const W = svg.clientWidth || 600, H = 200, pad = 30;
+  const max = Math.max(...data.map(accessor));
+  const bw = (W - pad * 2) / data.length - 8;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.replaceChildren();
+  data.forEach((d, i) => {
+    const v = accessor(d);
+    const h = (v / max) * (H - pad * 2);
+    const x = pad + i * ((W - pad * 2) / data.length) + 4;
+    const y = H - pad - h;
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", x); rect.setAttribute("y", y); rect.setAttribute("width", bw); rect.setAttribute("height", h);
+    rect.setAttribute("fill", "var(--color-terracotta-deep)");
+    rect.setAttribute("rx", "4");
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", x + bw / 2); text.setAttribute("y", H - 12);
+    text.setAttribute("text-anchor", "middle"); text.setAttribute("font-size", "11"); text.setAttribute("fill", "var(--color-ink)");
+    text.textContent = d[labelKey];
+    const value = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    value.setAttribute("x", x + bw / 2); value.setAttribute("y", y - 4);
+    value.setAttribute("text-anchor", "middle"); value.setAttribute("font-size", "11"); value.setAttribute("fill", "var(--color-ink-soft)");
+    value.textContent = v;
+    svg.append(rect, text, value);
+  });
+}
+
+barChart("chart-pages", seedData.topPages, d => d.views, "path");
+barChart("chart-concerns", seedData.microSurvey.concerns);
+barChart("chart-funnel", seedData.funnel);
+
+const events = liveSessionEvents();
+document.getElementById("session-events").textContent = events.length
+  ? JSON.stringify(events, null, 2)
+  : "(No live events recorded this session — analytics consent off or no events fired.)";
+</script>
+</body>
+</html>
