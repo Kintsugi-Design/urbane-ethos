@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Direction B — Warm & Handcrafted · Design System</title>
+<style>
+:root {
+  /* Palette — warm cream base, deep warm brown ink */
+  --color-cream: #F6EFE3;
+  --color-cream-soft: #FBF6EC;
+  --color-ink: #2B1F14;
+  --color-ink-soft: #4A372A;
+  --color-ink-muted: #7A6A5C;
+  --color-sage: #8FA68A;
+  --color-sage-deep: #5C7758;
+  --color-terracotta: #C77B5C;
+  --color-terracotta-deep: #A05A3D;
+  --color-sun: #E6B25C; /* CTA accent */
+  --color-line: #E2D4BD;
+  --color-error: #B5403B;
+
+  /* Type */
+  --font-serif: "Source Serif 4", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --type-h1: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --type-h2: clamp(2rem, 3vw + 1rem, 3rem);
+  --type-h3: clamp(1.5rem, 1.5vw + 1rem, 2rem);
+  --type-body: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
+  --type-small: 0.875rem;
+  --line-tight: 1.15;
+  --line-body: 1.6;
+  --tracking-tight: -0.02em;
+
+  /* Space — 8px ramp */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* Radii */
+  --radius-1: 6px;
+  --radius-2: 14px;
+  --radius-3: 28px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-1: 180ms;
+  --dur-2: 320ms;
+
+  /* Shadow */
+  --shadow-1: 0 1px 2px rgba(43,31,20,0.08);
+  --shadow-2: 0 10px 30px -10px rgba(43,31,20,0.18);
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+body { margin: 0; font: var(--type-body)/var(--line-body) var(--font-sans); color: var(--color-ink); background: var(--color-cream); }
+h1,h2,h3 { font-family: var(--font-serif); letter-spacing: var(--tracking-tight); line-height: var(--line-tight); margin: 0 0 var(--space-4); }
+h1 { font-size: var(--type-h1); }
+h2 { font-size: var(--type-h2); }
+h3 { font-size: var(--type-h3); }
+.wrap { max-width: 72rem; margin: 0 auto; padding: var(--space-16) var(--space-8); }
+section { margin-bottom: var(--space-24); border-top: 1px solid var(--color-line); padding-top: var(--space-12); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-4); }
+.swatch { border-radius: var(--radius-2); padding: var(--space-4); border: 1px solid var(--color-line); }
+.swatch .chip { height: 80px; border-radius: var(--radius-1); margin-bottom: var(--space-2); }
+.btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-6); border-radius: var(--radius-pill); border: none; font: 600 1rem var(--font-sans); cursor: pointer; transition: transform var(--dur-1) var(--ease); }
+.btn:focus-visible { outline: 3px solid var(--color-sun); outline-offset: 3px; }
+.btn--primary { background: var(--color-ink); color: var(--color-cream-soft); }
+.btn--primary:hover { transform: translateY(-1px); }
+.btn--secondary { background: transparent; color: var(--color-ink); border: 1.5px solid var(--color-ink); }
+.btn--ghost { background: transparent; color: var(--color-ink-soft); }
+.card { background: var(--color-cream-soft); border-radius: var(--radius-3); padding: var(--space-8); box-shadow: var(--shadow-1); }
+.chip-pill { display: inline-flex; padding: var(--space-2) var(--space-4); border-radius: var(--radius-pill); border: 1.5px solid var(--color-ink); background: transparent; font: 500 0.9rem var(--font-sans); cursor: pointer; }
+.chip-pill[aria-pressed="true"] { background: var(--color-ink); color: var(--color-cream-soft); }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Direction B — Warm & Handcrafted</h1>
+  <p>Design system reference. Tokens, type, color, components.</p>
+
+  <section><h2>Palette</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:var(--color-cream)"></div>Cream <code>#F6EFE3</code></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-cream-soft)"></div>Cream soft <code>#FBF6EC</code></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-ink)"></div>Ink <code>#2B1F14</code></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-sage-deep)"></div>Sage deep <code>#5C7758</code></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-terracotta-deep)"></div>Terracotta <code>#A05A3D</code></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-sun)"></div>Sun <code>#E6B25C</code></div>
+    </div>
+  </section>
+
+  <section><h2>Type</h2>
+    <h1>The quiet warmth of care</h1>
+    <h2>Listening before recommending</h2>
+    <h3>Every child is met where they are</h3>
+    <p>Body copy uses a humanist sans with generous line-height for stress-reduced reading. Headings pair a warm humanist serif for editorial calm.</p>
+  </section>
+
+  <section><h2>Buttons</h2>
+    <p>
+      <button class="btn btn--primary">Book a session</button>
+      <button class="btn btn--secondary">Find out more</button>
+      <button class="btn btn--ghost">Skip</button>
+    </p>
+  </section>
+
+  <section><h2>Chips</h2>
+    <p>
+      <button class="chip-pill" aria-pressed="true">0–2</button>
+      <button class="chip-pill" aria-pressed="false">3–5</button>
+      <button class="chip-pill" aria-pressed="false">6–9</button>
+      <button class="chip-pill" aria-pressed="false">10+</button>
+    </p>
+  </section>
+
+  <section><h2>Card</h2>
+    <div class="card">
+      <h3>Speech Therapy</h3>
+      <p>Helping your child find their voice — at their own pace, with someone who's listened to a thousand first words.</p>
+      <button class="btn btn--secondary">Learn more</button>
+    </div>
+  </section>
+</main>
+</body>
+</html>
