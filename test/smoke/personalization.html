@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>personalization smoke</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+</head>
+<body>
+<main class="wrap">
+<h1>Personalization smoke</h1>
+<form data-personalize-form class="personalization-card">
+  <fieldset class="personalization-row">
+    <legend>Age</legend>
+    <div class="personalization-chips">
+      <label><input type="radio" name="age" value="3–5" checked> 3–5</label>
+      <label><input type="radio" name="age" value="6–9"> 6–9</label>
+    </div>
+  </fieldset>
+  <fieldset class="personalization-row">
+    <legend>Concern</legend>
+    <div class="personalization-chips">
+      <label><input type="radio" name="concern" value="Speech" checked> Speech</label>
+      <label><input type="radio" name="concern" value="Behaviour"> Behaviour</label>
+    </div>
+  </fieldset>
+  <fieldset class="personalization-row">
+    <legend>Stage</legend>
+    <div class="personalization-chips">
+      <label><input type="radio" name="stage" value="Looking to assess" checked> Looking to assess</label>
+    </div>
+  </fieldset>
+  <button class="btn btn--primary">Show me what's relevant</button>
+  <p data-personalize-feedback hidden>Saved.</p>
+</form>
+
+<div data-services-grid class="grid-3" style="margin-top:2rem">
+  <div class="card" data-service-key="screening"><h3>Screening</h3></div>
+  <div class="card" data-service-key="ot"><h3>OT</h3></div>
+  <div class="card" data-service-key="speech"><h3>Speech</h3></div>
+  <div class="card" data-service-key="psych"><h3>Psych</h3></div>
+</div>
+</main>
+<script type="module">
+import "/assets/js/i18n.js";
+import "/assets/js/consent.js";
+import "/assets/js/personalization.js";
+</script>
+</body>
+</html>
