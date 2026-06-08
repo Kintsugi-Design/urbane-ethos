@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null,
+    "_note": "Live About page has no hero subtitle, no 'Mission' section (only 'Our Vision' which is mapped to mission), and no Values / 'What we stand for' section."
+  },
+  "_draft": {
+    "hero.subtitle": true,
+    "values.items": true
+  },
+  "hero": {
+    "title": "TENTANG KAMI",
+    "subtitle": "Kami pasukan kecil intervensi awal di Shah Alam, menemani keluarga sejak 2005."
+  },
+  "mission": {
+    "heading": "Visi kami",
+    "body": "Pusat Intervensi Awal Urbane Ethos menyediakan intervensi awal yang khusus untuk gangguan bahasa dan pertuturan, gangguan perkembangan dan untuk ketidakupayaan pembelajaran. Kami menyediakan sesi terapi satu-dengan-satu, dan sesi berkumpulan, konsultasi dan latihan ibu bapa serta program saringan sekolah. Program kami diperibadikan atau dirancang khas untuk disesuaikan dengan keupayaan, matlamat, dan minat anak."
+  },
+  "story": {
+    "heading": "Kisah kami",
+    "body": "20 tahun pengalaman dalam menyediakan terapi berfokus klien dan intervensi awal dalam pembelajaran, pertuturan, terapi carakerja, fisioterapi dan kini psikologi klinikal dalam sesi individu dan berkumpulan. Pusat Intervensi Awal Urbane Ethos memulakan pusat pelbagai disiplin yang pertama pada tahun 2005 di Shah Alam dan sejak itu telah membantu anak-anak, remaja dan ibu bapa mencapai pencapaian perkembangan dan mengatasi ketidakupayaan atau gangguan mereka demi kualiti hidup yang lebih baik."
+  },
+  "values": {
+    "heading": "Apa yang kami pegang",
+    "items": [
+      {
+        "title": "Mendengar dahulu",
+        "body": "Sebelum kami mencadangkan apa-apa, kami duduk bersama anda dan bertanya tentang anak anda. Cerita yang anda bawa lebih bermakna daripada mana-mana borang."
+      },
+      {
+        "title": "Mengikut kadar anak",
+        "body": "Perkembangan bukanlah perlumbaan. Kami mengikut apa yang anak anda sudah bersedia, dan menyesuaikan rancangan apabila anak memberi isyarat."
+      },
+      {
+        "title": "Keluarga dalam bilik",
+        "body": "Ibu bapa dan penjaga adalah sebahagian daripada setiap sesi, bukan menunggu di luar. Kami berkongsi apa yang kami lihat dan belajar daripada apa yang anda lihat di rumah."
+      },
+      {
+        "title": "Berasaskan bukti",
+        "body": "Pasukan kami sentiasa berlatih dan merujuk kepada penyelidikan terkini. Kami akan kata 'kami belum tahu lagi' apabila itulah jawapan yang jujur."
+      }
+    ]
+  },
+  "ctas": {
+    "services": "Lihat perkhidmatan",
+    "contact": "Hubungi kami"
+  }
+}

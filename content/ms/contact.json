@@ -1,0 +1,62 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null,
+    "_note": "No Google Maps iframe and no contact email present on live contact page. Live contact form has 8 fields (Parent Name, Email, Phone, Child Name, Child's DOB, Diagnosis Yes/No, If yes where, What are your concerns?); per spec we keep 4 visible fields + one optional 'Tell us more' textarea that absorbs the live site's intake extras."
+  },
+  "_draft": {
+    "form.fields.tellUsMoreLabel": true,
+    "form.fields.tellUsMorePlaceholder": true
+  },
+  "hero": {
+    "title": "HUBUNGI",
+    "subtitle": "Hubungi Kami"
+  },
+  "address": {
+    "heading": "Pusat kami",
+    "line1": "4, Jalan Elektron U16/E",
+    "line2": "Denai Alam, 40160 Shah Alam",
+    "mapEmbedSrc": null,
+    "_note": "No embedded Google Maps iframe on live site."
+  },
+  "phones": [
+    { "label": "Penyambut tetamu", "number": "+603-7734 3044" },
+    { "label": "WhatsApp", "number": "+6013-249 0069" }
+  ],
+  "hours": [
+    "Monday: 12PM – 6PM",
+    "Tuesday – Saturday: 9AM – 6PM"
+  ],
+  "form": {
+    "heading": "Hantar mesej kepada kami",
+    "subheading": "Atau bersembang dengan kami secara langsung — di bahagian kanan bawah.",
+    "fields": {
+      "nameLabel": "Nama anda",
+      "emailLabel": "Emel",
+      "phoneLabel": "Telefon (pilihan)",
+      "concernLabel": "Apa yang ada di fikiran anda?",
+      "tellUsMoreLabel": "Ada yang lain kami patut tahu? (Pilihan)",
+      "submit": "Hantar",
+      "namePlaceholder": "Nama pertama dan terakhir",
+      "emailPlaceholder": "anda@contoh.com",
+      "phonePlaceholder": "Pilihan — untuk panggilan balik",
+      "concernPlaceholder": "Ceritakan sedikit tentang anak anda",
+      "tellUsMorePlaceholder": "Umur anak anda, sebarang diagnosis, apa yang mendorong pertanyaan anda — apa-apa yang membantu kami bersedia."
+    },
+    "successNote": "Aplikasi emel lalai anda akan dibuka dengan mesej ini sedia untuk dihantar.",
+    "errors": {
+      "nameRequired": "Sila masukkan nama anda.",
+      "emailRequired": "Kami perlukan emel untuk membalas.",
+      "emailInvalid": "Emel itu nampaknya tidak betul.",
+      "concernRequired": "Sila beritahu kami apa yang boleh kami bantu."
+    },
+    "_note": "Live form additionally asks for Child Name, Child's DOB, diagnosis Yes/No, 'If yes, where?'. Our prototype keeps 4 visible fields + one optional 'Tell us more' textarea that captures those intake extras when families want to share them."
+  },
+  "chatbotCta": {
+    "heading": "Lebih suka bersembang?",
+    "body": "Pembantu kami boleh memberikan anggaran harga dalam masa satu atau dua minit.",
+    "button": "Bersembang dengan kami"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null,
+    "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent'). BM rendering produced fresh as live site does not currently serve BM."
+  },
+  "_draft": {
+    "hero.subtitle": true,
+    "services.items.3.blurb": true,
+    "staffFeatured.0.personalLine": true,
+    "staffFeatured.1.personalLine": true,
+    "staffFeatured.2.personalLine": true,
+    "events.blurb": true
+  },
+  "hero": {
+    "eyebrow": "Urbane Ethos",
+    "title": "Pusat Intervensi Awal Urbane Ethos",
+    "subtitle": "Pertuturan, motor, pembelajaran, tingkah laku. Pasukan kecil di Shah Alam yang menemani keluarga sejak 2005.",
+    "primaryCta": "Ketahui Lebih Lanjut",
+    "secondaryCta": "Tonton pengenalan kami"
+  },
+  "personalization": {
+    "heading": "Ceritakan sedikit tentang anak anda",
+    "subheading": "Langkau jika anda lebih suka melihat-lihat sendiri.",
+    "ageLabel": "Umur anak",
+    "ageOptions": ["0–2", "3–5", "6–9", "10+"],
+    "concernLabel": "Bidang utama yang membimbangkan",
+    "concernOptions": ["Pertuturan", "Kemahiran motor", "Tingkah laku", "Pembelajaran", "Tidak pasti"],
+    "stageLabel": "Anda berada di peringkat mana?",
+    "stageOptions": ["Sekadar melihat-lihat", "Ingin membuat penilaian", "Sedia untuk menempah"],
+    "submit": "Tunjukkan apa yang berkaitan",
+    "skip": "Langkau"
+  },
+  "location": {
+    "title": "Lawati kami",
+    "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "hours": [
+      "Monday: 12PM – 6PM",
+      "Tuesday – Saturday: 9AM – 6PM"
+    ]
+  },
+  "services": {
+    "heading": "PERKHIDMATAN KAMI",
+    "items": [
+      {
+        "key": "screening",
+        "title": "Saringan atau Penilaian",
+        "blurb": "Pemerhatian anak di sekolah atau di rumah semasa waktu bermain. Penilaian penuh terhadap peringkat perkembangan bahasa anak."
+      },
+      {
+        "key": "ot",
+        "title": "Terapi Carakerja",
+        "blurb": "Terapi carakerja pediatrik memberi tumpuan untuk membantu anak membina kemahiran yang diperlukan agar mereka membesar menjadi orang dewasa yang berfungsi dan berdikari."
+      },
+      {
+        "key": "speech",
+        "title": "Terapi Pertuturan",
+        "blurb": "Ahli terapi pertuturan menangani isu pertuturan seperti gagap atau pelat, serta membantu masalah bahasa lisan dan bertulis seperti disleksia, dispraksia, dan gangguan pemprosesan auditori."
+      },
+      {
+        "key": "specialed",
+        "title": "Pendidikan Khas",
+        "blurb": "Pengajaran satu-dengan-satu untuk anak yang belajar mengikut kadar mereka sendiri. Kami bertemu anak anda di tahap mereka sekarang dan membina dari situ.",
+        "_note": "Special Education has no standalone description on services page; covered within the EIP programs. Blurb is drafted (see _draft map)."
+      },
+      {
+        "key": "eip",
+        "title": "Program Intervensi Awal",
+        "blurb": "Program berkumpulan berasaskan terapi yang dijalankan setiap hari oleh Ahli Terapi Carakerja, Ahli Terapi Pertuturan/Pakar Linguistik Klinikal serta Guru Pendidikan Khas kami yang bertauliah."
+      },
+      {
+        "key": "psych",
+        "title": "Psikologi Klinikal",
+        "blurb": "Ahli psikologi klinikal bertemu klien untuk mengenal pasti masalah — emosi, mental, dan tingkah laku — dalam hidup mereka. Melalui pemerhatian, temu bual, dan ujian, ahli psikologi akan mendiagnosis sebarang gangguan sedia ada atau berpotensi."
+      }
+    ]
+  },
+  "testimonial": {
+    "quote": "Ya. Mereka sangat membantu semasa dan selepas sesi. Ahli terapi boleh menerangkan lagi apa yang boleh dilakukan untuk membantu pesakit mencapai sasaran/pencapaian/matlamat tertentu untuk sesi berikutnya. Senarai semak akan sangat membantu ibu bapa untuk memantau perkembangan pesakit.",
+    "attribution": "En S, Parent"
+  },
+  "whatWeDo": {
+    "heading": "Apa yang boleh kami bantu?",
+    "body": "Pusat Intervensi Awal Urbane Ethos menyediakan intervensi awal untuk gangguan bahasa dan pertuturan, ketidakupayaan motor, kognitif dan pembelajaran. Kami menyediakan 1. Sesi terapi satu-dengan-satu individu dan sesi berkumpulan bersama konsultasi ibu bapa serta perbincangan dengan ahli terapi 2. Latihan Ibu Bapa dan Guru, Seminar, dan Bengkel 3. Program penilaian dan saringan di klinik dan ke sekolah oleh profesional kesihatan bersekutu yang terlatih dan bertauliah"
+  },
+  "staffFeatured": [
+    {
+      "id": "dr-norizan-rajak",
+      "greeting": "Hai, saya Norizan",
+      "personalLine": "Saya pulang dari Syracuse untuk membina pusat seperti yang saya idamkan ketika menjadi penyelidik muda dalam linguistik."
+    },
+    {
+      "id": "ms-liyana-tarmizi",
+      "greeting": "Hai, saya Liyana",
+      "personalLine": "Saya duduk bersama keluarga melalui soalan-soalan tersukar terlebih dahulu, sebelum kami bercakap tentang apa-apa pun."
+    },
+    {
+      "id": "mrs-norizzati-afiqah",
+      "greeting": "Hai, saya Norizzati",
+      "personalLine": "Saya telah menghabiskan lebih sedekad bersama anak-anak yang memerlukan seseorang untuk memperlahankan langkah dan memerhatikan apa yang sudah pun mereka mampu lakukan."
+    }
+  ],
+  "events": {
+    "heading": "ACARA",
+    "blurb": "Kami mengadakan bengkel kecil untuk ibu bapa dan perjumpaan mesra sensori yang tenang sepanjang tahun. Topiknya berubah mengikut apa yang keluarga tanyakan kepada kami.",
+    "cta": "Hubungi kami",
+    "_note": "Events section heading exists on home, but no event details / blurb are present on the live site. Blurb is drafted (see _draft map)."
+  },
+  "recommendedRail": {
+    "heading": "Disyorkan untuk anda",
+    "subheading": "Berdasarkan apa yang anda kongsi sebelum ini",
+    "resetLabel": "Set semula pilihan"
+  },
+  "blog": {
+    "heading": "BLOG",
+    "viewAll": "Lihat semua artikel"
+  }
+}

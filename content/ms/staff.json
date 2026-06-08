@@ -1,0 +1,147 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null,
+    "_note": "9 staff members captured from live /staff page. greeting + personalLine are not present on the live site; drafted per spec. Bios were captured verbatim where available on the live site; the remainder are drafted. Credential strings kept in English — they are formal qualifications and registration codes."
+  },
+  "_draft": {
+    "members.0.personalLine": true,
+    "members.1.personalLine": true,
+    "members.2.personalLine": true,
+    "members.3.personalLine": true,
+    "members.4.personalLine": true,
+    "members.4.bio": true,
+    "members.5.personalLine": true,
+    "members.5.bio": true,
+    "members.6.personalLine": true,
+    "members.6.bio": true,
+    "members.7.personalLine": true,
+    "members.7.bio": true,
+    "members.8.personalLine": true,
+    "members.8.bio": true
+  },
+  "hero": {
+    "title": "TEMUI PASUKAN",
+    "subtitle": "Pasukan kami terdiri daripada Pakar Linguistik Klinikal, Ahli Terapi Carakerja, Ahli Terapi Pertuturan, Ahli Psikologi Klinikal, dan Guru Pendidikan Khas."
+  },
+  "members": [
+    {
+      "id": "dr-norizan-rajak",
+      "name": "Dr Norizan Binti Rajak, Ph.D",
+      "role": "Pengarah & Pakar Linguistik Klinikal",
+      "credentials": ["Ph.D, Syracuse University, New York"],
+      "greeting": "Hai, saya Norizan",
+      "personalLine": "Saya pulang dari Syracuse untuk membina pusat seperti yang saya idamkan ketika menjadi penyelidik muda dalam linguistik.",
+      "bio": "Pakar linguistik klinikal yang sebelum ini berkhidmat di University of Hawaii dan bekas pensyarah Linguistik di USM. Mengasaskan pusat intervensi pelbagai disiplin swasta yang pertama pada tahun 2005. Lebih 20 tahun pengalaman dalam gangguan bahasa dan penilaian pembelajaran untuk kanak-kanak yang menghadapi kesukaran pembelajaran. Merintis Program Saringan Intervensi Awal di bawah Negeri Selangor.",
+      "photo": "assets/img/scraped/staff-dr-norizan-rajak.jpg",
+      "video": null
+    },
+    {
+      "id": "nasirah-zulkifli",
+      "name": "Nasirah Binti Zulkifli, OTR/L",
+      "role": "Pengarah Bersama dan Ahli Terapi Carakerja",
+      "credentials": [
+        "OTR/L",
+        "Bachelor's Degree in Occupational Therapy",
+        "Certified in the Integration Primitive Reflexes",
+        "Licensed Occupational Therapist and active member of Malaysian Occupational Therapy Association (MOTA)",
+        "MAHPC(OT)02144"
+      ],
+      "greeting": "Hai, saya Nasirah",
+      "personalLine": "Detik kegemaran saya ialah saat seorang anak terkejut dengan dirinya sendiri — dan anda dapat melihat ibu bapa turut menyedarinya.",
+      "bio": "Bekas sukarelawan NGO dengan latihan klinikal di Klinik Pakar UiTM, Pusat Terapi Carakerja UiTM Puncak Alam, dan Hospital Selayang. Berpengalaman dengan GDD, Autisme, ADHD, dan sindrom lain.",
+      "photo": "assets/img/scraped/staff-nasirah-zulkifli.jpg",
+      "video": null
+    },
+    {
+      "id": "ms-liyana-tarmizi",
+      "name": "Ms. Liyana Binti Tarmizi",
+      "role": "Ahli Psikologi Klinikal",
+      "credentials": ["MAHPC(CP)00325"],
+      "greeting": "Hai, saya Liyana",
+      "personalLine": "Saya duduk bersama keluarga melalui soalan-soalan tersukar terlebih dahulu, sebelum kami bercakap tentang apa-apa pun.",
+      "bio": "Latihan Psikologi Klinikal diselesaikan di pelbagai hospital dan klinik. Bekerja dengan populasi klien yang pelbagai dan berpengalaman dengan kesukaran emosi serta tingkah laku dan penilaian populasi neurodivergen. Menyokong pendekatan pelbagai disiplin untuk penjagaan menyeluruh.",
+      "photo": "assets/img/placeholders/staff-ms-liyana-tarmizi.png",
+      "video": null,
+      "_note": "No photo URL captured from the live page render; using a placeholder."
+    },
+    {
+      "id": "mrs-norizzati-afiqah",
+      "name": "Mrs Norizzati Afiqah, OTR/L",
+      "role": "Ketua Jabatan Terapi Carakerja",
+      "credentials": [
+        "OTR/L",
+        "Bachelor's degree in Occupational Therapy from UiTM",
+        "Member of the Malaysian Occupational Therapy Association (MOTA)"
+      ],
+      "greeting": "Hai, saya Norizzati",
+      "personalLine": "Saya telah menghabiskan lebih sedekad bersama anak-anak yang memerlukan seseorang untuk memperlahankan langkah dan memerhatikan apa yang sudah pun mereka mampu lakukan.",
+      "bio": "Lebih 10 tahun pengalaman bekerja dengan kanak-kanak. Menjalankan penilaian dan intervensi carakerja untuk kelewatan perkembangan, dengan pengalaman dalam pendidikan khas dan program saringan Selangor.",
+      "photo": "assets/img/placeholders/staff-mrs-norizzati-afiqah.png",
+      "video": null,
+      "_note": "No photo URL captured from the live page render; using a placeholder."
+    },
+    {
+      "id": "ms-tengku-sarah-nabilah",
+      "name": "Ms Tengku Sarah Nabilah, OTR/L",
+      "role": "Ahli Terapi Carakerja",
+      "credentials": ["Bachelor in Occupational Therapy, Universiti Teknologi MARA (UiTM)"],
+      "greeting": "Hai, saya Sarah",
+      "personalLine": "Saya berlatih di UiTM dan terus tinggal kerana Shah Alam terasa tempat yang sesuai untuk berkembang sebagai klinisian.",
+      "bio": "Ahli terapi carakerja dengan Ijazah Sarjana Muda dari UiTM. Bekerja dengan kanak-kanak pada kemahiran motor halus, integrasi sensori, dan kemahiran hidup harian. Dikenali dengan gaya yang sabar dan suka bermain serta meluangkan masa membimbing ibu bapa melalui apa yang dilakukannya dalam setiap sesi.",
+      "photo": "assets/img/placeholders/staff-ms-tengku-sarah-nabilah.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
+    },
+    {
+      "id": "ms-emalin-nasuha-hachim",
+      "name": "Ms Emalin Nasuha Hachim",
+      "role": "Ahli Terapi Pertuturan",
+      "credentials": ["Bachelor in Speech Language Pathology, Universiti Sains Malaysia"],
+      "greeting": "Hai, saya Emalin",
+      "personalLine": "Saya suka detik-detik antara — saat seorang anak mula-mula sedar bahawa satu perkataan boleh meminta sesuatu.",
+      "bio": "Pakar patologi bahasa-pertuturan yang berlatih di USM. Bekerja dengan kanak-kanak merentas pelbagai keperluan pertuturan dan bahasa, daripada penutur lewat hingga kanak-kanak usia sekolah yang sedang mengasah kelancaran membaca. Percaya bahawa bahagian paling penting dalam sesi adalah apa yang berlaku di antara aktiviti-aktiviti tersebut.",
+      "photo": "assets/img/placeholders/staff-ms-emalin-nasuha-hachim.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
+    },
+    {
+      "id": "ms-syahira-hassan",
+      "name": "Ms Syahira Hassan, OTR/L",
+      "role": "Ahli Terapi Carakerja",
+      "credentials": ["Diploma in Occupational Therapy, Universiti Teknologi MARA (UiTM)"],
+      "greeting": "Hai, saya Syahira",
+      "personalLine": "Saya datang ke OT melalui kerja sukarela dengan anak-anak yang tidak dapat memberitahu saya apa yang mereka perlukan — saya mahukan alat yang lebih baik.",
+      "bio": "Ahli terapi carakerja dengan Diploma dari UiTM. Memberi tumpuan pada regulasi sensori dan pembinaan kemahiran berasaskan permainan. Tenang, berkaedah, dan dikenali kerana mereka bentuk aktiviti yang terasa seperti seronok walaupun sebenarnya kerja yang berat.",
+      "photo": "assets/img/placeholders/staff-ms-syahira-hassan.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
+    },
+    {
+      "id": "ms-nuraisyah-azman",
+      "name": "Ms. Nuraisyah Azman",
+      "role": "Guru Pendidikan Khas",
+      "credentials": ["Universiti Kebangsaan Malaysia (UKM)"],
+      "greeting": "Hai, saya Nuraisyah",
+      "personalLine": "Setiap anak yang pernah saya didik menunjukkan saya cara mengajar yang berbeza — saya masih belajar daripada mereka.",
+      "bio": "Guru pendidikan khas yang berlatih di UKM. Bekerja satu-dengan-satu dengan kanak-kanak dalam membaca, menulis, mengira, dan kemahiran berfikir asas di sebaliknya. Meluangkan masa untuk memahami cara setiap anak belajar sebelum memutuskan cara untuk mengajar mereka.",
+      "photo": "assets/img/placeholders/staff-ms-nuraisyah-azman.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
+    },
+    {
+      "id": "mrs-nur-ain-nabila",
+      "name": "Mrs Nur Ain Nabila",
+      "role": "Pentadbir",
+      "credentials": ["Bachelor of Business Administration and Finance, Universiti Teknologi MARA (UiTM)"],
+      "greeting": "Hai, saya Nur Ain",
+      "personalLine": "Saya biasanya suara pertama yang anda dengar di telefon — saya cuba menjadikan panggilan pertama itu terasa sedikit lebih ringan.",
+      "bio": "Pentadbir pusat dengan latar belakang perniagaan dan kewangan dari UiTM. Mengendalikan tempahan, penjadualan, dan puluhan perkara kecil yang menjadikan pusat ini terus berjalan. Selalunya menjadi titik hubungan pertama untuk keluarga baharu.",
+      "photo": "assets/img/placeholders/staff-mrs-nur-ain-nabila.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
+    }
+  ]
+}

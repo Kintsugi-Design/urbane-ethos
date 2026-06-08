@@ -1,0 +1,123 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null,
+    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries below were extracted verbatim from /services where present (ot, speech, eip, psych). Screening and Special Education summaries were drafted to match the warm tone of the rest of the tree."
+  },
+  "_draft": {
+    "flow.service.screening.say": true,
+    "flow.service.specialed.say": true
+  },
+  "ui": {
+    "launchAria": "Buka pembantu sembang",
+    "panelTitle": "Pembantu Urbane Ethos",
+    "subtitle": "Mesra, pantas, tiada tekanan.",
+    "inputPlaceholder": "Taip mesej…",
+    "send": "Hantar",
+    "micAria": "Bercakap selain menaip",
+    "ttsAria": "Bacakan jawapan dengan kuat",
+    "minimize": "Kecilkan",
+    "close": "Tutup",
+    "consentNotice": "Transkrip disimpan hanya jika anda bersetuju. Urus di bahagian bawah.",
+    "transcriptHeading": "Perbualan"
+  },
+  "flow": {
+    "start": {
+      "say": "Hai! Saya boleh membantu dengan tempahan, perkhidmatan, harga, atau menyambungkan anda kepada manusia. Anda ingin mulakan di mana?",
+      "options": [
+        { "label": "Tempah sesi", "next": "book" },
+        { "label": "Tanya tentang perkhidmatan", "next": "service" },
+        { "label": "Anggaran harga", "next": "price.q1" },
+        { "label": "Bercakap dengan manusia", "next": "human" }
+      ]
+    },
+    "book": {
+      "say": "Bagus. Beritahu saya perkhidmatan apa dan waktu yang sesuai untuk anda, dan kami akan menghantar pengesahan melalui SMS.",
+      "input": "free",
+      "next": "human.collect"
+    },
+    "service": {
+      "say": "Perkhidmatan mana yang boleh saya ceritakan?",
+      "options": [
+        { "label": "Saringan", "next": "service.screening" },
+        { "label": "Terapi Carakerja", "next": "service.ot" },
+        { "label": "Terapi Pertuturan", "next": "service.speech" },
+        { "label": "Pendidikan Khas", "next": "service.specialed" },
+        { "label": "Intervensi Awal", "next": "service.eip" },
+        { "label": "Psikologi Klinikal", "next": "service.psych" }
+      ]
+    },
+    "service.screening": {
+      "say": "Saringan ialah lawatan satu jam di mana kami memerhati anak anda bermain dan menjalankan beberapa pemeriksaan ringkas. Anda pulang dengan ringkasan bertulis dan satu cadangan — tiada tekanan untuk menempah apa-apa lagi.",
+      "next": "start"
+    },
+    "service.ot": {
+      "say": "Terapi carakerja pediatrik memberi tumpuan untuk membantu anak membina kemahiran yang diperlukan agar mereka membesar menjadi orang dewasa yang berfungsi dan berdikari. Sesi dijalankan secara individu atau dalam kumpulan kecil.",
+      "next": "start"
+    },
+    "service.speech": {
+      "say": "Ahli terapi pertuturan menangani isu pertuturan seperti gagap atau pelat, serta masalah bahasa lisan dan bertulis. Kami membantu anak-anak membina kemahiran satu-dengan-satu atau dalam kumpulan kecil.",
+      "next": "start"
+    },
+    "service.specialed": {
+      "say": "Pendidikan Khas ialah pengajaran satu-dengan-satu yang disesuaikan untuk anak yang belajar mengikut kadar mereka sendiri. Kami bekerja pada bacaan, penulisan, dan nombor dalam langkah kecil yang anak anda boleh benar-benar lakukan.",
+      "next": "start"
+    },
+    "service.eip": {
+      "say": "Program berkumpulan berasaskan terapi yang dijalankan setiap hari oleh Ahli Terapi Carakerja, Ahli Terapi Pertuturan/Pakar Linguistik Klinikal serta Guru Pendidikan Khas kami yang bertauliah. Kumpulan Permulaan (2–5) dan Kumpulan Pertengahan (6–8) tersedia.",
+      "next": "start"
+    },
+    "service.psych": {
+      "say": "Ahli psikologi klinikal bertemu klien untuk mengenal pasti kebimbangan emosi, mental, dan tingkah laku melalui pemerhatian, temu bual, dan ujian. Kemudian kami merumuskan satu program rawatan bersama.",
+      "next": "start"
+    },
+    "price.q1": {
+      "say": "Perkhidmatan yang mana?",
+      "options": [
+        { "label": "Saringan", "next": "price.q2", "set": { "service": "screening" } },
+        { "label": "Terapi Carakerja", "next": "price.q2", "set": { "service": "ot" } },
+        { "label": "Terapi Pertuturan", "next": "price.q2", "set": { "service": "speech" } }
+      ]
+    },
+    "price.q2": {
+      "say": "Berapa umur anak anda?",
+      "options": [
+        { "label": "0–2", "next": "price.q3", "set": { "age": "0-2" } },
+        { "label": "3–5", "next": "price.q3", "set": { "age": "3-5" } },
+        { "label": "6–9", "next": "price.q3", "set": { "age": "6-9" } },
+        { "label": "10+", "next": "price.q3", "set": { "age": "10+" } }
+      ]
+    },
+    "price.q3": {
+      "say": "Berapa kerap anda fikirkan?",
+      "options": [
+        { "label": "Sekali sahaja / penilaian", "next": "price.show", "set": { "freq": "one" } },
+        { "label": "Mingguan", "next": "price.show", "set": { "freq": "weekly" } },
+        { "label": "Beberapa kali seminggu", "next": "price.show", "set": { "freq": "intensive" } }
+      ]
+    },
+    "price.show": {
+      "say": "Berdasarkan itu, julat biasa ialah <RM_RANGE_PLACEHOLDER — VERIFY WITH CENTER>. Ingin sahkan dengan pasukan?",
+      "options": [
+        { "label": "Ya, sahkan dengan pasukan", "next": "human" },
+        { "label": "Belum lagi", "next": "start" }
+      ]
+    },
+    "human": {
+      "say": "Tentu. Kami akan WhatsApp anda dalam tempoh 1 hari bekerja. Apakah nama dan nombor telefon anda?",
+      "input": "name+phone",
+      "next": "human.confirm"
+    },
+    "human.collect": {
+      "say": "Baik. Untuk pengesahan, apakah nama dan nombor telefon anda?",
+      "input": "name+phone",
+      "next": "human.confirm"
+    },
+    "human.confirm": {
+      "say": "Terima kasih! Kami akan hubungi anda tidak lama lagi. (Dalam prototaip ini, mesej tidak dihantar sebenarnya.)",
+      "options": [{ "label": "Kembali ke mula", "next": "start" }]
+    }
+  }
+}

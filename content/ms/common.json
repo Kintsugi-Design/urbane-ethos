@@ -1,0 +1,62 @@
+{
+  "_meta": {
+    "source": "urbaneethos.center",
+    "scrapedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null
+  },
+  "nav": {
+    "about": "Tentang Kami",
+    "staff": "Kakitangan",
+    "services": "Perkhidmatan",
+    "events": "Acara",
+    "blog": "Blog",
+    "contact": "Hubungi",
+    "more": "Lagi",
+    "bookNow": "Tempah Sekarang",
+    "skipToContent": "Langkau ke kandungan",
+    "menu": "Buka menu",
+    "menuClose": "Tutup menu"
+  },
+  "locale": {
+    "switchToEnglish": "EN",
+    "switchToMalay": "BM",
+    "currentLabel": "Bahasa semasa",
+    "blogNotice": "Navigasi laman ini diterjemah; artikel blog kekal dalam Bahasa Inggeris."
+  },
+  "fontSize": {
+    "label": "Saiz teks",
+    "values": ["A", "A+", "A++"]
+  },
+  "footer": {
+    "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "phone1": "+603-7734 3044",
+    "phone2": "+6013-249 0069",
+    "hoursLabel": "Waktu operasi",
+    "hours": [
+      "Monday: 12PM – 6PM",
+      "Tuesday – Saturday: 9AM – 6PM"
+    ],
+    "social": { "facebook": "Facebook", "instagram": "Instagram" },
+    "rights": "© Pusat Intervensi Awal Urbane Ethos",
+    "manageCookies": "Urus kuki",
+    "privacy": "Notis Privasi",
+    "analyticsDemo": "Demo analitik"
+  },
+  "cta": {
+    "findOutMore": "Ketahui Lebih Lanjut",
+    "bookSession": "Tempah sesi",
+    "talkToUs": "Bercakap dengan kami",
+    "viewServices": "Lihat perkhidmatan",
+    "meetStaff": "Temui pasukan kami",
+    "contactUs": "Hubungi kami"
+  },
+  "a11y": {
+    "openChatbot": "Buka pembantu sembang",
+    "closeChatbot": "Tutup pembantu sembang",
+    "personalizationReset": "Set semula pemperibadian",
+    "playVideoPlaceholder": "Mainkan video pengenalan",
+    "videoUnavailable": "Video akan datang tidak lama lagi"
+  }
+}

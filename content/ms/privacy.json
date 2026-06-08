@@ -1,0 +1,70 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "lastUpdated": "2026-06-08",
+    "version": "0.1-prototype",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null,
+    "_note": "10-section PDPA privacy notice scaffold. Live site has no privacy notice today; every section body here is drafted (see _draft map) and must be reviewed by Malaysian counsel before production launch. BM rendering is a translation of the EN draft and likewise requires native-speaker + legal review."
+  },
+  "_draft": {
+    "sections.0.body": true,
+    "sections.1.body": true,
+    "sections.2.body": true,
+    "sections.3.body": true,
+    "sections.4.body": true,
+    "sections.5.body": true,
+    "sections.6.body": true,
+    "sections.7.body": true,
+    "sections.8.body": true,
+    "sections.9.body": true
+  },
+  "header": {
+    "title": "Notis Privasi",
+    "lastUpdated": "Kemas kini terakhir: 8 Jun 2026",
+    "disclaimer": "Notis tahap prototaip. Mesti disemak oleh peguam Malaysia sebelum dilancarkan ke produksi."
+  },
+  "sections": [
+    {
+      "heading": "Siapa kami",
+      "body": "Pusat Intervensi Awal Urbane Ethos, 4 Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam. Hubungi: +603-7734 3044."
+    },
+    {
+      "heading": "Data yang kami kumpul",
+      "body": "Kami mungkin mengumpul lima kategori maklumat: (1) metadata pelawat seperti alamat IP anda, jenis pelayar, dan halaman yang dilihat; (2) jawapan mikro-tinjauan jika anda memberitahu kami tentang umur anak anda, kebimbangan, atau peringkat perjalanan anda; (3) transkrip pembantu sembang jika anda berbual dengan pembantu kami; (4) penyerahan borang hubungan termasuk nama, emel, telefon, dan mesej anda; (5) kuki dan storan pelayar serupa yang digunakan untuk mengingati bahasa, saiz teks, dan pilihan persetujuan anda."
+    },
+    {
+      "heading": "Mengapa kami mengumpulnya",
+      "body": "Kami menggunakan maklumat ini untuk mengoperasikan dan menambah baik laman, untuk membalas pertanyaan anda, untuk memberi cadangan yang diperibadikan jika anda bersetuju, dan untuk memahami kandungan mana yang membantu agar kami boleh menghasilkan lebih banyak. Kami tidak menjual data anda."
+    },
+    {
+      "heading": "Data peribadi sensitif",
+      "body": "Jika anda memberitahu kami tentang kebimbangan perkembangan anak anda melalui tinjauan atau pembantu sembang, itu adalah data peribadi sensitif di bawah APDP. Kami hanya mengumpulnya dengan persetujuan jelas anda, menyimpannya pada sistem klinikal kami sendiri, dan tidak pernah berkongsi di luar pasukan penjagaan kami."
+    },
+    {
+      "heading": "Pengekalan",
+      "body": "Data sesi dibersihkan apabila anda menutup pelayar. Data berterusan (jika anda telah bersetuju) disimpan sehingga 12 bulan melainkan anda meminta kami memadamkannya lebih awal, selepas itu ia dialih keluar daripada storan aktif dalam tempoh 30 hari."
+    },
+    {
+      "heading": "Pihak ketiga",
+      "body": "Kami tidak berkongsi data anda dengan pihak ketiga dalam prototaip ini. Dalam produksi, mana-mana pemproses pihak ketiga (cth. pengehosan, emel, analitik) akan disenaraikan di sini dengan tujuan mereka menerima data."
+    },
+    {
+      "heading": "Hak anda",
+      "body": "Anda boleh meminta untuk melihat, membetulkan, atau memadam mana-mana data yang kami simpan tentang anda, dan anda boleh menarik balik persetujuan pada bila-bila masa. Emel kami di hello@urbaneethos.center (sementara — untuk disahkan) atau hubungi +603-7734 3044."
+    },
+    {
+      "heading": "Menarik balik persetujuan",
+      "body": "Buka 'Urus kuki' di bahagian bawah mana-mana halaman untuk mengubah pilihan anda pada bila-bila masa. Mematikan satu persetujuan akan mengalih keluar data tersimpan yang berkaitan pada lawatan anda yang seterusnya."
+    },
+    {
+      "heading": "Kuki & storan",
+      "body": "Kami menggunakan storan pelayar untuk: bahasa, saiz teks, status persetujuan, jawapan pemperibadian (jika bersetuju), dan sejarah sembang (jika bersetuju). Kami tidak menetapkan kuki pengiklanan."
+    },
+    {
+      "heading": "Aduan",
+      "body": "Jika anda tidak berpuas hati dengan cara kami mengendalikan data anda, sila beritahu kami dahulu supaya kami boleh memperbaikinya. Anda juga boleh membuat aduan kepada Jabatan Perlindungan Data Peribadi (JPDP), Kementerian Komunikasi, Malaysia."
+    }
+  ]
+}

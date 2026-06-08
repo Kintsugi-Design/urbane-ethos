@@ -1,0 +1,150 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null,
+    "_note": "Live services page does not split content into 'whatItIs / whoItsFor / whatToExpect' sub-fields per service; mapped existing bullets/paragraphs into the closest field. No FAQs are present for any service on the live site; faqs[] are empty arrays. The live site lumps EIP into two age-banded sub-programs (Beginners 2-5, Intermediate 6-8); we keep one 'eip' entry that consolidates both."
+  },
+  "_correction": {
+    "items.0.whatItIs": "fixed typo 'Patholigist' → 'Pathologist' (source typo on live site)"
+  },
+  "_draft": {
+    "items.0.whoItsFor": true,
+    "items.0.whatToExpect": true,
+    "items.0.faqs": true,
+    "items.1.whoItsFor": true,
+    "items.1.faqs": true,
+    "items.2.whoItsFor": true,
+    "items.2.faqs": true,
+    "items.3.whatItIs": true,
+    "items.3.whoItsFor": true,
+    "items.3.whatToExpect": true,
+    "items.3.faqs": true,
+    "items.4.faqs": true,
+    "items.5.whoItsFor": true,
+    "items.5.whatToExpect": true,
+    "items.5.faqs": true
+  },
+  "hero": {
+    "title": "PERKHIDMATAN KAMI",
+    "subtitle": "Pusat Intervensi Awal Urbane Ethos menawarkan intervensi peningkatan bahasa serta stimulasi sosial dan kognitif untuk kanak-kanak yang berkembang secara tipikal dan kanak-kanak berkeperluan khas, kanak-kanak usia sekolah, dan orang dewasa."
+  },
+  "items": [
+    {
+      "key": "screening",
+      "title": "Saringan atau Penilaian",
+      "icon": "screening",
+      "whatItIs": "Pemerhatian anak di sekolah atau di rumah semasa waktu bermain. Penilaian penuh terhadap peringkat perkembangan bahasa anak. Laporan rujukan kepada pakar pediatrik, ahli psikologi kanak-kanak, dan Pakar Patologi Bahasa Pertuturan (SLP) yang dikenal pasti. Perkhidmatan rujukan dan kaunseling.",
+      "whoItsFor": "Keluarga yang telah menyedari sesuatu — kelewatan, perbezaan, soalan yang sukar dirumuskan — dan mahukan gambaran yang lebih jelas sebelum membuat langkah seterusnya. Biasanya untuk anak berumur 2 hingga 8 tahun.",
+      "whatToExpect": "Lawatan pertama mengambil masa kira-kira satu jam. Kami memerhati anak anda bermain, bertanya apa yang anda perasan di rumah, dan menjalankan beberapa pemeriksaan bahasa dan perkembangan ringkas. Anda akan pulang dengan ringkasan bertulis dan satu cadangan, bukan tawaran jualan.",
+      "faqs": [
+        {
+          "q": "Adakah saya perlukan rujukan untuk membuat saringan?",
+          "a": "Tidak. Anda boleh datang terus kepada kami. Jika pakar pediatrik atau guru telah membangkitkan sesuatu, bawalah nota mereka — ia membantu kami melihat gambaran yang lebih lengkap."
+        },
+        {
+          "q": "Bagaimana jika saringan tidak menunjukkan apa-apa yang ketara?",
+          "a": "Itu pun jawapan yang berguna. Kami akan beritahu apa yang nampak berada di landasan dan apa yang patut diperhatikan, dan anda boleh kembali jika ada perubahan."
+        }
+      ],
+      "cta": "Tanyakan tentang Saringan"
+    },
+    {
+      "key": "ot",
+      "title": "Terapi Carakerja (OT)",
+      "icon": "ot",
+      "whatItIs": "Terapi carakerja pediatrik memberi tumpuan untuk membantu anak membina kemahiran yang diperlukan agar mereka membesar menjadi orang dewasa yang berfungsi dan berdikari. Ketidakupayaan fizikal, kecederaan, dan pelbagai isu lain boleh menghalang keupayaan anak melaksanakan tugas harian atau berkembang secara normal melalui peringkat perkembangan sosial atau kognitif.",
+      "whoItsFor": "Anak-anak yang mendapati tugas harian lebih sukar daripada kebanyakan rakan sebaya — memegang pensel, duduk diam, memakai pakaian, menahan bunyi atau tekstur. Lazimnya berumur 2 hingga 10 tahun, walaupun kami turut bekerja dengan anak yang lebih tua.",
+      "whatToExpect": "Sesi individu atau Berkumpulan. Sesi pertama ialah penilaian: kami memerhati, bermain, dan mencuba beberapa aktiviti bersama. Selepas itu, sesi dijalankan mingguan dan memberi tumpuan pada kemahiran motor halus, regulasi sensori, atau kehidupan harian — mengikut keperluan anak anda.",
+      "faqs": [
+        {
+          "q": "Berapa lama setiap sesi?",
+          "a": "Biasanya 45 minit hingga satu jam. Anak yang lebih kecil kadangkala menjalani sesi yang lebih pendek dan lebih kerap — kami akan bincangkannya bersama anda."
+        },
+        {
+          "q": "Bolehkah saya duduk semasa sesi dijalankan?",
+          "a": "Ya, untuk kebanyakan sesi. Anda akan dapat melihat apa yang kami kerjakan dan mengambil beberapa hal kecil untuk dicuba di rumah."
+        }
+      ],
+      "cta": "Tanyakan tentang Terapi Carakerja"
+    },
+    {
+      "key": "speech",
+      "title": "Terapi Bahasa Pertuturan (SLP)",
+      "icon": "speech",
+      "whatItIs": "Ahli terapi pertuturan menangani isu pertuturan seperti gagap atau pelat, serta membantu masalah bahasa lisan dan bertulis seperti disleksia, dispraksia, dan gangguan pemprosesan auditori. Sebenarnya, ahli terapi pertuturan lebih tepat dipanggil pakar patologi bahasa-pertuturan (SLP). SLP mengenal pasti jenis masalah bahasa yang dialami seorang pelajar. Mereka menentukan puncanya dan memilih rawatan terbaik. SLP boleh membantu anak-anak membina kemahiran dengan bekerja secara satu-dengan-satu, dalam kumpulan kecil, atau di dalam bilik darjah.",
+      "whoItsFor": "Anak-anak yang belum bercakap pada usia yang sepatutnya, yang gagap, yang mendapati membaca dan menulis lebih sukar berbanding rakan sebaya, atau yang sukar memahami percakapan orang. Umur 2 hingga 12 tahun paling kerap.",
+      "whatToExpect": "Sesi individu atau Berkumpulan. Lawatan pertama ialah penilaian bahasa — kami akan bermain, bertanya, dan mendengar dengan teliti. Selepas itu, sesi dijalankan mingguan dan mensasarkan bidang khusus yang sedang anak anda usahakan, dengan aktiviti rumah yang boleh dilakukan dalam tempoh singkat.",
+      "faqs": [
+        {
+          "q": "Bagaimana saya tahu ia berkesan?",
+          "a": "Kami bersetuju pada matlamat kecil dan konkrit di permulaan dan menilai semula setiap beberapa minggu. Perkembangan pertuturan jarang lurus, jadi kami melihat trend selama berbulan-bulan, bukan hasil satu sesi sahaja."
+        },
+        {
+          "q": "Anak saya bercakap dua bahasa di rumah. Adakah itu masalah?",
+          "a": "Tidak langsung. Anak dwibahasa membina bahasa secara berbeza, bukan lebih lemah. Kami akan mengambil kira bahasa rumah anda dalam rancangan."
+        }
+      ],
+      "cta": "Tanyakan tentang Terapi Pertuturan"
+    },
+    {
+      "key": "specialed",
+      "title": "Pendidikan Khas",
+      "icon": "specialed",
+      "whatItIs": "Pengajaran satu-dengan-satu yang disesuaikan untuk anak yang belajar mengikut kadar mereka sendiri. Kami bekerja pada bacaan, penulisan, nombor, dan kemahiran berfikir asas di sebaliknya, dalam langkah kecil yang anak anda boleh benar-benar lakukan.",
+      "whoItsFor": "Anak-anak yang ketinggalan di sekolah, yang belajar secara berbeza, atau yang memerlukan pengajaran bermula dari tahap mereka sekarang dan bukan dari tempat yang dijangka oleh kurikulum. Biasanya berumur 4 hingga 12 tahun.",
+      "whatToExpect": "Kami bermula dengan mengenal pasti apa yang sudah anak anda tahu dan di mana jurangnya. Selepas itu, sesi dijalankan mingguan atau dua kali seminggu, dengan matlamat jelas yang anda dan guru semak bersama. Kami berkoordinasi dengan sekolah anak anda apabila ia membantu.",
+      "faqs": [
+        {
+          "q": "Adakah anda mengikut sukatan sekolah?",
+          "a": "Di mana ia membantu — ya, terutama untuk anak yang lebih tua menuju matlamat KSSR. Untuk anak yang lebih kecil, kami memberi tumpuan pada asas terlebih dahulu."
+        },
+        {
+          "q": "Bolehkah anda mengajar anak saya cara yang sama di rumah?",
+          "a": "Kami berkongsi apa yang berkesan dan memberi anda perkara kecil untuk dicuba. Kami tidak mengharapkan ibu bapa menjadi guru — peranan anda di rumah adalah sesuatu yang berbeza dan sama pentingnya."
+        }
+      ],
+      "cta": "Tanyakan tentang Pendidikan Khas",
+      "_note": "Special Education is staffed (Ms. Nuraisyah Azman) but has no standalone description on the services page. All four sub-fields drafted (see _draft map)."
+    },
+    {
+      "key": "eip",
+      "title": "Program Intervensi Awal (EIP)",
+      "icon": "eip",
+      "whatItIs": "Pra-literasi — program yang diperibadikan menjurus kepada literasi yang sedang muncul. Melibatkan stimulasi bahasa sebagai prakata untuk pembinaan kecerdasan tinggi serta stimulasi sensori untuk membantu membina, mendapatkan semula, dan mengekalkan keupayaan anak untuk turut serta dalam situasi dan/atau aktiviti harian, serta menyesuaikan diri dengan persekitaran yang berbeza. Termasuk pembelajaran melalui permainan dan memperkenalkan konsep asas seperti warna, bentuk, huruf dan nombor. Program berkumpulan berasaskan terapi yang dijalankan setiap hari oleh Ahli Terapi Carakerja, Ahli Terapi Pertuturan/Pakar Linguistik Klinikal serta Guru Pendidikan Khas kami yang bertauliah. Untuk anak yang lebih tua, tumpuan diberikan kepada bacaan, matematik, penulisan, bahasa mengikut sukatan KSSR serta pembinaan kemahiran sosial dan kognitif.",
+      "whoItsFor": "Anak-anak dengan kesukaran ringan hingga sederhana dalam kehidupan — Kelewatan Global atau Perkembangan / Hendap Intelek, ADHD, Autisme, Sindrom Down, Hendap Pendengaran, Disleksia dan lain-lain. Kumpulan Permulaan: anak berumur 2 – 5 tahun. Kumpulan Pertengahan: anak berumur 6 – 8 tahun.",
+      "whatToExpect": "Kumpulan Permulaan: Sesi berkumpulan intensif 4 jam, lima kali seminggu: 3 jam 45 minit sesi dan 15 minit perbincangan/konsultasi ibu bapa-terapis. Program latihan ibu bapa. Kumpulan Pertengahan: Sesi berkumpulan 2 jam, lima kali seminggu: 1 jam 45 minit sesi dan 15 minit perbincangan/konsultasi ibu bapa-terapis.",
+      "faqs": [
+        {
+          "q": "Adakah program ini setiap hari bekerja?",
+          "a": "Ya — lima hari seminggu. Keamatan itu sebahagian daripada cara ia berkesan, dan kebanyakan keluarga mendapati irama itu menjadi lebih mudah selepas beberapa minggu pertama."
+        },
+        {
+          "q": "Bagaimana jika anak saya belum bersedia untuk kumpulan?",
+          "a": "Biasanya kami akan cadangkan terapi satu-dengan-satu dahulu, kemudian beralih kepada kumpulan apabila anak anda sudah bersedia. Tiada yang dipaksa."
+        }
+      ],
+      "cta": "Tanyakan tentang Intervensi Awal"
+    },
+    {
+      "key": "psych",
+      "title": "Psikologi Klinikal",
+      "icon": "psych",
+      "whatItIs": "Ahli psikologi klinikal bertemu klien untuk mengenal pasti masalah — emosi, mental, dan tingkah laku — dalam hidup mereka. Melalui pemerhatian, temu bual, dan ujian, ahli psikologi akan mendiagnosis sebarang gangguan sedia ada atau berpotensi. Kemudian, bersama klien, mereka merumuskan satu program rawatan mengikut keperluan klien. Ahli psikologi memantau perkembangan klien secara berkala untuk memastikan keperluan mereka dipenuhi oleh tindakan yang diambil, dan menyesuaikannya jika perlu.",
+      "whoItsFor": "Anak-anak, remaja, dan ibu bapa yang sedang menempuh kebimbangan, emosi yang berat, kesukaran tumpuan, atau soalan tentang kemungkinan diagnosis. Kami melayan klien semua peringkat umur.",
+      "whatToExpect": "Sesi pertama lebih banyak mendengar — kami ingin memahami apa yang telah berlaku dan apa yang anda harapkan. Selepas itu, kami bersetuju pada rancangan bersama. Sesi lazimnya mingguan atau dua minggu sekali dan kami menilai semula perkembangan secara berkala.",
+      "faqs": [
+        {
+          "q": "Adakah anak saya akan didiagnosis?",
+          "a": "Hanya jika penilaian rasmi adalah apa yang anda dan ahli psikologi bersetuju adalah berguna. Bagi banyak keluarga, terapi tidak memerlukan diagnosis langsung."
+        },
+        {
+          "q": "Adakah apa yang kami bualkan dirahsiakan?",
+          "a": "Ya, dalam had etika profesional. Kami akan menjelaskan had-had itu dengan terang di permulaan supaya tiada kejutan."
+        }
+      ],
+      "cta": "Tanyakan tentang Psikologi Klinikal"
+    }
+  ]
+}

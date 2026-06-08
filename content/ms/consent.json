@@ -1,0 +1,58 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7",
+    "translatedAt": "2026-06-08",
+    "reviewedBy": null,
+    "_note": "Scaffold copy drafted in T3 for the PDPA consent banner. Live site has no equivalent banner today; all strings here are drafted (see _draft map) and to be refined in T12. BM strings here require Malaysian counsel review for PDPA compliance."
+  },
+  "_draft": {
+    "banner.heading": true,
+    "banner.body": true,
+    "banner.acceptAll": true,
+    "banner.necessaryOnly": true,
+    "banner.customize": true,
+    "banner.save": true,
+    "banner.manage": true,
+    "banner.readFullNotice": true,
+    "toggles.necessary.label": true,
+    "toggles.necessary.description": true,
+    "toggles.necessary.locked": true,
+    "toggles.analytics.label": true,
+    "toggles.analytics.description": true,
+    "toggles.personalization.label": true,
+    "toggles.personalization.description": true,
+    "toggles.chatbot.label": true,
+    "toggles.chatbot.description": true
+  },
+  "banner": {
+    "heading": "Pilihan data anda",
+    "body": "Kami mengumpul sedikit maklumat untuk menjadikan laman ini berfungsi dengan baik untuk anda. Pilih apa yang anda benarkan.",
+    "acceptAll": "Terima semua",
+    "necessaryOnly": "Diperlukan sahaja",
+    "customize": "Sesuaikan",
+    "save": "Simpan pilihan saya",
+    "manage": "Urus kuki",
+    "readFullNotice": "Baca notis privasi penuh"
+  },
+  "toggles": {
+    "necessary": {
+      "label": "Diperlukan",
+      "description": "Diperlukan untuk laman ini berfungsi — pilihan bahasa, saiz teks, dan tetapan persetujuan ini.",
+      "locked": "Sentiasa aktif"
+    },
+    "analytics": {
+      "label": "Analitik",
+      "description": "Kiraan tanpa nama bagi halaman yang dilihat dan butang yang diklik. Membantu kami menambah baik laman ini."
+    },
+    "personalization": {
+      "label": "Pemperibadian",
+      "description": "Jawapan anda kepada prompt 'ceritakan tentang anak anda'. Ini termasuk data peribadi sensitif; hanya dengan persetujuan jelas."
+    },
+    "chatbot": {
+      "label": "Sejarah sembang",
+      "description": "Kekalkan transkrip sembang anda antara lawatan. Mati = sesi sahaja."
+    }
+  },
+  "ariaLive": "Sepanduk kuki dipaparkan."
+}
