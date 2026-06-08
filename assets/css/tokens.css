@@ -1,0 +1,93 @@
+@layer tokens {
+  @font-face {
+    font-family: "Source Serif 4";
+    src: url("../fonts/source-serif-4-var.woff2") format("woff2-variations");
+    font-weight: 200 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Inter";
+    src: url("../fonts/inter-var.woff2") format("woff2-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    /* Palette */
+    --color-cream: #F6EFE3;
+    --color-cream-soft: #FBF6EC;
+    --color-ink: #2B1F14;
+    --color-ink-soft: #4A372A;
+    --color-ink-muted: #7A6A5C;
+    --color-sage: #8FA68A;
+    --color-sage-deep: #5C7758;
+    --color-terracotta: #C77B5C;
+    --color-terracotta-deep: #A05A3D;
+    --color-sun: #E6B25C;
+    --color-line: #E2D4BD;
+    --color-error: #B5403B;
+    --color-success: #4A6B3A;
+
+    /* Type */
+    --font-serif: "Source Serif 4", "Cormorant Garamond", Georgia, serif;
+    --font-sans: "Inter", "Helvetica Neue", system-ui, sans-serif;
+    --type-h1: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+    --type-h2: clamp(2rem, 3vw + 1rem, 3rem);
+    --type-h3: clamp(1.5rem, 1.5vw + 1rem, 2rem);
+    --type-h4: 1.25rem;
+    --type-body: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
+    --type-small: 0.875rem;
+    --type-eyebrow: 0.875rem;
+    --line-tight: 1.15;
+    --line-body: 1.6;
+    --tracking-tight: -0.02em;
+    --tracking-loose: 0.15em;
+
+    /* Spacing — 8px ramp */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    --space-32: 8rem;
+
+    /* Radii */
+    --radius-1: 6px;
+    --radius-2: 14px;
+    --radius-3: 28px;
+    --radius-pill: 999px;
+
+    /* Shadow */
+    --shadow-1: 0 1px 2px rgba(43,31,20,0.08);
+    --shadow-2: 0 10px 30px -10px rgba(43,31,20,0.18);
+    --shadow-3: 0 24px 60px -20px rgba(43,31,20,0.25);
+
+    /* Motion */
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --dur-1: 180ms;
+    --dur-2: 320ms;
+    --dur-3: 520ms;
+
+    /* Layout */
+    --wrap-max: 80rem;
+    --content-max: 44rem;
+
+    /* Font-size scale (a11y toggle) */
+    --fs-scale: 1;
+  }
+
+  html[data-fs="1"] { --fs-scale: 1; }
+  html[data-fs="2"] { --fs-scale: 1.125; }
+  html[data-fs="3"] { --fs-scale: 1.25; }
+  body { font-size: calc(var(--type-body) * var(--fs-scale)); }
+}
