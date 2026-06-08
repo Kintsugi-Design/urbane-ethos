@@ -3,6 +3,23 @@
     "scrapedAt": "2026-06-08",
     "_note": "Live services page does not split content into 'whatItIs / whoItsFor / whatToExpect' sub-fields per service; mapped existing bullets/paragraphs into the closest field. No FAQs are present for any service on the live site; faqs[] are empty arrays. The live site lumps EIP into two age-banded sub-programs (Beginners 2-5, Intermediate 6-8); we keep one 'eip' entry that consolidates both."
   },
+  "_draft": {
+    "items.0.whoItsFor": true,
+    "items.0.whatToExpect": true,
+    "items.0.faqs": true,
+    "items.1.whoItsFor": true,
+    "items.1.faqs": true,
+    "items.2.whoItsFor": true,
+    "items.2.faqs": true,
+    "items.3.whatItIs": true,
+    "items.3.whoItsFor": true,
+    "items.3.whatToExpect": true,
+    "items.3.faqs": true,
+    "items.4.faqs": true,
+    "items.5.whoItsFor": true,
+    "items.5.whatToExpect": true,
+    "items.5.faqs": true
+  },
   "hero": {
     "title": "OUR SERVICES",
     "subtitle": "Urbane Ethos Early Intervention Center offers language enhancement and social and cognitive stimulation intervention for typically developing children and children with special needs, school age children, and adults."
@@ -13,9 +30,18 @@
       "title": "Screening or Assessment",
       "icon": "screening",
       "whatItIs": "Observation of the children at school or at home during playtime. Full assessment of child's language development stages. Referral report to identified paediatrician, child psychologist, and Speech Language Patholigist (SLP). Referral services and counselling.",
-      "whoItsFor": null,
-      "whatToExpect": null,
-      "faqs": [],
+      "whoItsFor": "Families who've noticed something — a delay, a difference, a question they can't quite name — and want a clearer picture before deciding what to do next. Usually for children aged 2 to 8.",
+      "whatToExpect": "A first visit lasts about an hour. We watch your child play, ask you what you've noticed at home, and run a few simple language and developmental checks. You leave with a written summary and a recommendation, not a sales pitch.",
+      "faqs": [
+        {
+          "q": "Do I need a referral to book a screening?",
+          "a": "No. You can come to us directly. If a paediatrician or teacher has flagged something, bring their notes — they help us see the fuller picture."
+        },
+        {
+          "q": "What if the screening shows nothing significant?",
+          "a": "That's a useful answer too. We'll tell you what looks on-track and what's worth watching, and you can come back if anything changes."
+        }
+      ],
       "cta": "Enquire about Screening"
     },
     {
@@ -23,9 +49,18 @@
       "title": "Occupational Therapy (OT)",
       "icon": "ot",
       "whatItIs": "Paediatric occupational therapy focuses on helping children develop the skills they need to grow into functional, independent adults. Physical impairment, injuries, and a host of other issues can hamper a child's ability to perform common tasks or progress normally through the stages of social or cognitive development.",
-      "whoItsFor": null,
-      "whatToExpect": "Individual or Group sessions.",
-      "faqs": [],
+      "whoItsFor": "Children who find everyday tasks harder than most — holding a pencil, sitting still, getting dressed, tolerating noise or textures. Typically ages 2 to 10, though we work with older kids too.",
+      "whatToExpect": "Individual or Group sessions. The first session is an assessment: we observe, play, and try a few activities together. From there, sessions run weekly and focus on fine motor skills, sensory regulation, or daily living — whichever your child needs.",
+      "faqs": [
+        {
+          "q": "How long does each session last?",
+          "a": "Usually 45 minutes to an hour. Younger children sometimes do shorter, more frequent sessions — we'll talk it through with you."
+        },
+        {
+          "q": "Will I sit in on the sessions?",
+          "a": "Yes, for most sessions. You'll see what we're working on and pick up small things to try at home."
+        }
+      ],
       "cta": "Enquire about Occupational Therapy"
     },
     {
@@ -33,21 +68,39 @@
       "title": "Speech Language Therapy (SLP)",
       "icon": "speech",
       "whatItIs": "Speech therapists handle speech issues such as stuttering or lisps, as well as helping other kinds of problems with spoken and written language such as dyslexia, dyspraxia, and auditory processing disorder. In fact, a speech therapist is more accurately called a speech-language pathologist (SLP). SLPs figure out what kind of language problem a student has. They determine what's causing it and decide on the best treatment. SLPs may help kids build skills by working with them one-on-one, in small groups, or in the classroom.",
-      "whoItsFor": null,
-      "whatToExpect": "Individual or Group sessions.",
-      "faqs": [],
+      "whoItsFor": "Children who aren't yet talking when you'd expect them to, who stutter, who find reading and writing harder than peers, or who struggle to follow what people are saying. Ages 2 to 12 are most common.",
+      "whatToExpect": "Individual or Group sessions. The first visit is a language assessment — we'll play, ask questions, and listen carefully. After that, sessions are weekly and target the specific area your child is working on, with home activities you can do in short bursts.",
+      "faqs": [
+        {
+          "q": "How will I know it's working?",
+          "a": "We agree small, concrete goals at the start and review them every few weeks. Progress with speech is rarely linear, so we look at the trend over months, not the result of any one session."
+        },
+        {
+          "q": "My child speaks two languages at home. Is that a problem?",
+          "a": "Not at all. Bilingual children develop language differently, not worse. We'll factor your home languages into the plan."
+        }
+      ],
       "cta": "Enquire about Speech Therapy"
     },
     {
       "key": "specialed",
       "title": "Special Education",
       "icon": "specialed",
-      "whatItIs": null,
-      "whoItsFor": null,
-      "whatToExpect": null,
-      "faqs": [],
+      "whatItIs": "One-to-one teaching tailored to children who learn at their own pace. We work on reading, writing, numbers, and the foundational thinking skills underneath them, in small steps your child can actually take.",
+      "whoItsFor": "Children who are falling behind in school, who learn differently, or who need teaching to start from where they are rather than where the curriculum expects them to be. Usually ages 4 to 12.",
+      "whatToExpect": "We start by figuring out what your child already knows and where the gaps are. From there, sessions are weekly or twice weekly, with clear goals you and the teacher review together. We coordinate with your child's school when it helps.",
+      "faqs": [
+        {
+          "q": "Do you follow the school syllabus?",
+          "a": "Where it helps — yes, especially for older children working toward KSSR goals. For younger children, we focus on the foundations first."
+        },
+        {
+          "q": "Can you teach my child the same way at home?",
+          "a": "We share what's working and give you small things to try. We don't expect parents to become teachers — your job at home is something different and equally important."
+        }
+      ],
       "cta": "Enquire about Special Education",
-      "_note": "Special Education is staffed (Ms. Nuraisyah Azman) but has no standalone description on the services page. Covered within the Early Intervention Program."
+      "_note": "Special Education is staffed (Ms. Nuraisyah Azman) but has no standalone description on the services page. All four sub-fields drafted (see _draft map)."
     },
     {
       "key": "eip",
@@ -56,7 +109,16 @@
       "whatItIs": "Pre-literacy — personalized programs geared towards emerging literacy. Involves stimulation of language as precursor to development of high intelligence as well as sensory stimulation to help develop, regain, and maintain the child's ability to be able to participate in everyday situations and/or activities, and adapt to different environments. Includes learning through play and introduces basic concepts such as colors, shapes, letters and numbers. Therapy-based group program conducted daily by our certified Occupational Therapist, Speech Therapist/Clinical Linguist as well as our Special Education Teacher. For older children, focused on reading, mathematics, writing, language according to the KSSR syllabus as well as the development of social skills and cognitive building.",
       "whoItsFor": "Children with mild to moderate living difficulties — Global or Developmental Delay / Intellectual Impairment, ADHD, Autism, Down Syndrome, Hearing Impairments, Dyslexia and more. Beginners Group: children of 2 – 5 years old. Intermediate Group: children of 6 – 8 years old.",
       "whatToExpect": "Beginners Group: Intensive 4 hour group sessions, five a week: 3 hours and 45 minutes session and 15 minutes of parent-therapist discussion/consultation. Parent training program. Intermediate Group: 2 hour group sessions, five times a week: 1 hour and 45 minutes session and 15 minutes of parent-therapist discussion/consultation.",
-      "faqs": [],
+      "faqs": [
+        {
+          "q": "Is the program every weekday?",
+          "a": "Yes — five days a week. The intensity is part of how it works, and most families find the rhythm becomes easier after the first few weeks."
+        },
+        {
+          "q": "What if my child isn't ready for a group?",
+          "a": "We'll usually suggest one-to-one therapy first, then move into the group when your child is ready. Nothing is forced."
+        }
+      ],
       "cta": "Enquire about Early Intervention"
     },
     {
@@ -64,9 +126,18 @@
       "title": "Clinical Psychology",
       "icon": "psych",
       "whatItIs": "Clinical psychologists meet with clients to identify problems - emotional, mental, and behavioural - in their lives. Through observation, interviews, and tests, the psychologist will diagnose any existing or potential disorders. Then, together with the client, they formulate a program of treatment according to the client's needs. Psychologists monitor the client's progress on a regular basis to ensure that their needs are met by the course of action, and to adjust it necessary.",
-      "whoItsFor": null,
-      "whatToExpect": null,
-      "faqs": [],
+      "whoItsFor": "Children, teenagers, and parents working through anxiety, big emotions, attention difficulties, or questions about a possible diagnosis. We see clients across all ages.",
+      "whatToExpect": "A first session is mostly listening — we'll want to understand what's been happening and what you're hoping for. From there, we agree a plan together. Sessions are typically weekly or fortnightly and we review progress regularly.",
+      "faqs": [
+        {
+          "q": "Will my child be diagnosed?",
+          "a": "Only if a formal assessment is what you and the psychologist agree is useful. For many families, therapy doesn't require a diagnosis at all."
+        },
+        {
+          "q": "Is what we talk about confidential?",
+          "a": "Yes, within the limits of professional ethics. We'll explain those limits clearly at the start so there are no surprises."
+        }
+      ],
       "cta": "Enquire about Clinical Psychology"
     }
   ]

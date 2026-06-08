@@ -1,7 +1,26 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "Scaffold copy drafted in T3 for the PDPA consent banner. Live site has no equivalent banner today; all strings here are drafted (_draft: true) and to be refined in T12."
+    "_note": "Scaffold copy drafted in T3 for the PDPA consent banner. Live site has no equivalent banner today; all strings here are drafted (see _draft map) and to be refined in T12."
+  },
+  "_draft": {
+    "banner.heading": true,
+    "banner.body": true,
+    "banner.acceptAll": true,
+    "banner.necessaryOnly": true,
+    "banner.customize": true,
+    "banner.save": true,
+    "banner.manage": true,
+    "banner.readFullNotice": true,
+    "toggles.necessary.label": true,
+    "toggles.necessary.description": true,
+    "toggles.necessary.locked": true,
+    "toggles.analytics.label": true,
+    "toggles.analytics.description": true,
+    "toggles.personalization.label": true,
+    "toggles.personalization.description": true,
+    "toggles.chatbot.label": true,
+    "toggles.chatbot.description": true
   },
   "banner": {
     "heading": "Your data choices",
@@ -11,30 +30,25 @@
     "customize": "Customize",
     "save": "Save my choices",
     "manage": "Manage cookies",
-    "readFullNotice": "Read the full privacy notice",
-    "_draft": true
+    "readFullNotice": "Read the full privacy notice"
   },
   "toggles": {
     "necessary": {
       "label": "Necessary",
       "description": "Required for the site to work — your language choice, text size, and these consent settings.",
-      "locked": "Always on",
-      "_draft": true
+      "locked": "Always on"
     },
     "analytics": {
       "label": "Analytics",
-      "description": "Anonymous counts of pages viewed and buttons clicked. Helps us improve the site.",
-      "_draft": true
+      "description": "Anonymous counts of pages viewed and buttons clicked. Helps us improve the site."
     },
     "personalization": {
       "label": "Personalization",
-      "description": "Your answers to the 'tell us about your child' prompt. This includes sensitive personal data; explicit consent only.",
-      "_draft": true
+      "description": "Your answers to the 'tell us about your child' prompt. This includes sensitive personal data; explicit consent only."
     },
     "chatbot": {
       "label": "Chat history",
-      "description": "Keep your chat transcripts between visits. Off = session only.",
-      "_draft": true
+      "description": "Keep your chat transcripts between visits. Off = session only."
     }
   },
   "ariaLive": "Cookie banner shown."

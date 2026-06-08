@@ -8,7 +8,7 @@ def walk_keys(obj, prefix = "")
   case obj
   when Hash
     obj.flat_map do |k, v|
-      next [] if k == "_meta"
+      next [] if k == "_meta" || k == "_draft"
       path = prefix.empty? ? k.to_s : "#{prefix}.#{k}"
       [path] + walk_keys(v, path)
     end

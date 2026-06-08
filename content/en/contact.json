@@ -1,7 +1,11 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "No Google Maps iframe and no contact email present on live contact page. Live contact form has 8 fields (Parent Name, Email, Phone, Child Name, Child's DOB, Diagnosis Yes/No, If yes where, What are your concerns?); we mirror our simpler 4-field structure from the spec and capture the live extras in the form._note."
+    "_note": "No Google Maps iframe and no contact email present on live contact page. Live contact form has 8 fields (Parent Name, Email, Phone, Child Name, Child's DOB, Diagnosis Yes/No, If yes where, What are your concerns?); per spec we keep 4 visible fields + one optional 'Tell us more' textarea that absorbs the live site's intake extras."
+  },
+  "_draft": {
+    "form.fields.tellUsMoreLabel": true,
+    "form.fields.tellUsMorePlaceholder": true
   },
   "hero": {
     "title": "CONTACT",
@@ -30,11 +34,13 @@
       "emailLabel": "Email",
       "phoneLabel": "Phone (optional)",
       "concernLabel": "What's on your mind?",
+      "tellUsMoreLabel": "Anything else we should know? (Optional)",
       "submit": "Send",
       "namePlaceholder": "First and last name",
       "emailPlaceholder": "you@example.com",
       "phonePlaceholder": "Optional — for callbacks",
-      "concernPlaceholder": "Tell us a little about your child"
+      "concernPlaceholder": "Tell us a little about your child",
+      "tellUsMorePlaceholder": "Your child's age, any diagnosis, what's prompting your enquiry — whatever helps us prepare."
     },
     "successNote": "Your default mail app will open with this message ready to send.",
     "errors": {
@@ -43,7 +49,7 @@
       "emailInvalid": "That email doesn't look right.",
       "concernRequired": "Please tell us what we can help with."
     },
-    "_note": "Live form additionally asks for Child Name, Child's DOB, diagnosis Yes/No, 'If yes, where?'. Our prototype keeps a leaner 4-field form per spec."
+    "_note": "Live form additionally asks for Child Name, Child's DOB, diagnosis Yes/No, 'If yes, where?'. Our prototype keeps 4 visible fields + one optional 'Tell us more' textarea that captures those intake extras when families want to share them."
   },
   "chatbotCta": {
     "heading": "Prefer to chat?",

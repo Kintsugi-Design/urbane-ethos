@@ -3,9 +3,13 @@
     "scrapedAt": "2026-06-08",
     "_note": "Live About page has no hero subtitle, no 'Mission' section (only 'Our Vision' which is mapped to mission), and no Values / 'What we stand for' section."
   },
+  "_draft": {
+    "hero.subtitle": true,
+    "values.items": true
+  },
   "hero": {
     "title": "ABOUT US",
-    "subtitle": null
+    "subtitle": "We're a small early intervention team in Shah Alam, working alongside families since 2005."
   },
   "mission": {
     "heading": "Our vision",
@@ -17,8 +21,24 @@
   },
   "values": {
     "heading": "What we stand for",
-    "items": [],
-    "_note": "No 'values' or 'What we stand for' content present on the live About page."
+    "items": [
+      {
+        "title": "Listening first",
+        "body": "Before we recommend anything, we sit with you and ask about your child. The story you bring matters more than any form."
+      },
+      {
+        "title": "Child-led pace",
+        "body": "Progress is not a race. We follow what your child is ready for, and adjust the plan when the child tells us to."
+      },
+      {
+        "title": "Family in the room",
+        "body": "Parents and caregivers are part of every session, not waiting outside. We share what we see and learn from what you see at home."
+      },
+      {
+        "title": "Evidence-grounded",
+        "body": "Our team trains continuously and draws on current research. We say 'we don't know yet' when that's the honest answer."
+      }
+    ]
   },
   "ctas": {
     "services": "View services",

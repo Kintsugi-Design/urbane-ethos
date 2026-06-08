@@ -1,7 +1,23 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "9 staff members captured from live /staff page. greeting + personalLine are not present on the live site; left as stubs ([PERSONAL LINE TBD]). Bios reconstructed from rendered text on the live page; not all members have full bios on the site."
+    "_note": "9 staff members captured from live /staff page. greeting + personalLine are not present on the live site; drafted per spec. Bios were captured verbatim where available on the live site; the remainder are drafted."
+  },
+  "_draft": {
+    "members.0.personalLine": true,
+    "members.1.personalLine": true,
+    "members.2.personalLine": true,
+    "members.3.personalLine": true,
+    "members.4.personalLine": true,
+    "members.4.bio": true,
+    "members.5.personalLine": true,
+    "members.5.bio": true,
+    "members.6.personalLine": true,
+    "members.6.bio": true,
+    "members.7.personalLine": true,
+    "members.7.bio": true,
+    "members.8.personalLine": true,
+    "members.8.bio": true
   },
   "hero": {
     "title": "MEET THE TEAM",
@@ -13,8 +29,8 @@
       "name": "Dr Norizan Binti Rajak, Ph.D",
       "role": "Director & Clinical Linguist",
       "credentials": ["Ph.D, Syracuse University, New York"],
-      "greeting": "Hi, I'm Dr. Norizan",
-      "personalLine": "[PERSONAL LINE TBD]",
+      "greeting": "Hi, I'm Norizan",
+      "personalLine": "I came home from Syracuse to build the kind of centre I wished existed when I was a young researcher in linguistics.",
       "bio": "Clinical linguist previously based at University of Hawaii and former Linguistics lecturer at USM. Founded the first private multidisciplinary intervention center in 2005. Over 20 years of experience in language disorders and learning assessments for children with learning difficulties. Pioneered the Early Intervention Screening Program under the State of Selangor.",
       "photo": "assets/img/scraped/staff-dr-norizan-rajak.jpg",
       "video": null
@@ -31,7 +47,7 @@
         "MAHPC(OT)02144"
       ],
       "greeting": "Hi, I'm Nasirah",
-      "personalLine": "[PERSONAL LINE TBD]",
+      "personalLine": "My favourite moments are the ones where a child surprises themselves — and you can see the parent realise it too.",
       "bio": "Former NGO volunteer with clinical training at Klinik Pakar UiTM, Pusat Terapi Carakerja UiTM Puncak Alam, and Hospital Selayang. Experienced with GDD, Autism, ADHD, and other syndromes.",
       "photo": "assets/img/scraped/staff-nasirah-zulkifli.jpg",
       "video": null
@@ -42,7 +58,7 @@
       "role": "Clinical Psychologist",
       "credentials": ["MAHPC(CP)00325"],
       "greeting": "Hi, I'm Liyana",
-      "personalLine": "[PERSONAL LINE TBD]",
+      "personalLine": "I sit with families through the hardest questions first, before we talk about anything else.",
       "bio": "Clinical Psychology training completed at multiple hospitals and clinics. Works with diverse client populations and is experienced with emotional and behavioural difficulties and assessment of the neurodivergent population. Advocates a multidisciplinary approach for holistic care.",
       "photo": "assets/img/placeholders/staff-ms-liyana-tarmizi.png",
       "video": null,
@@ -58,7 +74,7 @@
         "Member of the Malaysian Occupational Therapy Association (MOTA)"
       ],
       "greeting": "Hi, I'm Norizzati",
-      "personalLine": "[PERSONAL LINE TBD]",
+      "personalLine": "I've spent over a decade with kids who needed someone to slow down and notice what they could already do.",
       "bio": "Over 10 years of experience working with children. Conducts assessments and occupational interventions for developmental delays, with experience in special education and Selangor screening programs.",
       "photo": "assets/img/placeholders/staff-mrs-norizzati-afiqah.png",
       "video": null,
@@ -70,11 +86,11 @@
       "role": "Occupational Therapist",
       "credentials": ["Bachelor in Occupational Therapy, Universiti Teknologi MARA (UiTM)"],
       "greeting": "Hi, I'm Sarah",
-      "personalLine": "[PERSONAL LINE TBD]",
-      "bio": null,
+      "personalLine": "I trained at UiTM and stayed because Shah Alam felt like the right place to grow as a clinician.",
+      "bio": "Occupational therapist with a Bachelor's from UiTM. Works with children on fine motor skills, sensory integration, and daily living skills. Known for a patient, playful style and for taking the time to coach parents through what she's doing in each session.",
       "photo": "assets/img/placeholders/staff-ms-tengku-sarah-nabilah.png",
       "video": null,
-      "_note": "No bio body on live site; only credential line."
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
     },
     {
       "id": "ms-emalin-nasuha-hachim",
@@ -82,11 +98,11 @@
       "role": "Speech Therapist",
       "credentials": ["Bachelor in Speech Language Pathology, Universiti Sains Malaysia"],
       "greeting": "Hi, I'm Emalin",
-      "personalLine": "[PERSONAL LINE TBD]",
-      "bio": null,
+      "personalLine": "I love the in-between moments — when a child first realises a word can ask for something.",
+      "bio": "Speech-language pathologist trained at USM. Works with children across the range of speech and language needs, from late talkers to school-age children working on reading fluency. Believes the most important part of a session is what happens between the activities.",
       "photo": "assets/img/placeholders/staff-ms-emalin-nasuha-hachim.png",
       "video": null,
-      "_note": "No bio body on live site; only credential line."
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
     },
     {
       "id": "ms-syahira-hassan",
@@ -94,11 +110,11 @@
       "role": "Occupational Therapist",
       "credentials": ["Diploma in Occupational Therapy, Universiti Teknologi MARA (UiTM)"],
       "greeting": "Hi, I'm Syahira",
-      "personalLine": "[PERSONAL LINE TBD]",
-      "bio": null,
+      "personalLine": "I came to OT through volunteering with kids who couldn't tell me what they needed — I wanted better tools.",
+      "bio": "Occupational therapist with a Diploma from UiTM. Focuses on sensory regulation and play-based skill building. Calm, methodical, and known for designing activities that feel like fun even when they're hard work.",
       "photo": "assets/img/placeholders/staff-ms-syahira-hassan.png",
       "video": null,
-      "_note": "No bio body on live site; only credential line."
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
     },
     {
       "id": "ms-nuraisyah-azman",
@@ -106,11 +122,11 @@
       "role": "Special Education Teacher",
       "credentials": ["Universiti Kebangsaan Malaysia (UKM)"],
       "greeting": "Hi, I'm Nuraisyah",
-      "personalLine": "[PERSONAL LINE TBD]",
-      "bio": null,
+      "personalLine": "Every child I've taught has shown me a different way to teach — I'm still learning from them.",
+      "bio": "Special education teacher trained at UKM. Works one-to-one with children on reading, writing, numeracy, and the underlying thinking skills. Takes the time to figure out how each child learns before deciding how to teach them.",
       "photo": "assets/img/placeholders/staff-ms-nuraisyah-azman.png",
       "video": null,
-      "_note": "No bio body on live site; only credential line."
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
     },
     {
       "id": "mrs-nur-ain-nabila",
@@ -118,11 +134,11 @@
       "role": "Administrator",
       "credentials": ["Bachelor of Business Administration and Finance, Universiti Teknologi MARA (UiTM)"],
       "greeting": "Hi, I'm Nur Ain",
-      "personalLine": "[PERSONAL LINE TBD]",
-      "bio": null,
+      "personalLine": "I'm usually the first voice you hear on the phone — I try to make that first call feel a little less heavy.",
+      "bio": "Centre administrator with a background in business and finance from UiTM. Handles bookings, scheduling, and the dozens of small things that keep the centre running. Often the first point of contact for new families.",
       "photo": "assets/img/placeholders/staff-mrs-nur-ain-nabila.png",
       "video": null,
-      "_note": "No bio body on live site; only credential line."
+      "_note": "No bio body on live site; only credential line. Bio is drafted (see _draft map)."
     }
   ]
 }

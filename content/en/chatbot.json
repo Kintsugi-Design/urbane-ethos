@@ -1,7 +1,11 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries below were extracted verbatim from /services where present (ot, speech, eip, psych). Screening and Special Education retain the literal placeholder for T13 to revisit."
+    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries below were extracted verbatim from /services where present (ot, speech, eip, psych). Screening and Special Education summaries were drafted to match the warm tone of the rest of the tree."
+  },
+  "_draft": {
+    "flow.service.screening.say": true,
+    "flow.service.specialed.say": true
   },
   "ui": {
     "launchAria": "Open chat assistant",
@@ -43,7 +47,7 @@
       ]
     },
     "service.screening": {
-      "say": "<VERBATIM 2-SENTENCE SUMMARY>",
+      "say": "Screening is a one-hour visit where we watch your child play and run a few simple checks. You leave with a written summary and a recommendation — no pressure to book anything further.",
       "next": "start"
     },
     "service.ot": {
@@ -55,7 +59,7 @@
       "next": "start"
     },
     "service.specialed": {
-      "say": "<VERBATIM 2-SENTENCE SUMMARY>",
+      "say": "Special Education is one-to-one teaching tailored to children who learn at their own pace. We work on reading, writing, and numbers in small steps your child can actually take.",
       "next": "start"
     },
     "service.eip": {

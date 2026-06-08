@@ -3,10 +3,18 @@
     "scrapedAt": "2026-06-08",
     "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent')."
   },
+  "_draft": {
+    "hero.subtitle": true,
+    "services.items.3.blurb": true,
+    "staffFeatured.0.personalLine": true,
+    "staffFeatured.1.personalLine": true,
+    "staffFeatured.2.personalLine": true,
+    "events.blurb": true
+  },
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Urbane Ethos Early Intervention Center",
-    "subtitle": null,
+    "subtitle": "For families finding their way. Speech, motor, learning, behaviour — supported by people who listen first.",
     "primaryCta": "Find Out More",
     "secondaryCta": "Watch our intro"
   },
@@ -51,8 +59,8 @@
       {
         "key": "specialed",
         "title": "Special Education",
-        "blurb": null,
-        "_note": "Special Education has no standalone description on services page; covered within the EIP programs."
+        "blurb": "One-to-one teaching for children who learn at their own pace. We meet your child where they are and build from there.",
+        "_note": "Special Education has no standalone description on services page; covered within the EIP programs. Blurb is drafted (see _draft map)."
       },
       {
         "key": "eip",
@@ -77,25 +85,25 @@
   "staffFeatured": [
     {
       "id": "dr-norizan-rajak",
-      "greeting": "Hi, I'm Dr. Norizan",
-      "personalLine": "[PERSONAL LINE TBD]"
+      "greeting": "Hi, I'm Norizan",
+      "personalLine": "I came home from Syracuse to build the kind of centre I wished existed when I was a young researcher in linguistics."
     },
     {
       "id": "ms-liyana-tarmizi",
       "greeting": "Hi, I'm Liyana",
-      "personalLine": "[PERSONAL LINE TBD]"
+      "personalLine": "I sit with families through the hardest questions first, before we talk about anything else."
     },
     {
       "id": "mrs-norizzati-afiqah",
       "greeting": "Hi, I'm Norizzati",
-      "personalLine": "[PERSONAL LINE TBD]"
+      "personalLine": "I've spent over a decade with kids who needed someone to slow down and notice what they could already do."
     }
   ],
   "events": {
     "heading": "EVENTS",
-    "blurb": null,
+    "blurb": "We run small parent workshops, sibling support sessions, and quiet sensory-friendly meetups through the year. Topics shift with what families are asking us about.",
     "cta": "Get in touch",
-    "_note": "Events section heading exists on home, but no event details / blurb are present on the live site."
+    "_note": "Events section heading exists on home, but no event details / blurb are present on the live site. Blurb is drafted (see _draft map)."
   },
   "recommendedRail": {
     "heading": "Recommended for you",
