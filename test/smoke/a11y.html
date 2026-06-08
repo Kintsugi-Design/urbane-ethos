@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>a11y smoke</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main" class="wrap">
+  <h1>a11y smoke</h1>
+  <p>Body text scales with the toggle.</p>
+  <button class="btn btn--secondary" data-fs-cycle aria-label="Text size">A&#8597;</button>
+  <ul id="assertions"></ul>
+</main>
+<script type="module">
+import { cycleFontSize } from "/assets/js/a11y.js";
+const log = msg => {
+  const li = document.createElement("li");
+  li.textContent = msg;
+  document.getElementById("assertions").append(li);
+};
+log(`Initial data-fs: ${document.documentElement.dataset.fs}`);
+const first = cycleFontSize();
+log(`After cycle 1: data-fs=${document.documentElement.dataset.fs} (expected ${first})`);
+const second = cycleFontSize();
+log(`After cycle 2: data-fs=${document.documentElement.dataset.fs} (expected ${second})`);
+</script>
+</body>
+</html>
