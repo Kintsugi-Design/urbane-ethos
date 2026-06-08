@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>consent smoke</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+</head>
+<body>
+<main class="wrap">
+<h1>Consent smoke</h1>
+<button class="btn btn--secondary" data-consent-manage>Manage cookies</button>
+<ul id="log"></ul>
+</main>
+<script type="module">
+import "/assets/js/i18n.js";
+import { readConsent, isAllowed } from "/assets/js/consent.js";
+
+const log = (m) => { const li = document.createElement("li"); li.textContent = m; document.getElementById("log").append(li); };
+
+document.addEventListener("consent:changed", e => {
+  log(`consent saved: analytics=${e.detail.analytics} personalization=${e.detail.personalization} chatbot=${e.detail.chatbot}`);
+  log(`isAllowed("analytics"): ${isAllowed("analytics")}`);
+});
+
+log("Initial consent: " + JSON.stringify(readConsent()));
+</script>
+</body>
+</html>
