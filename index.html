@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en" data-fs="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Urbane Ethos — Early Intervention Center</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/motion.css">
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/">
+      <span>Urbane Ethos</span>
+      <small data-i18n="home.hero.title">Early Intervention Center</small>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="/about.html" data-i18n="common.nav.about">About</a></li>
+        <li><a href="/staff.html" data-i18n="common.nav.staff">Staff</a></li>
+        <li><a href="/services.html" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="/blog.html" data-i18n="common.nav.blog">Blog</a></li>
+        <li><a href="/contact.html" data-i18n="common.nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      <span class="locale-toggle" aria-label="Language">
+        <button data-locale-set="en">EN</button>
+        <button data-locale-set="ms">BM</button>
+      </span>
+      <button class="fs-toggle" data-fs-cycle aria-label="Text size">A&#x2195;</button>
+      <a class="btn btn--primary" href="/contact.html" data-i18n="common.cta.bookSession">Book Now</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="home.hero.eyebrow">Urbane Ethos</p>
+      <h1 data-i18n="home.hero.title">Early Intervention Center</h1>
+      <p class="lede" data-i18n="home.hero.subtitle">Subtitle</p>
+      <div class="cta-row">
+        <a class="btn btn--primary" href="/services.html" data-i18n="home.hero.primaryCta">Find Out More</a>
+        <button class="btn btn--secondary" data-i18n="home.hero.secondaryCta">Watch our intro</button>
+      </div>
+    </div>
+  </section>
+
+  <!--
+    Personalization micro-survey.
+    NOTE: the radio `value` attributes are rendered from the active locale's
+    `concernOptions` array. The personalization rules table in
+    /assets/js/personalization.js is keyed off the canonical EN strings
+    ("Speech", "Motor skills", etc.), so rule-matching only fires reliably
+    when the user is on EN. When BM is active, the survey still records the
+    selection but recommendations/reorder may not match. Acceptable for
+    prototype scope.
+  -->
+  <section class="section">
+    <div class="wrap">
+      <form data-personalize-form class="personalization-card" hidden>
+        <h2 data-i18n="home.personalization.heading">Tell us a little about your child</h2>
+        <p data-i18n="home.personalization.subheading">Skip if you'd rather browse on your own.</p>
+        <fieldset class="personalization-row">
+          <legend data-i18n="home.personalization.ageLabel">Child's age</legend>
+          <div class="personalization-chips" data-personalize-chips="age"></div>
+        </fieldset>
+        <fieldset class="personalization-row">
+          <legend data-i18n="home.personalization.concernLabel">Main area of concern</legend>
+          <div class="personalization-chips" data-personalize-chips="concern"></div>
+        </fieldset>
+        <fieldset class="personalization-row">
+          <legend data-i18n="home.personalization.stageLabel">Where are you in your journey?</legend>
+          <div class="personalization-chips" data-personalize-chips="stage"></div>
+        </fieldset>
+        <div class="cta-row">
+          <button class="btn btn--primary" data-i18n="home.personalization.submit">Show me what's relevant</button>
+          <button type="button" class="btn btn--ghost" data-personalize-skip data-i18n="home.personalization.skip">Skip</button>
+        </div>
+        <p data-personalize-feedback hidden>Saved.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <h2 data-i18n="home.location.title">Visit us</h2>
+      <p data-i18n="home.location.address"></p>
+      <ul id="home-hours"></ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 data-i18n="home.services.heading">How we can help</h2>
+      <div class="grid-3" data-services-grid id="home-services"></div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap" style="max-width:var(--content-max)">
+      <p class="section-eyebrow">A word from a parent</p>
+      <blockquote style="font-family:var(--font-serif);font-size:1.5rem;line-height:1.4" data-i18n="home.testimonial.quote">[quote]</blockquote>
+      <p style="color:var(--color-ink-muted)" data-i18n="home.testimonial.attribution">[attribution]</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" style="max-width:var(--content-max)">
+      <h2 data-i18n="home.whatWeDo.heading">What can we do for you?</h2>
+      <p data-i18n="home.whatWeDo.body"></p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <h2>Meet the people who'll be there</h2>
+      <div class="staff-grid" id="home-staff"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 data-i18n="home.events.heading">Events</h2>
+      <p data-i18n="home.events.blurb"></p>
+      <a class="btn btn--secondary" href="/contact.html" data-i18n="home.events.cta">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="recommended" hidden>
+    <div class="wrap">
+      <p class="section-eyebrow" data-i18n="home.recommendedRail.subheading"></p>
+      <h2 data-i18n="home.recommendedRail.heading">Recommended for you</h2>
+      <div class="grid-3" id="recommended-grid"></div>
+      <p><a href="#" data-personalize-reset data-i18n="home.recommendedRail.resetLabel">Reset preferences</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 data-i18n="home.blog.heading">From the blog</h2>
+      <div class="grid-3" id="home-blog"></div>
+      <p><a href="/blog.html" data-i18n="home.blog.viewAll">View all articles</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap grid">
+    <div>
+      <h4>Address</h4>
+      <p data-i18n="common.footer.address"></p>
+      <p data-i18n="common.footer.phone1"></p>
+    </div>
+    <div>
+      <h4 data-i18n="common.footer.hoursLabel">Hours</h4>
+      <ul id="footer-hours"></ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/services.html" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="/staff.html" data-i18n="common.nav.staff">Staff</a></li>
+        <li><a href="/blog.html" data-i18n="common.nav.blog">Blog</a></li>
+        <li><a href="/contact.html" data-i18n="common.nav.contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Privacy</h4>
+      <ul>
+        <li><a href="/privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
+        <li><a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a></li>
+        <li><a href="/analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot">&#x1F4AC;</button>
+
+<script type="module">
+import { getLocale, translatePage } from "/assets/js/i18n.js";
+import "/assets/js/consent.js";
+import "/assets/js/a11y.js";
+import { isAllowed } from "/assets/js/consent.js";
+import { read as readPers, recommendedBlog, recommendedStaffId } from "/assets/js/personalization.js";
+import "/assets/js/personalization.js";
+import "/assets/js/chatbot.js";
+
+async function fetchJson(path) { return (await fetch(path)).json(); }
+
+async function renderHome() {
+  const locale = getLocale();
+  const [home, common, blog, staff] = await Promise.all([
+    fetchJson(`/content/${locale}/home.json`),
+    fetchJson(`/content/${locale}/common.json`),
+    fetchJson(`/content/blog.json`),
+    fetchJson(`/content/${locale}/staff.json`)
+  ]);
+
+  // Hours lists
+  const fmtUl = (sel, items) => {
+    const ul = document.querySelector(sel);
+    if (!ul || !Array.isArray(items)) return;
+    ul.replaceChildren(...items.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
+  };
+  fmtUl("#home-hours", home.location?.hours);
+  fmtUl("#footer-hours", common.footer?.hours);
+
+  // Personalization chips (rendered from active locale's option text)
+  const chips = (group, opts) => {
+    const wrap = document.querySelector(`[data-personalize-chips="${group}"]`);
+    if (!wrap || !Array.isArray(opts)) return;
+    wrap.replaceChildren();
+    opts.forEach((opt, i) => {
+      const label = document.createElement("label");
+      label.className = "chip-pill";
+      label.innerHTML = `<input type="radio" name="${group}" value="${opt}" ${i === 0 ? "checked" : ""} class="visually-hidden"> ${opt}`;
+      wrap.append(label);
+    });
+  };
+  chips("age", home.personalization?.ageOptions);
+  chips("concern", home.personalization?.concernOptions);
+  chips("stage", home.personalization?.stageOptions);
+
+  // Show survey only if personalization consent allowed
+  const surveyForm = document.querySelector("[data-personalize-form]");
+  if (surveyForm) surveyForm.hidden = !isAllowed("personalization");
+
+  // Services grid
+  const svcGrid = document.getElementById("home-services");
+  if (svcGrid && home.services?.items) {
+    svcGrid.replaceChildren(...home.services.items.map(item => {
+      const a = document.createElement("a");
+      a.href = "/services.html#" + item.key;
+      a.className = "card";
+      a.dataset.serviceKey = item.key;
+      a.innerHTML = `<h3>${item.title}</h3><p>${item.blurb ?? ""}</p>`;
+      return a;
+    }));
+  }
+
+  // Staff featured cards (home.json gives id+greeting+personalLine, staff.json gives name+role+photo)
+  const homeStaff = document.getElementById("home-staff");
+  if (homeStaff && Array.isArray(home.staffFeatured)) {
+    homeStaff.replaceChildren(...home.staffFeatured.map(f => {
+      const m = (staff.members || []).find(x => x.id === f.id) || { name: f.id, role: "", photo: "/assets/img/staff-placeholder.png" };
+      const initials = m.name.split(/\s+/).filter(Boolean).map(s => s[0]).slice(0, 2).join("");
+      const card = document.createElement("article");
+      card.className = "staff-card";
+      card.innerHTML = `
+        <div class="staff-photo" role="img" aria-label="${m.name}">${initials}</div>
+        <div class="staff-body">
+          <p class="staff-greeting">${f.greeting}</p>
+          <p class="staff-role">${m.role}</p>
+          <p>${f.personalLine}</p>
+        </div>`;
+      return card;
+    }));
+  }
+
+  // Recommended rail (only if personalization data present)
+  const pers = readPers();
+  const recommended = document.getElementById("recommended");
+  if (recommended) {
+    if (pers?.concern) {
+      recommended.hidden = false;
+      const recBlog = recommendedBlog(blog.posts || []);
+      const recStaffId = recommendedStaffId();
+      const recStaff = (staff.members || []).find(m => m.id === recStaffId);
+      const recGrid = document.getElementById("recommended-grid");
+      recGrid.replaceChildren();
+      recBlog.forEach(p => {
+        const a = document.createElement("a");
+        a.href = p.externalUrl;
+        a.className = "card";
+        a.innerHTML = `<h3>${p.title}</h3><p>${p.excerpt}</p>`;
+        recGrid.append(a);
+      });
+      if (recStaff) {
+        const a = document.createElement("a");
+        a.href = "/staff.html#" + recStaff.id;
+        a.className = "card";
+        a.innerHTML = `<h3>${recStaff.name}</h3><p>${recStaff.role}</p>`;
+        recGrid.append(a);
+      }
+    } else {
+      recommended.hidden = true;
+    }
+  }
+
+  // Blog (3 latest)
+  const blogWrap = document.getElementById("home-blog");
+  if (blogWrap && Array.isArray(blog.posts)) {
+    blogWrap.replaceChildren(...blog.posts.slice(0, 3).map(p => {
+      const a = document.createElement("a");
+      a.href = p.externalUrl;
+      a.className = "card";
+      a.innerHTML = `<small>${p.date} &middot; ${p.category}</small><h3>${p.title}</h3><p>${p.excerpt}</p>`;
+      return a;
+    }));
+  }
+
+  await translatePage(locale);
+}
+
+renderHome();
+document.addEventListener("i18n:changed", renderHome);
+document.addEventListener("personalization:changed", renderHome);
+document.addEventListener("personalization:reset", renderHome);
+document.addEventListener("consent:changed", renderHome);
+</script>
+</body>
+</html>
