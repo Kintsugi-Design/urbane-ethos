@@ -3,6 +3,9 @@
     "scrapedAt": "2026-06-08",
     "_note": "Live services page does not split content into 'whatItIs / whoItsFor / whatToExpect' sub-fields per service; mapped existing bullets/paragraphs into the closest field. No FAQs are present for any service on the live site; faqs[] are empty arrays. The live site lumps EIP into two age-banded sub-programs (Beginners 2-5, Intermediate 6-8); we keep one 'eip' entry that consolidates both."
   },
+  "_correction": {
+    "items.0.whatItIs": "fixed typo 'Patholigist' → 'Pathologist' (source typo on live site)"
+  },
   "_draft": {
     "items.0.whoItsFor": true,
     "items.0.whatToExpect": true,
@@ -29,7 +32,7 @@
       "key": "screening",
       "title": "Screening or Assessment",
       "icon": "screening",
-      "whatItIs": "Observation of the children at school or at home during playtime. Full assessment of child's language development stages. Referral report to identified paediatrician, child psychologist, and Speech Language Patholigist (SLP). Referral services and counselling.",
+      "whatItIs": "Observation of the children at school or at home during playtime. Full assessment of child's language development stages. Referral report to identified paediatrician, child psychologist, and Speech Language Pathologist (SLP). Referral services and counselling.",
       "whoItsFor": "Families who've noticed something — a delay, a difference, a question they can't quite name — and want a clearer picture before deciding what to do next. Usually for children aged 2 to 8.",
       "whatToExpect": "A first visit lasts about an hour. We watch your child play, ask you what you've noticed at home, and run a few simple language and developmental checks. You leave with a written summary and a recommendation, not a sales pitch.",
       "faqs": [

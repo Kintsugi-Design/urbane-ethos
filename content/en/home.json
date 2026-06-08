@@ -14,7 +14,7 @@
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Urbane Ethos Early Intervention Center",
-    "subtitle": "For families finding their way. Speech, motor, learning, behaviour — supported by people who listen first.",
+    "subtitle": "Speech, motor, learning, behaviour. A small Shah Alam team working alongside families since 2005.",
     "primaryCta": "Find Out More",
     "secondaryCta": "Watch our intro"
   },
@@ -25,7 +25,7 @@
     "ageOptions": ["0–2", "3–5", "6–9", "10+"],
     "concernLabel": "Main area of concern",
     "concernOptions": ["Speech", "Motor skills", "Behaviour", "Learning", "Not sure"],
-    "stageLabel": "Where are you in your journey?",
+    "stageLabel": "What stage are you at?",
     "stageOptions": ["Just exploring", "Looking to assess", "Ready to book"],
     "submit": "Show me what's relevant",
     "skip": "Skip"
@@ -101,7 +101,7 @@
   ],
   "events": {
     "heading": "EVENTS",
-    "blurb": "We run small parent workshops, sibling support sessions, and quiet sensory-friendly meetups through the year. Topics shift with what families are asking us about.",
+    "blurb": "We run small parent workshops and quiet sensory-friendly meetups through the year. Topics shift with what families are asking us about.",
     "cta": "Get in touch",
     "_note": "Events section heading exists on home, but no event details / blurb are present on the live site. Blurb is drafted (see _draft map)."
   },
