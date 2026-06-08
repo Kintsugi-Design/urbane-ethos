@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" data-fs="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-i18n="contact.hero.title">Contact — Urbane Ethos</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/motion.css">
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/">
+      <span>Urbane Ethos</span>
+      <small data-i18n="home.hero.title">Early Intervention Center</small>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="/about.html" data-i18n="common.nav.about">About</a></li>
+        <li><a href="/staff.html" data-i18n="common.nav.staff">Staff</a></li>
+        <li><a href="/services.html" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="/blog.html" data-i18n="common.nav.blog">Blog</a></li>
+        <li><a href="/contact.html" aria-current="page" data-i18n="common.nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      <span class="locale-toggle" aria-label="Language">
+        <button data-locale-set="en">EN</button>
+        <button data-locale-set="ms">BM</button>
+      </span>
+      <button class="fs-toggle" data-fs-cycle aria-label="Text size">A&#x2195;</button>
+      <a class="btn btn--primary" href="/contact.html" data-i18n="common.cta.bookSession">Book Now</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero"><div class="wrap"><h1 data-i18n="contact.hero.title">Get in touch</h1><p class="lede" data-i18n="contact.hero.subtitle"></p></div></section>
+  <section class="section">
+    <div class="wrap grid-2">
+      <div>
+        <h2 data-i18n="contact.address.heading">Our centre</h2>
+        <address>
+          <p><span data-i18n="contact.address.line1"></span><br><span data-i18n="contact.address.line2"></span></p>
+        </address>
+        <ul id="contact-phones"></ul>
+        <ul id="contact-hours"></ul>
+        <iframe id="map" loading="lazy" title="Map of Urbane Ethos centre" width="100%" height="260" style="border:0;border-radius:var(--radius-2);" hidden></iframe>
+      </div>
+      <div>
+        <h2 data-i18n="contact.form.heading">Send us a message</h2>
+        <p data-i18n="contact.form.subheading"></p>
+        <form id="contact-form" novalidate>
+          <div class="form-field">
+            <label for="cf-name" data-i18n="contact.form.fields.nameLabel">Your name</label>
+            <input id="cf-name" name="name" required data-i18n-attr="placeholder:contact.form.fields.namePlaceholder">
+            <p class="form-error" id="cf-name-err" hidden data-i18n="contact.form.errors.nameRequired"></p>
+          </div>
+          <div class="form-field">
+            <label for="cf-email" data-i18n="contact.form.fields.emailLabel">Email</label>
+            <input id="cf-email" name="email" type="email" required data-i18n-attr="placeholder:contact.form.fields.emailPlaceholder">
+            <p class="form-error" id="cf-email-err" hidden data-i18n="contact.form.errors.emailRequired"></p>
+          </div>
+          <div class="form-field">
+            <label for="cf-phone" data-i18n="contact.form.fields.phoneLabel">Phone (optional)</label>
+            <input id="cf-phone" name="phone" type="tel" data-i18n-attr="placeholder:contact.form.fields.phonePlaceholder">
+          </div>
+          <div class="form-field">
+            <label for="cf-concern" data-i18n="contact.form.fields.concernLabel">What's on your mind?</label>
+            <textarea id="cf-concern" name="concern" rows="5" required data-i18n-attr="placeholder:contact.form.fields.concernPlaceholder"></textarea>
+            <p class="form-error" id="cf-concern-err" hidden data-i18n="contact.form.errors.concernRequired"></p>
+          </div>
+          <div class="form-field">
+            <label for="cf-tellmore" data-i18n="contact.form.fields.tellUsMoreLabel">Anything else we should know? (Optional)</label>
+            <textarea id="cf-tellmore" name="tellmore" rows="3" data-i18n-attr="placeholder:contact.form.fields.tellUsMorePlaceholder"></textarea>
+          </div>
+          <button class="btn btn--primary" data-i18n="contact.form.fields.submit">Send</button>
+        </form>
+        <p style="margin-top:var(--space-4)"><small data-i18n="contact.form.successNote"></small></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap" style="max-width:var(--content-max)">
+      <h2 data-i18n="contact.chatbotCta.heading">Prefer to chat?</h2>
+      <p data-i18n="contact.chatbotCta.body"></p>
+      <button class="btn btn--primary chatbot-launcher-inline" data-i18n="contact.chatbotCta.button">Chat with us</button>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap grid">
+    <div>
+      <h4>Address</h4>
+      <p data-i18n="common.footer.address"></p>
+      <p data-i18n="common.footer.phone1"></p>
+    </div>
+    <div>
+      <h4 data-i18n="common.footer.hoursLabel">Hours</h4>
+      <ul id="footer-hours"></ul>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/services.html" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="/staff.html" data-i18n="common.nav.staff">Staff</a></li>
+        <li><a href="/blog.html" data-i18n="common.nav.blog">Blog</a></li>
+        <li><a href="/contact.html" data-i18n="common.nav.contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Privacy</h4>
+      <ul>
+        <li><a href="/privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
+        <li><a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a></li>
+        <li><a href="/analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot">&#x1F4AC;</button>
+
+<script type="module">
+import { getLocale, translatePage } from "/assets/js/i18n.js";
+import "/assets/js/consent.js";
+import "/assets/js/a11y.js";
+import "/assets/js/chatbot.js";
+
+async function renderContact() {
+  const locale = getLocale();
+  const [data, common] = await Promise.all([
+    fetch(`/content/${locale}/contact.json`).then(r => r.json()),
+    fetch(`/content/${locale}/common.json`).then(r => r.json())
+  ]);
+
+  const fhrs = document.getElementById("footer-hours");
+  if (fhrs) fhrs.replaceChildren(...(common.footer?.hours || []).map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
+
+  const ul = (sel, items, fn) => {
+    const el = document.querySelector(sel);
+    if (el) el.replaceChildren(...items.map(fn));
+  };
+  ul("#contact-phones", data.phones || [], p => {
+    const li = document.createElement("li");
+    li.innerHTML = `${p.label}: <a href="tel:${p.number.replace(/\s/g,"")}">${p.number}</a>`;
+    return li;
+  });
+  ul("#contact-hours", data.hours || [], s => { const li = document.createElement("li"); li.textContent = s; return li; });
+
+  const map = document.getElementById("map");
+  if (data.address?.mapEmbedSrc) {
+    map.src = data.address.mapEmbedSrc;
+    map.hidden = false;
+  } else {
+    map.hidden = true;
+  }
+
+  const form = document.getElementById("contact-form");
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    let ok = true;
+    const validate = (id, errId, cond) => {
+      const err = document.getElementById(errId);
+      err.hidden = cond;
+      document.getElementById(id).setAttribute("aria-invalid", cond ? "false" : "true");
+      if (!cond) ok = false;
+    };
+    const nameOk = form.name.value.trim().length > 0;
+    const emailOk = /\S+@\S+\.\S+/.test(form.email.value);
+    const concernOk = form.concern.value.trim().length > 0;
+    validate("cf-name", "cf-name-err", nameOk);
+    validate("cf-email", "cf-email-err", emailOk);
+    validate("cf-concern", "cf-concern-err", concernOk);
+    if (!ok) return;
+    const extra = form.tellmore.value.trim();
+    const body = encodeURIComponent(
+      `Hi Urbane Ethos,\n\n${form.concern.value}\n\n${extra ? `Also: ${extra}\n\n` : ""}— ${form.name.value} (${form.email.value}${form.phone.value ? `, ${form.phone.value}` : ""})`
+    );
+    const params = new URLSearchParams(location.search);
+    const subject = params.get("service") ? `Enquiry%20about%20${encodeURIComponent(params.get("service"))}` : "Enquiry%20from%20website";
+    location.href = `mailto:info@urbaneethos.center?subject=${subject}&body=${body}`;
+  });
+
+  document.querySelector(".chatbot-launcher-inline")?.addEventListener("click", () => document.querySelector(".chatbot-launcher")?.click());
+  await translatePage(locale);
+}
+renderContact();
+document.addEventListener("i18n:changed", renderContact);
+</script>
+</body>
+</html>
