@@ -1,0 +1,109 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent')."
+  },
+  "hero": {
+    "eyebrow": "Urbane Ethos",
+    "title": "Urbane Ethos Early Intervention Center",
+    "subtitle": null,
+    "primaryCta": "Find Out More",
+    "secondaryCta": "Watch our intro"
+  },
+  "personalization": {
+    "heading": "Tell us a little about your child",
+    "subheading": "Skip if you'd rather browse on your own.",
+    "ageLabel": "Child's age",
+    "ageOptions": ["0–2", "3–5", "6–9", "10+"],
+    "concernLabel": "Main area of concern",
+    "concernOptions": ["Speech", "Motor skills", "Behaviour", "Learning", "Not sure"],
+    "stageLabel": "Where are you in your journey?",
+    "stageOptions": ["Just exploring", "Looking to assess", "Ready to book"],
+    "submit": "Show me what's relevant",
+    "skip": "Skip"
+  },
+  "location": {
+    "title": "Visit us",
+    "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "hours": [
+      "Monday: 12PM – 6PM",
+      "Tuesday – Saturday: 9AM – 6PM"
+    ]
+  },
+  "services": {
+    "heading": "OUR SERVICES",
+    "items": [
+      {
+        "key": "screening",
+        "title": "Screening or Assessment",
+        "blurb": "Observation of the children at school or at home during playtime. Full assessment of child's language development stages."
+      },
+      {
+        "key": "ot",
+        "title": "Occupational Therapy",
+        "blurb": "Paediatric occupational therapy focuses on helping children develop the skills they need to grow into functional, independent adults."
+      },
+      {
+        "key": "speech",
+        "title": "Speech Therapy",
+        "blurb": "Speech therapists handle speech issues such as stuttering or lisps, as well as helping other kinds of problems with spoken and written language such as dyslexia, dyspraxia, and auditory processing disorder."
+      },
+      {
+        "key": "specialed",
+        "title": "Special Education",
+        "blurb": null,
+        "_note": "Special Education has no standalone description on services page; covered within the EIP programs."
+      },
+      {
+        "key": "eip",
+        "title": "Early Intervention Program",
+        "blurb": "Therapy-based group program conducted daily by our certified Occupational Therapist, Speech Therapist/Clinical Linguist as well as our Special Education Teacher."
+      },
+      {
+        "key": "psych",
+        "title": "Clinical Psychology",
+        "blurb": "Clinical psychologists meet with clients to identify problems - emotional, mental, and behavioural - in their lives. Through observation, interviews, and tests, the psychologist will diagnose any existing or potential disorders."
+      }
+    ]
+  },
+  "testimonial": {
+    "quote": "Yes. They are very helpful during and after sessions. therapists can further help to explain what can be done to assist the patient in meeting a specific target /milestone/goal for the next session. A checklist would be great to help parents to monitor the progress of the patient.",
+    "attribution": "En S, Parent"
+  },
+  "whatWeDo": {
+    "heading": "What can we do for you?",
+    "body": "Urbane Ethos Early Intervention Center provides early intervention for language and speech disorders, motor, cognitive and learning disabilities. We provide 1. Individualized one-to-one therapy sessions and group sessions along with parent consultations and discussions with therapists 2. Parent and Teacher Training, Seminars, and Workshops 3. Assessments and Screening programs in-clinic and to schools by trained and certified allied health professionals"
+  },
+  "staffFeatured": [
+    {
+      "id": "dr-norizan-rajak",
+      "greeting": "Hi, I'm Dr. Norizan",
+      "personalLine": "[PERSONAL LINE TBD]"
+    },
+    {
+      "id": "ms-liyana-tarmizi",
+      "greeting": "Hi, I'm Liyana",
+      "personalLine": "[PERSONAL LINE TBD]"
+    },
+    {
+      "id": "mrs-norizzati-afiqah",
+      "greeting": "Hi, I'm Norizzati",
+      "personalLine": "[PERSONAL LINE TBD]"
+    }
+  ],
+  "events": {
+    "heading": "EVENTS",
+    "blurb": null,
+    "cta": "Get in touch",
+    "_note": "Events section heading exists on home, but no event details / blurb are present on the live site."
+  },
+  "recommendedRail": {
+    "heading": "Recommended for you",
+    "subheading": "Based on what you shared earlier",
+    "resetLabel": "Reset preferences"
+  },
+  "blog": {
+    "heading": "BLOG",
+    "viewAll": "View all articles"
+  }
+}

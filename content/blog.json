@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "_note": "4 blog posts found on /blog. categories[] taken from live filter labels (trimmed to spec's broad buckets where they map cleanly; full live filter list noted in _meta.liveFilters)."
+  },
+  "hero": { "title": "From the blog" },
+  "categories": ["All", "Parenting", "Career", "Development", "Speech"],
+  "posts": [
+    {
+      "id": "anak-dah-masuk-sekolah",
+      "title": "Anak Dah Masuk Sekolah! Tips Mengekalkan Minat Anak ke Sekolah Daripada Pakar Klinikal Psikologi",
+      "date": "2025-03-13",
+      "category": "Parenting",
+      "excerpt": "Apabila anak sudah mula bersekolah, cabaran seterusnya bagi ibu bapa ialah mengekalkan semangat dan minat mereka untuk terus belajar dan...",
+      "thumbnail": "assets/img/scraped/blog-anak-dah-masuk-sekolah.webp",
+      "tags": ["urbaneethos", "Parenting Workshop"],
+      "externalUrl": "https://www.urbaneethos.center/post/anak-dah-masuk-sekolah-tips-mengekalkan-minat-anak-ke-sekolah-daripada-pakar-klinikal-psikologi"
+    },
+    {
+      "id": "a-fulfilling-career-awaits",
+      "title": "A Fulfilling Career Awaits: Join Us as a Special Education Teacher!",
+      "date": "2025-01-23",
+      "category": "Career",
+      "excerpt": "Are you passionate about making a difference in the lives of neurodiverse children and individuals with special needs? Do you thrive in a...",
+      "thumbnail": "assets/img/scraped/blog-a-fulfilling-career-awaits.jpg",
+      "tags": ["urbaneethos", "special needs"],
+      "externalUrl": "https://www.urbaneethos.center/post/a-fulfilling-career-awaits-join-us-as-a-special-education-teacher"
+    },
+    {
+      "id": "what-does-sensory-have-to-do-with-my-feelings",
+      "title": "What does Sensory have to do with my feelings?",
+      "date": "2024-11-04",
+      "category": "Development",
+      "excerpt": "Sensory processing and emotional regulation are deeply interconnected aspects of human development, and together they play a significant...",
+      "thumbnail": "assets/img/scraped/blog-what-does-sensory-have-to-do-with-my-feelings.webp",
+      "tags": ["urbaneethos", "occupational therapy", "development"],
+      "externalUrl": "https://www.urbaneethos.center/post/what-does-sensory-have-to-do-with-my-feelings"
+    },
+    {
+      "id": "an-opportunity-to-learn-grow",
+      "title": "An Opportunity to Learn & Grow: On the Search for Speech-Language Therapists",
+      "date": "2024-06-28",
+      "category": "Career",
+      "excerpt": "Are you passionate about making a difference in people's lives? We're excited to welcome fresh graduates and experienced professionals to...",
+      "thumbnail": "assets/img/scraped/blog-an-opportunity-to-learn-grow.webp",
+      "tags": ["urbaneethos", "speech therapy"],
+      "externalUrl": "https://www.urbaneethos.center/post/an-opportunity-to-learn-grow-on-the-search-for-speech-language-therapists"
+    }
+  ],
+  "featured": [
+    "anak-dah-masuk-sekolah",
+    "what-does-sensory-have-to-do-with-my-feelings",
+    "a-fulfilling-career-awaits"
+  ]
+}

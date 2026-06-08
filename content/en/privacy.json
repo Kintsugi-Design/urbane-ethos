@@ -1,0 +1,65 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "lastUpdated": "2026-06-08",
+    "version": "0.1-prototype",
+    "_note": "10-section PDPA privacy notice scaffold. Live site has no privacy notice today; every body here is drafted (_draft: true) and must be reviewed by Malaysian counsel before production launch."
+  },
+  "header": {
+    "title": "Privacy notice",
+    "lastUpdated": "Last updated: 8 June 2026",
+    "disclaimer": "Prototype-grade notice. Must be reviewed by Malaysian counsel before production launch."
+  },
+  "sections": [
+    {
+      "heading": "Who we are",
+      "body": "Urbane Ethos Early Intervention Center, 4 Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam. Contact: +603-7734 3044.",
+      "_draft": true
+    },
+    {
+      "heading": "Data we collect",
+      "body": "We may collect five categories of information: (1) visitor metadata such as your IP address, browser type, and pages viewed; (2) micro-survey answers if you tell us about your child's age, concern, or stage of your journey; (3) chatbot transcripts if you converse with our assistant; (4) contact-form submissions including your name, email, phone, and message; (5) cookies and similar browser storage used to remember your language, text size, and consent choices.",
+      "_draft": true
+    },
+    {
+      "heading": "Why we collect it",
+      "body": "We use this information to operate and improve the site, to reply to your enquiries, to make personalized recommendations if you opt in, and to understand which content is helpful so we can produce more of it. We do not sell your data.",
+      "_draft": true
+    },
+    {
+      "heading": "Sensitive personal data",
+      "body": "If you tell us about your child's developmental concerns through the survey or chatbot, that is sensitive personal data under the PDPA. We only collect it with your explicit consent, store it on devices and systems you have granted us access to, and never share it outside our care team.",
+      "_draft": true
+    },
+    {
+      "heading": "Retention",
+      "body": "Session data is cleared when you close your browser. Persistent data (if you opted in) is kept for up to 12 months unless you ask us to delete it sooner, after which it is removed from active storage within 30 days.",
+      "_draft": true
+    },
+    {
+      "heading": "Third parties",
+      "body": "We do not share your data with third parties in this prototype. In production, any third-party processors (e.g. hosting, email, analytics) will be listed here with the purposes for which they receive data.",
+      "_draft": true
+    },
+    {
+      "heading": "Your rights",
+      "body": "You can ask to see, correct, or delete any data we hold about you, and you can withdraw your consent at any time. Email us at hello@urbaneethos.center (placeholder — to be confirmed) or call +603-7734 3044.",
+      "_draft": true
+    },
+    {
+      "heading": "Withdrawing consent",
+      "body": "Open 'Manage cookies' at the bottom of any page to change your choices at any time. Turning a consent off will remove the related stored data on your next visit.",
+      "_draft": true
+    },
+    {
+      "heading": "Cookies & storage",
+      "body": "We use browser storage for: language, text size, consent state, personalization answers (if opted in), and chat history (if opted in). We do not set advertising cookies.",
+      "_draft": true
+    },
+    {
+      "heading": "Complaints",
+      "body": "If you're unhappy with how we've handled your data, please tell us first so we can put it right. You may also complain to Jabatan Perlindungan Data Peribadi (JPDP), Ministry of Communications, Malaysia.",
+      "_draft": true
+    }
+  ]
+}

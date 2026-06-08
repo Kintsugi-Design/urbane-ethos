@@ -1,0 +1,116 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries below were extracted verbatim from /services where present (ot, speech, eip, psych). Screening and Special Education retain the literal placeholder for T13 to revisit."
+  },
+  "ui": {
+    "launchAria": "Open chat assistant",
+    "panelTitle": "Urbane Ethos Assistant",
+    "subtitle": "Friendly, fast, no pressure.",
+    "inputPlaceholder": "Type a message…",
+    "send": "Send",
+    "micAria": "Speak instead of typing",
+    "ttsAria": "Read responses aloud",
+    "minimize": "Minimize",
+    "close": "Close",
+    "consentNotice": "Transcripts saved only if you opted in. Manage in footer.",
+    "transcriptHeading": "Conversation"
+  },
+  "flow": {
+    "start": {
+      "say": "Hi! I can help with bookings, services, pricing, or pass you to a human. Where would you like to start?",
+      "options": [
+        { "label": "Book a session", "next": "book" },
+        { "label": "Ask about a service", "next": "service" },
+        { "label": "Pricing indication", "next": "price.q1" },
+        { "label": "Talk to a human", "next": "human" }
+      ]
+    },
+    "book": {
+      "say": "Lovely. Tell me which service and when works for you, and we'll text you a confirmation.",
+      "input": "free",
+      "next": "human.collect"
+    },
+    "service": {
+      "say": "Which service can I tell you about?",
+      "options": [
+        { "label": "Screening", "next": "service.screening" },
+        { "label": "Occupational Therapy", "next": "service.ot" },
+        { "label": "Speech Therapy", "next": "service.speech" },
+        { "label": "Special Education", "next": "service.specialed" },
+        { "label": "Early Intervention", "next": "service.eip" },
+        { "label": "Clinical Psychology", "next": "service.psych" }
+      ]
+    },
+    "service.screening": {
+      "say": "<VERBATIM 2-SENTENCE SUMMARY>",
+      "next": "start"
+    },
+    "service.ot": {
+      "say": "Paediatric occupational therapy focuses on helping children develop the skills they need to grow into functional, independent adults. Sessions are individual or in small groups.",
+      "next": "start"
+    },
+    "service.speech": {
+      "say": "Speech therapists handle speech issues such as stuttering or lisps, as well as problems with spoken and written language. We help kids build skills one-on-one or in small groups.",
+      "next": "start"
+    },
+    "service.specialed": {
+      "say": "<VERBATIM 2-SENTENCE SUMMARY>",
+      "next": "start"
+    },
+    "service.eip": {
+      "say": "Therapy-based group program conducted daily by our certified Occupational Therapist, Speech Therapist/Clinical Linguist and Special Education Teacher. Beginners (2–5) and Intermediate (6–8) groups are available.",
+      "next": "start"
+    },
+    "service.psych": {
+      "say": "Clinical psychologists meet with clients to identify emotional, mental, and behavioural concerns through observation, interviews, and tests. We then formulate a program of treatment together.",
+      "next": "start"
+    },
+    "price.q1": {
+      "say": "Which service?",
+      "options": [
+        { "label": "Screening", "next": "price.q2", "set": { "service": "screening" } },
+        { "label": "Occupational Therapy", "next": "price.q2", "set": { "service": "ot" } },
+        { "label": "Speech Therapy", "next": "price.q2", "set": { "service": "speech" } }
+      ]
+    },
+    "price.q2": {
+      "say": "What's your child's age?",
+      "options": [
+        { "label": "0–2", "next": "price.q3", "set": { "age": "0-2" } },
+        { "label": "3–5", "next": "price.q3", "set": { "age": "3-5" } },
+        { "label": "6–9", "next": "price.q3", "set": { "age": "6-9" } },
+        { "label": "10+", "next": "price.q3", "set": { "age": "10+" } }
+      ]
+    },
+    "price.q3": {
+      "say": "How often are you thinking?",
+      "options": [
+        { "label": "One-off / assessment", "next": "price.show", "set": { "freq": "one" } },
+        { "label": "Weekly", "next": "price.show", "set": { "freq": "weekly" } },
+        { "label": "Multiple times a week", "next": "price.show", "set": { "freq": "intensive" } }
+      ]
+    },
+    "price.show": {
+      "say": "Based on that, the typical range is <RM_RANGE_PLACEHOLDER — VERIFY WITH CENTER>. Want to confirm with the team?",
+      "options": [
+        { "label": "Yes, confirm with the team", "next": "human" },
+        { "label": "Not yet", "next": "start" }
+      ]
+    },
+    "human": {
+      "say": "Of course. We'll WhatsApp you within 1 business day. What's your name and phone number?",
+      "input": "name+phone",
+      "next": "human.confirm"
+    },
+    "human.collect": {
+      "say": "Got it. To confirm, what's your name and phone number?",
+      "input": "name+phone",
+      "next": "human.confirm"
+    },
+    "human.confirm": {
+      "say": "Thanks! We'll be in touch shortly. (In this prototype, the message isn't actually sent.)",
+      "options": [{ "label": "Back to start", "next": "start" }]
+    }
+  }
+}

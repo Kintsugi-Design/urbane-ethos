@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "_note": "Live About page has no hero subtitle, no 'Mission' section (only 'Our Vision' which is mapped to mission), and no Values / 'What we stand for' section."
+  },
+  "hero": {
+    "title": "ABOUT US",
+    "subtitle": null
+  },
+  "mission": {
+    "heading": "Our vision",
+    "body": "Urbane Ethos Early Intervention Center provides individualized early intervention for language and speech disorders, developmental disorders and for learning disabilities. We provide one-to-one therapy sessions, and group sessions, parent consultations and trainings along with school screening programs. Our programs are personalized or specially catered to fit the child's abilities, goals, and interests."
+  },
+  "story": {
+    "heading": "Our story",
+    "body": "20 years of experience in providing client-centered therapy and early intervention in learning, speech, occupational therapy, physiotherapy and now clinical psychology in individual and group sessions. Urbane Ethos Early Intervention Center started up the first multi-displinary center in 2005 based in Shah Alam and has since aided children, adolescents and parents in achieving developmental milestones and overcoming their disability or disorder to achieve a greater quality of life."
+  },
+  "values": {
+    "heading": "What we stand for",
+    "items": [],
+    "_note": "No 'values' or 'What we stand for' content present on the live About page."
+  },
+  "ctas": {
+    "services": "View services",
+    "contact": "Get in touch"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "_note": "No Google Maps iframe and no contact email present on live contact page. Live contact form has 8 fields (Parent Name, Email, Phone, Child Name, Child's DOB, Diagnosis Yes/No, If yes where, What are your concerns?); we mirror our simpler 4-field structure from the spec and capture the live extras in the form._note."
+  },
+  "hero": {
+    "title": "CONTACT",
+    "subtitle": "Contact Us"
+  },
+  "address": {
+    "heading": "Our centre",
+    "line1": "4, Jalan Elektron U16/E",
+    "line2": "Denai Alam, 40160 Shah Alam",
+    "mapEmbedSrc": null,
+    "_note": "No embedded Google Maps iframe on live site."
+  },
+  "phones": [
+    { "label": "Reception", "number": "+603-7734 3044" },
+    { "label": "WhatsApp", "number": "+6013-249 0069" }
+  ],
+  "hours": [
+    "Monday: 12PM – 6PM",
+    "Tuesday – Saturday: 9AM – 6PM"
+  ],
+  "form": {
+    "heading": "Send us a message",
+    "subheading": "Or chat with us live — bottom right.",
+    "fields": {
+      "nameLabel": "Your name",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone (optional)",
+      "concernLabel": "What's on your mind?",
+      "submit": "Send",
+      "namePlaceholder": "First and last name",
+      "emailPlaceholder": "you@example.com",
+      "phonePlaceholder": "Optional — for callbacks",
+      "concernPlaceholder": "Tell us a little about your child"
+    },
+    "successNote": "Your default mail app will open with this message ready to send.",
+    "errors": {
+      "nameRequired": "Please enter your name.",
+      "emailRequired": "We need an email to reply to.",
+      "emailInvalid": "That email doesn't look right.",
+      "concernRequired": "Please tell us what we can help with."
+    },
+    "_note": "Live form additionally asks for Child Name, Child's DOB, diagnosis Yes/No, 'If yes, where?'. Our prototype keeps a leaner 4-field form per spec."
+  },
+  "chatbotCta": {
+    "heading": "Prefer to chat?",
+    "body": "Our assistant can give you a price indication in a minute or two.",
+    "button": "Chat with us"
+  }
+}

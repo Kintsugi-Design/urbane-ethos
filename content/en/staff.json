@@ -1,0 +1,128 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "_note": "9 staff members captured from live /staff page. greeting + personalLine are not present on the live site; left as stubs ([PERSONAL LINE TBD]). Bios reconstructed from rendered text on the live page; not all members have full bios on the site."
+  },
+  "hero": {
+    "title": "MEET THE TEAM",
+    "subtitle": "Our team comprises of Clinical Linguists, Occupational Therapists, Speech Therapists, Clinical Psychologists, and Special Education Teacher."
+  },
+  "members": [
+    {
+      "id": "dr-norizan-rajak",
+      "name": "Dr Norizan Binti Rajak, Ph.D",
+      "role": "Director & Clinical Linguist",
+      "credentials": ["Ph.D, Syracuse University, New York"],
+      "greeting": "Hi, I'm Dr. Norizan",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": "Clinical linguist previously based at University of Hawaii and former Linguistics lecturer at USM. Founded the first private multidisciplinary intervention center in 2005. Over 20 years of experience in language disorders and learning assessments for children with learning difficulties. Pioneered the Early Intervention Screening Program under the State of Selangor.",
+      "photo": "assets/img/scraped/staff-dr-norizan-rajak.jpg",
+      "video": null
+    },
+    {
+      "id": "nasirah-zulkifli",
+      "name": "Nasirah Binti Zulkifli, OTR/L",
+      "role": "Co-Director and Occupational Therapist",
+      "credentials": [
+        "OTR/L",
+        "Bachelor's Degree in Occupational Therapy",
+        "Certified in the Integration Primitive Reflexes",
+        "Licensed Occupational Therapist and active member of Malaysian Occupational Therapy Association (MOTA)",
+        "MAHPC(OT)02144"
+      ],
+      "greeting": "Hi, I'm Nasirah",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": "Former NGO volunteer with clinical training at Klinik Pakar UiTM, Pusat Terapi Carakerja UiTM Puncak Alam, and Hospital Selayang. Experienced with GDD, Autism, ADHD, and other syndromes.",
+      "photo": "assets/img/scraped/staff-nasirah-zulkifli.jpg",
+      "video": null
+    },
+    {
+      "id": "ms-liyana-tarmizi",
+      "name": "Ms. Liyana Binti Tarmizi",
+      "role": "Clinical Psychologist",
+      "credentials": ["MAHPC(CP)00325"],
+      "greeting": "Hi, I'm Liyana",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": "Clinical Psychology training completed at multiple hospitals and clinics. Works with diverse client populations and is experienced with emotional and behavioural difficulties and assessment of the neurodivergent population. Advocates a multidisciplinary approach for holistic care.",
+      "photo": "assets/img/placeholders/staff-ms-liyana-tarmizi.png",
+      "video": null,
+      "_note": "No photo URL captured from the live page render; using a placeholder."
+    },
+    {
+      "id": "mrs-norizzati-afiqah",
+      "name": "Mrs Norizzati Afiqah, OTR/L",
+      "role": "Head of Occupational Therapy Department",
+      "credentials": [
+        "OTR/L",
+        "Bachelor's degree in Occupational Therapy from UiTM",
+        "Member of the Malaysian Occupational Therapy Association (MOTA)"
+      ],
+      "greeting": "Hi, I'm Norizzati",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": "Over 10 years of experience working with children. Conducts assessments and occupational interventions for developmental delays, with experience in special education and Selangor screening programs.",
+      "photo": "assets/img/placeholders/staff-mrs-norizzati-afiqah.png",
+      "video": null,
+      "_note": "No photo URL captured from the live page render; using a placeholder."
+    },
+    {
+      "id": "ms-tengku-sarah-nabilah",
+      "name": "Ms Tengku Sarah Nabilah, OTR/L",
+      "role": "Occupational Therapist",
+      "credentials": ["Bachelor in Occupational Therapy, Universiti Teknologi MARA (UiTM)"],
+      "greeting": "Hi, I'm Sarah",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": null,
+      "photo": "assets/img/placeholders/staff-ms-tengku-sarah-nabilah.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line."
+    },
+    {
+      "id": "ms-emalin-nasuha-hachim",
+      "name": "Ms Emalin Nasuha Hachim",
+      "role": "Speech Therapist",
+      "credentials": ["Bachelor in Speech Language Pathology, Universiti Sains Malaysia"],
+      "greeting": "Hi, I'm Emalin",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": null,
+      "photo": "assets/img/placeholders/staff-ms-emalin-nasuha-hachim.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line."
+    },
+    {
+      "id": "ms-syahira-hassan",
+      "name": "Ms Syahira Hassan, OTR/L",
+      "role": "Occupational Therapist",
+      "credentials": ["Diploma in Occupational Therapy, Universiti Teknologi MARA (UiTM)"],
+      "greeting": "Hi, I'm Syahira",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": null,
+      "photo": "assets/img/placeholders/staff-ms-syahira-hassan.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line."
+    },
+    {
+      "id": "ms-nuraisyah-azman",
+      "name": "Ms. Nuraisyah Azman",
+      "role": "Special Education Teacher",
+      "credentials": ["Universiti Kebangsaan Malaysia (UKM)"],
+      "greeting": "Hi, I'm Nuraisyah",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": null,
+      "photo": "assets/img/placeholders/staff-ms-nuraisyah-azman.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line."
+    },
+    {
+      "id": "mrs-nur-ain-nabila",
+      "name": "Mrs Nur Ain Nabila",
+      "role": "Administrator",
+      "credentials": ["Bachelor of Business Administration and Finance, Universiti Teknologi MARA (UiTM)"],
+      "greeting": "Hi, I'm Nur Ain",
+      "personalLine": "[PERSONAL LINE TBD]",
+      "bio": null,
+      "photo": "assets/img/placeholders/staff-mrs-nur-ain-nabila.png",
+      "video": null,
+      "_note": "No bio body on live site; only credential line."
+    }
+  ]
+}

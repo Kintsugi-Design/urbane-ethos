@@ -1,0 +1,56 @@
+{
+  "_meta": { "source": "urbaneethos.center", "scrapedAt": "2026-06-08" },
+  "nav": {
+    "about": "About",
+    "staff": "Staff",
+    "services": "Services",
+    "events": "Events",
+    "blog": "Blog",
+    "contact": "Contact",
+    "more": "More",
+    "bookNow": "Book Now",
+    "skipToContent": "Skip to content",
+    "menu": "Open menu",
+    "menuClose": "Close menu"
+  },
+  "locale": {
+    "switchToEnglish": "EN",
+    "switchToMalay": "BM",
+    "currentLabel": "Current language",
+    "blogNotice": "Site navigation translates; blog articles remain in English."
+  },
+  "fontSize": {
+    "label": "Text size",
+    "values": ["A", "A+", "A++"]
+  },
+  "footer": {
+    "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "phone1": "+603-7734 3044",
+    "phone2": "+6013-249 0069",
+    "hoursLabel": "Hours",
+    "hours": [
+      "Monday: 12PM – 6PM",
+      "Tuesday – Saturday: 9AM – 6PM"
+    ],
+    "social": { "facebook": "Facebook", "instagram": "Instagram" },
+    "rights": "© Urbane Ethos Early Intervention Center",
+    "manageCookies": "Manage cookies",
+    "privacy": "Privacy notice",
+    "analyticsDemo": "Analytics demo"
+  },
+  "cta": {
+    "findOutMore": "Find Out More",
+    "bookSession": "Book a session",
+    "talkToUs": "Talk to us",
+    "viewServices": "View services",
+    "meetStaff": "Meet our team",
+    "contactUs": "Contact us"
+  },
+  "a11y": {
+    "openChatbot": "Open chat assistant",
+    "closeChatbot": "Close chat assistant",
+    "personalizationReset": "Reset personalization",
+    "playVideoPlaceholder": "Play introduction video",
+    "videoUnavailable": "Video coming soon"
+  }
+}

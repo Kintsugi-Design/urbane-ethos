@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "_note": "Scaffold copy drafted in T3 for the PDPA consent banner. Live site has no equivalent banner today; all strings here are drafted (_draft: true) and to be refined in T12."
+  },
+  "banner": {
+    "heading": "Your data choices",
+    "body": "We collect a little information to make this site work well for you. Choose what's OK.",
+    "acceptAll": "Accept all",
+    "necessaryOnly": "Necessary only",
+    "customize": "Customize",
+    "save": "Save my choices",
+    "manage": "Manage cookies",
+    "readFullNotice": "Read the full privacy notice",
+    "_draft": true
+  },
+  "toggles": {
+    "necessary": {
+      "label": "Necessary",
+      "description": "Required for the site to work — your language choice, text size, and these consent settings.",
+      "locked": "Always on",
+      "_draft": true
+    },
+    "analytics": {
+      "label": "Analytics",
+      "description": "Anonymous counts of pages viewed and buttons clicked. Helps us improve the site.",
+      "_draft": true
+    },
+    "personalization": {
+      "label": "Personalization",
+      "description": "Your answers to the 'tell us about your child' prompt. This includes sensitive personal data; explicit consent only.",
+      "_draft": true
+    },
+    "chatbot": {
+      "label": "Chat history",
+      "description": "Keep your chat transcripts between visits. Off = session only.",
+      "_draft": true
+    }
+  },
+  "ariaLive": "Cookie banner shown."
+}

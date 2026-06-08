@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "scrapedAt": "2026-06-08",
+    "_note": "Live services page does not split content into 'whatItIs / whoItsFor / whatToExpect' sub-fields per service; mapped existing bullets/paragraphs into the closest field. No FAQs are present for any service on the live site; faqs[] are empty arrays. The live site lumps EIP into two age-banded sub-programs (Beginners 2-5, Intermediate 6-8); we keep one 'eip' entry that consolidates both."
+  },
+  "hero": {
+    "title": "OUR SERVICES",
+    "subtitle": "Urbane Ethos Early Intervention Center offers language enhancement and social and cognitive stimulation intervention for typically developing children and children with special needs, school age children, and adults."
+  },
+  "items": [
+    {
+      "key": "screening",
+      "title": "Screening or Assessment",
+      "icon": "screening",
+      "whatItIs": "Observation of the children at school or at home during playtime. Full assessment of child's language development stages. Referral report to identified paediatrician, child psychologist, and Speech Language Patholigist (SLP). Referral services and counselling.",
+      "whoItsFor": null,
+      "whatToExpect": null,
+      "faqs": [],
+      "cta": "Enquire about Screening"
+    },
+    {
+      "key": "ot",
+      "title": "Occupational Therapy (OT)",
+      "icon": "ot",
+      "whatItIs": "Paediatric occupational therapy focuses on helping children develop the skills they need to grow into functional, independent adults. Physical impairment, injuries, and a host of other issues can hamper a child's ability to perform common tasks or progress normally through the stages of social or cognitive development.",
+      "whoItsFor": null,
+      "whatToExpect": "Individual or Group sessions.",
+      "faqs": [],
+      "cta": "Enquire about Occupational Therapy"
+    },
+    {
+      "key": "speech",
+      "title": "Speech Language Therapy (SLP)",
+      "icon": "speech",
+      "whatItIs": "Speech therapists handle speech issues such as stuttering or lisps, as well as helping other kinds of problems with spoken and written language such as dyslexia, dyspraxia, and auditory processing disorder. In fact, a speech therapist is more accurately called a speech-language pathologist (SLP). SLPs figure out what kind of language problem a student has. They determine what's causing it and decide on the best treatment. SLPs may help kids build skills by working with them one-on-one, in small groups, or in the classroom.",
+      "whoItsFor": null,
+      "whatToExpect": "Individual or Group sessions.",
+      "faqs": [],
+      "cta": "Enquire about Speech Therapy"
+    },
+    {
+      "key": "specialed",
+      "title": "Special Education",
+      "icon": "specialed",
+      "whatItIs": null,
+      "whoItsFor": null,
+      "whatToExpect": null,
+      "faqs": [],
+      "cta": "Enquire about Special Education",
+      "_note": "Special Education is staffed (Ms. Nuraisyah Azman) but has no standalone description on the services page. Covered within the Early Intervention Program."
+    },
+    {
+      "key": "eip",
+      "title": "Early Intervention Program (EIP)",
+      "icon": "eip",
+      "whatItIs": "Pre-literacy — personalized programs geared towards emerging literacy. Involves stimulation of language as precursor to development of high intelligence as well as sensory stimulation to help develop, regain, and maintain the child's ability to be able to participate in everyday situations and/or activities, and adapt to different environments. Includes learning through play and introduces basic concepts such as colors, shapes, letters and numbers. Therapy-based group program conducted daily by our certified Occupational Therapist, Speech Therapist/Clinical Linguist as well as our Special Education Teacher. For older children, focused on reading, mathematics, writing, language according to the KSSR syllabus as well as the development of social skills and cognitive building.",
+      "whoItsFor": "Children with mild to moderate living difficulties — Global or Developmental Delay / Intellectual Impairment, ADHD, Autism, Down Syndrome, Hearing Impairments, Dyslexia and more. Beginners Group: children of 2 – 5 years old. Intermediate Group: children of 6 – 8 years old.",
+      "whatToExpect": "Beginners Group: Intensive 4 hour group sessions, five a week: 3 hours and 45 minutes session and 15 minutes of parent-therapist discussion/consultation. Parent training program. Intermediate Group: 2 hour group sessions, five times a week: 1 hour and 45 minutes session and 15 minutes of parent-therapist discussion/consultation.",
+      "faqs": [],
+      "cta": "Enquire about Early Intervention"
+    },
+    {
+      "key": "psych",
+      "title": "Clinical Psychology",
+      "icon": "psych",
+      "whatItIs": "Clinical psychologists meet with clients to identify problems - emotional, mental, and behavioural - in their lives. Through observation, interviews, and tests, the psychologist will diagnose any existing or potential disorders. Then, together with the client, they formulate a program of treatment according to the client's needs. Psychologists monitor the client's progress on a regular basis to ensure that their needs are met by the course of action, and to adjust it necessary.",
+      "whoItsFor": null,
+      "whatToExpect": null,
+      "faqs": [],
+      "cta": "Enquire about Clinical Psychology"
+    }
+  ]
+}
