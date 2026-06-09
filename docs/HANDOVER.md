@@ -1,7 +1,7 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-06-09 (after Phase 1 motion polish landed)
-**HEAD:** `4e237cc` on `main`
+**Last updated:** 2026-06-09 (after Phase 1 motion polish + card-tilt fix)
+**HEAD:** `b3dccc5` on `main`
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 
 ---
@@ -36,10 +36,22 @@ axe-core can't grade aesthetics. The 6 craft moments need a human-eye sweep:
 - Chatbot open: panel unfurls from bottom-right launcher (scale + slight rotate). Verify no clipping on 360px viewport.
 - Locale toggle: EN/BM button slides in 6px + fades. Re-test on repeated toggles.
 - Link hover: ink underline draws left-to-right on `main`/`footer` links. Hover off → retracts from right.
-- Service card hover: card lifts 2px, rotates -0.4deg, shadow grows toward top-left. Neighbors don't shift.
+- Service card hover: **entire card tilts** (translateY -2px + rotate -0.4deg + top-left offset shadow). Per user preference (2026-06-09), the whole card moves as a unit — neighbors in the grid will shift slightly during hover; that's the intended aesthetic. (Was originally on `.card-inner` only; reverted in `b3dccc5`.)
 - `prefers-reduced-motion: reduce`: all of the above should appear in static end-state (no animation).
 
 If anything feels off (timing, curve, magnitude), the design doc's "Open Questions" section captures the calibration questions worth iterating on.
+
+### 4. Broader aesthetics + microinteraction review (next session, before or alongside Phase 2)
+
+The 6 Phase 1 moments cover trust + engagement + browse, but there's room for more ambient personality. Items to evaluate during the next review pass:
+
+- **Custom mouse pointer** — replace the system cursor on the prototype with a subtle bespoke cursor (e.g. a small sage-coloured dot, or a hand-drawn ink-shape). Should still respect `cursor: pointer` semantics on interactive elements. Risk: cursor changes can feel novelty-driven if overdone — keep it almost invisible at rest.
+- **Subtle trailing mouse effect** — a comforting follow-the-cursor element (e.g. a faint cream-coloured halo or ink-trail that lags slightly behind the pointer). Must be very subtle — anything attention-grabbing breaks the calm-for-stressed-parents tone. Pure CSS (`mix-blend-mode` + `transform`) where possible; small JS for the position tracking. Hide on touch devices and under `prefers-reduced-motion: reduce`.
+- **100vh "breathing room" sections** — important content (hero, key CTAs, trust moments) should occupy a full viewport height so the visitor sits with it before scrolling on. Currently most sections use `padding: var(--space-20)` which is generous but not viewport-anchored. Consider: hero gets `min-height: 100vh`; one or two key sections per page get `min-height: 100vh` with content vertically centred via flex. The parenting audience benefits from pacing — fewer things on screen at once.
+- **Card tilt scope clarified** (already fixed in `b3dccc5`): the entire card tilts on hover, not just inner content. Same preference applies to any future card-style components we add — apply transform to the outer element by default.
+- **Other candidates to consider during review**: scroll-position-driven parallax (gentle, paper-layer feel); a single hand-drawn ornament asset that recurs at section transitions; reading-progress indicator on long pages (about, privacy); section labels appearing as small "tabs" along the left margin like book chapters.
+
+**Process for this review:** before adding any of these, do a real-browser walk of the current site to see what's missing vs what would be excess. The Assignment from item 2 above + the Phase 1 sweep from item 3 should ground this. Then pick the 1-2 highest-value additions and brainstorm via `/office-hours` (same flow as last session) → spec → plan → subagent execute.
 
 ## Deferred items (out of scope for now, flagged for client)
 
@@ -153,3 +165,6 @@ done
 2. For Phase 2 photography sourcing: which curation tone? Subdued/contemplative (heavier Kenya Hara reference) vs warm-family (more typical centre imagery)? Plan to surface 6-8 candidates together before committing.
 3. For YouTube embed thumbnails: custom anchor-photo derived (warmer, more curated) vs YouTube auto-generated (faster, less tone control)?
 4. Is the gstack upgrade pending (1.56.0.0 → 1.57.3.0) worth handling before more work, or defer?
+5. Run order for the next session: Phase 2 media first, or the broader aesthetics review (item 4 above) first? Aesthetics review may inform Phase 2's photography placements (e.g., if hero gets `min-height: 100vh`, the hero anchor photo's composition matters differently).
+6. For the custom-mouse-pointer experiment: does the user want a single bespoke cursor across the whole site, or only inside specific zones (e.g., hover over cards/CTAs)?
+7. Trailing mouse effect: is the goal pure decoration (ambient warmth) or should it carry information (e.g., reveal hover affordances ahead of click)? Decoration-only is the safer first cut.
