@@ -54,18 +54,19 @@
   .chip-pill:active { transform: scale(0.95); }
 
   /* Card */
-  .card { background: var(--color-cream-soft); border-radius: var(--radius-3); padding: var(--space-8); box-shadow: var(--shadow-1); overflow: hidden; }
+  .card { background: var(--color-cream-soft); border-radius: var(--radius-3); padding: var(--space-8); box-shadow: var(--shadow-1); }
   .card h3 { margin-bottom: var(--space-3); }
-  a.card, .card[href] { display: block; color: inherit; text-decoration: none; }
-  .card-inner {
+  a.card, .card[href] {
     display: block;
+    color: inherit;
+    text-decoration: none;
     transition: transform var(--dur-2) var(--ease-paper), box-shadow var(--dur-2) var(--ease-paper);
     will-change: transform;
   }
+  .card-inner { display: block; }
 
   @media (prefers-reduced-motion: no-preference) {
-    a.card:hover .card-inner,
-    .card[href]:hover .card-inner {
+    a.card:hover, .card[href]:hover {
       transform: translateY(-2px) rotate(-0.4deg);
       box-shadow: -6px 8px 16px -8px rgba(43, 31, 20, 0.18);
     }
