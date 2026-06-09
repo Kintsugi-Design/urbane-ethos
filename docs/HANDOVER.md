@@ -1,0 +1,155 @@
+# Handover — Urbane Ethos prototype
+
+**Last updated:** 2026-06-09 (after Phase 1 motion polish landed)
+**HEAD:** `4e237cc` on `main`
+**Live test:** `bundle install && bin/server` → http://localhost:8080
+
+---
+
+## Where we are
+
+A bilingual interactive HTML prototype of the urbaneethos.center revamp. ~30 commits on `main`. Eight production pages, three design-direction comparison demos, 6 JS modules, 4 CSS files, EN+MS content (BM is draft, needs human review). PDPA consent flow with sage-stamp save confirmation. Mocked-but-interactive chatbot + personalization. axe-core: 0 serious/critical violations across all 8 pages.
+
+Just landed: **Phase 1 of the polish pass** — paper-and-ink craft microinteractions tied to Direction B's Kenya Hara design language (commit `28c5060`).
+
+## What's open
+
+Three named workstreams, in priority order:
+
+### 1. Phase 2 — photography + YouTube scaffolding (planned, not started)
+**Spec:** `docs/superpowers/specs/2026-06-08-polish-pass-design.md` (Phase 2 section)
+**Plan:** not yet written. Will follow the same `/writing-plans` → `/superpowers:subagent-driven-development` pattern that Phase 1 used.
+
+Scope to plan:
+- 6-8 anchor photographs from Unsplash/Pexels/Met Museum, saved to `assets/img/anchors/`. One per major hero (home, about, services) + one mood image per service block.
+- Captioned-image `<figure>` component in components.css. Caption text format: `"Subject description · Placeholder via [Source]."` Visible. The launch-swap note ("real photo with parental consent before launch") lives in `media._note` in common.json, not the visible caption.
+- Lazy-load YouTube embed component (`assets/js/yt-embed.js`, ~30 lines). Slot at home hero (replaces "Watch our intro" CTA) + contact page (centre tour). Per-staff and Services-therapy-sample slots deferred to post-launch.
+- New `media.*` namespace in `content/{en,ms}/common.json` for captions/aria-labels. Parity check must still pass.
+
+### 2. The Assignment (from design doc, never executed)
+Open `https://www.urbaneethos.center/` and `http://localhost:8080/` side-by-side. Walk through homepage + contact page on both. Capture three specific moments where the prototype reads as wireframe-vs-real. That feedback should ground Phase 2's photography curation. Do this BEFORE Phase 2 starts.
+
+### 3. Real-browser sweep of Phase 1 motion
+axe-core can't grade aesthetics. The 6 craft moments need a human-eye sweep:
+- Consent save: sage stamp circle draws (320ms), then checkmark draws (160ms), holds 720ms, fades 200ms. Test all three save paths (Accept all / Necessary only / Customize+Save).
+- Personalization save: same stamp on home survey submit.
+- Chatbot open: panel unfurls from bottom-right launcher (scale + slight rotate). Verify no clipping on 360px viewport.
+- Locale toggle: EN/BM button slides in 6px + fades. Re-test on repeated toggles.
+- Link hover: ink underline draws left-to-right on `main`/`footer` links. Hover off → retracts from right.
+- Service card hover: card lifts 2px, rotates -0.4deg, shadow grows toward top-left. Neighbors don't shift.
+- `prefers-reduced-motion: reduce`: all of the above should appear in static end-state (no animation).
+
+If anything feels off (timing, curve, magnitude), the design doc's "Open Questions" section captures the calibration questions worth iterating on.
+
+## Deferred items (out of scope for now, flagged for client)
+
+From design doc + earlier scrape findings:
+- **BM translations need Malaysian native-speaker + legal review** — `content/ms/*.json` all carry `_meta.reviewedBy: null`. Privacy notice especially.
+- **Real-photo consent workflow** — parental signoff process for staff/children/families. Client conversation needed.
+- **Drafted English copy** — `_draft: true` markers on every drafted string across `content/en/*.json` (hero subtitles, values, service whatItIs/whoItsFor/whatToExpect, FAQs, staff personal lines + 5 of 9 bios, events teaser). Client should review and replace with their own copy.
+- **Real staff photos** — placeholders flagged `[REAL PHOTO REQUIRED]` in `alt`.
+- **Real video content** — staff intros, centre tour, parent testimonial.
+- **Production hosting / deploy / domain** — Phase 3, unscoped.
+- **Individual blog article pages** — cards currently deep-link to live site articles.
+- **Real chatbot LLM backend** — currently a scripted decision tree.
+- **Real personalization** (server-side, cross-session ML) — currently client-side rules table.
+- **Real analytics wiring** — currently a demo dashboard with seeded fake data.
+- **Standalone Events page** — consolidated into home teaser + contact CTA for now.
+
+## How to pick up
+
+```bash
+cd /Users/deepsight/code/urbane-ethos
+git log --oneline | head -10
+bundle install
+bin/server
+# open http://localhost:8080
+```
+
+Read in order to refresh context:
+1. **This file** (`docs/HANDOVER.md`) — orientation.
+2. `README.md` — what the project is, what's real vs draft vs mocked, how to run.
+3. `docs/superpowers/specs/2026-06-08-polish-pass-design.md` — the Phase 1+2 design doc, especially Phase 2 success criteria.
+4. `docs/superpowers/plans/2026-06-08-polish-pass-phase1-motion.md` — what just landed, for pattern reference when writing Phase 2's plan.
+5. `docs/A11Y_NOTES.md` — known a11y items and how to re-run axe-core.
+
+### To start Phase 2
+
+```
+/writing-plans
+```
+
+(Then point it at the Phase 2 section of the design doc. It will produce a plan file at `docs/superpowers/plans/2026-06-08-polish-pass-phase2-media.md`. Then `/superpowers:subagent-driven-development` to execute.)
+
+### To run the assignment instead first
+
+Open both URLs in side-by-side browser windows. Take notes (markdown is fine) on:
+- What does the live site signal that the prototype doesn't?
+- Where does placeholder-ness leak through?
+- Three specific wireframe-vs-real moments.
+
+Feed those notes into the Phase 2 planning conversation so photography curation aims at the right pain points.
+
+## Repo state summary
+
+```
+urbane-ethos/
+  README.md                                              project intro + run
+  Gemfile, Gemfile.lock                                  ruby webrick dep
+  bin/server, bin/check-i18n-parity.rb                   tooling
+  index.html  about.html  staff.html  services.html      8 production pages
+  blog.html  contact.html  analytics.html  privacy.html
+  assets/
+    css/{tokens,base,components,motion}.css              4 CSS files (post-motion-polish)
+    js/{i18n,a11y,consent,chatbot,personalization,
+        sage-stamp,analytics-demo-data}.js               7 JS modules
+    fonts/                                               Source Serif 4 + Inter WOFF2
+    img/scraped/  img/placeholders/                      verbatim + flagged
+  content/
+    en/  ms/                                             9 mirrored JSON files each
+    blog.json                                            EN-only
+    glossary.md                                          EN→BM glossary
+    scraped-raw/                                         gitignored cache
+  design/directions/v1-quiet/  v2-warm/  v3-bold/        3 direction demos
+  test/
+    parity-fixtures/                                     TDD fixtures for parity script
+    smoke/                                               6 browser-runnable smoke pages
+  docs/
+    HANDOVER.md                                          this file
+    A11Y_NOTES.md                                        a11y findings + re-run cmd
+    superpowers/
+      specs/
+        2026-06-08-urbane-ethos-revamp-design.md         original revamp spec
+        2026-06-08-polish-pass-design.md                 polish pass spec (Phase 1+2)
+      plans/
+        2026-06-08-urbane-ethos-revamp.md                original 23-task plan (done)
+        2026-06-08-polish-pass-phase1-motion.md          Phase 1 plan (done)
+```
+
+## Verification one-liners
+
+```bash
+# Everything serves 200
+for p in "" about.html staff.html services.html blog.html contact.html analytics.html privacy.html; do
+  echo "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8080/$p")  /$p"
+done
+
+# i18n parity holds
+bin/check-i18n-parity.rb
+
+# No literal old durations
+grep -nE '\b(180ms|320ms)\b' assets/css/components.css assets/css/motion.css assets/css/base.css || echo "(clean)"
+
+# axe-core full sweep (needs npx)
+for p in "" about.html staff.html services.html blog.html contact.html analytics.html privacy.html; do
+  echo "=== /$p ==="
+  npx -y @axe-core/cli "http://localhost:8080/$p" --tags wcag2a,wcag2aa,wcag22aa 2>&1 | tail -n 5
+done
+```
+
+## Open questions for the next session
+
+1. Does the user want to do "The Assignment" (live-vs-prototype walkthrough) before Phase 2 planning, or jump straight to Phase 2?
+2. For Phase 2 photography sourcing: which curation tone? Subdued/contemplative (heavier Kenya Hara reference) vs warm-family (more typical centre imagery)? Plan to surface 6-8 candidates together before committing.
+3. For YouTube embed thumbnails: custom anchor-photo derived (warmer, more curated) vs YouTube auto-generated (faster, less tone control)?
+4. Is the gstack upgrade pending (1.56.0.0 → 1.57.3.0) worth handling before more work, or defer?
