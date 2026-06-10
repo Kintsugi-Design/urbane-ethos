@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/assets/css/components.css">
 <link rel="stylesheet" href="/assets/css/motion.css">
 </head>
-<body>
+<body class="services">
 <a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
 
 <header class="site-header">
@@ -87,6 +87,9 @@
 import { getLocale, translatePage } from "/assets/js/i18n.js";
 import "/assets/js/consent.js";
 import "/assets/js/a11y.js";
+import "/assets/js/page-load.js";
+import "/assets/js/cursor.js";
+import "/assets/js/parallax.js";
 import "/assets/js/chatbot.js";
 
 const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
@@ -102,10 +105,13 @@ async function renderServices() {
   if (fhrs) fhrs.replaceChildren(...(common.footer?.hours || []).map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
 
   const root = document.getElementById("services-blocks");
-  root.replaceChildren(...(services.items || []).map(item => {
+  root.replaceChildren(...(services.items || []).map((item, i) => {
     const sec = document.createElement("article");
     sec.className = "service-block fade-in-up";
     sec.id = item.key;
+    // Trust-beat (C1 propagation, T11): first service-block on the page acts
+    // as the per-service intro and takes viewport-minus-header height.
+    if (i === 0) sec.dataset.trustBeat = "service-intro";
     sec.innerHTML = `
       <h2>${esc(item.title)}</h2>
       ${item.whatItIs ? `<p><strong>What it is:</strong> ${esc(item.whatItIs)}</p>` : ""}

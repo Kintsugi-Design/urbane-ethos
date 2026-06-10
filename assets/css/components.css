@@ -248,3 +248,76 @@
   .stat-card { background: var(--color-cream-soft); border-radius: var(--radius-2); padding: var(--space-6); }
   .stat-value { font: 700 2rem var(--font-serif); }
 }
+
+/* A2 canggih cursor — sage ink-dot, decorative (OS cursor visible underneath).
+   pointer-events: none is critical so the dot never intercepts clicks/hovers. */
+.canggih-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--canggih-cursor-rest);
+  height: var(--canggih-cursor-rest);
+  border-radius: 50%;
+  background: var(--color-sage);
+  opacity: var(--canggih-cursor-opacity-rest);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+  will-change: transform, opacity;
+  transition: width var(--dur-1) var(--ease-out),
+              height var(--dur-1) var(--ease-out),
+              opacity var(--dur-1) var(--ease-out);
+}
+.canggih-cursor--active {
+  width: var(--canggih-cursor-active);
+  height: var(--canggih-cursor-active);
+  opacity: var(--canggih-cursor-opacity-active);
+}
+.canggih-cursor--fade {
+  opacity: 0;
+}
+@media (pointer: coarse) {
+  .canggih-cursor { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .canggih-cursor { display: none; }
+}
+
+/* C1 — 100vh hero, per-P3 contextual placement. Subtracts --canggih-header-h
+   to fit the sticky header. Hero on every page; trust-beat blocks on
+   home (values band), about (ethos), services (per-service intro). */
+body.home .hero,
+body.about .hero,
+body.services .hero,
+body.contact .hero,
+body.staff .hero,
+body.blog .hero,
+body.analytics .hero,
+body.privacy .hero {
+  min-height: calc(100vh - var(--canggih-header-h));
+  min-height: calc(100svh - var(--canggih-header-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Trust-beat blocks — one per page per P3.
+   Home: values band (data-trust-beat="values").
+   About: ethos block (data-trust-beat="ethos").
+   Services: per-service intro (data-trust-beat="service-intro"). */
+body.home [data-trust-beat="values"],
+body.about [data-trust-beat="ethos"],
+body.services [data-trust-beat="service-intro"] {
+  min-height: calc(100vh - var(--canggih-header-h));
+  min-height: calc(100svh - var(--canggih-header-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Required by C4 paper-fold (T8): parent containers need preserve-3d to avoid
+   rotateX flicker, and overflow: visible to avoid clipping during the fold. */
+main, section, .hero {
+  transform-style: preserve-3d;
+}
+main { overflow: visible; }

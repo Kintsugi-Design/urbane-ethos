@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/assets/css/components.css">
 <link rel="stylesheet" href="/assets/css/motion.css">
 </head>
-<body>
+<body class="privacy">
 <a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
 
 <header class="site-header">
@@ -42,6 +42,8 @@
 <script type="module">
 import { getLocale, t } from "/assets/js/i18n.js";
 import "/assets/js/consent.js";
+import "/assets/js/page-load.js";
+import "/assets/js/cursor.js";
 
 async function renderSections() {
   const locale = getLocale();

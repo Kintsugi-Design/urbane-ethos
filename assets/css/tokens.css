@@ -86,6 +86,18 @@
     --scale-press: 0.97;                                  /* button active */
     --scale-lift: 1.02;                                   /* card hover */
 
+    /* Canggih (Phase 4) — magnitudes for atmospheric depth + cinematic pacing.
+       Calibrate during Task 9 tracer-bullet review; cut, don't raise. */
+    --canggih-cursor-rest: 6px;
+    --canggih-cursor-active: 12px;
+    --canggih-cursor-opacity-rest: 0.7;
+    --canggih-cursor-opacity-active: 0.9;
+    --canggih-parallax-depth: 4px;
+    --canggih-grain-opacity: 0.03;
+    --canggih-fold-deg: 2deg;
+    --canggih-load-duration: 2000ms;
+    --canggih-header-h: 72px;
+
     /* Layout */
     --wrap-max: 80rem;
     --content-max: 44rem;

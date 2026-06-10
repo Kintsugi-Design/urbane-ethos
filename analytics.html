@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/assets/css/base.css">
 <link rel="stylesheet" href="/assets/css/components.css">
 </head>
-<body>
+<body class="analytics">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap header-row"><a class="brand" href="/">Urbane Ethos<small>Analytics demo</small></a></div></header>
 
@@ -47,6 +47,8 @@
 
 <script type="module">
 import { seedData, liveSessionEvents } from "/assets/js/analytics-demo-data.js";
+import "/assets/js/page-load.js";
+import "/assets/js/cursor.js";
 
 document.getElementById("stat-visits").textContent = seedData.totalVisits30d.toLocaleString();
 document.getElementById("stat-chat-opens").textContent = seedData.chatbot.opens.toLocaleString();

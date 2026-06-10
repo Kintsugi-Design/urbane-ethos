@@ -1,6 +1,16 @@
 @layer motion {
   @media (prefers-reduced-motion: no-preference) {
-    .fade-in-up { opacity: 0; transform: translateY(12px); transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+    /* C4 paper-fold — extends the existing fade-in-up with a small rotateX
+       so revealed text blocks "lay down" from the top edge. transform-origin
+       is set on the element; transform-style: preserve-3d on parents
+       (main, section, .hero) is set in components.css to prevent flicker. */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(12px) rotateX(var(--canggih-fold-deg));
+      transform-origin: top center;
+      transition: opacity var(--dur-1) var(--ease-paper),
+                  transform var(--dur-2) var(--ease-paper);
+    }
     .fade-in-up.is-in { opacity: 1; transform: none; }
 
     .chatbot-panel {
@@ -82,6 +92,52 @@
     .consent-modal-root.is-leaving .consent-modal,
     .consent-modal-root.is-leaving .consent-modal-backdrop {
       animation: none; opacity: 0; transition: opacity 200ms var(--ease);
+    }
+
+    /* A1 — page-load ink-bloom. Cream overlay fades out + body saturate pulses
+       in. Overlay approach (not opacity-on-main) preserves the "page exhales
+       into place" feel without putting opacity<1 on <main>, which would
+       reduce text contrast and fail WCAG AA during the bloom window. Filter
+       on body affects all descendants including chrome — saturate pulse is
+       site-wide. Uses --ease-out (tone settle, not movement curve). */
+    @keyframes canggih-bloom-overlay {
+      from { opacity: 0.7; }
+      to   { opacity: 0; }
+    }
+    @keyframes canggih-bloom-tint {
+      from { filter: saturate(125%); }
+      to   { filter: saturate(100%); }
+    }
+    body.canggih-bloom-in::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: var(--color-cream);
+      pointer-events: none;
+      z-index: 5;
+      animation: canggih-bloom-overlay var(--canggih-load-duration) var(--ease-out) both;
+    }
+    body.canggih-bloom-in {
+      animation: canggih-bloom-tint var(--canggih-load-duration) var(--ease-out) both;
+    }
+
+    /* A4 — hero parallax. translate3d forces a compositor layer; clamp caps
+       the depth at --canggih-parallax-depth so a wild scroll-Y can't exceed
+       the calm budget. Reduced-motion: the JS module doesn't register a
+       listener, so --scroll-y stays at 0 → transform is the identity. */
+    body.home .hero,
+    body.about .hero,
+    body.services .hero {
+      transform: translate3d(
+        0,
+        clamp(
+          calc(var(--canggih-parallax-depth) * -1),
+          calc(var(--scroll-y, 0) * -0.04px),
+          0px
+        ),
+        0
+      );
+      will-change: transform;
     }
   }
 

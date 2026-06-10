@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/assets/css/components.css">
 <link rel="stylesheet" href="/assets/css/motion.css">
 </head>
-<body>
+<body class="home">
 <a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
 
 <header class="site-header">
@@ -110,7 +110,7 @@
     </div>
   </section>
 
-  <section class="section fade-in-up">
+  <section class="section fade-in-up" data-trust-beat="values">
     <div class="wrap" style="max-width:var(--content-max)">
       <h2 data-i18n="home.whatWeDo.heading">What can we do for you?</h2>
       <p data-i18n="home.whatWeDo.body"></p>
@@ -187,6 +187,9 @@
 import { getLocale, translatePage } from "/assets/js/i18n.js";
 import "/assets/js/consent.js";
 import "/assets/js/a11y.js";
+import "/assets/js/page-load.js";
+import "/assets/js/cursor.js";
+import "/assets/js/parallax.js";
 import { isAllowed } from "/assets/js/consent.js";
 import { read as readPers, recommendedBlog, recommendedStaffId } from "/assets/js/personalization.js";
 import "/assets/js/personalization.js";

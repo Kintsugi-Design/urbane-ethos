@@ -37,7 +37,7 @@
   }
   img, picture, video, svg { max-width: 100%; height: auto; display: block; }
   ul, ol { padding-inline-start: 1.5rem; margin: 0 0 var(--space-4); }
-  ::selection { background: var(--color-sun); color: var(--color-ink); }
+  /* (Phase 1 sun ::selection rule removed — superseded by Phase 4 A5 sage rule below.) */
 
   .visually-hidden {
     position: absolute !important;
@@ -59,4 +59,31 @@
 
   .wrap { max-width: var(--wrap-max); margin-inline: auto; padding-inline: var(--space-6); }
   @media (min-width: 768px) { .wrap { padding-inline: var(--space-8); } }
+
+  /* A3 — paper-grain texture (Phase 4 canggih layer).
+     Recipe matches _brief/urbane-ethos-revamp-brief.html. Opacity is via
+     rgba in each radial-gradient; the token sets the contribution scale. */
+  body {
+    background-image:
+      radial-gradient(circle at 12% 22%, rgba(120,80,40,calc(var(--canggih-grain-opacity) * 0.85)) 0, transparent 0.7px),
+      radial-gradient(circle at 78% 64%, rgba(120,80,40,calc(var(--canggih-grain-opacity) * 0.85)) 0, transparent 0.7px),
+      radial-gradient(circle at 44% 88%, rgba(120,80,40,calc(var(--canggih-grain-opacity) * 0.65)) 0, transparent 0.7px);
+    background-size: 7px 7px, 11px 11px, 5px 5px;
+  }
+
+  /* A5 — sage ::selection. Uses color-mix to derive a soft sage from the
+     existing palette tokens — no new color tokens introduced. */
+  ::selection {
+    background: color-mix(in srgb, var(--color-sage) 35%, var(--color-cream));
+    color: var(--color-ink);
+  }
+  ::selection:window-inactive {
+    background: var(--color-line);
+  }
+
+  /* A2 cursor scaffold — explicit so cursor.js can flip to 'none' on fine-pointer
+     devices without a layout-shift reflow. The .canggih-cursor decorative element
+     is injected into <body> by cursor.js (only on non-touch, non-reduced-motion
+     devices); the OS cursor stays visible underneath. */
+  html { cursor: auto; }
 }

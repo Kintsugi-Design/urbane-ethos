@@ -1,7 +1,7 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-06-09 (after Phase 1 motion polish + card-tilt fix)
-**HEAD:** `b3dccc5` on `main`
+**Last updated:** 2026-06-10 (after Phase 4 canggih layer landed)
+**HEAD:** `3bf8298` on `feat/polish-pass-phase4` (Phase 4 canggih layer; to be merged to `main`)
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 
 ---
@@ -11,6 +11,8 @@
 A bilingual interactive HTML prototype of the urbaneethos.center revamp. ~30 commits on `main`. Eight production pages, three design-direction comparison demos, 6 JS modules, 4 CSS files, EN+MS content (BM is draft, needs human review). PDPA consent flow with sage-stamp save confirmation. Mocked-but-interactive chatbot + personalization. axe-core: 0 serious/critical violations across all 8 pages.
 
 Just landed: **Phase 1 of the polish pass** — paper-and-ink craft microinteractions tied to Direction B's Kenya Hara design language (commit `28c5060`).
+
+Just landed (Phase 4): **canggih layer** — atmospheric depth (A1 page-load ink-bloom, A2 sage ink-dot cursor, A3 paper-grain texture, A5 sage `::selection`) always-on + cinematic pacing (A4 hero parallax, C1 100vh hero, C4 paper-fold reveals via extended `.fade-in-up`). 7 moves, all KEEP after T9 tracer-bullet calibration. Design doc: `/Users/deepsight/.gstack/projects/urbane-ethos/deepsight-main-design-20260609-104719.md`. Plan: `docs/superpowers/plans/2026-06-09-canggih-layer-phase4.md`. axe-core still: 0 serious/critical across all 8 pages (one regression caught + fixed at T13 — the A1 bloom now uses a `body::before` overlay instead of `opacity` on `<main>`, preserving text contrast during the bloom window).
 
 ## What's open
 
@@ -41,17 +43,19 @@ axe-core can't grade aesthetics. The 6 craft moments need a human-eye sweep:
 
 If anything feels off (timing, curve, magnitude), the design doc's "Open Questions" section captures the calibration questions worth iterating on.
 
-### 4. Broader aesthetics + microinteraction review (next session, before or alongside Phase 2)
+### 4. Broader aesthetics + microinteraction review — DONE 2026-06-10
 
-The 6 Phase 1 moments cover trust + engagement + browse, but there's room for more ambient personality. Items to evaluate during the next review pass:
+Shipped as Phase 4. Design doc: `/Users/deepsight/.gstack/projects/urbane-ethos/deepsight-main-design-20260609-104719.md`. Plan: `docs/superpowers/plans/2026-06-09-canggih-layer-phase4.md`. T9 tracer-bullet calibration outcomes:
 
-- **Custom mouse pointer** — replace the system cursor on the prototype with a subtle bespoke cursor (e.g. a small sage-coloured dot, or a hand-drawn ink-shape). Should still respect `cursor: pointer` semantics on interactive elements. Risk: cursor changes can feel novelty-driven if overdone — keep it almost invisible at rest.
-- **Subtle trailing mouse effect** — a comforting follow-the-cursor element (e.g. a faint cream-coloured halo or ink-trail that lags slightly behind the pointer). Must be very subtle — anything attention-grabbing breaks the calm-for-stressed-parents tone. Pure CSS (`mix-blend-mode` + `transform`) where possible; small JS for the position tracking. Hide on touch devices and under `prefers-reduced-motion: reduce`.
-- **100vh "breathing room" sections** — important content (hero, key CTAs, trust moments) should occupy a full viewport height so the visitor sits with it before scrolling on. Currently most sections use `padding: var(--space-20)` which is generous but not viewport-anchored. Consider: hero gets `min-height: 100vh`; one or two key sections per page get `min-height: 100vh` with content vertically centred via flex. The parenting audience benefits from pacing — fewer things on screen at once.
-- **Card tilt scope clarified** (already fixed in `b3dccc5`): the entire card tilts on hover, not just inner content. Same preference applies to any future card-style components we add — apply transform to the outer element by default.
-- **Other candidates to consider during review**: scroll-position-driven parallax (gentle, paper-layer feel); a single hand-drawn ornament asset that recurs at section transitions; reading-progress indicator on long pages (about, privacy); section labels appearing as small "tabs" along the left margin like book chapters.
+- **A1 page-load ink-bloom:** KEEP, dialed up at T9 (opacity 0.7 → 1, saturate 125% → 100%, 2000ms). At T13, regression caught — `opacity:<1` on `<main>` failed axe contrast. Refactored to `body::before` cream overlay + body saturate filter — visual effect preserved, contrast restored.
+- **A2 sage ink-dot cursor:** KEEP, dialed up at T9 (rest opacity 0.55 → 0.7, active 0.8 → 0.9). Hidden on touch + `prefers-reduced-motion: reduce`.
+- **A3 paper-grain texture:** KEEP at designed quietness (0.03 opacity radial-dots).
+- **A5 sage `::selection`:** KEEP. Phase 1's sun `::selection` rule retired (housekeeping commit `c9154a1`).
+- **A4 hero parallax:** KEEP. Applied on home/about/services heros (per P3 placement). Capped at 4px via clamp; reaches cap at ~100px scroll, then static.
+- **C1 100vh hero:** KEEP. Bleed past sticky header fixed at T9 calibration (subtract `--canggih-header-h: 72px`). Hero on every page; trust-beat blocks also fill viewport on home (values), about (ethos), services (first service-block via JS).
+- **C4 paper-fold reveals:** KEEP at designed 2deg rotateX. Extended existing `.fade-in-up` class so all current usages (`index.html` personalization-card + values band, `services.html` dynamic service-blocks) automatically inherit; no new convention introduced.
 
-**Process for this review:** before adding any of these, do a real-browser walk of the current site to see what's missing vs what would be excess. The Assignment from item 2 above + the Phase 1 sweep from item 3 should ground this. Then pick the 1-2 highest-value additions and brainstorm via `/office-hours` (same flow as last session) → spec → plan → subagent execute.
+9 canggih tokens live in `tokens.css` for future calibration (cut, don't raise per design doc P1).
 
 ## Deferred items (out of scope for now, flagged for client)
 
@@ -68,6 +72,16 @@ From design doc + earlier scrape findings:
 - **Real analytics wiring** — currently a demo dashboard with seeded fake data.
 - **Standalone Events page** — consolidated into home teaser + contact CTA for now.
 
+## Canggih layer wiring pattern (for future modules)
+
+Every page-level canggih module (anything in `assets/js/canggih-*.js` or that participates in the always-on layer) must be imported in every one of the 8 HTML pages' `<script type="module">` block. The convention: insert imports immediately after `import "/assets/js/a11y.js";` where present. Pages without a11y.js (`privacy.html`, `analytics.html`) anchor on the next-best stable import (`consent.js` on privacy, `analytics-demo-data.js` on analytics).
+
+Pages to wire (all 8): `index.html`, `about.html`, `staff.html`, `services.html`, `blog.html`, `contact.html`, `analytics.html`, `privacy.html`.
+
+If a new canggih module is added without wiring to all 8 pages, it silently ships only to the pages it was added to. This is the most common Phase 4 maintenance trap. Use a `grep -c "<module-name>.js" *.html | paste -sd+ | bc` smoke-check after any wiring change — total must equal 8.
+
+Body classes used for contextual placement: `class="home"` (index), `class="about"`, `class="services"`, `class="staff"`, `class="blog"`, `class="contact"`, `class="analytics"`, `class="privacy"`. Trust-beat attributes: `data-trust-beat="values"` (home values band), `data-trust-beat="ethos"` (about mission/story), `data-trust-beat="service-intro"` (services.html sets `dataset.trustBeat` on first rendered service-block via JS).
+
 ## How to pick up
 
 ```bash
@@ -81,9 +95,11 @@ bin/server
 Read in order to refresh context:
 1. **This file** (`docs/HANDOVER.md`) — orientation.
 2. `README.md` — what the project is, what's real vs draft vs mocked, how to run.
-3. `docs/superpowers/specs/2026-06-08-polish-pass-design.md` — the Phase 1+2 design doc, especially Phase 2 success criteria.
-4. `docs/superpowers/plans/2026-06-08-polish-pass-phase1-motion.md` — what just landed, for pattern reference when writing Phase 2's plan.
-5. `docs/A11Y_NOTES.md` — known a11y items and how to re-run axe-core.
+3. `docs/superpowers/specs/2026-06-08-polish-pass-design.md` — the Phase 1+2 design doc.
+4. `~/.gstack/projects/urbane-ethos/deepsight-main-design-20260609-104719.md` — the Phase 4 canggih design doc.
+5. `docs/superpowers/plans/2026-06-09-canggih-layer-phase4.md` — Phase 4 plan as executed.
+6. `docs/superpowers/plans/2026-06-08-polish-pass-phase1-motion.md` — Phase 1 motion plan (pattern reference).
+7. `docs/A11Y_NOTES.md` — known a11y items and how to re-run axe-core.
 
 ### To start Phase 2
 
