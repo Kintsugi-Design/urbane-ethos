@@ -66,6 +66,12 @@ jobs:
           ls -la _site/
 
       - uses: actions/configure-pages@v5
+        with:
+          # Enables Pages on first run if not already configured. Needs admin
+          # on the repo to succeed; falls back to a clear error if not.
+          # Manual alternative: GitHub UI → Settings → Pages → Source:
+          # "GitHub Actions", then re-run the failed deploy job.
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: '_site'
