@@ -52,5 +52,32 @@
     "personalizationReset": "Reset personalization",
     "playVideoPlaceholder": "Play introduction video",
     "videoUnavailable": "Video coming soon"
+  },
+  "media": {
+    "_note": "Real photos with parental consent + real centre-tour video are pre-launch swaps. Replace the JPGs in assets/img/anchors/ keeping the same filenames, and update the data-yt-id attributes on each <div class=\"yt-embed\"> with the real YouTube IDs. The visible captions below stay as-is until launch.",
+    "playButton": "Play video",
+    "videoUnavailableFallback": "Video coming soon",
+    "captions": {
+      "homeHero": "Therapy room interior, warm light · Placeholder via Picsum.",
+      "aboutHero": "Parent and child at the centre · Placeholder via Picsum.",
+      "servicesHero": "A gentle therapy moment · Placeholder via Picsum.",
+      "serviceMood1": "Considered atmosphere · Placeholder via Picsum.",
+      "serviceMood2": "Considered atmosphere · Placeholder via Picsum.",
+      "serviceMood3": "Considered atmosphere · Placeholder via Picsum.",
+      "ytHomeIntro": "Our intro · Placeholder.",
+      "ytCentreTour": "Centre tour · Placeholder."
+    },
+    "videoTitles": {
+      "ytHomeIntro": "Urbane Ethos — introduction (placeholder)",
+      "ytCentreTour": "Urbane Ethos — centre tour (placeholder)"
+    },
+    "alts": {
+      "homeHero": "Warm interior with natural light",
+      "aboutHero": "A parent and child together in soft daylight",
+      "servicesHero": "A calm therapy session, no faces visible",
+      "serviceMood1": "Calm interior detail",
+      "serviceMood2": "Soft natural materials",
+      "serviceMood3": "Considered light study"
+    }
   }
 }

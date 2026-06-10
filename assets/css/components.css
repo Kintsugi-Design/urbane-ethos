@@ -321,3 +321,95 @@ main, section, .hero {
   transform-style: preserve-3d;
 }
 main { overflow: visible; }
+
+/* Phase 2 anchor photos — section anchor figures with intent captions.
+   Caption is small serif italic in muted ink, sits flush under the image.
+   The figure constrains width to the parent (wrap), preserves aspect ratio
+   via the JPG's intrinsic dimensions, and rounds the image corners gently
+   to match the prototype's paper-craft idiom. */
+.anchor-photo {
+  margin: 0 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.anchor-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-2);
+  display: block;
+}
+.anchor-photo figcaption {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--type-small);
+  color: var(--color-ink-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Phase 2 lazy YouTube embed — renders as a static thumbnail with a
+   centered play button until clicked. On click, yt-embed.js swaps the
+   inner content for the real <iframe>. CSS handles the visual frame +
+   the play button; JS handles the swap. */
+.yt-embed {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 var(--space-6);
+  border-radius: var(--radius-2);
+  overflow: hidden;
+  background: var(--color-cream-soft);
+  aspect-ratio: 16 / 9;
+}
+.yt-embed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.yt-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.yt-embed .yt-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--color-cream-soft);
+  background: color-mix(in srgb, var(--color-ink) 75%, transparent);
+  color: var(--color-cream-soft);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform var(--dur-1) var(--ease-out),
+              background var(--dur-1) var(--ease-out);
+}
+.yt-embed:hover .yt-play,
+.yt-embed:focus-within .yt-play {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: var(--color-ink);
+}
+.yt-embed .yt-caption {
+  position: absolute;
+  inset: auto 0 var(--space-3) 0;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--type-small);
+  color: var(--color-cream-soft);
+  text-shadow: 0 1px 4px rgba(43, 31, 20, 0.55);
+  padding: 0 var(--space-4);
+}
+/* When iframe is live (post-click), hide the thumb-overlay caption + button. */
+.yt-embed[data-yt-state="playing"] .yt-play,
+.yt-embed[data-yt-state="playing"] .yt-caption {
+  display: none;
+}

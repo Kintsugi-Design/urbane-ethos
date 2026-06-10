@@ -58,5 +58,33 @@
     "personalizationReset": "Set semula pemperibadian",
     "playVideoPlaceholder": "Mainkan video pengenalan",
     "videoUnavailable": "Video akan datang tidak lama lagi"
+  },
+  "media": {
+    "_draft": true,
+    "_note": "Foto sebenar dengan kebenaran ibu bapa + video lawatan pusat sebenar adalah penggantian sebelum pelancaran. Gantikan JPG dalam assets/img/anchors/ dengan nama fail yang sama, dan kemas kini atribut data-yt-id pada setiap <div class=\"yt-embed\"> dengan ID YouTube sebenar.",
+    "playButton": "Mainkan video",
+    "videoUnavailableFallback": "Video akan datang",
+    "captions": {
+      "homeHero": "Bilik terapi, cahaya hangat · Placeholder melalui Picsum.",
+      "aboutHero": "Ibu bapa dan anak di pusat · Placeholder melalui Picsum.",
+      "servicesHero": "Detik terapi yang lembut · Placeholder melalui Picsum.",
+      "serviceMood1": "Suasana yang dipertimbangkan · Placeholder melalui Picsum.",
+      "serviceMood2": "Suasana yang dipertimbangkan · Placeholder melalui Picsum.",
+      "serviceMood3": "Suasana yang dipertimbangkan · Placeholder melalui Picsum.",
+      "ytHomeIntro": "Pengenalan kami · Placeholder.",
+      "ytCentreTour": "Lawatan pusat · Placeholder."
+    },
+    "videoTitles": {
+      "ytHomeIntro": "Urbane Ethos — pengenalan (placeholder)",
+      "ytCentreTour": "Urbane Ethos — lawatan pusat (placeholder)"
+    },
+    "alts": {
+      "homeHero": "Bilik dalam dengan cahaya semula jadi",
+      "aboutHero": "Ibu bapa dan anak dalam cahaya siang yang lembut",
+      "servicesHero": "Sesi terapi yang tenang, tiada wajah dapat dikenali",
+      "serviceMood1": "Detail dalaman yang tenang",
+      "serviceMood2": "Bahan semula jadi yang lembut",
+      "serviceMood3": "Kajian cahaya yang dipertimbangkan"
+    }
   }
 }

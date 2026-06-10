@@ -41,6 +41,10 @@
 <main id="main">
   <section class="hero">
     <div class="wrap">
+      <figure class="anchor-photo">
+        <img src="/assets/img/anchors/services-hero.jpg" alt="" data-i18n-attr="alt:common.media.alts.servicesHero">
+        <figcaption data-i18n="common.media.captions.servicesHero">A gentle therapy moment · Placeholder via Picsum.</figcaption>
+      </figure>
       <h1 data-i18n="services.hero.title">Services</h1>
       <p class="lede" data-i18n="services.hero.subtitle"></p>
     </div>
@@ -91,6 +95,7 @@ import "/assets/js/page-load.js";
 import "/assets/js/cursor.js";
 import "/assets/js/parallax.js";
 import "/assets/js/chatbot.js";
+import "/assets/js/yt-embed.js";
 
 const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
@@ -112,7 +117,14 @@ async function renderServices() {
     // Trust-beat (C1 propagation, T11): first service-block on the page acts
     // as the per-service intro and takes viewport-minus-header height.
     if (i === 0) sec.dataset.trustBeat = "service-intro";
+    const moodImage = i < 3
+      ? `<figure class="anchor-photo">
+           <img src="/assets/img/anchors/service-mood-${i + 1}.jpg" alt="" data-i18n-attr="alt:common.media.alts.serviceMood${i + 1}">
+           <figcaption data-i18n="common.media.captions.serviceMood${i + 1}">Considered atmosphere · Placeholder via Picsum.</figcaption>
+         </figure>`
+      : "";
     sec.innerHTML = `
+      ${moodImage}
       <h2>${esc(item.title)}</h2>
       ${item.whatItIs ? `<p><strong>What it is:</strong> ${esc(item.whatItIs)}</p>` : ""}
       ${item.whoItsFor ? `<p><strong>Who it's for:</strong> ${esc(item.whoItsFor)}</p>` : ""}

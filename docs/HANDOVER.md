@@ -1,7 +1,7 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-06-10 (after Phase 4 canggih layer landed)
-**HEAD:** `3bf8298` on `feat/polish-pass-phase4` (Phase 4 canggih layer; to be merged to `main`)
+**Last updated:** 2026-06-10 (after Phase 2 photography + YouTube scaffolding landed)
+**HEAD:** `363fe6c` on `feat/polish-pass-phase2` (Phase 2 photography + YouTube scaffolding; to be merged to `main`)
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 
 ---
@@ -14,19 +14,31 @@ Just landed: **Phase 1 of the polish pass** — paper-and-ink craft microinterac
 
 Just landed (Phase 4): **canggih layer** — atmospheric depth (A1 page-load ink-bloom, A2 sage ink-dot cursor, A3 paper-grain texture, A5 sage `::selection`) always-on + cinematic pacing (A4 hero parallax, C1 100vh hero, C4 paper-fold reveals via extended `.fade-in-up`). 7 moves, all KEEP after T9 tracer-bullet calibration. Design doc: `/Users/deepsight/.gstack/projects/urbane-ethos/deepsight-main-design-20260609-104719.md`. Plan: `docs/superpowers/plans/2026-06-09-canggih-layer-phase4.md`. axe-core still: 0 serious/critical across all 8 pages (one regression caught + fixed at T13 — the A1 bloom now uses a `body::before` overlay instead of `opacity` on `<main>`, preserving text contrast during the bloom window).
 
+Just landed (Phase 2): **photography + YouTube scaffolding** — `.anchor-photo` figure component for considered photo placeholders + lazy click-to-load `.yt-embed` component for video slots. 6 anchor photos + 2 custom YouTube thumbnails seeded via picsum.photos in `assets/img/anchors/`. New `media.*` i18n namespace mirrored EN + MS (MS marked `_draft: true` for translator review). Home hero replaces the "Watch our intro" CTA with a yt-embed; contact page adds a centre-tour yt-embed below the address block. Anchor photos on home, about, services heroes + mood images on first 3 service blocks. Real photos + real YouTube IDs swap in pre-launch by filename / data-yt-id replacement only — zero markup changes. axe-core still: 0 serious/critical across all 8 pages.
+
 ## What's open
 
 Three named workstreams, in priority order:
 
-### 1. Phase 2 — photography + YouTube scaffolding (planned, not started)
-**Spec:** `docs/superpowers/specs/2026-06-08-polish-pass-design.md` (Phase 2 section)
-**Plan:** not yet written. Will follow the same `/writing-plans` → `/superpowers:subagent-driven-development` pattern that Phase 1 used.
+### 1. Phase 2 — photography + YouTube scaffolding — DONE 2026-06-10
 
-Scope to plan:
-- 6-8 anchor photographs from Unsplash/Pexels/Met Museum, saved to `assets/img/anchors/`. One per major hero (home, about, services) + one mood image per service block.
-- Captioned-image `<figure>` component in components.css. Caption text format: `"Subject description · Placeholder via [Source]."` Visible. The launch-swap note ("real photo with parental consent before launch") lives in `media._note` in common.json, not the visible caption.
-- Lazy-load YouTube embed component (`assets/js/yt-embed.js`, ~30 lines). Slot at home hero (replaces "Watch our intro" CTA) + contact page (centre tour). Per-staff and Services-therapy-sample slots deferred to post-launch.
-- New `media.*` namespace in `content/{en,ms}/common.json` for captions/aria-labels. Parity check must still pass.
+Shipped. Plan: `docs/superpowers/plans/2026-06-10-phase2-photography-youtube.md`. Spec: `docs/superpowers/specs/2026-06-08-polish-pass-design.md` (Phase 2 section).
+
+Landed:
+- 6 anchor photos in `assets/img/anchors/` (home/about/services heroes + 3 service mood images), plus 2 custom YouTube thumbnails (home intro + centre tour). All placeholders via picsum.photos with descriptive seeds for deterministic rendering.
+- `.anchor-photo` `<figure>` component in `components.css` — rounded image + small serif italic caption in muted ink.
+- `.yt-embed` component in `components.css` + `assets/js/yt-embed.js` module (lazy click-to-load via youtube-nocookie.com, autoplay on click, iframe title from `data-yt-title`).
+- New `media.*` i18n namespace under `content/{en,ms}/common.json` (captions, alt text, video titles, play button label, source attribution). MS is `_draft: true` — needs Malaysian native-speaker review. Known stiff strings flagged for review: `serviceMood1` alt ("Detail dalaman yang tenang" — prefer "Perincian dalaman"), `serviceMood3` alt ("Kajian cahaya yang dipertimbangkan" — prefer "Kajian cahaya yang teliti"), `servicesHero` alt ("tiada wajah dapat dikenali" — prefer "tiada wajah kelihatan" for marketing tone).
+- Per-page wiring: anchor photo on home / about / services heroes; mood images on first 3 service blocks (dynamically injected by `renderServices()`); yt-embed on home hero (replacing the old "Watch our intro" button) + contact page below address.
+- `yt-embed.js` preemptively imported on services.html so future per-service therapy-sample slots are a markup-only edit.
+
+Known tech-debt items (non-blocking, for future passes):
+- The Phase 4 canggih CSS blocks + Phase 2 `.anchor-photo` + `.yt-embed` blocks all live OUTSIDE `@layer components` (architectural drift from Phase 4). A future refactor should move them inside the layer.
+- `common.media.videoTitles.*` namespace exists but is unused — `data-yt-title` is set inline (English-only) on each `.yt-embed`. Future i18n iframe-title pass can consume videoTitles.
+- `common.media.videoUnavailableFallback` duplicates `common.a11y.videoUnavailable` ("Video coming soon"). Either remove or alias before the strings drift.
+- The home hero anchor and yt-embed thumbnail both reuse `common.media.alts.homeHero` (screen reader hears the alt twice). Acceptable for prototype; consider distinct alts at launch.
+
+Pre-launch swap workflow (client handoff): replace JPGs in `assets/img/anchors/` keeping the same filenames; update `data-yt-id` attributes on each `<div class="yt-embed">` (currently `PLACEHOLDER_INTRO` on home hero, `PLACEHOLDER_CENTRE_TOUR` on contact) with real YouTube IDs. The visible captions stay the same wording — the "Placeholder via Picsum" suffix gets edited out as part of the swap.
 
 ### 2. The Assignment (from design doc, never executed)
 Open `https://www.urbaneethos.center/` and `http://localhost:8080/` side-by-side. Walk through homepage + contact page on both. Capture three specific moments where the prototype reads as wireframe-vs-real. That feedback should ground Phase 2's photography curation. Do this BEFORE Phase 2 starts.
@@ -98,8 +110,9 @@ Read in order to refresh context:
 3. `docs/superpowers/specs/2026-06-08-polish-pass-design.md` — the Phase 1+2 design doc.
 4. `~/.gstack/projects/urbane-ethos/deepsight-main-design-20260609-104719.md` — the Phase 4 canggih design doc.
 5. `docs/superpowers/plans/2026-06-09-canggih-layer-phase4.md` — Phase 4 plan as executed.
-6. `docs/superpowers/plans/2026-06-08-polish-pass-phase1-motion.md` — Phase 1 motion plan (pattern reference).
-7. `docs/A11Y_NOTES.md` — known a11y items and how to re-run axe-core.
+6. `docs/superpowers/plans/2026-06-10-phase2-photography-youtube.md` — Phase 2 plan as executed.
+7. `docs/superpowers/plans/2026-06-08-polish-pass-phase1-motion.md` — Phase 1 motion plan (pattern reference).
+8. `docs/A11Y_NOTES.md` — known a11y items and how to re-run axe-core.
 
 ### To start Phase 2
 

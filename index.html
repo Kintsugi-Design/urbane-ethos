@@ -41,12 +41,22 @@
 <main id="main">
   <section class="hero">
     <div class="wrap">
+      <figure class="anchor-photo">
+        <img src="/assets/img/anchors/home-hero.jpg" alt="" data-i18n-attr="alt:common.media.alts.homeHero">
+        <figcaption data-i18n="common.media.captions.homeHero">Therapy room interior, warm light · Placeholder via Picsum.</figcaption>
+      </figure>
       <p class="eyebrow" data-i18n="home.hero.eyebrow">Urbane Ethos</p>
       <h1 data-i18n="home.hero.title">Early Intervention Center</h1>
       <p class="lede" data-i18n="home.hero.subtitle">Subtitle</p>
       <div class="cta-row">
         <a class="btn btn--primary" href="/services.html" data-i18n="home.hero.primaryCta">Find Out More</a>
-        <button class="btn btn--secondary" data-i18n="home.hero.secondaryCta">Watch our intro</button>
+      </div>
+      <div class="yt-embed"
+           data-yt-id="PLACEHOLDER_INTRO"
+           data-yt-title="Urbane Ethos — introduction (placeholder)">
+        <img src="/assets/img/anchors/yt-thumb-home-intro.jpg" alt="" data-i18n-attr="alt:common.media.alts.homeHero">
+        <p class="yt-caption" data-i18n="common.media.captions.ytHomeIntro">Our intro · Placeholder.</p>
+        <button class="yt-play" aria-label="Play video" data-i18n-attr="aria-label:common.media.playButton">▶</button>
       </div>
     </div>
   </section>
@@ -190,6 +200,7 @@ import "/assets/js/a11y.js";
 import "/assets/js/page-load.js";
 import "/assets/js/cursor.js";
 import "/assets/js/parallax.js";
+import "/assets/js/yt-embed.js";
 import { isAllowed } from "/assets/js/consent.js";
 import { read as readPers, recommendedBlog, recommendedStaffId } from "/assets/js/personalization.js";
 import "/assets/js/personalization.js";
