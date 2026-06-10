@@ -7,4 +7,5 @@ content/scraped-raw/
 .gstack/
 _brief/
 _site/
+public/
 node_modules/

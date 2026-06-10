@@ -17,7 +17,7 @@ Just landed (Phase 4): **canggih layer** — atmospheric depth (A1 page-load ink
 
 Just landed (Phase 2): **photography + YouTube scaffolding** — `.anchor-photo` figure component for considered photo placeholders + lazy click-to-load `.yt-embed` component for video slots. 6 anchor photos + 2 custom YouTube thumbnails seeded via picsum.photos in `assets/img/anchors/`. New `media.*` i18n namespace mirrored EN + MS (MS marked `_draft: true` for translator review). Home hero replaces the "Watch our intro" CTA with a yt-embed; contact page adds a centre-tour yt-embed below the address block. Anchor photos on home, about, services heroes + mood images on first 3 service blocks. Real photos + real YouTube IDs swap in pre-launch by filename / data-yt-id replacement only — zero markup changes. axe-core still: 0 serious/critical across all 8 pages.
 
-Just landed (Phase 3 prep): **GitHub Pages deployment infrastructure** — all absolute paths converted to relative (`/foo` → `./foo`) across 8 HTML files + 5 JS modules so the prototype works identically at root, custom-domain root, OR repo-subpath (e.g. `username.github.io/urbane-ethos/`). Added `.github/workflows/pages.yml` (i18n parity gate + rsync-staged deploy artifact that excludes `docs/`, `bin/`, `test/`, `Gemfile*`, internal plans/scrapes), `.nojekyll` (disable Jekyll processing), custom `404.html` matching the brand idiom, and `.gitignore` entries for `_brief/`, `_site/`, `node_modules/`. axe-core still: 0 serious/critical across all 8 pages + 404. Local `bin/server` workflow unchanged.
+Just landed (Phase 3 prep): **Pages deployment infrastructure (GitHub + GitLab)** — all absolute paths converted to relative (`/foo` → `./foo`) across 8 HTML files + 5 JS modules so the prototype works identically at root, custom-domain root, OR repo-subpath (e.g. `username.github.io/urbane-ethos/`). Added `.github/workflows/pages.yml` (GitHub Pages) and `.gitlab-ci.yml` (GitLab Pages) — both run an `i18n parity` gate then rsync-stage an artifact with the same exclusion list (no `docs/`, `bin/`, `test/`, `Gemfile*`, internal plans/scrapes, `.DS_Store`). Same content publishes to both targets. Added `.nojekyll` (disable Jekyll on GH), custom `404.html` matching the brand idiom, and `.gitignore` entries for `_brief/`, `_site/`, `public/`, `node_modules/`. axe-core still: 0 serious/critical across all 8 pages + 404. Local `bin/server` workflow unchanged.
 
 ## What's open
 
@@ -43,28 +43,45 @@ Known tech-debt items (non-blocking, for future passes):
 
 Pre-launch swap workflow (client handoff): replace JPGs in `assets/img/anchors/` keeping the same filenames; update `data-yt-id` attributes on each `<div class="yt-embed">` (currently `PLACEHOLDER_INTRO` on home hero, `PLACEHOLDER_CENTRE_TOUR` on contact) with real YouTube IDs. The visible captions stay the same wording — the "Placeholder via Picsum" suffix gets edited out as part of the swap.
 
-### 2. GitHub Pages activation (manual steps — code prep DONE 2026-06-10)
+### 2. Pages activation — GitHub + GitLab (manual steps — code prep DONE 2026-06-10)
 
-Infrastructure landed: see "Just landed (Phase 3 prep)" above. Code is portable to root OR repo-subpath. What's left is manual / config:
+Infrastructure landed for BOTH targets: `.github/workflows/pages.yml` (GitHub Pages) and `.gitlab-ci.yml` (GitLab Pages). Both publish the same artifact (same exclusion list, same i18n-parity gate). Code is portable to root OR repo-subpath. What's left is manual / config:
 
-1. **Add a GitHub remote.** The repo currently only has `origin` pointing at `gitlab.nsfrg.my`. Add GitHub as a second remote:
+**GitHub Pages activation**
+
+1. **Add a GitHub remote.** The repo currently has `origin` pointing at `gitlab.nsfrg.my`. Add GitHub as a second remote:
    ```bash
    git remote add github git@github.com:<user-or-org>/<repo-name>.git
    git push github main
    ```
-   Pick a public repo name — the URL becomes `https://<user>.github.io/<repo-name>/` (project page).
+   The URL becomes `https://<user>.github.io/<repo-name>/` (project page).
 
-2. **Enable Pages in repo settings.** GitHub UI → Settings → Pages → Source: "GitHub Actions" (not "Deploy from branch" — the included workflow handles deploy). The first push to `main` after enabling triggers `.github/workflows/pages.yml`. The workflow runs an `i18n parity` gate, then `rsync`-stages a `_site/` artifact that excludes `docs/`, `bin/`, `test/`, `Gemfile*`, `_brief/`, etc. (internal plans + scrapes don't ship). Watch the Actions tab for the first run.
+2. **Enable Pages in repo settings.** GitHub UI → Settings → Pages → Source: "GitHub Actions" (not "Deploy from branch" — the workflow handles deploy). The first push to `main` after enabling triggers `.github/workflows/pages.yml`. Watch the Actions tab for the first run.
 
-3. **(Optional) Custom domain.** If using `urbaneethos.center` (or a subdomain like `prototype.urbaneethos.center`):
+3. **(Optional) Custom domain.** If using `urbaneethos.center` (or e.g. `prototype.urbaneethos.center`):
    - Add a `CNAME` file at repo root containing the bare domain (one line, no protocol).
-   - At the DNS provider, point the domain (or subdomain) at `<user>.github.io` via CNAME / ALIAS / ANAME record.
-   - In GitHub UI → Settings → Pages → Custom domain, set the same value. Enforce HTTPS (defaults on).
-   - Without a custom domain, the site lives at `<user>.github.io/<repo-name>/` — the relative paths work without any further edit.
+   - At the DNS provider, point the domain at `<user>.github.io` via CNAME / ALIAS / ANAME record.
+   - GitHub UI → Settings → Pages → Custom domain → set the same value. Enforce HTTPS (defaults on).
 
-4. **(Optional) Pre-deploy gate.** The workflow's `ci` job only runs `bin/check-i18n-parity.rb`. To also gate on axe-core, add an axe step before `deploy`. Left out for speed; can be added if a regression slips into a `main` push later.
+**GitLab Pages activation**
 
-5. **First-push smoke check.** After the first deploy succeeds: open the Pages URL → confirm hero photos load → click chatbot launcher → confirm i18n EN/BM toggle works → verify no console errors. Hard-reload (Cmd+Shift+R) to bypass any CDN cache.
+1. **Push to existing GitLab remote.** The `origin` remote already points at `git@gitlab.nsfrg.my:urbane-ethos/public-website.git`:
+   ```bash
+   git push origin main
+   ```
+   The first push to `main` triggers `.gitlab-ci.yml`. The URL pattern depends on instance config — for the self-hosted instance it's likely `https://urbane-ethos.gitlab.nsfrg.my/public-website/` or similar; confirm under Project → Settings → Pages.
+
+2. **Confirm Pages is enabled on the GitLab instance.** Self-hosted GitLab needs Pages turned on at the instance level (`gitlab_pages['enable'] = true` in the omnibus config). If the pipeline runs the `pages` job successfully but no URL appears under Settings → Pages, the instance admin needs to enable Pages.
+
+3. **(Optional) Custom domain.** GitLab Project → Settings → Pages → New Domain. Add the same DNS CNAME record as for GitHub if dual-publishing. Pick ONE target as canonical to avoid SEO duplication — typically GitHub Pages if you want the global Fastly CDN, GitLab Pages if you want the data to stay on the self-hosted instance.
+
+**Both deploys — shared gates and exclusions**
+
+- Both workflows run `bin/check-i18n-parity.rb` first; deploy is skipped on parity failure.
+- Both `rsync`-stage to a target directory (`_site/` for GH, `public/` for GL) using an IDENTICAL exclusion list — `docs/`, `bin/`, `test/`, `Gemfile*`, `_brief/`, `.gstack/`, `.claude/`, internal plans + scrapes, `.DS_Store`. Keep the lists in sync if either is updated.
+- axe-core is intentionally NOT gated in CI (heavy headless-browser step). Run locally before merging to `main`: `bin/server` + `npx -y @axe-core/cli` per page. See `docs/A11Y_NOTES.md`.
+
+**First-push smoke check (whichever target):** open the Pages URL → confirm hero photos load → click chatbot launcher → confirm i18n EN/BM toggle works → verify no console errors. Hard-reload (Cmd+Shift+R) to bypass any CDN cache.
 
 ### 3. The Assignment (from design doc, never executed)
 Open `https://www.urbaneethos.center/` and `http://localhost:8080/` side-by-side. Walk through homepage + contact page on both. Capture three specific moments where the prototype reads as wireframe-vs-real. That feedback should ground Phase 2's photography curation. Do this BEFORE Phase 2 starts.

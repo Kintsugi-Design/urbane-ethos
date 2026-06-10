@@ -1,0 +1,67 @@
+# GitLab CI/CD for Urbane Ethos prototype.
+#
+# Two jobs:
+#   1. i18n-parity (test stage): verify EN/MS key parity across content JSON.
+#   2. pages (deploy stage): rsync-stage a `public/` artifact (excluding
+#      internal dev files), GitLab Pages deploys it automatically.
+#
+# Conventions GitLab enforces:
+#   - The deploy job MUST be named `pages` (case-sensitive).
+#   - The artifact MUST be in the `public/` directory.
+#   - GitLab Pages picks up the artifact after the job succeeds.
+#
+# Default URL: https://<group>.gitlab.io/<project>/ (or self-hosted equivalent).
+# Custom domain: configure in GitLab Project → Settings → Pages → New Domain.
+
+stages:
+  - test
+  - deploy
+
+i18n-parity:
+  stage: test
+  image: ruby:3.4-alpine
+  script:
+    - ruby bin/check-i18n-parity.rb
+
+pages:
+  stage: deploy
+  image: alpine:3.20
+  needs:
+    - i18n-parity
+  script:
+    - apk add --no-cache rsync
+    # Stage only the public prototype — exclude dev-only files so internal
+    # plans / specs / scrapes / bundler vendor dirs don't ship to Pages.
+    # Mirror exclusions from .github/workflows/pages.yml so GitHub Pages
+    # and GitLab Pages publish the same set of files.
+    - mkdir -p public
+    - >
+      rsync -a
+      --exclude='.git/'
+      --exclude='.github/'
+      --exclude='.gitlab/'
+      --exclude='.gitlab-ci.yml'
+      --exclude='.gitignore'
+      --exclude='.gstack/'
+      --exclude='.claude/'
+      --exclude='_brief/'
+      --exclude='docs/'
+      --exclude='bin/'
+      --exclude='test/'
+      --exclude='Gemfile'
+      --exclude='Gemfile.lock'
+      --exclude='node_modules/'
+      --exclude='vendor/'
+      --exclude='.vscode/'
+      --exclude='_site/'
+      --exclude='public/'
+      --exclude='README.md'
+      --exclude='.DS_Store'
+      ./ public/
+    - ls -la public/ | head -20
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
