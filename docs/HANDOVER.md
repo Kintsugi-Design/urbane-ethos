@@ -1,9 +1,9 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-06-10 (after Phase 3 GitHub Pages prep landed)
-**HEAD:** `da1bcae` on `feat/pages-prep` (paths-relative + Pages workflow; to be merged to `main`)
+**Last updated:** 2026-06-10 (after Phase 3 Pages prep landed; GitHub target: `Kintsugi-Design/urbane-ethos`)
+**HEAD:** on `main`
 **Live test:** `bundle install && bin/server` → http://localhost:8080
-**Pages deploy:** push `main` to a GitHub remote with Pages enabled — see Workstream 2 below for the manual setup steps.
+**Pages deploy (immediate):** push `main` to `git@github.com:Kintsugi-Design/urbane-ethos.git`. GitLab Pages workflow (`.gitlab-ci.yml`) is committed but deferred — instance Pages enablement pending. See Workstream 2.
 
 ---
 
@@ -43,37 +43,35 @@ Known tech-debt items (non-blocking, for future passes):
 
 Pre-launch swap workflow (client handoff): replace JPGs in `assets/img/anchors/` keeping the same filenames; update `data-yt-id` attributes on each `<div class="yt-embed">` (currently `PLACEHOLDER_INTRO` on home hero, `PLACEHOLDER_CENTRE_TOUR` on contact) with real YouTube IDs. The visible captions stay the same wording — the "Placeholder via Picsum" suffix gets edited out as part of the swap.
 
-### 2. Pages activation — GitHub + GitLab (manual steps — code prep DONE 2026-06-10)
+### 2. Pages activation — GitHub immediate, GitLab deferred (code prep DONE 2026-06-10)
 
-Infrastructure landed for BOTH targets: `.github/workflows/pages.yml` (GitHub Pages) and `.gitlab-ci.yml` (GitLab Pages). Both publish the same artifact (same exclusion list, same i18n-parity gate). Code is portable to root OR repo-subpath. What's left is manual / config:
+Infrastructure landed for BOTH targets: `.github/workflows/pages.yml` (GitHub Pages, immediate target) and `.gitlab-ci.yml` (GitLab Pages, deferred until instance Pages is enabled). Both publish the same artifact (same exclusion list, same i18n-parity gate). Code is portable to root OR repo-subpath. What's left is manual / config:
 
-**GitHub Pages activation**
+**GitHub Pages activation (immediate)**
 
-1. **Add a GitHub remote.** The repo currently has `origin` pointing at `gitlab.nsfrg.my`. Add GitHub as a second remote:
+Target remote: `git@github.com:Kintsugi-Design/urbane-ethos.git`. Public URL after activation: `https://kintsugi-design.github.io/urbane-ethos/`.
+
+1. **Add the GitHub remote alongside the existing `origin` (GitLab).**
    ```bash
-   git remote add github git@github.com:<user-or-org>/<repo-name>.git
+   git remote add github git@github.com:Kintsugi-Design/urbane-ethos.git
    git push github main
    ```
-   The URL becomes `https://<user>.github.io/<repo-name>/` (project page).
 
 2. **Enable Pages in repo settings.** GitHub UI → Settings → Pages → Source: "GitHub Actions" (not "Deploy from branch" — the workflow handles deploy). The first push to `main` after enabling triggers `.github/workflows/pages.yml`. Watch the Actions tab for the first run.
 
 3. **(Optional) Custom domain.** If using `urbaneethos.center` (or e.g. `prototype.urbaneethos.center`):
    - Add a `CNAME` file at repo root containing the bare domain (one line, no protocol).
-   - At the DNS provider, point the domain at `<user>.github.io` via CNAME / ALIAS / ANAME record.
+   - At the DNS provider, point the domain at `kintsugi-design.github.io` via CNAME / ALIAS / ANAME record.
    - GitHub UI → Settings → Pages → Custom domain → set the same value. Enforce HTTPS (defaults on).
 
-**GitLab Pages activation**
+**GitLab Pages activation (deferred — instance Pages enablement pending)**
 
-1. **Push to existing GitLab remote.** The `origin` remote already points at `git@gitlab.nsfrg.my:urbane-ethos/public-website.git`:
-   ```bash
-   git push origin main
-   ```
-   The first push to `main` triggers `.gitlab-ci.yml`. The URL pattern depends on instance config — for the self-hosted instance it's likely `https://urbane-ethos.gitlab.nsfrg.my/public-website/` or similar; confirm under Project → Settings → Pages.
+The `origin` remote already points at `git@gitlab.nsfrg.my:urbane-ethos/public-website.git`, and `.gitlab-ci.yml` is committed and ready. The pipeline will run on the next push to `origin/main`, but the `pages` job requires the self-hosted GitLab instance to have Pages enabled (`gitlab_pages['enable'] = true` in the omnibus config). Until the instance admin enables Pages:
 
-2. **Confirm Pages is enabled on the GitLab instance.** Self-hosted GitLab needs Pages turned on at the instance level (`gitlab_pages['enable'] = true` in the omnibus config). If the pipeline runs the `pages` job successfully but no URL appears under Settings → Pages, the instance admin needs to enable Pages.
+- **Avoid pushing to `origin/main`** if you don't want a failed `pages` job to accumulate in the pipeline history, OR
+- **Push but accept the failure** — the failed job doesn't block anything else; it just shows red in the pipeline view.
 
-3. **(Optional) Custom domain.** GitLab Project → Settings → Pages → New Domain. Add the same DNS CNAME record as for GitHub if dual-publishing. Pick ONE target as canonical to avoid SEO duplication — typically GitHub Pages if you want the global Fastly CDN, GitLab Pages if you want the data to stay on the self-hosted instance.
+Once instance Pages is enabled, `git push origin main` deploys; URL appears under Project → Settings → Pages. Optional custom domain configured via Project → Settings → Pages → New Domain. If dual-publishing GitHub + GitLab, pick ONE target as canonical (set `<link rel="canonical">` on each page) to avoid SEO duplication.
 
 **Both deploys — shared gates and exclusions**
 
