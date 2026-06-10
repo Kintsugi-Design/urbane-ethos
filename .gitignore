@@ -5,3 +5,6 @@ vendor/bundle/
 .bundle/
 content/scraped-raw/
 .gstack/
+_brief/
+_site/
+node_modules/

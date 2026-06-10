@@ -8,7 +8,7 @@
 //
 // HTML shape expected on each .yt-embed:
 //   <div class="yt-embed" data-yt-id="ABC123" data-yt-title="...">
-//     <img src="/assets/img/anchors/yt-thumb-X.jpg" alt="">
+//     <img src="./assets/img/anchors/yt-thumb-X.jpg" alt="">
 //     <p class="yt-caption">...</p>
 //     <button class="yt-play" aria-label="Play video">▶</button>
 //   </div>

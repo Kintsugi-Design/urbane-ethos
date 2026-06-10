@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title data-i18n="privacy.header.title">Privacy notice — Urbane Ethos</title>
-<link rel="stylesheet" href="/assets/css/tokens.css">
-<link rel="stylesheet" href="/assets/css/base.css">
-<link rel="stylesheet" href="/assets/css/components.css">
-<link rel="stylesheet" href="/assets/css/motion.css">
+<link rel="stylesheet" href="./assets/css/tokens.css">
+<link rel="stylesheet" href="./assets/css/base.css">
+<link rel="stylesheet" href="./assets/css/components.css">
+<link rel="stylesheet" href="./assets/css/motion.css">
 </head>
 <body class="privacy">
 <a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
@@ -34,20 +34,20 @@
   <div class="wrap">
     <p>
       <a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a>
-      &middot; <a href="/privacy.html" data-i18n="common.footer.privacy">Privacy notice</a>
+      &middot; <a href="./privacy.html" data-i18n="common.footer.privacy">Privacy notice</a>
     </p>
   </div>
 </footer>
 
 <script type="module">
-import { getLocale, t } from "/assets/js/i18n.js";
-import "/assets/js/consent.js";
-import "/assets/js/page-load.js";
-import "/assets/js/cursor.js";
+import { getLocale, t } from "./assets/js/i18n.js";
+import "./assets/js/consent.js";
+import "./assets/js/page-load.js";
+import "./assets/js/cursor.js";
 
 async function renderSections() {
   const locale = getLocale();
-  const data = await (await fetch(`/content/${locale}/privacy.json`)).json();
+  const data = await (await fetch(`./content/${locale}/privacy.json`)).json();
   const wrap = document.getElementById("privacy-sections");
   wrap.replaceChildren();
   for (const sec of data.sections) {

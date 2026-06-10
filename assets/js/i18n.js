@@ -7,7 +7,7 @@ const cache = new Map();
 async function loadNamespace(locale, namespace) {
   const key = `${locale}:${namespace}`;
   if (cache.has(key)) return cache.get(key);
-  const url = `/content/${locale}/${namespace}.json`;
+  const url = `content/${locale}/${namespace}.json`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`i18n: failed to load ${url} (${res.status})`);
   const data = await res.json();

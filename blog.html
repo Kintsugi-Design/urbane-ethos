@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title data-i18n="blog.hero.title">Blog — Urbane Ethos</title>
-<link rel="stylesheet" href="/assets/css/tokens.css">
-<link rel="stylesheet" href="/assets/css/base.css">
-<link rel="stylesheet" href="/assets/css/components.css">
-<link rel="stylesheet" href="/assets/css/motion.css">
+<link rel="stylesheet" href="./assets/css/tokens.css">
+<link rel="stylesheet" href="./assets/css/base.css">
+<link rel="stylesheet" href="./assets/css/components.css">
+<link rel="stylesheet" href="./assets/css/motion.css">
 </head>
 <body class="blog">
 <a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
@@ -20,11 +20,11 @@
     </a>
     <nav aria-label="Primary">
       <ul class="nav-list">
-        <li><a href="/about.html" data-i18n="common.nav.about">About</a></li>
-        <li><a href="/staff.html" data-i18n="common.nav.staff">Staff</a></li>
-        <li><a href="/services.html" data-i18n="common.nav.services">Services</a></li>
-        <li><a href="/blog.html" aria-current="page" data-i18n="common.nav.blog">Blog</a></li>
-        <li><a href="/contact.html" data-i18n="common.nav.contact">Contact</a></li>
+        <li><a href="./about.html" data-i18n="common.nav.about">About</a></li>
+        <li><a href="./staff.html" data-i18n="common.nav.staff">Staff</a></li>
+        <li><a href="./services.html" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="./blog.html" aria-current="page" data-i18n="common.nav.blog">Blog</a></li>
+        <li><a href="./contact.html" data-i18n="common.nav.contact">Contact</a></li>
       </ul>
     </nav>
     <div class="header-tools">
@@ -33,7 +33,7 @@
         <button data-locale-set="ms">BM</button>
       </span>
       <button class="fs-toggle" data-fs-cycle aria-label="Text size">A&#x2195;</button>
-      <a class="btn btn--primary" href="/contact.html" data-i18n="common.cta.bookSession">Book Now</a>
+      <a class="btn btn--primary" href="./contact.html" data-i18n="common.cta.bookSession">Book Now</a>
     </div>
   </div>
 </header>
@@ -63,18 +63,18 @@
     <div>
       <h4>Site</h4>
       <ul>
-        <li><a href="/services.html" data-i18n="common.nav.services">Services</a></li>
-        <li><a href="/staff.html" data-i18n="common.nav.staff">Staff</a></li>
-        <li><a href="/blog.html" data-i18n="common.nav.blog">Blog</a></li>
-        <li><a href="/contact.html" data-i18n="common.nav.contact">Contact</a></li>
+        <li><a href="./services.html" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="./staff.html" data-i18n="common.nav.staff">Staff</a></li>
+        <li><a href="./blog.html" data-i18n="common.nav.blog">Blog</a></li>
+        <li><a href="./contact.html" data-i18n="common.nav.contact">Contact</a></li>
       </ul>
     </div>
     <div>
       <h4>Privacy</h4>
       <ul>
-        <li><a href="/privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
+        <li><a href="./privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
         <li><a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a></li>
-        <li><a href="/analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
+        <li><a href="./analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
       </ul>
     </div>
   </div>
@@ -83,20 +83,20 @@
 <button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot">&#x1F4AC;</button>
 
 <script type="module">
-import { getLocale, translatePage } from "/assets/js/i18n.js";
-import "/assets/js/consent.js";
-import "/assets/js/a11y.js";
-import "/assets/js/page-load.js";
-import "/assets/js/cursor.js";
-import "/assets/js/chatbot.js";
+import { getLocale, translatePage } from "./assets/js/i18n.js";
+import "./assets/js/consent.js";
+import "./assets/js/a11y.js";
+import "./assets/js/page-load.js";
+import "./assets/js/cursor.js";
+import "./assets/js/chatbot.js";
 
 const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
 async function renderBlog() {
   const locale = getLocale();
   const [data, common] = await Promise.all([
-    fetch(`/content/blog.json`).then(r => r.json()),
-    fetch(`/content/${locale}/common.json`).then(r => r.json())
+    fetch(`./content/blog.json`).then(r => r.json()),
+    fetch(`./content/${locale}/common.json`).then(r => r.json())
   ]);
 
   const fhrs = document.getElementById("footer-hours");

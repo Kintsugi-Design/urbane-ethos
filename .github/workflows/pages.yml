@@ -1,0 +1,71 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deploy; in-progress runs finish (don't cancel partial deploys).
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # Lightweight gate: i18n parity check before publishing.
+  # axe-core runs locally during dev; not gated in CI to keep the workflow fast.
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+      - name: i18n parity check
+        run: bin/check-i18n-parity.rb
+
+  deploy:
+    needs: ci
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Stage only the public prototype — exclude dev-only files so internal
+      # plans / specs / scrapes / bundler vendor dirs don't ship to Pages.
+      - name: Stage deploy artifact
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.gitlab-ci.yml' \
+            --exclude='.gitignore' \
+            --exclude='.gstack/' \
+            --exclude='.claude/' \
+            --exclude='_brief/' \
+            --exclude='docs/' \
+            --exclude='bin/' \
+            --exclude='test/' \
+            --exclude='Gemfile' \
+            --exclude='Gemfile.lock' \
+            --exclude='node_modules/' \
+            --exclude='vendor/' \
+            --exclude='.vscode/' \
+            --exclude='_site/' \
+            --exclude='README.md' \
+            ./ _site/
+          ls -la _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+      - id: deployment
+        uses: actions/deploy-pages@v4

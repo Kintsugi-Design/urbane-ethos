@@ -1,5 +1,5 @@
-import { translatePage } from "/assets/js/i18n.js";
-import { renderSageStamp } from "/assets/js/sage-stamp.js";
+import { translatePage } from "./i18n.js";
+import { renderSageStamp } from "./sage-stamp.js";
 
 const CONSENT_KEY = "urbane-ethos:consent";
 const CONSENT_VERSION = 1;

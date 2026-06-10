@@ -1,8 +1,9 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-06-10 (after Phase 2 photography + YouTube scaffolding landed)
-**HEAD:** `363fe6c` on `feat/polish-pass-phase2` (Phase 2 photography + YouTube scaffolding; to be merged to `main`)
+**Last updated:** 2026-06-10 (after Phase 3 GitHub Pages prep landed)
+**HEAD:** `da1bcae` on `feat/pages-prep` (paths-relative + Pages workflow; to be merged to `main`)
 **Live test:** `bundle install && bin/server` → http://localhost:8080
+**Pages deploy:** push `main` to a GitHub remote with Pages enabled — see Workstream 2 below for the manual setup steps.
 
 ---
 
@@ -15,6 +16,8 @@ Just landed: **Phase 1 of the polish pass** — paper-and-ink craft microinterac
 Just landed (Phase 4): **canggih layer** — atmospheric depth (A1 page-load ink-bloom, A2 sage ink-dot cursor, A3 paper-grain texture, A5 sage `::selection`) always-on + cinematic pacing (A4 hero parallax, C1 100vh hero, C4 paper-fold reveals via extended `.fade-in-up`). 7 moves, all KEEP after T9 tracer-bullet calibration. Design doc: `/Users/deepsight/.gstack/projects/urbane-ethos/deepsight-main-design-20260609-104719.md`. Plan: `docs/superpowers/plans/2026-06-09-canggih-layer-phase4.md`. axe-core still: 0 serious/critical across all 8 pages (one regression caught + fixed at T13 — the A1 bloom now uses a `body::before` overlay instead of `opacity` on `<main>`, preserving text contrast during the bloom window).
 
 Just landed (Phase 2): **photography + YouTube scaffolding** — `.anchor-photo` figure component for considered photo placeholders + lazy click-to-load `.yt-embed` component for video slots. 6 anchor photos + 2 custom YouTube thumbnails seeded via picsum.photos in `assets/img/anchors/`. New `media.*` i18n namespace mirrored EN + MS (MS marked `_draft: true` for translator review). Home hero replaces the "Watch our intro" CTA with a yt-embed; contact page adds a centre-tour yt-embed below the address block. Anchor photos on home, about, services heroes + mood images on first 3 service blocks. Real photos + real YouTube IDs swap in pre-launch by filename / data-yt-id replacement only — zero markup changes. axe-core still: 0 serious/critical across all 8 pages.
+
+Just landed (Phase 3 prep): **GitHub Pages deployment infrastructure** — all absolute paths converted to relative (`/foo` → `./foo`) across 8 HTML files + 5 JS modules so the prototype works identically at root, custom-domain root, OR repo-subpath (e.g. `username.github.io/urbane-ethos/`). Added `.github/workflows/pages.yml` (i18n parity gate + rsync-staged deploy artifact that excludes `docs/`, `bin/`, `test/`, `Gemfile*`, internal plans/scrapes), `.nojekyll` (disable Jekyll processing), custom `404.html` matching the brand idiom, and `.gitignore` entries for `_brief/`, `_site/`, `node_modules/`. axe-core still: 0 serious/critical across all 8 pages + 404. Local `bin/server` workflow unchanged.
 
 ## What's open
 
@@ -40,10 +43,33 @@ Known tech-debt items (non-blocking, for future passes):
 
 Pre-launch swap workflow (client handoff): replace JPGs in `assets/img/anchors/` keeping the same filenames; update `data-yt-id` attributes on each `<div class="yt-embed">` (currently `PLACEHOLDER_INTRO` on home hero, `PLACEHOLDER_CENTRE_TOUR` on contact) with real YouTube IDs. The visible captions stay the same wording — the "Placeholder via Picsum" suffix gets edited out as part of the swap.
 
-### 2. The Assignment (from design doc, never executed)
+### 2. GitHub Pages activation (manual steps — code prep DONE 2026-06-10)
+
+Infrastructure landed: see "Just landed (Phase 3 prep)" above. Code is portable to root OR repo-subpath. What's left is manual / config:
+
+1. **Add a GitHub remote.** The repo currently only has `origin` pointing at `gitlab.nsfrg.my`. Add GitHub as a second remote:
+   ```bash
+   git remote add github git@github.com:<user-or-org>/<repo-name>.git
+   git push github main
+   ```
+   Pick a public repo name — the URL becomes `https://<user>.github.io/<repo-name>/` (project page).
+
+2. **Enable Pages in repo settings.** GitHub UI → Settings → Pages → Source: "GitHub Actions" (not "Deploy from branch" — the included workflow handles deploy). The first push to `main` after enabling triggers `.github/workflows/pages.yml`. The workflow runs an `i18n parity` gate, then `rsync`-stages a `_site/` artifact that excludes `docs/`, `bin/`, `test/`, `Gemfile*`, `_brief/`, etc. (internal plans + scrapes don't ship). Watch the Actions tab for the first run.
+
+3. **(Optional) Custom domain.** If using `urbaneethos.center` (or a subdomain like `prototype.urbaneethos.center`):
+   - Add a `CNAME` file at repo root containing the bare domain (one line, no protocol).
+   - At the DNS provider, point the domain (or subdomain) at `<user>.github.io` via CNAME / ALIAS / ANAME record.
+   - In GitHub UI → Settings → Pages → Custom domain, set the same value. Enforce HTTPS (defaults on).
+   - Without a custom domain, the site lives at `<user>.github.io/<repo-name>/` — the relative paths work without any further edit.
+
+4. **(Optional) Pre-deploy gate.** The workflow's `ci` job only runs `bin/check-i18n-parity.rb`. To also gate on axe-core, add an axe step before `deploy`. Left out for speed; can be added if a regression slips into a `main` push later.
+
+5. **First-push smoke check.** After the first deploy succeeds: open the Pages URL → confirm hero photos load → click chatbot launcher → confirm i18n EN/BM toggle works → verify no console errors. Hard-reload (Cmd+Shift+R) to bypass any CDN cache.
+
+### 3. The Assignment (from design doc, never executed)
 Open `https://www.urbaneethos.center/` and `http://localhost:8080/` side-by-side. Walk through homepage + contact page on both. Capture three specific moments where the prototype reads as wireframe-vs-real. That feedback should ground Phase 2's photography curation. Do this BEFORE Phase 2 starts.
 
-### 3. Real-browser sweep of Phase 1 motion
+### 4. Real-browser sweep of Phase 1 motion
 axe-core can't grade aesthetics. The 6 craft moments need a human-eye sweep:
 - Consent save: sage stamp circle draws (320ms), then checkmark draws (160ms), holds 720ms, fades 200ms. Test all three save paths (Accept all / Necessary only / Customize+Save).
 - Personalization save: same stamp on home survey submit.
@@ -55,7 +81,7 @@ axe-core can't grade aesthetics. The 6 craft moments need a human-eye sweep:
 
 If anything feels off (timing, curve, magnitude), the design doc's "Open Questions" section captures the calibration questions worth iterating on.
 
-### 4. Broader aesthetics + microinteraction review — DONE 2026-06-10
+### 5. Broader aesthetics + microinteraction review — DONE 2026-06-10
 
 Shipped as Phase 4. Design doc: `/Users/deepsight/.gstack/projects/urbane-ethos/deepsight-main-design-20260609-104719.md`. Plan: `docs/superpowers/plans/2026-06-09-canggih-layer-phase4.md`. T9 tracer-bullet calibration outcomes:
 
@@ -77,7 +103,7 @@ From design doc + earlier scrape findings:
 - **Drafted English copy** — `_draft: true` markers on every drafted string across `content/en/*.json` (hero subtitles, values, service whatItIs/whoItsFor/whatToExpect, FAQs, staff personal lines + 5 of 9 bios, events teaser). Client should review and replace with their own copy.
 - **Real staff photos** — placeholders flagged `[REAL PHOTO REQUIRED]` in `alt`.
 - **Real video content** — staff intros, centre tour, parent testimonial.
-- **Production hosting / deploy / domain** — Phase 3, unscoped.
+- **Production hosting / deploy / domain** — Phase 3 prep landed 2026-06-10 (paths relative, `.github/workflows/pages.yml`, `.nojekyll`, custom `404.html`). Activation steps are Workstream 2 above. Custom domain (`CNAME` + DNS) deferred until client decision.
 - **Individual blog article pages** — cards currently deep-link to live site articles.
 - **Real chatbot LLM backend** — currently a scripted decision tree.
 - **Real personalization** (server-side, cross-session ML) — currently client-side rules table.
@@ -86,7 +112,7 @@ From design doc + earlier scrape findings:
 
 ## Canggih layer wiring pattern (for future modules)
 
-Every page-level canggih module (anything in `assets/js/canggih-*.js` or that participates in the always-on layer) must be imported in every one of the 8 HTML pages' `<script type="module">` block. The convention: insert imports immediately after `import "/assets/js/a11y.js";` where present. Pages without a11y.js (`privacy.html`, `analytics.html`) anchor on the next-best stable import (`consent.js` on privacy, `analytics-demo-data.js` on analytics).
+Every page-level canggih module (anything in `assets/js/canggih-*.js` or that participates in the always-on layer) must be imported in every one of the 8 HTML pages' `<script type="module">` block. The convention: insert imports immediately after `import "./assets/js/a11y.js";` where present. Pages without a11y.js (`privacy.html`, `analytics.html`) anchor on the next-best stable import (`consent.js` on privacy, `analytics-demo-data.js` on analytics). All module specifiers are relative (`./`) post Phase-3 prep — keep that convention for new modules.
 
 Pages to wire (all 8): `index.html`, `about.html`, `staff.html`, `services.html`, `blog.html`, `contact.html`, `analytics.html`, `privacy.html`.
 

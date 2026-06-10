@@ -1,5 +1,5 @@
-import { isAllowed } from "/assets/js/consent.js";
-import { renderSageStamp } from "/assets/js/sage-stamp.js";
+import { isAllowed } from "./consent.js";
+import { renderSageStamp } from "./sage-stamp.js";
 
 const KEY = "urbane-ethos:personalization";
 

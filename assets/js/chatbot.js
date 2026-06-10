@@ -1,5 +1,5 @@
-import { getLocale } from "/assets/js/i18n.js";
-import { isAllowed } from "/assets/js/consent.js";
+import { getLocale } from "./i18n.js";
+import { isAllowed } from "./consent.js";
 
 const TRANSCRIPT_KEY = "urbane-ethos:chatbot-transcript";
 let panel, log, optionsBar, inputBar, micBtn, ttsBtn;
@@ -8,7 +8,7 @@ let state = { node: "start", context: {} };
 
 async function loadFlow() {
   const locale = getLocale();
-  const res = await fetch(`/content/${locale}/chatbot.json`);
+  const res = await fetch(`content/${locale}/chatbot.json`);
   flow = await res.json();
 }
 
