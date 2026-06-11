@@ -63,7 +63,6 @@
     "_draft": true,
     "_note": "Foto sebenar dengan kebenaran ibu bapa + video lawatan pusat sebenar adalah penggantian sebelum pelancaran. Gantikan JPG dalam assets/img/anchors/ dengan nama fail yang sama, dan kemas kini atribut data-yt-id pada setiap <div class=\"yt-embed\"> dengan ID YouTube sebenar.",
     "playButton": "Mainkan video",
-    "videoUnavailableFallback": "Video akan datang",
     "captions": {
       "homeHero": "Bilik terapi, cahaya hangat · Placeholder melalui Picsum.",
       "aboutHero": "Ibu bapa dan anak di pusat · Placeholder melalui Picsum.",

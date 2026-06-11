@@ -56,7 +56,6 @@
   "media": {
     "_note": "Real photos with parental consent + real centre-tour video are pre-launch swaps. Replace the JPGs in assets/img/anchors/ keeping the same filenames, and update the data-yt-id attributes on each <div class=\"yt-embed\"> with the real YouTube IDs. The visible captions below stay as-is until launch.",
     "playButton": "Play video",
-    "videoUnavailableFallback": "Video coming soon",
     "captions": {
       "homeHero": "Therapy room interior, warm light · Placeholder via Picsum.",
       "aboutHero": "Parent and child at the centre · Placeholder via Picsum.",
