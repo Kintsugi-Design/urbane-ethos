@@ -247,169 +247,169 @@
   .stat-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); margin-bottom: var(--space-12); }
   .stat-card { background: var(--color-cream-soft); border-radius: var(--radius-2); padding: var(--space-6); }
   .stat-value { font: 700 2rem var(--font-serif); }
-}
 
-/* A2 canggih cursor — sage ink-dot, decorative (OS cursor visible underneath).
-   pointer-events: none is critical so the dot never intercepts clicks/hovers. */
-.canggih-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--canggih-cursor-rest);
-  height: var(--canggih-cursor-rest);
-  border-radius: 50%;
-  background: var(--color-sage);
-  opacity: var(--canggih-cursor-opacity-rest);
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: multiply;
-  will-change: transform, opacity;
-  transition: width var(--dur-1) var(--ease-out),
-              height var(--dur-1) var(--ease-out),
-              opacity var(--dur-1) var(--ease-out);
-}
-.canggih-cursor--active {
-  width: var(--canggih-cursor-active);
-  height: var(--canggih-cursor-active);
-  opacity: var(--canggih-cursor-opacity-active);
-}
-.canggih-cursor--fade {
-  opacity: 0;
-}
-@media (pointer: coarse) {
-  .canggih-cursor { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .canggih-cursor { display: none; }
-}
+  /* A2 canggih cursor — sage ink-dot, decorative (OS cursor visible underneath).
+     pointer-events: none is critical so the dot never intercepts clicks/hovers. */
+  .canggih-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--canggih-cursor-rest);
+    height: var(--canggih-cursor-rest);
+    border-radius: 50%;
+    background: var(--color-sage);
+    opacity: var(--canggih-cursor-opacity-rest);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: multiply;
+    will-change: transform, opacity;
+    transition: width var(--dur-1) var(--ease-out),
+                height var(--dur-1) var(--ease-out),
+                opacity var(--dur-1) var(--ease-out);
+  }
+  .canggih-cursor--active {
+    width: var(--canggih-cursor-active);
+    height: var(--canggih-cursor-active);
+    opacity: var(--canggih-cursor-opacity-active);
+  }
+  .canggih-cursor--fade {
+    opacity: 0;
+  }
+  @media (pointer: coarse) {
+    .canggih-cursor { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canggih-cursor { display: none; }
+  }
 
-/* C1 — 100vh hero, per-P3 contextual placement. Subtracts --canggih-header-h
-   to fit the sticky header. Hero on every page; trust-beat blocks on
-   home (values band), about (ethos), services (per-service intro). */
-body.home .hero,
-body.about .hero,
-body.services .hero,
-body.contact .hero,
-body.staff .hero,
-body.blog .hero,
-body.analytics .hero,
-body.privacy .hero {
-  min-height: calc(100vh - var(--canggih-header-h));
-  min-height: calc(100svh - var(--canggih-header-h));
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+  /* C1 — 100vh hero, per-P3 contextual placement. Subtracts --canggih-header-h
+     to fit the sticky header. Hero on every page; trust-beat blocks on
+     home (values band), about (ethos), services (per-service intro). */
+  body.home .hero,
+  body.about .hero,
+  body.services .hero,
+  body.contact .hero,
+  body.staff .hero,
+  body.blog .hero,
+  body.analytics .hero,
+  body.privacy .hero {
+    min-height: calc(100vh - var(--canggih-header-h));
+    min-height: calc(100svh - var(--canggih-header-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-/* Trust-beat blocks — one per page per P3.
-   Home: values band (data-trust-beat="values").
-   About: ethos block (data-trust-beat="ethos").
-   Services: per-service intro (data-trust-beat="service-intro"). */
-body.home [data-trust-beat="values"],
-body.about [data-trust-beat="ethos"],
-body.services [data-trust-beat="service-intro"] {
-  min-height: calc(100vh - var(--canggih-header-h));
-  min-height: calc(100svh - var(--canggih-header-h));
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+  /* Trust-beat blocks — one per page per P3.
+     Home: values band (data-trust-beat="values").
+     About: ethos block (data-trust-beat="ethos").
+     Services: per-service intro (data-trust-beat="service-intro"). */
+  body.home [data-trust-beat="values"],
+  body.about [data-trust-beat="ethos"],
+  body.services [data-trust-beat="service-intro"] {
+    min-height: calc(100vh - var(--canggih-header-h));
+    min-height: calc(100svh - var(--canggih-header-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-/* Required by C4 paper-fold (T8): parent containers need preserve-3d to avoid
-   rotateX flicker, and overflow: visible to avoid clipping during the fold. */
-main, section, .hero {
-  transform-style: preserve-3d;
-}
-main { overflow: visible; }
+  /* Required by C4 paper-fold (T8): parent containers need preserve-3d to avoid
+     rotateX flicker, and overflow: visible to avoid clipping during the fold. */
+  main, section, .hero {
+    transform-style: preserve-3d;
+  }
+  main { overflow: visible; }
 
-/* Phase 2 anchor photos — section anchor figures with intent captions.
-   Caption is small serif italic in muted ink, sits flush under the image.
-   The figure constrains width to the parent (wrap), preserves aspect ratio
-   via the JPG's intrinsic dimensions, and rounds the image corners gently
-   to match the prototype's paper-craft idiom. */
-.anchor-photo {
-  margin: 0 0 var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-.anchor-photo img {
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius-2);
-  display: block;
-}
-.anchor-photo figcaption {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: var(--type-small);
-  color: var(--color-ink-muted);
-  line-height: 1.4;
-  margin: 0;
-}
+  /* Phase 2 anchor photos — section anchor figures with intent captions.
+     Caption is small serif italic in muted ink, sits flush under the image.
+     The figure constrains width to the parent (wrap), preserves aspect ratio
+     via the JPG's intrinsic dimensions, and rounds the image corners gently
+     to match the prototype's paper-craft idiom. */
+  .anchor-photo {
+    margin: 0 0 var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .anchor-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-2);
+    display: block;
+  }
+  .anchor-photo figcaption {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--type-small);
+    color: var(--color-ink-muted);
+    line-height: 1.4;
+    margin: 0;
+  }
 
-/* Phase 2 lazy YouTube embed — renders as a static thumbnail with a
-   centered play button until clicked. On click, yt-embed.js swaps the
-   inner content for the real <iframe>. CSS handles the visual frame +
-   the play button; JS handles the swap. */
-.yt-embed {
-  position: relative;
-  display: block;
-  width: 100%;
-  margin: 0 0 var(--space-6);
-  border-radius: var(--radius-2);
-  overflow: hidden;
-  background: var(--color-cream-soft);
-  aspect-ratio: 16 / 9;
-}
-.yt-embed img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.yt-embed iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-.yt-embed .yt-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 2px solid var(--color-cream-soft);
-  background: color-mix(in srgb, var(--color-ink) 75%, transparent);
-  color: var(--color-cream-soft);
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: transform var(--dur-1) var(--ease-out),
-              background var(--dur-1) var(--ease-out);
-}
-.yt-embed:hover .yt-play,
-.yt-embed:focus-within .yt-play {
-  transform: translate(-50%, -50%) scale(1.06);
-  background: var(--color-ink);
-}
-.yt-embed .yt-caption {
-  position: absolute;
-  inset: auto 0 var(--space-3) 0;
-  text-align: center;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: var(--type-small);
-  color: var(--color-cream-soft);
-  text-shadow: 0 1px 4px rgba(43, 31, 20, 0.55);
-  padding: 0 var(--space-4);
-}
-/* When iframe is live (post-click), hide the thumb-overlay caption + button. */
-.yt-embed[data-yt-state="playing"] .yt-play,
-.yt-embed[data-yt-state="playing"] .yt-caption {
-  display: none;
+  /* Phase 2 lazy YouTube embed — renders as a static thumbnail with a
+     centered play button until clicked. On click, yt-embed.js swaps the
+     inner content for the real <iframe>. CSS handles the visual frame +
+     the play button; JS handles the swap. */
+  .yt-embed {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 0 var(--space-6);
+    border-radius: var(--radius-2);
+    overflow: hidden;
+    background: var(--color-cream-soft);
+    aspect-ratio: 16 / 9;
+  }
+  .yt-embed img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .yt-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+  .yt-embed .yt-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--color-cream-soft);
+    background: color-mix(in srgb, var(--color-ink) 75%, transparent);
+    color: var(--color-cream-soft);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: transform var(--dur-1) var(--ease-out),
+                background var(--dur-1) var(--ease-out);
+  }
+  .yt-embed:hover .yt-play,
+  .yt-embed:focus-within .yt-play {
+    transform: translate(-50%, -50%) scale(1.06);
+    background: var(--color-ink);
+  }
+  .yt-embed .yt-caption {
+    position: absolute;
+    inset: auto 0 var(--space-3) 0;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--type-small);
+    color: var(--color-cream-soft);
+    text-shadow: 0 1px 4px rgba(43, 31, 20, 0.55);
+    padding: 0 var(--space-4);
+  }
+  /* When iframe is live (post-click), hide the thumb-overlay caption + button. */
+  .yt-embed[data-yt-state="playing"] .yt-play,
+  .yt-embed[data-yt-state="playing"] .yt-caption {
+    display: none;
+  }
 }
