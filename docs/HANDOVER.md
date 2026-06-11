@@ -21,20 +21,32 @@ Just landed (Phase 3 prep): **Pages deployment infrastructure (GitHub + GitLab)*
 
 ## What's open
 
-### Polish-pass 2026-06-10/11 (in progress)
+### Polish-pass 2026-06-10/11 — CLOSED 2026-06-11
 
-See `docs/superpowers/plans/2026-06-10-polish-pass-handover.md` for current state. Several workstreams in this pass land partial results — the final close-out summary will replace this section once T18+T19 complete.
+Eight workstreams from `docs/superpowers/specs/2026-06-10-polish-pass-handover-design.md`. Plan as executed: `docs/superpowers/plans/2026-06-10-polish-pass-handover.md`.
 
-#### Responsive sweep workflow
+**Landed:**
 
-`bin/responsive-sweep.mjs` runs a 32-capture matrix (8 pages × 4 viewports: 375×667, 414×896, 768×1024, 1024×768) via playwright. It screenshots each combination to `docs/responsive-sweep/` AND programmatically asserts no horizontal scroll (>4px tolerance for scrollbar slack). Screenshots are gitignored — they're a local reference, not history.
+- **W1 — CSS architecture refactor.** Phase 4 canggih cursor / 100vh hero / Phase 2 `.anchor-photo` / `.yt-embed` pulled back inside `@layer components`. Cascade-layer order, not specificity, determines precedence again. (`3d6709c`)
+- **W2 — Top-nav underline removed.** `.site-header a` + `.brand` opted out of the global ink-draw underline carry-over from base.css. (`3cc0f30`)
+- **W3 — i18n dedup + `videoTitles` consumed.** Removed `common.media.videoUnavailableFallback` (had zero consumers); `yt-embed.js` now reads `data-yt-title-key="common.media.videoTitles.<slug>"` via `i18n.t()` so iframe titles respect locale. (`096a878`, `825e2af`)
+- **W4 — Distinct home-hero alts.** Added `common.media.alts.homeHeroIntroVideo` (EN + MS draft); the home yt-embed thumbnail uses the new key while the anchor photo keeps the existing `homeHero`. Screen-reader no longer hears the same alt twice. (`91e6d1d`)
+- **W5 — BM personalization fix.** `RULES.concernTo*` re-keyed on locale-agnostic slugs (`speech`, `motor-skills`, etc.); chip `<input value>` rendered from `{value, label}` so BM users get the same services-grid reordering EN users do. `sessionStorage` is now locale-stable across toggles. (`f27ea7e`)
+- **W6 — Responsive audit.** `--bp-sm/md/lg` tokens; hamburger nav (`assets/js/nav.js` with focus trap + Escape + click-outside + resize close); mobile-tuned hero typography; mobile grid gap tightening; WCAG 2.5.8 touch-target floor (40px buttons, 32px chips); 3 sweep scripts under `bin/` (responsive-sweep, landscape-sweep, real-viewport-walk) — 32-capture matrix passes with 0 horizontal-scroll violations. Real-viewport walk also caught + fixed a latent 404 bug on `/blog.html` (i18n was building `content/<locale>/blog.json` URLs but blog is intentionally EN-only at `content/blog.json`). (`b844787` → `717e4cd`)
+- **W7 — Chatbot a11y closed.** `bin/axe-chatbot.mjs` (playwright + `@axe-core/playwright`) opens the chatbot panel, scopes axe to it. Initial run: 0 violations. Closes the last axe blind spot. (`2d4f182`)
+- **W8 — huashu-design 5-dimension review.** 44/50. Report: `docs/superpowers/specs/2026-06-10-huashu-review.md`. Tier-1 fix H-1 applied inline (home hero anchor-photo moved below the lede so H1 leads visually). Tier-2+ in "Deferred items" below. (`075358f`)
 
-Run with:
+**Tooling added (all local-only, not CI-gated):**
+
 ```bash
 bin/server &
-node bin/responsive-sweep.mjs
+bin/check-i18n-parity.rb            # gate 1: i18n parity
+node bin/responsive-sweep.mjs       # 8 × 4 viewports, no horizontal scroll
+node bin/landscape-sweep.mjs        # landscape phone + reduced-motion
+node bin/real-viewport-walk.mjs     # interaction walk, console-error collector
+node bin/axe-chatbot.mjs            # chatbot panel a11y
+# Plus the existing axe-core CLI sweep over 8 pages.
 ```
-Exits 1 on any horizontal-scroll violation. Not gated in CI.
 
 ### Original (pre-polish-pass) workstreams
 
@@ -52,11 +64,7 @@ Landed:
 - Per-page wiring: anchor photo on home / about / services heroes; mood images on first 3 service blocks (dynamically injected by `renderServices()`); yt-embed on home hero (replacing the old "Watch our intro" button) + contact page below address.
 - `yt-embed.js` preemptively imported on services.html so future per-service therapy-sample slots are a markup-only edit.
 
-Known tech-debt items (non-blocking, for future passes):
-- The Phase 4 canggih CSS blocks + Phase 2 `.anchor-photo` + `.yt-embed` blocks all live OUTSIDE `@layer components` (architectural drift from Phase 4). A future refactor should move them inside the layer.
-- `common.media.videoTitles.*` namespace exists but is unused — `data-yt-title` is set inline (English-only) on each `.yt-embed`. Future i18n iframe-title pass can consume videoTitles.
-- `common.media.videoUnavailableFallback` duplicates `common.a11y.videoUnavailable` ("Video coming soon"). Either remove or alias before the strings drift.
-- The home hero anchor and yt-embed thumbnail both reuse `common.media.alts.homeHero` (screen reader hears the alt twice). Acceptable for prototype; consider distinct alts at launch.
+Known tech-debt items closed in polish-pass 2026-06-11 (W1, W3, W4 — see top of file). Anything still open is in "Deferred items" near the bottom.
 
 Pre-launch swap workflow (client handoff): replace JPGs in `assets/img/anchors/` keeping the same filenames; update `data-yt-id` attributes on each `<div class="yt-embed">` (currently `PLACEHOLDER_INTRO` on home hero, `PLACEHOLDER_CENTRE_TOUR` on contact) with real YouTube IDs. The visible captions stay the same wording — the "Placeholder via Picsum" suffix gets edited out as part of the swap.
 
@@ -141,6 +149,20 @@ From design doc + earlier scrape findings:
 - **Real personalization** (server-side, cross-session ML) — currently client-side rules table.
 - **Real analytics wiring** — currently a demo dashboard with seeded fake data.
 - **Standalone Events page** — consolidated into home teaser + contact CTA for now.
+
+### huashu-design review (2026-06-11) — tier-2+ deferred
+
+Full report: `docs/superpowers/specs/2026-06-10-huashu-review.md`. Final score 44/50; tier-1 fix H-1 applied inline. The following surfaced but were intentionally not chased:
+
+- **Header right-side congestion** — locale toggle + fs-toggle + Book Now button compete with the brand for hierarchy. Tier-2: a header redesign, not a small fix. Probably wants a "More" disclosure on mobile-medium.
+- **Hero placeholder photography reads too "warm-stock"** for the Hara reference. Tier-2+: client-supplied real photography pre-launch is already on the list above.
+- **Eyebrow style overlap** — `.eyebrow` (hero) and `.section-eyebrow` share computed style but live as separate rules. Future CSS pass.
+- **One moment of italic-display drop-cap or hand-lettered detail** somewhere significant would push the innovation score from 8 → 9. Worth a design conversation; not appropriate to add without one.
+- **Footer link rhythm at desktop** — four columns of similarly-weighted links feel slightly busy. Tier-2 layout cut.
+
+### Real-viewport walk + screenshot reference
+
+`bin/responsive-sweep.mjs` captures 32 screenshots to `docs/responsive-sweep/` (gitignored). `bin/real-viewport-walk.mjs` walks 8 pages at 1440×900, exercises consent / yt-embed / locale-toggle / chatbot / hamburger, and asserts 0 console errors + 0 failed requests. Real-device check on a physical phone is the last remaining manual step before launch; the playwright sweeps cover the same surface for pre-launch QA.
 
 ## Canggih layer wiring pattern (for future modules)
 

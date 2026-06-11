@@ -53,7 +53,7 @@ Four files loaded in order on every page: `tokens.css` → `base.css` → `compo
 
 Design tokens (palette, type scale, motion durations, "canggih" atmospheric tokens) live in `tokens.css`. Per the design doc, cut these tokens when calibrating — don't raise them.
 
-Known architectural drift (from `docs/HANDOVER.md`): Phase 4 canggih CSS blocks and Phase 2 `.anchor-photo` / `.yt-embed` blocks currently live **outside** `@layer components`. A future refactor should move them inside the layer.
+All component blocks live inside `@layer components`. The earlier architectural drift across Phase 2 + Phase 4 was closed in the polish pass (W1 — commit `3d6709c`).
 
 ### JS modules
 
@@ -62,7 +62,8 @@ ESM only, loaded via `<script type="module">` in each HTML page. Eleven modules 
 - `i18n.js` — locale resolution (EN/MS), `data-i18n="ns.path"` text and `data-i18n-attr="alt:ns.path"` attribute substitution, falls back to EN when a MS key is missing. Caches namespace fetches.
 - `consent.js` — PDPA consent banner, three save paths (Accept all / Necessary only / Customize+Save).
 - `sage-stamp.js` — sage-ink stamp+checkmark microinteraction used by consent save and personalization save (Phase 1 craft moment).
-- `personalization.js` — home micro-survey reorders the services grid via a rules table keyed off canonical EN strings (`"Speech"`, `"Motor skills"`, …). **Rules only fire reliably when locale is EN** — survey still records but matching may miss in BM. Acceptable for prototype.
+- `personalization.js` — home micro-survey reorders the services grid via a rules table keyed off locale-agnostic slugs (`speech`, `motor-skills`, `behaviour`, `learning`, `not-sure`). Chip `<input value>` carries the slug; the chip's label translates via i18n. Rules fire identically in EN and BM; `sessionStorage` is locale-stable across toggles.
+- `nav.js` — hamburger toggle for the primary nav below 768px. Click opens, Escape / click-outside / re-click closes; focus trap while open; viewport-resize past 768px auto-closes. `aria-label` syncs to `common.nav.menu` / `menuClose` via i18n.t. Wired on all 8 production pages via the canggih layer convention. No-ops on pages without a `.nav-toggle` (analytics + privacy have no primary nav).
 - `chatbot.js` — scripted decision tree (no LLM), bilingual, lazy-builds the panel on launcher click. Voice in via Web Speech API + TTS via SpeechSynthesis where available.
 - `a11y.js` — skip-link focus management, font-size cycle (`data-fs-cycle` button → `<html data-fs="N">`), focus-visible polishing.
 - `analytics-demo-data.js` — seeds the `/analytics.html` demo dashboard with fake data. Not real telemetry.
