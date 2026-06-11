@@ -19,6 +19,32 @@ Chrome major version. On this machine Chrome 148 was paired with
 Automated install via `browser-driver-manager` may be needed on fresh
 checkouts.
 
+### Chatbot panel — playwright runner (W7, 2026-06-11)
+
+The chatbot panel is built lazily on launcher click and isn't reached by
+the static axe-core CLI sweep. The panel-specific sweep:
+
+```bash
+bin/server &
+node bin/axe-chatbot.mjs
+```
+
+`bin/axe-chatbot.mjs` launches Chromium via playwright, dismisses the
+consent banner, clicks `.chatbot-launcher`, waits for `.chatbot-panel`,
+then runs axe-core scoped to the panel. Exits 1 on serious/critical
+violations. Not gated in CI — local-run convention matches the main
+axe-core sweep. Initial run: **0 violations**.
+
+### Responsive + interaction sweeps (W6, 2026-06-11)
+
+Three additional local sweeps land in `bin/`:
+
+- `bin/responsive-sweep.mjs` — 8 pages × 4 viewports, screenshots + horizontal-scroll assertion
+- `bin/landscape-sweep.mjs` — landscape phone + prefers-reduced-motion sanity
+- `bin/real-viewport-walk.mjs` — 1440×900 interaction walk, console-error + failed-request collector
+
+Each exits non-zero on regression. All pass at handover time.
+
 ## Pages covered
 
 All 8 production pages:
@@ -99,16 +125,15 @@ Initial run surfaced three distinct rule failures across the 8 pages.
   internal design-process artifacts, not part of the production routing
   and not linked from any page in the audit set. They were intentionally
   excluded from the AA target; T22 did not audit them.
-- **Chatbot panel** is constructed lazily on launcher click; axe-core CLI
-  audits the static snapshot only. The panel's static structure was
-  manually inspected:
-  - `data-tts`, `data-mic`, `data-close` buttons all carry `aria-label`
-    from `flow.ui.*` (chatbot.js:119, 120, 126).
-  - `.chatbot-log` has `role="log" aria-live="polite"
-    aria-relevant="additions"` so bot replies are announced.
-  - Focus trap and `Escape` close are exercised manually; recommend a
-    follow-up `axe-core/playwright` integration that opens the panel
-    before running.
+- **Chatbot panel** axe gap CLOSED 2026-06-11 via `bin/axe-chatbot.mjs`
+  (see "Tooling → Chatbot panel — playwright runner" above). The panel
+  is now audited live (post-click). Initial run: 0 violations. Static
+  structure already covered the basics: `data-tts`, `data-mic`,
+  `data-close` buttons carry `aria-label` from `flow.ui.*`
+  (chatbot.js:119, 120, 126); `.chatbot-log` has
+  `role="log" aria-live="polite" aria-relevant="additions"` so bot
+  replies are announced. Focus trap + Escape close exercised in
+  the script's interaction walk.
 
 ## Third-party / out of scope
 
