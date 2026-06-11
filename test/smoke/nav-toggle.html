@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-fs="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Smoke — nav toggle</title>
+  <link rel="stylesheet" href="../../assets/css/tokens.css">
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/motion.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="./">Urbane Ethos</a>
+    <button class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="primary-nav"
+            aria-label="Open menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line class="line-top" x1="3" y1="9" x2="21" y2="9" />
+        <line class="line-bot" x1="3" y1="15" x2="21" y2="15" />
+      </svg>
+    </button>
+    <nav id="primary-nav" aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="#a">Link A</a></li>
+        <li><a href="#b">Link B</a></li>
+        <li><a href="#c">Link C</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap" style="padding: var(--space-12) 0;">
+  <h1>nav.js smoke</h1>
+  <p>Resize the viewport below 768px. Then:</p>
+  <ol>
+    <li>Click <code>.nav-toggle</code> → panel opens, <code>aria-expanded="true"</code>, first link focused, icon morphs to X.</li>
+    <li>Tab forward — focus cycles within the panel (after the last link, wraps to the first).</li>
+    <li>Shift+Tab from first link → wraps to last.</li>
+    <li>Press Escape → panel closes, focus returns to toggle.</li>
+    <li>Open again, click outside the panel → closes (no focus restore).</li>
+    <li>Open, then widen viewport > 768px → panel reverts to horizontal nav; toggle hides.</li>
+  </ol>
+</main>
+
+<script type="module" src="../../assets/js/nav.js"></script>
+</body>
+</html>
