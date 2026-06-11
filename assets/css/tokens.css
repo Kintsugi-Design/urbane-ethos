@@ -60,6 +60,17 @@
     --space-24: 6rem;
     --space-32: 8rem;
 
+    /* Responsive breakpoints (W6).
+       Mobile-first: base styles target ≤640px; @media (min-width: …) scales up.
+       - bp-sm: phone landscape / small tablet
+       - bp-md: tablet portrait — hamburger → flex-row threshold
+       - bp-lg: tablet landscape / small laptop
+       Caveat: @media queries cannot interpolate custom properties — these
+       tokens are documentation; rule sites use the literal value. */
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+
     /* Radii */
     --radius-1: 6px;
     --radius-2: 14px;
