@@ -63,13 +63,10 @@
 
   <!--
     Personalization micro-survey.
-    NOTE: the radio `value` attributes are rendered from the active locale's
-    `concernOptions` array. The personalization rules table in
-    /assets/js/personalization.js is keyed off the canonical EN strings
-    ("Speech", "Motor skills", etc.), so rule-matching only fires reliably
-    when the user is on EN. When BM is active, the survey still records the
-    selection but recommendations/reorder may not match. Acceptable for
-    prototype scope.
+    Chip options can be either a plain string (age, stage) or an object
+    {value, label} (concern). The radio `value` is the slug for the
+    object form; personalization.js keys its rules off those slugs so the
+    survey behaves identically across locales.
   -->
   <section class="section">
     <div class="wrap">
@@ -226,15 +223,20 @@ async function renderHome() {
   fmtUl("#home-hours", home.location?.hours);
   fmtUl("#footer-hours", common.footer?.hours);
 
-  // Personalization chips (rendered from active locale's option text)
+  // Personalization chips. Each option is either a plain string (age, stage)
+  // or an object {value, label} (concern). The slug-valued form keeps the
+  // <input value=> locale-stable so personalization.js rules fire identically
+  // in EN and BM.
   const chips = (group, opts) => {
     const wrap = document.querySelector(`[data-personalize-chips="${group}"]`);
     if (!wrap || !Array.isArray(opts)) return;
     wrap.replaceChildren();
     opts.forEach((opt, i) => {
+      const value = typeof opt === "string" ? opt : opt.value;
+      const text = typeof opt === "string" ? opt : opt.label;
       const label = document.createElement("label");
       label.className = "chip-pill";
-      label.innerHTML = `<input type="radio" name="${group}" value="${opt}" ${i === 0 ? "checked" : ""} class="visually-hidden"> ${opt}`;
+      label.innerHTML = `<input type="radio" name="${group}" value="${value}" ${i === 0 ? "checked" : ""} class="visually-hidden"> ${text}`;
       wrap.append(label);
     });
   };

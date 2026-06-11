@@ -27,7 +27,13 @@
     "ageLabel": "Umur anak",
     "ageOptions": ["0–2", "3–5", "6–9", "10+"],
     "concernLabel": "Bidang utama yang membimbangkan",
-    "concernOptions": ["Pertuturan", "Kemahiran motor", "Tingkah laku", "Pembelajaran", "Tidak pasti"],
+    "concernOptions": [
+      { "value": "speech", "label": "Pertuturan" },
+      { "value": "motor-skills", "label": "Kemahiran motor" },
+      { "value": "behaviour", "label": "Tingkah laku" },
+      { "value": "learning", "label": "Pembelajaran" },
+      { "value": "not-sure", "label": "Tidak pasti" }
+    ],
     "stageLabel": "Anda berada di peringkat mana?",
     "stageOptions": ["Sekadar melihat-lihat", "Ingin membuat penilaian", "Sedia untuk menempah"],
     "submit": "Tunjukkan apa yang berkaitan",

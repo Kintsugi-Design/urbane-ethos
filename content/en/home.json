@@ -24,7 +24,13 @@
     "ageLabel": "Child's age",
     "ageOptions": ["0–2", "3–5", "6–9", "10+"],
     "concernLabel": "Main area of concern",
-    "concernOptions": ["Speech", "Motor skills", "Behaviour", "Learning", "Not sure"],
+    "concernOptions": [
+      { "value": "speech", "label": "Speech" },
+      { "value": "motor-skills", "label": "Motor skills" },
+      { "value": "behaviour", "label": "Behaviour" },
+      { "value": "learning", "label": "Learning" },
+      { "value": "not-sure", "label": "Not sure" }
+    ],
     "stageLabel": "What stage are you at?",
     "stageOptions": ["Just exploring", "Looking to assess", "Ready to book"],
     "submit": "Show me what's relevant",

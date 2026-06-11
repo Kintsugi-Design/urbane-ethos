@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Smoke — personalization locale-agnostic</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 56rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    code { background: #eee; padding: 0.1em 0.4em; border-radius: 3px; }
+    ol li { margin-bottom: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>Smoke — personalization fires across locales</h1>
+
+  <p>Verifies the W5 fix: <code>RULES.concernToService</code> in
+    <code>assets/js/personalization.js</code> now keys on slugs (<code>speech</code>,
+    <code>motor-skills</code>, <code>behaviour</code>, <code>learning</code>,
+    <code>not-sure</code>) rather than EN chip labels. The chip
+    <code>&lt;input value=&gt;</code> carries the slug in both locales.</p>
+
+  <h2>Steps</h2>
+  <ol>
+    <li>Open the live home in two tabs:
+      <a href="../../index.html">EN home</a> and
+      <a href="../../index.html?locale=ms">MS home</a>
+      (toggle EN/BM in the second tab if the locale parameter doesn't override automatically).</li>
+    <li>In each tab: accept consent if shown, then fill the personalization micro-survey,
+      selecting the FIRST concern chip (Speech / Pertuturan). Submit.</li>
+    <li>In devtools, inspect
+      <code>sessionStorage["urbane-ethos:personalization"]</code>.
+      Expected in <strong>both</strong> tabs:
+      <code>concern: "speech"</code> (the slug, NOT "Speech" or "Pertuturan").</li>
+    <li>Reload each tab. Expected: the services grid in both has
+      "Speech &amp; Language Therapy" (or its BM equivalent) sorted first.</li>
+    <li>Toggle locale on either tab without resetting. Expected: persisted recommendation
+      still applies — slug is locale-stable.</li>
+  </ol>
+
+  <p>If any step fails, revisit Task 6 of
+    <code>docs/superpowers/plans/2026-06-10-polish-pass-handover.md</code>.</p>
+</body>
+</html>

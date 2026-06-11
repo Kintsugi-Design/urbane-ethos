@@ -3,27 +3,31 @@ import { renderSageStamp } from "./sage-stamp.js";
 
 const KEY = "urbane-ethos:personalization";
 
+// W5 fix: rules are keyed on locale-agnostic slugs (matching the
+// concernOptions[].value in home.json). The chip <input value="…">
+// is the slug, not the display label, so FormData.get("concern")
+// returns the same string in EN and BM.
 const RULES = {
   concernToService: {
-    "Speech": "speech",
-    "Motor skills": "ot",
-    "Behaviour": "psych",
-    "Learning": "specialed",
-    "Not sure": "screening"
+    "speech": "speech",
+    "motor-skills": "ot",
+    "behaviour": "psych",
+    "learning": "specialed",
+    "not-sure": "screening"
   },
   concernToBlogTags: {
-    "Speech": ["Speech"],
-    "Motor skills": ["Motor"],
-    "Behaviour": ["Behaviour"],
-    "Learning": ["Speech", "Parenting"],
-    "Not sure": ["Parenting"]
+    "speech": ["Speech"],
+    "motor-skills": ["Motor"],
+    "behaviour": ["Behaviour"],
+    "learning": ["Speech", "Parenting"],
+    "not-sure": ["Parenting"]
   },
   concernToStaff: {
-    "Speech": "speech-lead",
-    "Motor skills": "ot-lead",
-    "Behaviour": "psych-lead",
-    "Learning": "specialed-lead",
-    "Not sure": "screening-lead"
+    "speech": "speech-lead",
+    "motor-skills": "ot-lead",
+    "behaviour": "psych-lead",
+    "learning": "specialed-lead",
+    "not-sure": "screening-lead"
   }
 };
 
