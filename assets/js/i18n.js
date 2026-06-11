@@ -4,14 +4,20 @@ const SUPPORTED = new Set(["en", "ms"]);
 
 const cache = new Map();
 
+// Namespaces that live OUTSIDE the locale subdir — intentionally EN-only
+// (blog articles are not translated, per project scope). These map to
+// content/<namespace>.json regardless of current locale.
+const LOCALE_AGNOSTIC_NAMESPACES = new Set(["blog"]);
+
 async function loadNamespace(locale, namespace) {
-  const key = `${locale}:${namespace}`;
-  if (cache.has(key)) return cache.get(key);
-  const url = `content/${locale}/${namespace}.json`;
+  const isAgnostic = LOCALE_AGNOSTIC_NAMESPACES.has(namespace);
+  const cacheKey = isAgnostic ? `*:${namespace}` : `${locale}:${namespace}`;
+  if (cache.has(cacheKey)) return cache.get(cacheKey);
+  const url = isAgnostic ? `content/${namespace}.json` : `content/${locale}/${namespace}.json`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`i18n: failed to load ${url} (${res.status})`);
   const data = await res.json();
-  cache.set(key, data);
+  cache.set(cacheKey, data);
   return data;
 }
 
