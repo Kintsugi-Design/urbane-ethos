@@ -231,10 +231,10 @@ async function fetchJson(path) { return (await fetch(path)).json(); }
 async function renderHome() {
   const locale = getLocale();
   const [home, common, blog, staff] = await Promise.all([
-    fetchJson(`/content/${locale}/home.json`),
-    fetchJson(`/content/${locale}/common.json`),
-    fetchJson(`/content/blog.json`),
-    fetchJson(`/content/${locale}/staff.json`)
+    fetchJson(`./content/${locale}/home.json`),
+    fetchJson(`./content/${locale}/common.json`),
+    fetchJson(`./content/blog.json`),
+    fetchJson(`./content/${locale}/staff.json`)
   ]);
 
   // Hours lists
@@ -276,7 +276,7 @@ async function renderHome() {
   if (svcGrid && home.services?.items) {
     svcGrid.replaceChildren(...home.services.items.map(item => {
       const a = document.createElement("a");
-      a.href = "/services.html#" + item.key;
+      a.href = "./services.html#" + item.key;
       a.className = "card";
       a.dataset.serviceKey = item.key;
       a.innerHTML = `<div class="card-inner"><h3>${item.title}</h3><p>${item.blurb ?? ""}</p></div>`;
@@ -288,7 +288,7 @@ async function renderHome() {
   const homeStaff = document.getElementById("home-staff");
   if (homeStaff && Array.isArray(home.staffFeatured)) {
     homeStaff.replaceChildren(...home.staffFeatured.map(f => {
-      const m = (staff.members || []).find(x => x.id === f.id) || { name: f.id, role: "", photo: "/assets/img/staff-placeholder.png" };
+      const m = (staff.members || []).find(x => x.id === f.id) || { name: f.id, role: "", photo: "./assets/img/staff-placeholder.png" };
       const initials = m.name.split(/\s+/).filter(Boolean).map(s => s[0]).slice(0, 2).join("");
       const card = document.createElement("article");
       card.className = "staff-card";
@@ -323,7 +323,7 @@ async function renderHome() {
       });
       if (recStaff) {
         const a = document.createElement("a");
-        a.href = "/staff.html#" + recStaff.id;
+        a.href = "./staff.html#" + recStaff.id;
         a.className = "card";
         a.innerHTML = `<div class="card-inner"><h3>${recStaff.name}</h3><p>${recStaff.role}</p></div>`;
         recGrid.append(a);
