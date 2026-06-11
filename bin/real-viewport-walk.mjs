@@ -51,10 +51,10 @@ for (const { path, interactions } of PAGES) {
 
   // Click consent "Accept all" if visible
   if (interactions.includes("consent")) {
-    const acceptAll = page.locator('[data-consent-accept-all], button:has-text("Accept all")');
+    const acceptAll = page.locator('[data-consent-action="all"]');
     if (await acceptAll.count()) {
       await acceptAll.first().click().catch(() => {});
-      await page.waitForTimeout(200);
+      await page.waitForTimeout(800);  // sage-stamp + banner exit
     }
   }
 

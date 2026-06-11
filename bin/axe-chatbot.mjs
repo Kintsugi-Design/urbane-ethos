@@ -26,11 +26,11 @@ const ctx = await browser.newContext();
 const page = await ctx.newPage();
 await page.goto(URL, { waitUntil: "domcontentloaded" });
 
-// Dismiss consent if present (otherwise it may overlay the launcher)
-const acceptAll = page.locator('[data-consent-accept-all], button:has-text("Accept all")');
+// Dismiss consent if present (it intercepts pointer events on the launcher)
+const acceptAll = page.locator('[data-consent-action="all"]');
 if (await acceptAll.count()) {
-  await acceptAll.first().click().catch(() => {});
-  await page.waitForTimeout(400);  // sage-stamp animation
+  await acceptAll.first().click();
+  await page.waitForTimeout(800);  // sage-stamp + banner exit animation
 }
 
 await page.locator(".chatbot-launcher").click();
