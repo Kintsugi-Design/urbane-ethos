@@ -82,7 +82,7 @@ function buildModal() {
           `).join("")}
         </div>
         <p class="consent-modal-link">
-          <a href="/privacy.html" data-i18n="consent.banner.readFullNotice"></a>
+          <a href="./privacy.html" data-i18n="consent.banner.readFullNotice"></a>
         </p>
         <div class="consent-modal-actions">
           <button type="button" class="btn btn--ghost" data-consent-action="modal-close" data-i18n="consent.banner.cancel"></button>

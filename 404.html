@@ -4,17 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Not found · Urbane Ethos</title>
-<link rel="stylesheet" href="./assets/css/tokens.css">
-<link rel="stylesheet" href="./assets/css/base.css">
-<link rel="stylesheet" href="./assets/css/components.css">
-<link rel="stylesheet" href="./assets/css/motion.css">
+<script>
+// GitHub Pages serves 404.html at whatever missing URL was requested —
+// including nested paths — where relative URLs resolve one level too deep.
+// Anchor them to the site root: the repo subpath on project Pages, "/"
+// everywhere else (localhost, custom-domain root). The stylesheets are
+// injected here rather than written as static <link> tags because the
+// preload scanner fetches static links against the document URL before
+// this script can take effect.
+const base = document.createElement("base");
+base.href = location.pathname.split("/")[1] === "urbane-ethos" ? "/urbane-ethos/" : "/";
+document.head.appendChild(base);
+for (const sheet of ["tokens", "base", "components", "motion"]) {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = `assets/css/${sheet}.css`;
+  document.head.appendChild(link);
+}
+</script>
+<noscript>
+  <link rel="stylesheet" href="./assets/css/tokens.css">
+  <link rel="stylesheet" href="./assets/css/base.css">
+  <link rel="stylesheet" href="./assets/css/components.css">
+  <link rel="stylesheet" href="./assets/css/motion.css">
+</noscript>
 </head>
 <body class="not-found">
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="./index.html">Urbane Ethos<br><small>Early Intervention Center</small></a>
+    <a class="brand" href="./">Urbane Ethos<br><small>Early Intervention Center</small></a>
     <nav aria-label="Primary">
       <ul class="nav-list">
         <li><a href="./about.html">About</a></li>
@@ -34,7 +54,7 @@
       <h1>This page hasn't been written yet.</h1>
       <p class="lede">The page you tried to reach isn't here. The site is small, so a wrong turn usually means a typo — or a link that's been retired.</p>
       <div class="cta-row">
-        <a class="btn btn--primary" href="./index.html">Back to home</a>
+        <a class="btn btn--primary" href="./">Back to home</a>
         <a class="btn btn--secondary" href="./contact.html">Get in touch</a>
       </div>
     </div>
