@@ -191,6 +191,15 @@
   .hero { padding: var(--space-24) 0 var(--space-20); background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-cream-soft) 100%); }
   .hero .eyebrow { font: 600 var(--type-eyebrow) var(--font-sans); letter-spacing: var(--tracking-loose); text-transform: uppercase; color: var(--color-terracotta-deep); margin: 0 0 var(--space-4); }
   .hero .lede { font-size: 1.25rem; color: var(--color-ink-soft); max-width: var(--content-max); margin-bottom: var(--space-8); }
+
+  /* W6.3 — mobile hero. Tighten line-height, padding, lede so first
+     impression on a 360-414px viewport stays above (or near) the fold. */
+  @media (max-width: 640px) {
+    .hero { padding: var(--space-10) 0 var(--space-12); }
+    .hero h1 { line-height: 1.1; }
+    .hero .lede { font-size: 1.0625rem; max-width: 100%; margin-bottom: var(--space-6); }
+    .hero .cta-row { gap: var(--space-2); }
+  }
   .cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
 
   /* Sections */
