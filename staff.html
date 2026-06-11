@@ -18,7 +18,18 @@
       <span>Urbane Ethos</span>
       <small data-i18n="home.hero.title">Early Intervention Center</small>
     </a>
-    <nav aria-label="Primary">
+    <button class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="primary-nav"
+            aria-label="Open menu"
+            data-i18n-attr="aria-label:common.nav.menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line class="line-top" x1="3" y1="9" x2="21" y2="9" />
+        <line class="line-bot" x1="3" y1="15" x2="21" y2="15" />
+      </svg>
+    </button>
+    <nav id="primary-nav" aria-label="Primary">
       <ul class="nav-list">
         <li><a href="./about.html" data-i18n="common.nav.about">About</a></li>
         <li><a href="./staff.html" aria-current="page" data-i18n="common.nav.staff">Staff</a></li>

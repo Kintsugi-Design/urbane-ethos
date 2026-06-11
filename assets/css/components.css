@@ -33,6 +33,102 @@
   .brand:focus-visible {
     background-size: 0% 1px;
   }
+
+  /* W6.2 — hamburger nav.
+     Mobile-first: toggle visible below 768px, panel collapsed; nav.js opens
+     it via the .is-open class. Above 768px the toggle hides and the nav
+     reverts to the original horizontal flex row. Anchor for the absolute
+     panel: .site-header is already position: sticky (line ~7). */
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;            /* 44×44 — generous touch target */
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: var(--color-ink);
+    cursor: pointer;
+    border-radius: var(--radius-1);
+  }
+  .nav-toggle:focus-visible { outline-offset: 2px; }
+  .nav-toggle svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: currentColor;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    fill: none;
+  }
+  .nav-toggle svg .line-top,
+  .nav-toggle svg .line-bot {
+    transition: transform var(--dur-2) var(--ease-paper);
+    transform-origin: center;
+  }
+  /* Crossfade two strokes into an X when open — paper-and-ink idiom */
+  .nav-toggle[aria-expanded="true"] svg .line-top {
+    transform: translateY(3px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] svg .line-bot {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-toggle svg .line-top,
+    .nav-toggle svg .line-bot { transition: none; }
+  }
+
+  /* Nav panel — hidden by default below 768px */
+  #primary-nav {
+    display: none;
+  }
+  #primary-nav.is-open {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-cream-soft);
+    border-bottom: 1px solid var(--color-line);
+    padding: var(--space-4) var(--space-6);
+    box-shadow: var(--shadow-1);
+    z-index: 12;
+  }
+  #primary-nav.is-open .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+  #primary-nav.is-open .nav-list a {
+    padding: var(--space-3) var(--space-2);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent);
+  }
+  #primary-nav.is-open .nav-list li:last-child a { border-bottom: 0; }
+
+  /* Make the header-row the absolute anchor for the panel */
+  .header-row { position: relative; }
+
+  /* Above 768px: revert to horizontal layout, hide the toggle */
+  @media (min-width: 768px) {
+    .nav-toggle { display: none; }
+    #primary-nav {
+      display: block;
+      position: static;
+      padding: 0;
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    #primary-nav .nav-list {
+      flex-direction: row;
+      gap: var(--space-5);
+    }
+    #primary-nav .nav-list a {
+      padding: var(--space-2);
+      border-bottom: 0;
+    }
+  }
+
   .locale-toggle, .fs-toggle {
     background: transparent; border: 1px solid var(--color-line); border-radius: var(--radius-pill);
     padding: var(--space-1) var(--space-3); font: 500 0.875rem var(--font-sans); cursor: pointer;
