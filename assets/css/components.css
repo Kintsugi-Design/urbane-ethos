@@ -202,6 +202,36 @@
   }
   .cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
 
+  /* W6.4 — mobile grid tightening. Below 640px collapse to one column
+     and reduce gap so vertical reading flows naturally. */
+  @media (max-width: 640px) {
+    .grid-3, .grid-2 { gap: var(--space-5); }
+    .staff-grid { gap: var(--space-8); }
+    .site-footer .grid { gap: var(--space-6); }
+    .stat-grid { gap: var(--space-3); }
+    .section { padding: var(--space-12) 0; }
+  }
+
+  /* W6.5 — WCAG 2.5.8 touch-target floor (24×24 CSS px minimum AA).
+     Bump primary interactive controls to a comfortable 40+ so they're
+     easy to tap on phones. Chip-pills stay slightly tighter (32px) to
+     fit two-row layouts on narrow viewports. */
+  .locale-toggle button,
+  .fs-toggle,
+  .chatbot-launcher,
+  .yt-embed .yt-play,
+  .nav-toggle {
+    min-block-size: 2.5rem;   /* 40px at default rem */
+  }
+  .nav-list a {
+    min-block-size: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  .chip-pill {
+    min-block-size: 2rem;
+  }
+
   /* Sections */
   .section { padding: var(--space-20) 0; }
   .section--alt { background: var(--color-cream-soft); }
