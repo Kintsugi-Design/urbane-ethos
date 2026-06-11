@@ -7,15 +7,26 @@
 // needed). Subsequent renders show the iframe directly via data-yt-state.
 //
 // HTML shape expected on each .yt-embed:
-//   <div class="yt-embed" data-yt-id="ABC123" data-yt-title="...">
+//   <div class="yt-embed" data-yt-id="ABC123" data-yt-title-key="media.videoTitles.intro">
 //     <img src="./assets/img/anchors/yt-thumb-X.jpg" alt="">
 //     <p class="yt-caption">...</p>
 //     <button class="yt-play" aria-label="Play video">▶</button>
 //   </div>
+//
+// data-yt-title-key is resolved via i18n.t at iframe-spawn time so the
+// iframe title honors current locale. Falls back to "YouTube video" if
+// the key resolves to undefined.
 
-function loadIframe(embed) {
+import { t } from "./i18n.js";
+
+async function loadIframe(embed) {
   const id = embed.dataset.ytId;
-  const title = embed.dataset.ytTitle || "YouTube video";
+  const titleKey = embed.dataset.ytTitleKey;
+  let title = "YouTube video";
+  if (titleKey) {
+    const resolved = await t(titleKey);
+    if (resolved) title = resolved;
+  }
   if (!id) return;
   const iframe = document.createElement("iframe");
   iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
@@ -37,7 +48,7 @@ function handleClick(e) {
   if (embed.dataset.ytState === "playing") return;
   // Allow click on img, caption, or button — all swap to iframe.
   e.preventDefault();
-  loadIframe(embed);
+  loadIframe(embed);  // async; thumbnail-to-iframe swap fires when promise resolves
 }
 
 function handleKey(e) {
@@ -46,7 +57,7 @@ function handleKey(e) {
   if (!embed) return;
   if (embed.dataset.ytState === "playing") return;
   e.preventDefault();
-  loadIframe(embed);
+  loadIframe(embed);  // async; thumbnail-to-iframe swap fires when promise resolves
 }
 
 export function initYouTubeEmbeds() {
