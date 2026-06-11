@@ -14,10 +14,6 @@
 
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="/">
-      <span>Urbane Ethos</span>
-      <small data-i18n="home.hero.title">Early Intervention Center</small>
-    </a>
     <button class="nav-toggle"
             type="button"
             aria-expanded="false"
@@ -29,6 +25,10 @@
         <line class="line-bot" x1="3" y1="15" x2="21" y2="15" />
       </svg>
     </button>
+    <a class="brand" href="/urbane-ethos/">
+      <span>Urbane Ethos</span>
+      <small data-i18n="home.hero.title">Early Intervention Center</small>
+    </a>
     <nav id="primary-nav" aria-label="Primary">
       <ul class="nav-list">
         <li><a href="./about.html" data-i18n="common.nav.about">About</a></li>
@@ -37,6 +37,13 @@
         <li><a href="./blog.html" aria-current="page" data-i18n="common.nav.blog">Blog</a></li>
         <li><a href="./contact.html" data-i18n="common.nav.contact">Contact</a></li>
       </ul>
+      <div class="nav-tools">
+        <span class="locale-toggle" aria-label="Language">
+          <button data-locale-set="en">EN</button>
+          <button data-locale-set="ms">BM</button>
+        </span>
+        <button class="fs-toggle" data-fs-cycle aria-label="Text size"><span class="fs-toggle-letter">A</span><span data-icon="chevron-up-down"></span></button>
+      </div>
     </nav>
     <div class="header-tools">
       <span class="locale-toggle" aria-label="Language">
