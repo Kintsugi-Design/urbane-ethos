@@ -43,7 +43,7 @@
         <button data-locale-set="en">EN</button>
         <button data-locale-set="ms">BM</button>
       </span>
-      <button class="fs-toggle" data-fs-cycle aria-label="Text size">A&#x2195;</button>
+      <button class="fs-toggle" data-fs-cycle aria-label="Text size"><span class="fs-toggle-letter">A</span><span data-icon="chevron-up-down"></span></button>
       <a class="btn btn--primary" href="./contact.html" data-i18n="common.cta.bookSession">Book Now</a>
     </div>
   </div>
@@ -144,13 +144,14 @@
   </div>
 </footer>
 
-<button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot">&#x1F4AC;</button>
+<button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot"><span data-icon="chat"></span></button>
 
 <script type="module">
 import { getLocale, translatePage } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/a11y.js";
 import "./assets/js/nav.js";
+import "./assets/js/icons.js";
 import "./assets/js/page-load.js";
 import "./assets/js/cursor.js";
 import "./assets/js/chatbot.js";

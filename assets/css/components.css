@@ -108,8 +108,10 @@
   /* Make the header-row the absolute anchor for the panel */
   .header-row { position: relative; }
 
-  /* Above 768px: revert to horizontal layout, hide the toggle */
-  @media (min-width: 768px) {
+  /* Above 880px: revert to horizontal layout, hide the toggle. The
+     hamburger covers phone landscape AND narrow tablets (768-879) where
+     the brand + 5 nav links + 3 header-tools controls don't all fit. */
+  @media (min-width: 880px) {
     .nav-toggle { display: none; }
     #primary-nav {
       display: block;
@@ -129,12 +131,53 @@
     }
   }
 
+  /* All three header-tools controls (locale-toggle, fs-toggle, Book a session)
+     share a 40px height + pill radius for a consistent right-side rhythm.
+     Vertical centering comes from .header-tools (display: flex, align-items: center). */
   .locale-toggle, .fs-toggle {
-    background: transparent; border: 1px solid var(--color-line); border-radius: var(--radius-pill);
-    padding: var(--space-1) var(--space-3); font: 500 0.875rem var(--font-sans); cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    font: 500 0.875rem var(--font-sans);
+    cursor: pointer;
+    height: 2.5rem;            /* 40px */
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
   }
-  .locale-toggle [aria-pressed="true"] { background: var(--color-ink); color: var(--color-cream-soft); border-radius: var(--radius-pill); }
-  .locale-toggle button { background: transparent; border: none; padding: var(--space-1) var(--space-3); cursor: pointer; color: var(--color-ink); border-radius: var(--radius-pill); font: inherit; }
+  .locale-toggle { padding: 3px; gap: 2px; }
+  .fs-toggle {
+    padding: 0 var(--space-3);
+    gap: var(--space-1);
+    color: var(--color-ink);
+    min-block-size: 2.5rem;
+  }
+  .fs-toggle-letter { font: 600 0.9375rem var(--font-sans); }
+  .fs-toggle [data-icon] { width: 0.875rem; height: 0.875rem; }
+  .locale-toggle button {
+    background: transparent;
+    border: none;
+    padding: 0 var(--space-3);
+    cursor: pointer;
+    color: var(--color-ink);
+    border-radius: var(--radius-pill);
+    font: inherit;
+    height: 100%;
+    min-block-size: 0;          /* override W6.5 floor — wrapper provides height */
+    display: inline-flex;
+    align-items: center;
+  }
+  .locale-toggle [aria-pressed="true"] {
+    background: var(--color-ink);
+    color: var(--color-cream-soft);
+  }
+
+  /* Book a session in header-tools matches the toggle height. */
+  .header-tools .btn--primary {
+    height: 2.5rem;
+    padding: 0 var(--space-5);
+    font-size: 0.875rem;
+  }
 
   /* Buttons */
   .btn {
@@ -152,6 +195,18 @@
   .btn--primary:hover { transform: translateY(-1px); background: var(--color-ink-soft); }
   .btn--secondary { background: transparent; color: var(--color-ink); border: 1.5px solid var(--color-ink); }
   .btn--secondary:hover { background: var(--color-ink); color: var(--color-cream-soft); }
+  /* Icon-only button — square 40px, transparent ghost. Used in chatbot panel. */
+  .btn--icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: transparent;
+    color: var(--color-ink);
+    border-radius: var(--radius-1);
+  }
+  .btn--icon:hover { background: var(--color-line); }
+  .btn--icon [data-icon] { width: 1.25rem; height: 1.25rem; }
+  .chatbot-header-actions { display: inline-flex; gap: var(--space-1); }
   .btn--ghost { background: transparent; color: var(--color-ink-soft); }
   .btn--ghost:hover { color: var(--color-ink); }
 
@@ -191,6 +246,32 @@
   .hero { padding: var(--space-24) 0 var(--space-20); background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-cream-soft) 100%); }
   .hero .eyebrow { font: 600 var(--type-eyebrow) var(--font-sans); letter-spacing: var(--tracking-loose); text-transform: uppercase; color: var(--color-terracotta-deep); margin: 0 0 var(--space-4); }
   .hero .lede { font-size: 1.25rem; color: var(--color-ink-soft); max-width: var(--content-max); margin-bottom: var(--space-8); }
+
+  /* Hero spacing — give the considered-photo / yt-embed breathing room
+     below the CTA so the small primary button isn't visually crushed by
+     the dominant image (huashu followup, 2026-06-11). */
+  .hero .cta-row + .anchor-photo,
+  .hero .cta-row + .yt-embed,
+  .hero .anchor-photo + .yt-embed {
+    margin-top: var(--space-8);
+  }
+
+  /* Heroicons base — icons inherit text colour, size from font.
+     [data-icon] is a placeholder span filled by icons.js with an SVG. */
+  [data-icon] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25em;
+    height: 1.25em;
+    line-height: 1;
+    color: currentColor;
+  }
+  [data-icon] svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
 
   /* W6.3 — mobile hero. Tighten line-height, padding, lede so first
      impression on a 360-414px viewport stays above (or near) the fold. */

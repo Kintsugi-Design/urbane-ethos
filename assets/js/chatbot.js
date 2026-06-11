@@ -115,17 +115,17 @@ function buildPanel() {
         <strong>${flow.ui.panelTitle}</strong>
         <div style="font-size:0.8rem;color:var(--color-ink-muted)">${flow.ui.subtitle}</div>
       </div>
-      <div>
-        <button class="btn btn--ghost" data-tts aria-label="${flow.ui.ttsAria}">🔊</button>
-        <button class="btn btn--ghost" data-close aria-label="${flow.ui.close}">✕</button>
+      <div class="chatbot-header-actions">
+        <button class="btn btn--icon" data-tts aria-label="${flow.ui.ttsAria}"><span data-icon="speaker"></span></button>
+        <button class="btn btn--icon" data-close aria-label="${flow.ui.close}"><span data-icon="x-mark"></span></button>
       </div>
     </header>
     <div class="chatbot-log" role="log" aria-live="polite" aria-relevant="additions"></div>
     <div class="chatbot-options"></div>
     <form class="chatbot-input" hidden>
-      <button type="button" class="btn btn--ghost" data-mic aria-label="${flow.ui.micAria}">🎤</button>
+      <button type="button" class="btn btn--icon" data-mic aria-label="${flow.ui.micAria}"><span data-icon="microphone"></span></button>
       <input type="text" aria-label="${flow.ui.inputPlaceholder}" placeholder="${flow.ui.inputPlaceholder}">
-      <button type="submit" class="btn btn--primary">${flow.ui.send}</button>
+      <button type="submit" class="btn btn--primary"><span data-icon="send"></span><span class="visually-hidden">${flow.ui.send}</span></button>
     </form>
   `;
   return wrap;
@@ -141,6 +141,8 @@ export async function initChatbot() {
   await loadFlow();
   panel = buildPanel();
   document.body.append(panel);
+  const { renderIcons } = await import("./icons.js");
+  renderIcons(panel);
 
   log = panel.querySelector(".chatbot-log");
   optionsBar = panel.querySelector(".chatbot-options");

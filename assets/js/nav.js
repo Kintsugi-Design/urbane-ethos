@@ -14,7 +14,7 @@ import { t } from "./i18n.js";
 
 const TOGGLE_SEL = ".nav-toggle";
 const PANEL_SEL = "#primary-nav";
-const MD_BP = 768;
+const MD_BP = 880;  // matches the components.css min-width breakpoint
 
 function getFocusable(panel) {
   return [...panel.querySelectorAll(
