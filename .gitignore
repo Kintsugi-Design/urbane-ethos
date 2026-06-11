@@ -9,3 +9,6 @@ _brief/
 _site/
 public/
 node_modules/
+
+# Local responsive-sweep screenshots (W6.6) — see docs/HANDOVER.md
+docs/responsive-sweep/

@@ -21,6 +21,23 @@ Just landed (Phase 3 prep): **Pages deployment infrastructure (GitHub + GitLab)*
 
 ## What's open
 
+### Polish-pass 2026-06-10/11 (in progress)
+
+See `docs/superpowers/plans/2026-06-10-polish-pass-handover.md` for current state. Several workstreams in this pass land partial results — the final close-out summary will replace this section once T18+T19 complete.
+
+#### Responsive sweep workflow
+
+`bin/responsive-sweep.mjs` runs a 32-capture matrix (8 pages × 4 viewports: 375×667, 414×896, 768×1024, 1024×768) via playwright. It screenshots each combination to `docs/responsive-sweep/` AND programmatically asserts no horizontal scroll (>4px tolerance for scrollbar slack). Screenshots are gitignored — they're a local reference, not history.
+
+Run with:
+```bash
+bin/server &
+node bin/responsive-sweep.mjs
+```
+Exits 1 on any horizontal-scroll violation. Not gated in CI.
+
+### Original (pre-polish-pass) workstreams
+
 Three named workstreams, in priority order:
 
 ### 1. Phase 2 — photography + YouTube scaffolding — DONE 2026-06-10
