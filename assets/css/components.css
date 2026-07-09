@@ -702,8 +702,20 @@
     cursor: pointer;
     display: grid;
     place-items: center;
+    z-index: 2;
     transition: transform var(--dur-1) var(--ease-out),
                 background var(--dur-1) var(--ease-out);
+  }
+  /* Bottom scrim so the (white) thumbnail caption stays legible over light
+     pastel placeholder art — and over any real photo swapped in later. */
+  .yt-embed::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 45%;
+    background: linear-gradient(to top, rgba(57, 51, 80, 0.5), transparent);
+    pointer-events: none;
+    z-index: 1;
   }
   .yt-embed:hover .yt-play,
   .yt-embed:focus-within .yt-play {
@@ -720,10 +732,14 @@
     color: var(--color-cream-soft);
     text-shadow: 0 1px 4px rgba(57, 51, 80, 0.55);
     padding: 0 var(--space-4);
+    z-index: 2;
   }
-  /* When iframe is live (post-click), hide the thumb-overlay caption + button. */
+  /* When iframe is live (post-click), hide the thumb-overlay caption + button + scrim. */
   .yt-embed[data-yt-state="playing"] .yt-play,
   .yt-embed[data-yt-state="playing"] .yt-caption {
+    display: none;
+  }
+  .yt-embed[data-yt-state="playing"]::after {
     display: none;
   }
 }

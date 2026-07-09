@@ -72,7 +72,7 @@ function barChart(svgId, data, accessor = d => d.value, labelKey = "label") {
     const y = H - pad - h;
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("x", x); rect.setAttribute("y", y); rect.setAttribute("width", bw); rect.setAttribute("height", h);
-    rect.setAttribute("fill", "var(--color-terracotta-deep)");
+    rect.setAttribute("fill", "var(--color-primary-deep)");
     rect.setAttribute("rx", "4");
     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttribute("x", x + bw / 2); text.setAttribute("y", H - 12);
