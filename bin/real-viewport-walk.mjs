@@ -58,14 +58,17 @@ for (const { path, interactions } of PAGES) {
     }
   }
 
-  // Toggle locale to MS and back to EN — exercise i18n on this page
-  const ms = page.locator('[data-locale-set="ms"]').first();
+  // Toggle locale to MS and back to EN — exercise i18n on this page.
+  // The locale control is duplicated (desktop header + mobile nav-tools), so
+  // target the VISIBLE copy for the current viewport and fail fast rather than
+  // hang on the hidden one's default 30s click timeout.
+  const ms = page.locator('[data-locale-set="ms"]').filter({ visible: true }).first();
   if (await ms.count()) {
-    await ms.click().catch(() => {});
+    await ms.click({ timeout: 3000 }).catch(() => {});
     await page.waitForTimeout(200);
-    const en = page.locator('[data-locale-set="en"]').first();
+    const en = page.locator('[data-locale-set="en"]').filter({ visible: true }).first();
     if (await en.count()) {
-      await en.click().catch(() => {});
+      await en.click({ timeout: 3000 }).catch(() => {});
       await page.waitForTimeout(200);
     }
   }
