@@ -105,6 +105,25 @@
   }
   #primary-nav.is-open .nav-list li:last-child a { border-bottom: 0; }
 
+  /* Locale + text-size controls exist twice in the markup: once in
+     .header-tools (desktop) and once in #primary-nav .nav-tools (mobile
+     menu). Only one set is visible per breakpoint — i18n.js/a11y.js bind
+     both, and aria-pressed stays in sync across the pair. */
+  .header-tools .locale-toggle,
+  .header-tools .fs-toggle { display: none; }
+  #primary-nav .nav-tools {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding: var(--space-4) var(--space-2) var(--space-1);
+    border-top: 1px solid color-mix(in srgb, var(--color-line) 60%, transparent);
+  }
+
+  /* Below 880px the toggle sits first in the row; the brand hugs it on the
+     left while the Book CTA keeps the right edge. */
+  .brand { margin-inline-end: auto; }
+
   /* Make the header-row the absolute anchor for the panel */
   .header-row { position: relative; }
 
@@ -113,6 +132,10 @@
      the brand + 5 nav links + 3 header-tools controls don't all fit. */
   @media (min-width: 880px) {
     .nav-toggle { display: none; }
+    .brand { margin-inline-end: 0; }
+    .header-tools .locale-toggle,
+    .header-tools .fs-toggle { display: inline-flex; }
+    #primary-nav .nav-tools { display: none; }
     #primary-nav {
       display: block;
       position: static;
