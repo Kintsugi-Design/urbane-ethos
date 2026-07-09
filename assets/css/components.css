@@ -606,6 +606,28 @@
     justify-content: center;
   }
 
+  /* W8 — mobile/tablet: the immersive 100vh hero + trust-beat rhythm is a
+     desktop luxury. Below the 880px nav breakpoint it forces a full dead
+     screen on content pages whose hero holds only a heading (blog, contact,
+     services + its per-service intro). Collapse to content height so the
+     first real content sits near the fold; padding (W6.3/W6.4) still gives
+     breathing room. Desktop keeps the full-height experience. */
+  @media (max-width: 879px) {
+    body.home .hero,
+    body.about .hero,
+    body.services .hero,
+    body.contact .hero,
+    body.staff .hero,
+    body.blog .hero,
+    body.analytics .hero,
+    body.privacy .hero,
+    body.home [data-trust-beat="values"],
+    body.about [data-trust-beat="ethos"],
+    body.services [data-trust-beat="service-intro"] {
+      min-height: 0;
+    }
+  }
+
   /* Required by C4 paper-fold (T8): parent containers need preserve-3d to avoid
      rotateX flicker, and overflow: visible to avoid clipping during the fold. */
   main, section, .hero {
