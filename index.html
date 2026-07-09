@@ -51,6 +51,13 @@
 
 <main id="main">
   <section class="hero">
+    <div class="hero-decor" aria-hidden="true">
+      <span class="hero-blob hero-blob--1"></span>
+      <span class="hero-blob hero-blob--2"></span>
+      <span class="hero-blob hero-blob--3"></span>
+      <span class="hero-blob hero-blob--dot1"></span>
+      <span class="hero-blob hero-blob--dot2"></span>
+    </div>
     <div class="wrap">
       <p class="eyebrow" data-i18n="home.hero.eyebrow">Urbane Ethos</p>
       <h1 data-i18n="home.hero.title">Early Intervention Center</h1>
@@ -272,7 +279,7 @@ async function renderHome() {
       a.href = "/services.html#" + item.key;
       a.className = "card";
       a.dataset.serviceKey = item.key;
-      a.innerHTML = `<div class="card-inner"><h3>${item.title}</h3><p>${item.blurb ?? ""}</p></div>`;
+      a.innerHTML = `<div class="card-inner"><span class="card-chip" aria-hidden="true"></span><h3>${item.title}</h3><p>${item.blurb ?? ""}</p></div>`;
       return a;
     }));
   }

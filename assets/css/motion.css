@@ -13,6 +13,14 @@
     }
     .fade-in-up.is-in { opacity: 1; transform: none; }
 
+    /* Lavender import — floating hero blobs. Gentle vertical drift; the
+       reduced-motion block below neutralises the duration. */
+    @keyframes uevFloat  { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+    @keyframes uevFloat2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(14px); } }
+    .hero-blob--1 { animation: uevFloat 10s ease-in-out infinite; }
+    .hero-blob--2 { animation: uevFloat2 12s ease-in-out infinite; }
+    .hero-blob--3 { animation: uevFloat 8s ease-in-out infinite; }
+
     .chatbot-panel {
       animation: chatbot-unfurl var(--dur-fold) var(--ease-paper) both;
       transform-origin: bottom right;
@@ -48,7 +56,7 @@
     /* Chatbot launcher breathing — only when no one's opened it yet */
     @keyframes chatbot-pulse {
       0%, 100% { box-shadow: var(--shadow-2); }
-      50%      { box-shadow: 0 0 0 10px color-mix(in srgb, var(--color-sun) 20%, transparent), var(--shadow-2); }
+      50%      { box-shadow: 0 0 0 10px color-mix(in srgb, var(--color-primary) 20%, transparent), var(--shadow-2); }
     }
     .chatbot-launcher.is-idle { animation: chatbot-pulse 3s var(--ease) infinite; }
 

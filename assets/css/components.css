@@ -15,7 +15,7 @@
   .brand small { color: var(--color-ink-muted); font-size: 0.75rem; display: block; }
   .nav-list { display: flex; gap: var(--space-5); list-style: none; padding: 0; margin: 0; }
   .nav-list a { color: var(--color-ink); text-decoration: none; padding: var(--space-2); }
-  .nav-list a:hover, .nav-list a[aria-current="page"] { color: var(--color-terracotta-deep); }
+  .nav-list a:hover, .nav-list a[aria-current="page"] { color: var(--color-primary-deep); }
   .header-tools { display: flex; gap: var(--space-2); align-items: center; }
 
   /* W2 — opt header links + brand out of the global <a> ink-draw underline.
@@ -168,7 +168,7 @@
     align-items: center;
   }
   .locale-toggle [aria-pressed="true"] {
-    background: var(--color-ink);
+    background: var(--color-primary-deep);
     color: var(--color-cream-soft);
   }
 
@@ -191,10 +191,10 @@
     transition: transform var(--dur-1) var(--ease), background var(--dur-1) var(--ease), color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
   }
   .btn:active { transform: scale(0.97); transition: transform 80ms var(--ease-out); }
-  .btn--primary { background: var(--color-ink); color: var(--color-cream-soft); }
-  .btn--primary:hover { transform: translateY(-1px); background: var(--color-ink-soft); }
-  .btn--secondary { background: transparent; color: var(--color-ink); border: 1.5px solid var(--color-ink); }
-  .btn--secondary:hover { background: var(--color-ink); color: var(--color-cream-soft); }
+  .btn--primary { background: var(--color-primary-deep); color: var(--color-cream-soft); box-shadow: 0 10px 26px -10px var(--color-primary); }
+  .btn--primary:hover { transform: translateY(-1px); background: color-mix(in srgb, var(--color-primary-deep) 88%, #000); }
+  .btn--secondary { background: transparent; color: var(--color-primary-deep); border: 1.5px solid var(--color-primary); }
+  .btn--secondary:hover { background: var(--color-primary-deep); color: var(--color-cream-soft); }
   /* Icon-only button — square 40px, transparent ghost. Used in chatbot panel. */
   .btn--icon {
     width: 2.5rem;
@@ -213,11 +213,14 @@
   /* Chip / pill */
   .chip-pill {
     display: inline-flex; padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-pill); border: 1.5px solid var(--color-ink);
-    background: transparent; font: 500 0.9rem var(--font-sans); cursor: pointer;
-    transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease), transform 120ms var(--ease);
+    border-radius: var(--radius-pill); border: 1.5px solid var(--color-line);
+    background: var(--color-cream-soft); color: var(--color-ink-soft); font: 500 0.9rem var(--font-sans); cursor: pointer;
+    transition: background var(--dur-1) var(--ease), color var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), transform 120ms var(--ease);
   }
-  .chip-pill[aria-pressed="true"] { background: var(--color-ink); color: var(--color-cream-soft); }
+  .chip-pill[aria-pressed="true"] { background: var(--color-primary-deep); color: var(--color-cream-soft); border-color: var(--color-primary-deep); }
+  /* Personalization chips are radio-in-label (no aria-pressed) — light up the
+     selected one via :has() so the choice reads clearly. */
+  .chip-pill:has(input:checked) { background: var(--color-primary-deep); color: var(--color-cream-soft); border-color: var(--color-primary-deep); }
   .chip-pill:active { transform: scale(0.95); }
 
   /* Card */
@@ -235,7 +238,7 @@
   @media (prefers-reduced-motion: no-preference) {
     a.card:hover, .card[href]:hover {
       transform: translateY(-2px) rotate(-0.4deg);
-      box-shadow: -6px 8px 16px -8px rgba(43, 31, 20, 0.18);
+      box-shadow: -6px 8px 16px -8px rgba(57, 51, 80, 0.22);
     }
     .locale-toggle [aria-pressed="true"] {
       animation: page-turn-slide var(--dur-2) var(--ease-paper) both;
@@ -244,7 +247,7 @@
 
   /* Hero */
   .hero { padding: var(--space-24) 0 var(--space-20); background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-cream-soft) 100%); }
-  .hero .eyebrow { font: 600 var(--type-eyebrow) var(--font-sans); letter-spacing: var(--tracking-loose); text-transform: uppercase; color: var(--color-terracotta-deep); margin: 0 0 var(--space-4); }
+  .hero .eyebrow { font: 600 var(--type-eyebrow) var(--font-sans); letter-spacing: var(--tracking-loose); text-transform: uppercase; color: var(--color-primary-deep); margin: 0 0 var(--space-4); }
   .hero .lede { font-size: 1.25rem; color: var(--color-ink-soft); max-width: var(--content-max); margin-bottom: var(--space-8); }
 
   /* Hero spacing — give the considered-photo / yt-embed breathing room
@@ -255,6 +258,40 @@
   .hero .anchor-photo + .yt-embed {
     margin-top: var(--space-8);
   }
+
+  /* Lavender import — decorative floating hero blobs (home only; markup lives
+     in index.html). They sit behind hero content; the float animation is added
+     in motion.css and disabled under prefers-reduced-motion. */
+  .hero { position: relative; overflow: hidden; }
+  .hero > .wrap { position: relative; z-index: 1; }
+  .hero-decor { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .hero-blob { position: absolute; border-radius: 50%; }
+  .hero-blob--1 { width: 300px; height: 300px; background: var(--color-green); opacity: .4; top: -70px; right: 6%; }
+  .hero-blob--2 { width: 200px; height: 200px; background: var(--color-primary-soft); opacity: .55; bottom: -40px; left: -30px; }
+  .hero-blob--3 { width: 120px; height: 120px; background: var(--color-blue); opacity: .35; top: 40%; right: 42%; }
+  .hero-blob--dot1 { width: 16px; height: 16px; background: var(--color-sun); top: 120px; left: 14%; }
+  .hero-blob--dot2 { width: 10px; height: 10px; background: var(--color-pink); top: 220px; right: 30%; }
+
+  /* Lavender import — multicolor service cards on the home "How we can help"
+     grid. Each card gets a pastel tint + a coloured icon chip by position.
+     Scoped to #home-services so blog / recommended cards stay on white. */
+  #home-services .card:nth-child(1) { background: var(--svc-1); }
+  #home-services .card:nth-child(2) { background: var(--svc-2); }
+  #home-services .card:nth-child(3) { background: var(--svc-3); }
+  #home-services .card:nth-child(4) { background: var(--svc-4); }
+  #home-services .card:nth-child(5) { background: var(--svc-5); }
+  #home-services .card:nth-child(6) { background: var(--svc-6); }
+  #home-services .card-chip {
+    display: block; width: 40px; height: 40px;
+    border-radius: 14px; margin-bottom: var(--space-4);
+    background: var(--color-primary-deep);
+  }
+  #home-services .card:nth-child(1) .card-chip { background: var(--svc-d-1); }
+  #home-services .card:nth-child(2) .card-chip { background: var(--svc-d-2); }
+  #home-services .card:nth-child(3) .card-chip { background: var(--svc-d-3); }
+  #home-services .card:nth-child(4) .card-chip { background: var(--svc-d-4); }
+  #home-services .card:nth-child(5) .card-chip { background: var(--svc-d-5); }
+  #home-services .card:nth-child(6) .card-chip { background: var(--svc-d-6); }
 
   /* Heroicons base — icons inherit text colour, size from font.
      [data-icon] is a placeholder span filled by icons.js with an SVG. */
@@ -315,7 +352,7 @@
 
   /* Sections */
   .section { padding: var(--space-20) 0; }
-  .section--alt { background: var(--color-cream-soft); }
+  .section--alt { background: var(--color-alt); }
   .section-eyebrow { font: 600 var(--type-eyebrow) var(--font-sans); letter-spacing: var(--tracking-loose); text-transform: uppercase; color: var(--color-ink-muted); margin: 0 0 var(--space-3); }
 
   /* Grids */
@@ -332,7 +369,7 @@
     transition: border-color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
   }
   .form-field input:focus-visible, .form-field textarea:focus-visible, .form-field select:focus-visible {
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-sun) 30%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 30%, transparent);
   }
   .form-field [aria-invalid="true"] { border-color: var(--color-error); }
   .form-error { color: var(--color-error); font-size: 0.875rem; }
@@ -347,7 +384,7 @@
   .chatbot-launcher {
     position: fixed; bottom: var(--space-6); right: var(--space-6);
     width: 56px; height: 56px; border-radius: var(--radius-pill);
-    background: var(--color-ink); color: var(--color-cream-soft); border: none;
+    background: var(--color-primary-deep); color: var(--color-cream-soft); border: none;
     font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow-2);
     display: flex; align-items: center; justify-content: center;
   }
@@ -378,7 +415,7 @@
     max-height: 30vh; overflow: auto;
     background: var(--color-cream-soft); color: var(--color-ink);
     border: 1px solid var(--color-line);
-    border-left: 3px solid var(--color-sage-deep);
+    border-left: 3px solid var(--color-primary-deep);
     border-radius: var(--radius-2);
     padding: var(--space-5) var(--space-5) var(--space-5) calc(var(--space-5) - 2px);
     box-shadow: var(--shadow-3);
@@ -392,7 +429,7 @@
   .consent-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
   .consent-actions .btn { padding: var(--space-2) var(--space-4); font-size: 0.875rem; }
   .consent-banner a { color: var(--color-ink); text-decoration-thickness: 1px; }
-  .consent-banner a:hover { color: var(--color-terracotta-deep); }
+  .consent-banner a:hover { color: var(--color-primary-deep); }
   .consent-saved {
     display: flex; align-items: center; gap: var(--space-3);
     color: var(--color-sage-deep); padding: var(--space-2) 0;
@@ -426,7 +463,7 @@
   }
   .consent-modal-backdrop {
     position: absolute; inset: 0;
-    background: rgba(43, 31, 20, 0.45);
+    background: rgba(57, 51, 80, 0.45);
     cursor: pointer;
   }
   .consent-modal {
@@ -446,7 +483,7 @@
   .consent-toggle small { color: var(--color-ink-muted); font-size: 0.85rem; line-height: 1.5; }
   .consent-modal-link { margin: 0 0 var(--space-5); font-size: 0.9rem; }
   .consent-modal-link a { color: var(--color-ink); }
-  .consent-modal-link a:hover { color: var(--color-terracotta-deep); }
+  .consent-modal-link a:hover { color: var(--color-primary-deep); }
   .consent-modal-actions {
     display: flex; gap: var(--space-2); justify-content: flex-end; flex-wrap: wrap;
   }
@@ -473,7 +510,7 @@
   .service-block { padding-block: var(--space-12); border-top: 1px solid var(--color-line); }
   .service-block:first-of-type { border-top: 0; }
   .faq summary { cursor: pointer; padding: var(--space-3) 0; font-weight: 600; }
-  .faq[open] summary { color: var(--color-terracotta-deep); }
+  .faq[open] summary { color: var(--color-primary-deep); }
 
   /* Analytics demo */
   .stat-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); margin-bottom: var(--space-12); }
@@ -489,7 +526,7 @@
     width: var(--canggih-cursor-rest);
     height: var(--canggih-cursor-rest);
     border-radius: 50%;
-    background: var(--color-sage);
+    background: var(--color-primary);
     opacity: var(--canggih-cursor-opacity-rest);
     pointer-events: none;
     z-index: 9999;
@@ -636,7 +673,7 @@
     font-style: italic;
     font-size: var(--type-small);
     color: var(--color-cream-soft);
-    text-shadow: 0 1px 4px rgba(43, 31, 20, 0.55);
+    text-shadow: 0 1px 4px rgba(57, 51, 80, 0.55);
     padding: 0 var(--space-4);
   }
   /* When iframe is live (post-click), hide the thumb-overlay caption + button. */

@@ -15,20 +15,45 @@
   }
 
   :root {
-    /* Palette */
-    --color-cream: #F6EFE3;
-    --color-cream-soft: #FBF6EC;
-    --color-ink: #2B1F14;
-    --color-ink-soft: #4A372A;
-    --color-ink-muted: #7A6A5C;
-    --color-sage: #8FA68A;
-    --color-sage-deep: #5C7758;
-    --color-terracotta: #C77B5C;
-    --color-terracotta-deep: #A05A3D;
-    --color-sun: #E6B25C;
-    --color-line: #E2D4BD;
+    /* Palette — Lavender Fields (imported design direction, AA-tuned) */
+    --color-cream: #F4F0FB;          /* page background (soft lavender) */
+    --color-cream-soft: #FFFFFF;     /* elevated surface / cards / header / panels */
+    --color-alt: #FBF7EF;            /* warm cream alt-section bands */
+    --color-ink: #393350;            /* primary text + footer bg (plum-grey) */
+    --color-ink-soft: #5C5577;       /* secondary text */
+    --color-ink-muted: #6E6884;      /* tertiary text — darkened from design #8E88A2 for WCAG AA */
+    --color-line: #E8E1F3;           /* borders / dividers */
     --color-error: #B5403B;
-    --color-success: #4A6B3A;
+    --color-success: #4A6B3A;        /* semantic "saved" green */
+
+    /* Violet accent (CTAs, links, focus). primary-deep is the AA-safe solid
+       (white text 5.5:1, link-on-bg 4.9:1); primary is the softer brand tint
+       used for decorative fills. */
+    --color-primary: #8B73D4;
+    --color-primary-deep: #6F58BE;
+    --color-primary-soft: #DCD2F4;
+
+    /* Legacy warm token names retained but repointed to on-palette values, so
+       any unaudited reference stays in the lavender family. */
+    --color-sage: #B8D6C2;
+    --color-sage-deep: #4A6B3A;      /* green retained for "saved" semantics */
+    --color-terracotta: #E9C6DD;
+    --color-terracotta-deep: #6F58BE;
+    --color-sun: #F0D49A;            /* light-gold locale-notice band */
+
+    /* Decorative hero blobs / dots */
+    --color-blue: #AFC6E8;
+    --color-green: #B8D6C2;
+    --color-pink: #E9C6DD;
+
+    /* Service-card tints + icon chips (home "How we can help" grid) */
+    --svc-1: #EAE2FB; --svc-2: #E0EAF8; --svc-3: #E1EFE5;
+    --svc-4: #F6E6F1; --svc-5: #F8EFDD; --svc-6: #E8E3F6;
+    --svc-d-1: #8B73D4; --svc-d-2: #6E97D8; --svc-d-3: #6FA98A;
+    --svc-d-4: #C77FA8; --svc-d-5: #CCA45E; --svc-d-6: #7E72C4;
+
+    /* Staff avatar gradients */
+    --av-a: #CDBDF0; --av-b: #B7D2E6; --av-c: #BFDDC8;
 
     /* Type */
     --font-serif: "Source Serif 4", "Cormorant Garamond", Georgia, serif;
@@ -78,9 +103,9 @@
     --radius-pill: 999px;
 
     /* Shadow */
-    --shadow-1: 0 1px 2px rgba(43,31,20,0.08);
-    --shadow-2: 0 10px 30px -10px rgba(43,31,20,0.18);
-    --shadow-3: 0 24px 60px -20px rgba(43,31,20,0.25);
+    --shadow-1: 0 1px 2px rgba(57,51,80,0.08);
+    --shadow-2: 0 10px 30px -10px rgba(57,51,80,0.20);
+    --shadow-3: 0 24px 60px -20px rgba(57,51,80,0.28);
 
     /* Motion */
     --ease-paper: cubic-bezier(0.25, 0.46, 0.45, 0.94);  /* slow tail-out */

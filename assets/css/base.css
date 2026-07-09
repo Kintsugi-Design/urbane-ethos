@@ -9,7 +9,7 @@
   h4 { font-size: var(--type-h4); font-family: var(--font-sans); font-weight: 700; }
   p { margin: 0 0 var(--space-4); }
   a {
-    color: var(--color-terracotta-deep);
+    color: var(--color-primary-deep);
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);
     background-size: 100% 1px;
@@ -31,7 +31,7 @@
     a { background-size: 100% 1px; }
   }
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
-    outline: 3px solid var(--color-sun);
+    outline: 3px solid var(--color-primary-deep);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -65,16 +65,16 @@
      rgba in each radial-gradient; the token sets the contribution scale. */
   body {
     background-image:
-      radial-gradient(circle at 12% 22%, rgba(120,80,40,calc(var(--canggih-grain-opacity) * 0.85)) 0, transparent 0.7px),
-      radial-gradient(circle at 78% 64%, rgba(120,80,40,calc(var(--canggih-grain-opacity) * 0.85)) 0, transparent 0.7px),
-      radial-gradient(circle at 44% 88%, rgba(120,80,40,calc(var(--canggih-grain-opacity) * 0.65)) 0, transparent 0.7px);
+      radial-gradient(circle at 12% 22%, rgba(80,72,110,calc(var(--canggih-grain-opacity) * 0.85)) 0, transparent 0.7px),
+      radial-gradient(circle at 78% 64%, rgba(80,72,110,calc(var(--canggih-grain-opacity) * 0.85)) 0, transparent 0.7px),
+      radial-gradient(circle at 44% 88%, rgba(80,72,110,calc(var(--canggih-grain-opacity) * 0.65)) 0, transparent 0.7px);
     background-size: 7px 7px, 11px 11px, 5px 5px;
   }
 
   /* A5 — sage ::selection. Uses color-mix to derive a soft sage from the
      existing palette tokens — no new color tokens introduced. */
   ::selection {
-    background: color-mix(in srgb, var(--color-sage) 35%, var(--color-cream));
+    background: color-mix(in srgb, var(--color-primary-soft) 70%, var(--color-cream));
     color: var(--color-ink);
   }
   ::selection:window-inactive {
