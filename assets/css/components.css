@@ -364,6 +364,68 @@
   .grid-3 .card--media:nth-child(3n+2) .card-media { --stripe: var(--svc-2); }
   .grid-3 .card--media:nth-child(3n+3) .card-media { --stripe: var(--svc-3); }
 
+  /* ── Home sections aligned to the Lavender reference ──────────────────── */
+
+  /* Hero headline accent — the last word is wrapped by renderHome() so it
+     colours correctly in both EN and BM regardless of word order. */
+  .hero-accent { color: var(--color-primary-deep); }
+
+  /* Visit us — styled opening-hours rows (label / value). */
+  .hours-rows { display: flex; flex-direction: column; gap: var(--space-2); max-width: 22rem; margin-top: var(--space-5); }
+  .hour-row {
+    display: flex; justify-content: space-between; gap: var(--space-4);
+    padding: 12px 18px; background: var(--color-cream-soft);
+    border: 1px solid var(--color-line); border-radius: var(--radius-2);
+  }
+  .hour-row .hour-label { font-weight: 700; color: var(--color-ink); }
+  .hour-row .hour-value { color: var(--color-ink-soft); }
+  .visit-map { align-self: center; width: 100%; }
+
+  /* Testimonial — centred pull-quote with an oversized opening mark. */
+  .testimonial-block { text-align: center; margin-inline: auto; }
+  .testimonial-mark { display: block; font-family: var(--font-serif); font-size: 3.4rem; line-height: 1; color: var(--color-primary); }
+  .testimonial-quote {
+    font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.5;
+    color: var(--color-ink); font-style: italic; margin: 0 0 var(--space-5); border: 0; padding: 0;
+  }
+  .testimonial-attr { font-weight: 700; color: var(--color-primary-deep); margin: 0; }
+
+  /* What we do — three tinted numbered points. Number circles use the AA-safe
+     violet (white on the pastel svc-d tints would fail contrast). */
+  .wwd-points { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-5); }
+  .wwd-point { display: flex; gap: var(--space-4); align-items: flex-start; border-radius: var(--radius-2); padding: 18px 22px; }
+  .wwd-point:nth-child(1) { background: var(--svc-1); }
+  .wwd-point:nth-child(2) { background: var(--svc-3); }
+  .wwd-point:nth-child(3) { background: var(--svc-2); }
+  .wwd-num {
+    flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--color-primary-deep); color: var(--color-cream-soft);
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;
+  }
+  .wwd-point p { margin: 0; color: var(--color-ink-soft); line-height: 1.55; }
+
+  /* Staff — small gradient avatar circles (home featured cards). */
+  .staff-avatar {
+    width: 74px; height: 74px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-serif); font-weight: 600; font-size: 1.4rem;
+    color: var(--color-ink); margin-bottom: var(--space-4);
+    background: linear-gradient(135deg, var(--av-a), var(--color-primary-soft));
+  }
+  .staff-grid .staff-card:nth-child(3n+2) .staff-avatar { background: linear-gradient(135deg, var(--av-b), var(--color-blue)); }
+  .staff-grid .staff-card:nth-child(3n+3) .staff-avatar { background: linear-gradient(135deg, var(--av-c), var(--color-green)); }
+
+  /* Events — soft gradient band with the CTA on the right. */
+  .events-band {
+    background: linear-gradient(135deg, var(--color-primary-soft), var(--svc-3));
+    border-radius: var(--radius-3); padding: 48px 44px;
+    display: flex; flex-wrap: wrap; gap: var(--space-6);
+    align-items: center; justify-content: space-between;
+  }
+  .events-copy { max-width: 38rem; }
+  .events-band .section-eyebrow { color: var(--color-ink); }
+  .events-band h2 { margin-bottom: var(--space-3); }
+
   /* Heroicons base — icons inherit text colour, size from font.
      [data-icon] is a placeholder span filled by icons.js with an SVG. */
   [data-icon] {

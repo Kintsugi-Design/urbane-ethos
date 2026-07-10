@@ -17,6 +17,7 @@
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Pusat Intervensi Awal Urbane Ethos",
+    "headline": "Intervensi awal, yang lebih manusiawi.",
     "subtitle": "Pertuturan, motor, pembelajaran, tingkah laku. Pasukan kecil di Shah Alam yang menemani keluarga sejak 2005.",
     "primaryCta": "Ketahui Lebih Lanjut",
     "secondaryCta": "Tonton pengenalan kami"
@@ -40,15 +41,18 @@
     "skip": "Langkau"
   },
   "location": {
+    "eyebrow": "Datang bertemu kami",
     "title": "Lawati kami",
     "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "mapLabel": "peta / lokasi",
     "hours": [
       "Monday: 12PM – 6PM",
       "Tuesday – Saturday: 9AM – 6PM"
     ]
   },
   "services": {
-    "heading": "PERKHIDMATAN KAMI",
+    "eyebrow": "Perkhidmatan kami",
+    "heading": "Bagaimana kami boleh membantu",
     "items": [
       {
         "key": "screening",
@@ -89,7 +93,17 @@
   },
   "whatWeDo": {
     "heading": "Apa yang boleh kami bantu?",
+    "intro": "Urbane Ethos menyediakan intervensi awal untuk gangguan bahasa dan pertuturan, serta kesukaran motor, kognitif dan pembelajaran. Sokongan kami hadir dalam tiga bentuk:",
+    "points": [
+      "Sesi terapi individu satu-dengan-satu dan berkumpulan, bersama konsultasi ibu bapa berdampingan dengan ahli terapi.",
+      "Latihan ibu bapa dan guru, seminar serta bengkel sepanjang tahun.",
+      "Program penilaian dan saringan, di klinik dan di sekolah, oleh profesional kesihatan bersekutu yang bertauliah."
+    ],
     "body": "Pusat Intervensi Awal Urbane Ethos menyediakan intervensi awal untuk gangguan bahasa dan pertuturan, ketidakupayaan motor, kognitif dan pembelajaran. Kami menyediakan 1. Sesi terapi satu-dengan-satu individu dan sesi berkumpulan bersama konsultasi ibu bapa serta perbincangan dengan ahli terapi 2. Latihan Ibu Bapa dan Guru, Seminar, dan Bengkel 3. Program penilaian dan saringan di klinik dan ke sekolah oleh profesional kesihatan bersekutu yang terlatih dan bertauliah"
+  },
+  "staff": {
+    "eyebrow": "Orang di sebalik pusat",
+    "title": "Temui orang yang akan menemani anda"
   },
   "staffFeatured": [
     {
@@ -109,7 +123,8 @@
     }
   ],
   "events": {
-    "heading": "ACARA",
+    "eyebrow": "Acara",
+    "heading": "Bengkel kecil, perjumpaan yang tenang",
     "blurb": "Kami mengadakan bengkel kecil untuk ibu bapa dan perjumpaan mesra sensori yang tenang sepanjang tahun. Topiknya berubah mengikut apa yang keluarga tanyakan kepada kami.",
     "cta": "Hubungi kami",
     "_note": "Events section heading exists on home, but no event details / blurb are present on the live site. Blurb is drafted (see _draft map)."

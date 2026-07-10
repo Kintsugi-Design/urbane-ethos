@@ -14,6 +14,7 @@
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Urbane Ethos Early Intervention Center",
+    "headline": "Early intervention, made human.",
     "subtitle": "Speech, motor, learning, behaviour. A small Shah Alam team working alongside families since 2005.",
     "primaryCta": "Find Out More",
     "secondaryCta": "Watch our intro"
@@ -37,15 +38,18 @@
     "skip": "Skip"
   },
   "location": {
+    "eyebrow": "Come say hello",
     "title": "Visit us",
     "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "mapLabel": "map / location",
     "hours": [
       "Monday: 12PM – 6PM",
       "Tuesday – Saturday: 9AM – 6PM"
     ]
   },
   "services": {
-    "heading": "OUR SERVICES",
+    "eyebrow": "Our services",
+    "heading": "How we can help",
     "items": [
       {
         "key": "screening",
@@ -86,7 +90,17 @@
   },
   "whatWeDo": {
     "heading": "What can we do for you?",
+    "intro": "Urbane Ethos provides early intervention for language and speech disorders, motor, cognitive and learning difficulties. Our support comes in three shapes:",
+    "points": [
+      "Individual one-to-one and group therapy sessions, with parent consultations alongside the therapists.",
+      "Parent and teacher training, seminars and workshops throughout the year.",
+      "Assessment and screening programs, in-clinic and at schools, by certified allied-health professionals."
+    ],
     "body": "Urbane Ethos Early Intervention Center provides early intervention for language and speech disorders, motor, cognitive and learning disabilities. We provide 1. Individualized one-to-one therapy sessions and group sessions along with parent consultations and discussions with therapists 2. Parent and Teacher Training, Seminars, and Workshops 3. Assessments and Screening programs in-clinic and to schools by trained and certified allied health professionals"
+  },
+  "staff": {
+    "eyebrow": "The people",
+    "title": "Meet the people who'll be there"
   },
   "staffFeatured": [
     {
@@ -106,7 +120,8 @@
     }
   ],
   "events": {
-    "heading": "EVENTS",
+    "eyebrow": "Events",
+    "heading": "Small workshops, quiet meetups",
     "blurb": "We run small parent workshops and quiet sensory-friendly meetups through the year. Topics shift with what families are asking us about.",
     "cta": "Get in touch",
     "_note": "Events section heading exists on home, but no event details / blurb are present on the live site. Blurb is drafted (see _draft map)."

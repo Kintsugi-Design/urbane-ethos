@@ -69,7 +69,7 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <p class="eyebrow" data-i18n="home.hero.eyebrow">Urbane Ethos</p>
-          <h1 data-i18n="home.hero.title">Early Intervention Center</h1>
+          <h1 id="hero-headline">Early intervention, made <span class="hero-accent">human.</span></h1>
           <p class="lede" data-i18n="home.hero.subtitle">Subtitle</p>
           <div class="cta-row">
             <a class="btn btn--primary" href="./services.html" data-i18n="home.hero.primaryCta">Find Out More</a>
@@ -130,47 +130,63 @@
   </section>
 
   <section class="section section--alt">
-    <div class="wrap">
-      <h2 data-i18n="home.location.title">Visit us</h2>
-      <p data-i18n="home.location.address"></p>
-      <ul id="home-hours"></ul>
+    <div class="wrap grid-2">
+      <div>
+        <p class="section-eyebrow" data-i18n="home.location.eyebrow">Come say hello</p>
+        <h2 data-i18n="home.location.title">Visit us</h2>
+        <p data-i18n="home.location.address"></p>
+        <div class="hours-rows" id="home-hours"></div>
+      </div>
+      <figure class="media-card visit-map">
+        <div class="stripe-fill stripe-fill--blue" aria-hidden="true">
+          <span class="stripe-label" data-i18n="home.location.mapLabel">map / location</span>
+        </div>
+      </figure>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
+      <p class="section-eyebrow" data-i18n="home.services.eyebrow">Our services</p>
       <h2 data-i18n="home.services.heading">How we can help</h2>
       <div class="grid-3" data-services-grid id="home-services"></div>
     </div>
   </section>
 
   <section class="section section--alt">
-    <div class="wrap" style="max-width:var(--content-max)">
-      <p class="section-eyebrow">A word from a parent</p>
-      <blockquote style="font-family:var(--font-serif);font-size:1.5rem;line-height:1.4" data-i18n="home.testimonial.quote">[quote]</blockquote>
-      <p style="color:var(--color-ink-muted)" data-i18n="home.testimonial.attribution">[attribution]</p>
+    <div class="wrap testimonial-block" style="max-width:48rem">
+      <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+      <blockquote class="testimonial-quote" data-i18n="home.testimonial.quote">[quote]</blockquote>
+      <p class="testimonial-attr" data-i18n="home.testimonial.attribution">[attribution]</p>
     </div>
   </section>
 
   <section class="section fade-in-up" data-trust-beat="values">
     <div class="wrap" style="max-width:var(--content-max)">
       <h2 data-i18n="home.whatWeDo.heading">What can we do for you?</h2>
-      <p data-i18n="home.whatWeDo.body"></p>
+      <p data-i18n="home.whatWeDo.intro"></p>
+      <div class="wwd-points" id="home-wwd-points"></div>
     </div>
   </section>
 
   <section class="section section--alt">
     <div class="wrap">
-      <h2>Meet the people who'll be there</h2>
+      <p class="section-eyebrow" data-i18n="home.staff.eyebrow">The people</p>
+      <h2 data-i18n="home.staff.title">Meet the people who'll be there</h2>
       <div class="staff-grid" id="home-staff"></div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <h2 data-i18n="home.events.heading">Events</h2>
-      <p data-i18n="home.events.blurb"></p>
-      <a class="btn btn--secondary" href="./contact.html" data-i18n="home.events.cta">Get in touch</a>
+      <div class="events-band">
+        <div class="events-copy">
+          <p class="section-eyebrow" data-i18n="home.events.eyebrow">Events</p>
+          <h2 data-i18n="home.events.heading">Small workshops, quiet meetups</h2>
+          <p data-i18n="home.events.blurb"></p>
+        </div>
+        <a class="btn btn--primary" href="./contact.html" data-i18n="home.events.cta">Get in touch</a>
+      </div>
     </div>
   </section>
 
@@ -251,14 +267,45 @@ async function renderHome() {
     fetchJson(`./content/${locale}/staff.json`)
   ]);
 
-  // Hours lists
+  // Hero headline — accent the final word (works in EN + BM regardless of word order).
+  const headlineEl = document.getElementById("hero-headline");
+  if (headlineEl && home.hero?.headline) {
+    const words = home.hero.headline.trim().split(/\s+/);
+    const last = words.pop();
+    headlineEl.innerHTML = `${words.join(" ")} <span class="hero-accent">${last}</span>`;
+  }
+
+  // Footer hours stay a plain list; visit-us hours render as label/value rows.
   const fmtUl = (sel, items) => {
     const ul = document.querySelector(sel);
     if (!ul || !Array.isArray(items)) return;
     ul.replaceChildren(...items.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
   };
-  fmtUl("#home-hours", home.location?.hours);
   fmtUl("#footer-hours", common.footer?.hours);
+
+  const hoursWrap = document.getElementById("home-hours");
+  if (hoursWrap && Array.isArray(home.location?.hours)) {
+    hoursWrap.replaceChildren(...home.location.hours.map(s => {
+      const [label, ...rest] = s.split(": ");
+      const row = document.createElement("div"); row.className = "hour-row";
+      const l = document.createElement("span"); l.className = "hour-label"; l.textContent = label;
+      const v = document.createElement("span"); v.className = "hour-value"; v.textContent = rest.join(": ");
+      row.append(l, v);
+      return row;
+    }));
+  }
+
+  // What-we-do numbered points.
+  const wwd = document.getElementById("home-wwd-points");
+  if (wwd && Array.isArray(home.whatWeDo?.points)) {
+    wwd.replaceChildren(...home.whatWeDo.points.map((txt, i) => {
+      const row = document.createElement("div"); row.className = "wwd-point";
+      const num = document.createElement("span"); num.className = "wwd-num"; num.textContent = String(i + 1);
+      const p = document.createElement("p"); p.textContent = txt;
+      row.append(num, p);
+      return row;
+    }));
+  }
 
   // Personalization chips. Each option is either a plain string (age, stage)
   // or an object {value, label} (concern). The slug-valued form keeps the
@@ -307,7 +354,7 @@ async function renderHome() {
       const card = document.createElement("article");
       card.className = "staff-card";
       card.innerHTML = `
-        <div class="staff-photo" role="img" aria-label="${m.name}">${initials}</div>
+        <div class="staff-avatar" role="img" aria-label="${m.name}">${initials}</div>
         <div class="staff-body">
           <p class="staff-greeting">${f.greeting}</p>
           <p class="staff-role">${m.role}</p>
