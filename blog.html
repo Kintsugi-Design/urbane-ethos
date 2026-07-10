@@ -142,10 +142,10 @@ async function renderBlog() {
     grid.replaceChildren(...items.map(p => {
       const a = document.createElement("a");
       a.href = p.externalUrl;
-      a.className = "card";
+      a.className = "card card--media";
       a.target = "_blank";
       a.rel = "noopener";
-      a.innerHTML = `<div class="card-inner"><small>${esc(p.date)} &middot; ${esc(p.category)}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p></div>`;
+      a.innerHTML = `<div class="stripe-fill card-media" aria-hidden="true"></div><div class="card-inner"><small>${esc(p.date)} &middot; ${esc(p.category)}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p></div>`;
       return a;
     }));
   }

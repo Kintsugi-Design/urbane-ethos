@@ -316,6 +316,54 @@
   #home-services .card:nth-child(5) .card-chip { background: var(--svc-d-5); }
   #home-services .card:nth-child(6) .card-chip { background: var(--svc-d-6); }
 
+  /* ── Lavender import — 45° diagonal stripe placeholders ─────────────────
+     The design's "photo coming here" idiom: a palette tint striped against the
+     white surface. Mixed with the pastel anchor art (which stays on the about/
+     services heroes + service moods) so placeholders read as intentional, not
+     broken. Colour set via --stripe / a modifier. */
+  .stripe-fill {
+    --stripe: var(--color-primary-soft);
+    background: repeating-linear-gradient(135deg,
+      var(--stripe), var(--stripe) 16px,
+      var(--color-cream-soft) 16px, var(--color-cream-soft) 32px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stripe-fill--primary { --stripe: var(--color-primary-soft); }
+  .stripe-fill--blue    { --stripe: var(--color-blue); }
+  .stripe-fill--green   { --stripe: var(--color-green); }
+  .stripe-fill--pink    { --stripe: var(--color-pink); }
+  .stripe-label {
+    font-family: ui-monospace, monospace; font-size: 0.74rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--color-ink-muted);
+    background: var(--color-cream); padding: 9px 15px; border-radius: var(--radius-pill);
+  }
+
+  /* Two-column hero (design layout): copy left, media right; stacks below the
+     880px nav breakpoint. */
+  .hero-grid {
+    display: grid; grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-12); align-items: center;
+  }
+  @media (max-width: 879px) {
+    .hero-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  }
+  .hero-media { display: flex; flex-direction: column; gap: var(--space-4); margin: 0; }
+  .media-card {
+    margin: 0; border-radius: var(--radius-3); overflow: hidden;
+    background: var(--color-cream-soft); border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-3);
+  }
+  .media-card .stripe-fill { aspect-ratio: 4/3; }
+  .media-card figcaption { padding: 14px 18px; font-size: 0.84rem; color: var(--color-ink-muted); margin: 0; }
+
+  /* Blog cards carry a striped image top (design idiom), cycling palette tints. */
+  .card--media { padding: 0; overflow: hidden; }
+  .card--media .card-media { aspect-ratio: 16/10; display: block; }
+  .card--media .card-inner { padding: var(--space-6); }
+  .grid-3 .card--media:nth-child(3n+1) .card-media { --stripe: var(--svc-1); }
+  .grid-3 .card--media:nth-child(3n+2) .card-media { --stripe: var(--svc-2); }
+  .grid-3 .card--media:nth-child(3n+3) .card-media { --stripe: var(--svc-3); }
+
   /* Heroicons base — icons inherit text colour, size from font.
      [data-icon] is a placeholder span filled by icons.js with an SVG. */
   [data-icon] {
@@ -742,4 +790,28 @@
   .yt-embed[data-yt-state="playing"]::after {
     display: none;
   }
+
+  /* Compact "Our intro" video card (home hero) — a small launcher instead of a
+     second big thumbnail, so the intro video has one clear entry (the design's
+     redundant "Watch our intro" button is dropped). Must follow the base
+     .yt-embed rules above to override them. On click yt-embed.js swaps in the
+     iframe and the playing rule expands it back to 16/9. */
+  .yt-embed--compact {
+    aspect-ratio: auto; display: flex; align-items: center; gap: var(--space-4);
+    background: var(--color-cream-soft); border: 1px solid var(--color-line);
+    border-radius: var(--radius-2); padding: 12px 16px; box-shadow: var(--shadow-1);
+  }
+  .yt-embed--compact img { display: none; }
+  .yt-embed--compact::after { display: none; }
+  .yt-embed--compact .yt-play {
+    position: static; transform: none; inset: auto; width: 44px; height: 44px;
+    border-width: 0; background: var(--color-primary-deep); font-size: 0.9rem; flex: 0 0 auto;
+  }
+  .yt-embed--compact:hover .yt-play,
+  .yt-embed--compact:focus-within .yt-play { transform: scale(1.06); background: var(--color-primary-deep); }
+  .yt-embed--compact .yt-caption {
+    position: static; inset: auto; text-align: left; color: var(--color-ink);
+    text-shadow: none; padding: 0; font-style: normal; font-weight: 700; font-size: 0.95rem;
+  }
+  .yt-embed--compact[data-yt-state="playing"] { display: block; aspect-ratio: 16/9; padding: 0; }
 }

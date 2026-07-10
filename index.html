@@ -66,25 +66,32 @@
       <span class="hero-blob hero-blob--dot2"></span>
     </div>
     <div class="wrap">
-      <p class="eyebrow" data-i18n="home.hero.eyebrow">Urbane Ethos</p>
-      <h1 data-i18n="home.hero.title">Early Intervention Center</h1>
-      <p class="lede" data-i18n="home.hero.subtitle">Subtitle</p>
-      <div class="cta-row">
-        <a class="btn btn--primary" href="./services.html" data-i18n="home.hero.primaryCta">Find Out More</a>
-      </div>
-      <!-- huashu H-1: anchor photo moved after lede so the H1 leads visually,
-           the considered photo punctuates the body, and the video thumb
-           invites action below. One image idea per beat. -->
-      <figure class="anchor-photo">
-        <img src="./assets/img/anchors/home-hero.jpg" alt="" data-i18n-attr="alt:common.media.alts.homeHero">
-        <figcaption data-i18n="common.media.captions.homeHero">Therapy room interior, warm light · Placeholder via Picsum.</figcaption>
-      </figure>
-      <div class="yt-embed"
-           data-yt-id="PLACEHOLDER_INTRO"
-           data-yt-title-key="common.media.videoTitles.ytHomeIntro">
-        <img src="./assets/img/anchors/yt-thumb-home-intro.jpg" alt="" data-i18n-attr="alt:common.media.alts.homeHeroIntroVideo">
-        <p class="yt-caption" data-i18n="common.media.captions.ytHomeIntro">Our intro · Placeholder.</p>
-        <button class="yt-play" aria-label="Play video" data-i18n-attr="aria-label:common.media.playButton">▶</button>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="home.hero.eyebrow">Urbane Ethos</p>
+          <h1 data-i18n="home.hero.title">Early Intervention Center</h1>
+          <p class="lede" data-i18n="home.hero.subtitle">Subtitle</p>
+          <div class="cta-row">
+            <a class="btn btn--primary" href="./services.html" data-i18n="home.hero.primaryCta">Find Out More</a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <!-- [REAL PHOTO REQUIRED] therapy room interior — 45° stripe placeholder -->
+          <figure class="media-card">
+            <div class="stripe-fill stripe-fill--primary" aria-hidden="true">
+              <span class="stripe-label">therapy room photo</span>
+            </div>
+            <figcaption data-i18n="common.media.captions.homeHero">Therapy room interior, warm light · Placeholder via Picsum.</figcaption>
+          </figure>
+          <!-- Single intro-video entry — design's redundant "Watch our intro" button dropped. -->
+          <div class="yt-embed yt-embed--compact"
+               data-yt-id="PLACEHOLDER_INTRO"
+               data-yt-title-key="common.media.videoTitles.ytHomeIntro">
+            <img src="./assets/img/anchors/yt-thumb-home-intro.jpg" alt="" data-i18n-attr="alt:common.media.alts.homeHeroIntroVideo">
+            <button class="yt-play" aria-label="Play video" data-i18n-attr="aria-label:common.media.playButton">▶</button>
+            <p class="yt-caption" data-i18n="common.media.captions.ytHomeIntro">Our intro · Placeholder.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -346,8 +353,8 @@ async function renderHome() {
     blogWrap.replaceChildren(...blog.posts.slice(0, 3).map(p => {
       const a = document.createElement("a");
       a.href = p.externalUrl;
-      a.className = "card";
-      a.innerHTML = `<div class="card-inner"><small>${p.date} &middot; ${p.category}</small><h3>${p.title}</h3><p>${p.excerpt}</p></div>`;
+      a.className = "card card--media";
+      a.innerHTML = `<div class="stripe-fill card-media" aria-hidden="true"></div><div class="card-inner"><small>${p.date} &middot; ${p.category}</small><h3>${p.title}</h3><p>${p.excerpt}</p></div>`;
       return a;
     }));
   }
