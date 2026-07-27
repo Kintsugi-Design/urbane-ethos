@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    kramdown (2.5.2)
+      rexml (>= 3.4.4)
+    rexml (3.4.4)
     webrick (1.9.2)
 
 PLATFORMS
@@ -8,6 +11,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  kramdown (~> 2.4)
   webrick (~> 1.8)
 
 RUBY VERSION
