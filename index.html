@@ -126,6 +126,16 @@
         </div>
         <p data-personalize-feedback hidden>Saved.</p>
       </form>
+      <!-- Shown when personalization cookies are OFF (e.g. "Necessary only"), so
+           the section isn't empty. CTA reopens the cookie popup to enable it. -->
+      <div data-personalize-locked class="personalization-card personalization-card--locked" hidden>
+        <p class="section-eyebrow" data-i18n="home.personalization.locked.eyebrow">Personalise</p>
+        <h2 data-i18n="home.personalization.locked.heading">See what's most relevant to you</h2>
+        <p data-i18n="home.personalization.locked.body">Turn on personalisation and we'll tailor this page to you. It's optional — enable personalisation cookies to get started.</p>
+        <div class="cta-row">
+          <button type="button" class="btn btn--primary" data-consent-manage data-i18n="home.personalization.locked.cta">Enable personalisation</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -338,7 +348,10 @@ async function renderHome() {
 
   // Show survey only if personalization consent allowed
   const surveyForm = document.querySelector("[data-personalize-form]");
-  if (surveyForm) surveyForm.hidden = !isAllowed("personalization");
+  const persAllowed = isAllowed("personalization");
+  if (surveyForm) surveyForm.hidden = !persAllowed;
+  const persLocked = document.querySelector("[data-personalize-locked]");
+  if (persLocked) persLocked.hidden = persAllowed;
 
   // Services grid
   const svcGrid = document.getElementById("home-services");

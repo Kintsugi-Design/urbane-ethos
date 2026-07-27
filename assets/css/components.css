@@ -656,6 +656,11 @@
   .personalization-row { margin-bottom: var(--space-5); }
   .personalization-row legend { font: 600 0.95rem var(--font-sans); margin-bottom: var(--space-2); }
   .personalization-chips { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+  /* Consent-gated invite shown when personalization cookies are off */
+  .personalization-card--locked { text-align: center; }
+  .personalization-card--locked .section-eyebrow { color: var(--color-primary-deep); }
+  .personalization-card--locked > p:not(.section-eyebrow) { max-width: 54ch; margin-inline: auto; }
+  .personalization-card--locked .cta-row { justify-content: center; }
 
   /* Staff card */
   .staff-grid { display: grid; gap: var(--space-12); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }

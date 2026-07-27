@@ -15,7 +15,11 @@
     "personalization.ageNotes.child": true,
     "personalization.ageNotes.teen": true,
     "personalization.ageNotes.adult": true,
-    "personalization.ageNotes.olderAdult": true
+    "personalization.ageNotes.olderAdult": true,
+    "personalization.locked.eyebrow": true,
+    "personalization.locked.heading": true,
+    "personalization.locked.body": true,
+    "personalization.locked.cta": true
   },
   "hero": {
     "eyebrow": "Urbane Ethos",
@@ -59,7 +63,13 @@
       "olderAdult": "For older adults we offer individual therapy, cognitive stimulation, and daily-living and rehabilitation support."
     },
     "submit": "Show me what's relevant",
-    "skip": "Skip"
+    "skip": "Skip",
+    "locked": {
+      "eyebrow": "Personalise",
+      "heading": "See what's most relevant to you",
+      "body": "Turn on personalisation and we'll tailor this page to you — we reorder our services to your main concern and highlight what fits. It's optional, and you can change your cookie choices anytime.",
+      "cta": "Enable personalisation"
+    }
   },
   "location": {
     "eyebrow": "Come say hello",
