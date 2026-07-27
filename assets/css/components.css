@@ -380,6 +380,7 @@
   .hour-row .hour-label { font-weight: 700; color: var(--color-ink); }
   .hour-row .hour-value { color: var(--color-ink-soft); }
   .visit-map { align-self: center; width: 100%; }
+  .map-frame { display: block; width: 100%; aspect-ratio: 4/3; border: 0; }
 
   /* Testimonial — centred pull-quote with an oversized opening mark. */
   .testimonial-block { text-align: center; margin-inline: auto; }

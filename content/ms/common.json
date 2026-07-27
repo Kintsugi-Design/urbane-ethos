@@ -6,6 +6,7 @@
     "translatedAt": "2026-07-27",
     "reviewedBy": null
   },
+  "mapEmbedSrc": "https://www.google.com/maps?q=Urbane+Ethos+Early+Intervention+Center%2C+No.+4+Jalan+Elektron+E+U16%2FE%2C+Denai+Alam%2C+40160+Shah+Alam%2C+Selangor&output=embed",
   "nav": {
     "about": "Tentang Kami",
     "staff": "Kakitangan",
@@ -59,7 +60,8 @@
     "closeChatbot": "Tutup pembantu sembang",
     "personalizationReset": "Set semula pemperibadian",
     "playVideoPlaceholder": "Mainkan video pengenalan",
-    "videoUnavailable": "Video akan datang tidak lama lagi"
+    "videoUnavailable": "Video akan datang tidak lama lagi",
+    "mapTitle": "Peta Google menunjukkan pusat Urbane Ethos di Denai Alam, Shah Alam"
   },
   "media": {
     "_draft": true,

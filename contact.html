@@ -193,10 +193,12 @@ async function renderContact() {
   ul("#contact-hours", data.hours || [], s => { const li = document.createElement("li"); li.textContent = s; return li; });
 
   const map = document.getElementById("map");
-  if (data.address?.mapEmbedSrc) {
-    map.src = data.address.mapEmbedSrc;
+  const mapSrc = common.mapEmbedSrc || data.address?.mapEmbedSrc;
+  if (map && mapSrc) {
+    map.src = mapSrc;
+    if (common.a11y?.mapTitle) map.title = common.a11y.mapTitle;
     map.hidden = false;
-  } else {
+  } else if (map) {
     map.hidden = true;
   }
 
