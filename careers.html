@@ -109,7 +109,7 @@
 <button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot"><span data-icon="chat"></span></button>
 
 <script type="module">
-import { getLocale, translatePage } from "./assets/js/i18n.js";
+import { getLocale, translatePage, stripPlaceholder } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/a11y.js";
 import "./assets/js/nav.js";
@@ -131,7 +131,7 @@ async function renderCareers() {
   if (fhrs) fhrs.replaceChildren(...(common.footer?.hours || []).map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
 
   document.getElementById("careers-title").textContent = data.hero?.title || "Careers";
-  document.getElementById("careers-subtitle").textContent = data.hero?.subtitle || "";
+  document.getElementById("careers-subtitle").textContent = stripPlaceholder(data.hero?.subtitle) || "";
 
   document.getElementById("benefits-heading").textContent = data.benefits?.heading || "Benefits";
   const bgrid = document.getElementById("benefits-grid");
@@ -143,7 +143,7 @@ async function renderCareers() {
   }));
 
   document.getElementById("outro-heading").textContent = data.outro?.heading || "How to apply";
-  document.getElementById("outro-body").textContent = data.outro?.body || "";
+  document.getElementById("outro-body").textContent = stripPlaceholder(data.outro?.body) || "";
   const cta = document.getElementById("outro-cta");
   if (data.outro?.cta) cta.textContent = data.outro.cta;
   const email = document.getElementById("outro-email");

@@ -4,6 +4,16 @@ const SUPPORTED = new Set(["en", "ms"]);
 
 const cache = new Map();
 
+// Prototype content flags unsourced copy with this sentinel (greppable in
+// content/*.json for the pre-launch swap). It must never render to a viewer —
+// strip it at the render layer so placeholder slots read as empty, not "Lorem
+// ipsum". Required elements (e.g. the hero H1) get real copy instead.
+const PLACEHOLDER_SENTINEL = "⟪PLACEHOLDER⟫";
+
+export function stripPlaceholder(value) {
+  return (typeof value === "string" && value.startsWith(PLACEHOLDER_SENTINEL)) ? "" : value;
+}
+
 // Namespaces that live OUTSIDE the locale subdir — intentionally EN-only
 // (blog articles are not translated, per project scope). These map to
 // content/<namespace>.json regardless of current locale.
@@ -47,7 +57,7 @@ async function applyToElement(el, locale) {
   const key = el.dataset.i18n;
   if (key) {
     const value = await resolve(locale, key);
-    if (value != null) el.textContent = value;
+    if (value != null) el.textContent = stripPlaceholder(value);
   }
   const attrSpec = el.dataset.i18nAttr;
   if (attrSpec) {

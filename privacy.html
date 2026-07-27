@@ -40,7 +40,7 @@
 </footer>
 
 <script type="module">
-import { getLocale, t } from "./assets/js/i18n.js";
+import { getLocale, t, stripPlaceholder } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/nav.js";
 import "./assets/js/icons.js";
@@ -53,8 +53,10 @@ async function renderSections() {
   const wrap = document.getElementById("privacy-sections");
   wrap.replaceChildren();
   for (const sec of data.sections) {
+    const body = stripPlaceholder(sec.body);
+    if (!body) continue; // section body not yet written — don't render lorem or an orphan heading
     const h2 = document.createElement("h2"); h2.textContent = sec.heading;
-    const p  = document.createElement("p");  p.textContent  = sec.body;
+    const p  = document.createElement("p");  p.textContent  = body;
     wrap.append(h2, p);
   }
 }
