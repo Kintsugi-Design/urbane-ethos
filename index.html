@@ -148,9 +148,7 @@
         <div class="hours-rows" id="home-hours"></div>
       </div>
       <figure class="media-card visit-map">
-        <div class="stripe-fill stripe-fill--blue" aria-hidden="true">
-          <span class="stripe-label" data-i18n="home.location.mapLabel">map / location</span>
-        </div>
+        <iframe class="map-frame" id="home-map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of the Urbane Ethos centre"></iframe>
       </figure>
     </div>
   </section>
@@ -300,6 +298,13 @@ async function renderHome() {
     ul.replaceChildren(...items.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
   };
   fmtUl("#footer-hours", common.footer?.hours);
+
+  // Embedded Google Map (single source: common.mapEmbedSrc; lazy iframe).
+  const homeMap = document.getElementById("home-map");
+  if (homeMap && common.mapEmbedSrc) {
+    if (homeMap.src !== common.mapEmbedSrc) homeMap.src = common.mapEmbedSrc;
+    if (common.a11y?.mapTitle) homeMap.title = common.a11y.mapTitle;
+  }
 
   const hoursWrap = document.getElementById("home-hours");
   if (hoursWrap && Array.isArray(home.location?.hours)) {

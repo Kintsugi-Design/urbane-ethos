@@ -1,5 +1,6 @@
 {
   "_meta": { "source": "urbaneethos.center", "scrapedAt": "2026-06-08" },
+  "mapEmbedSrc": "https://www.google.com/maps?q=Urbane+Ethos+Early+Intervention+Center%2C+No.+4+Jalan+Elektron+E+U16%2FE%2C+Denai+Alam%2C+40160+Shah+Alam%2C+Selangor&output=embed",
   "nav": {
     "about": "About",
     "staff": "Staff",
@@ -53,7 +54,8 @@
     "closeChatbot": "Close chat assistant",
     "personalizationReset": "Reset personalization",
     "playVideoPlaceholder": "Play introduction video",
-    "videoUnavailable": "Video coming soon"
+    "videoUnavailable": "Video coming soon",
+    "mapTitle": "Google Map showing the Urbane Ethos centre in Denai Alam, Shah Alam"
   },
   "media": {
     "_note": "Real photos with parental consent + real centre-tour video are pre-launch swaps. Replace the JPGs in assets/img/anchors/ keeping the same filenames, and update the data-yt-id attributes on each <div class=\"yt-embed\"> with the real YouTube IDs. The visible captions below stay as-is until launch.",
