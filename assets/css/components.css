@@ -487,6 +487,7 @@
   .section { padding: var(--space-20) 0; }
   .section--alt { background: var(--color-alt); }
   .section-eyebrow { font: 600 var(--type-eyebrow) var(--font-sans); letter-spacing: var(--tracking-loose); text-transform: uppercase; color: var(--color-ink-muted); margin: 0 0 var(--space-3); }
+  .section-note { max-width: 52ch; margin: calc(-1 * var(--space-2)) 0 var(--space-4); color: var(--color-ink-soft); font-size: 0.9375rem; }
 
   /* Grids */
   .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); }

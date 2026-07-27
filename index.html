@@ -106,10 +106,10 @@
   <section class="section">
     <div class="wrap">
       <form data-personalize-form class="personalization-card fade-in-up" hidden>
-        <h2 data-i18n="home.personalization.heading">Tell us a little about your child</h2>
-        <p data-i18n="home.personalization.subheading">Skip if you'd rather browse on your own.</p>
+        <h2 data-i18n="home.personalization.heading">Tell us a little about the person who needs support</h2>
+        <p data-i18n="home.personalization.subheading">You, your child, or someone you care for — any age. Skip if you'd rather browse on your own.</p>
         <fieldset class="personalization-row">
-          <legend data-i18n="home.personalization.ageLabel">Child's age</legend>
+          <legend data-i18n="home.personalization.ageLabel">Age group</legend>
           <div class="personalization-chips" data-personalize-chips="age"></div>
         </fieldset>
         <fieldset class="personalization-row">
@@ -117,7 +117,7 @@
           <div class="personalization-chips" data-personalize-chips="concern"></div>
         </fieldset>
         <fieldset class="personalization-row">
-          <legend data-i18n="home.personalization.stageLabel">Where are you in your journey?</legend>
+          <legend data-i18n="home.personalization.stageLabel">What stage are you at?</legend>
           <div class="personalization-chips" data-personalize-chips="stage"></div>
         </fieldset>
         <div class="cta-row">
@@ -149,6 +149,7 @@
     <div class="wrap">
       <p class="section-eyebrow" data-i18n="home.services.eyebrow">Our services</p>
       <h2 data-i18n="home.services.heading">How we can help</h2>
+      <p class="section-note" data-personalize-age-note hidden></p>
       <div class="grid-3" data-services-grid id="home-services"></div>
     </div>
   </section>
@@ -258,7 +259,7 @@ import "./assets/js/cursor.js";
 import "./assets/js/parallax.js";
 import "./assets/js/yt-embed.js";
 import { isAllowed } from "./assets/js/consent.js";
-import { read as readPers, recommendedBlog, recommendedStaffId } from "./assets/js/personalization.js";
+import { read as readPers, recommendedBlog, recommendedStaffId, reorderServices, ageNoteKeyPath } from "./assets/js/personalization.js";
 import "./assets/js/personalization.js";
 import "./assets/js/chatbot.js";
 
@@ -314,8 +315,8 @@ async function renderHome() {
     }));
   }
 
-  // Personalization chips. Each option is either a plain string (age, stage)
-  // or an object {value, label} (concern). The slug-valued form keeps the
+  // Personalization chips. Age + concern options are objects {value, label};
+  // stage options are plain strings. The slug-valued form keeps the
   // <input value=> locale-stable so personalization.js rules fire identically
   // in EN and BM.
   const chips = (group, opts) => {
@@ -350,6 +351,19 @@ async function renderHome() {
       a.innerHTML = `<div class="card-inner"><span class="card-chip" aria-hidden="true"></span><h3>${item.title}</h3><p>${item.blurb ?? ""}</p></div>`;
       return a;
     }));
+  }
+
+  // Reorder must run after the async rebuild (personalization.js's own
+  // DOMContentLoaded/consent:changed hook fires before this grid exists).
+  if (svcGrid) reorderServices(svcGrid);
+
+  // Age-appropriate note (drafted copy; slug → ageNotes subkey via rules table).
+  const ageNoteEl = document.querySelector("[data-personalize-age-note]");
+  if (ageNoteEl) {
+    const path = ageNoteKeyPath();
+    const text = path ? path.reduce((o, k) => o?.[k], home) : null;
+    if (text) { ageNoteEl.textContent = text; ageNoteEl.hidden = false; }
+    else { ageNoteEl.hidden = true; ageNoteEl.textContent = ""; }
   }
 
   // Staff featured cards (home.json gives id+greeting+personalLine, staff.json gives name+role+photo)
