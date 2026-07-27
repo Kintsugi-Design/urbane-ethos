@@ -3,9 +3,8 @@
     "scrapedAt": "2026-06-08",
     "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent')."
   },
-  "_draft": {
-    "hero.subtitle": true,
-    "services.items.3.blurb": true,
+  "_placeholder": {
+    "hero.headline": true,
     "staffFeatured.0.personalLine": true,
     "staffFeatured.1.personalLine": true,
     "staffFeatured.2.personalLine": true,
@@ -14,8 +13,8 @@
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Urbane Ethos Early Intervention Center",
-    "headline": "Early intervention, made human.",
-    "subtitle": "Motor skills, speech & language, learning & behaviour management. A Shah Alam team working alongside families since 2005.",
+    "headline": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet.",
+    "subtitle": "We offer client centered rehabilitation and therapy for motor development, sensory integration, speech-language therapy as well as social and cognitive stimulation for neurodivergent individuals ranging from toddlers, children, adults and elderly.",
     "primaryCta": "Find Out More",
     "secondaryCta": "Watch our intro"
   },
@@ -40,11 +39,12 @@
   "location": {
     "eyebrow": "Come say hello",
     "title": "Visit us",
-    "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "address": "No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor",
     "mapLabel": "map / location",
     "hours": [
-      "Monday: 12PM – 6PM",
-      "Tuesday – Saturday: 9AM – 6PM"
+      "Monday: 12PM – 5PM",
+      "Tuesday – Saturday: 9AM – 6PM",
+      "Closed Sunday & Public Holidays"
     ]
   },
   "services": {
@@ -53,8 +53,8 @@
     "items": [
       {
         "key": "screening",
-        "title": "Screening or Assessment",
-        "blurb": "Observation of the children at school or at home during playtime. Full assessment of child's language development stages."
+        "title": "Screening & Assessment",
+        "blurb": "Two separate services: screening (Occupational Therapy — fine motor, school readiness; Clinical Psychology — emotional, behavioural) and a holistic 3-in-1 assessment covering Occupational Therapy, Speech-Language and Communication, and Clinical Psychology."
       },
       {
         "key": "ot",
@@ -68,13 +68,12 @@
       },
       {
         "key": "specialed",
-        "title": "Special Education",
-        "blurb": "One-to-one teaching for children who learn at their own pace. We meet your child where they are and build from there.",
-        "_note": "Special Education has no standalone description on services page; covered within the EIP programs. Blurb is drafted (see _draft map)."
+        "title": "Cognitive Therapy & Special Education",
+        "blurb": "Cognitive therapy and special education delivered by our professionally licensed team as part of an integrated, multidisciplinary set up."
       },
       {
         "key": "eip",
-        "title": "Early Intervention Program",
+        "title": "IEP & Early Intervention Program",
         "blurb": "Therapy-based group program conducted daily by our certified Occupational Therapist, Speech Therapist/Clinical Linguist as well as our Special Education Teacher."
       },
       {
@@ -106,25 +105,24 @@
     {
       "id": "dr-norizan-rajak",
       "greeting": "Hi, I'm Norizan",
-      "personalLine": "I came home from Syracuse to build the kind of centre I wished existed when I was a young researcher in linguistics."
+      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
     },
     {
       "id": "ms-liyana-tarmizi",
       "greeting": "Hi, I'm Liyana",
-      "personalLine": "I sit with families through the hardest questions first, before we talk about anything else."
+      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
     },
     {
       "id": "mrs-norizzati-afiqah",
       "greeting": "Hi, I'm Norizzati",
-      "personalLine": "I've spent over a decade with kids who needed someone to slow down and notice what they could already do."
+      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
     }
   ],
   "events": {
     "eyebrow": "Events",
     "heading": "Small workshops, quiet meetups",
-    "blurb": "We run small parent workshops and quiet sensory-friendly meetups through the year. Topics shift with what families are asking us about.",
-    "cta": "Get in touch",
-    "_note": "Events section heading exists on home, but no event details / blurb are present on the live site. Blurb is drafted (see _draft map)."
+    "blurb": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "cta": "Get in touch"
   },
   "recommendedRail": {
     "heading": "Recommended for you",

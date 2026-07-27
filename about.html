@@ -70,7 +70,7 @@
 
   <section class="section" data-trust-beat="ethos">
     <div class="wrap" style="max-width:var(--content-max)">
-      <h2 data-i18n="about.mission.heading">Our mission</h2>
+      <h2 data-i18n="about.mission.heading">About us</h2>
       <p data-i18n="about.mission.body"></p>
       <h2 data-i18n="about.story.heading">Our story</h2>
       <p data-i18n="about.story.body"></p>
@@ -79,7 +79,7 @@
 
   <section class="section section--alt">
     <div class="wrap">
-      <h2 data-i18n="about.values.heading">What we stand for</h2>
+      <h2 data-i18n="about.visionMission.heading">Vision &amp; Mission</h2>
       <div class="grid-3" id="about-values"></div>
     </div>
   </section>
@@ -140,7 +140,7 @@ async function renderAbout() {
   const locale = getLocale();
   const data = await (await fetch(`./content/${locale}/about.json`)).json();
   const grid = document.getElementById("about-values");
-  grid.replaceChildren(...(data.values?.items || []).map(v => {
+  grid.replaceChildren(...(data.visionMission?.items || []).map(v => {
     const c = document.createElement("article");
     c.className = "card";
     c.innerHTML = `<div class="card-inner"><h3>${v.title}</h3><p>${v.body}</p></div>`;

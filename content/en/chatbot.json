@@ -1,11 +1,10 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries below were extracted verbatim from /services where present (ot, speech, eip, psych). Screening and Special Education summaries were drafted to match the warm tone of the rest of the tree."
+    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries upgraded from PDF + co-director corrections 2026-07-27 (screening, specialed, eip now REAL). Pricing (price.show) intentionally placeholder — Nasirah's charges list was cut off."
   },
-  "_draft": {
-    "flow.service.screening.say": true,
-    "flow.service.specialed.say": true
+  "_placeholder": {
+    "flow.price.show.say": true
   },
   "ui": {
     "launchAria": "Open chat assistant",
@@ -47,7 +46,7 @@
       ]
     },
     "service.screening": {
-      "say": "Screening is a one-hour visit where we watch your child play and run a few simple checks. You leave with a written summary and a recommendation — no pressure to book anything further.",
+      "say": "Screening and assessment are separate services. Screening covers two areas: Occupational Therapy (fine motor, school readiness) and Clinical Psychology (emotional, behavioural). If you have more concerns, we provide a holistic 3-in-1 assessment — Occupational Therapy, Speech-Language and Communication, and Clinical Psychology — usually around 1-2 hours depending on the needs of the child.",
       "next": "start"
     },
     "service.ot": {
@@ -59,11 +58,11 @@
       "next": "start"
     },
     "service.specialed": {
-      "say": "Special Education is one-to-one teaching tailored to children who learn at their own pace. We work on reading, writing, and numbers in small steps your child can actually take.",
+      "say": "Cognitive Therapy & Special Education — delivered by our professionally licensed Special Education Teacher as part of our integrated, multidisciplinary set up, catered individually to your child's needs.",
       "next": "start"
     },
     "service.eip": {
-      "say": "Therapy-based group program conducted daily by our certified Occupational Therapist, Speech Therapist/Clinical Linguist and Special Education Teacher. Beginners (2–5) and Intermediate (6–8) groups are available.",
+      "say": "The EIP program is only for children ages 12 and below: a school readiness program (6-12 years old, morning session, 4 hours) and a play group (3-5 years old, afternoon session, 2 hours), run by our certified Occupational Therapist, Speech Therapist/Clinical Linguist and Special Education Teacher.",
       "next": "start"
     },
     "service.psych": {
@@ -96,7 +95,7 @@
       ]
     },
     "price.show": {
-      "say": "Based on that, the typical range is <RM_RANGE_PLACEHOLDER — VERIFY WITH CENTER>. Want to confirm with the team?",
+      "say": "⟪PLACEHOLDER⟫ Based on that, the typical range is RM___–RM___ (pricing to be confirmed with the centre). Want to confirm with the team?",
       "options": [
         { "label": "Yes, confirm with the team", "next": "human" },
         { "label": "Not yet", "next": "start" }

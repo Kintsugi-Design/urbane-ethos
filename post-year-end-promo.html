@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title data-i18n="services.hero.title">Services — Urbane Ethos</title>
+<title>Our Annual Year End Promo &amp; First Intake Special Deals — Urbane Ethos</title>
 <link rel="stylesheet" href="./assets/css/tokens.css">
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/components.css">
 <link rel="stylesheet" href="./assets/css/motion.css">
 </head>
-<body class="services">
+<body class="blog post">
 <a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
 
 <header class="site-header">
@@ -33,7 +33,7 @@
       <ul class="nav-list">
         <li><a href="./about.html" data-i18n="common.nav.about">About</a></li>
         <li><a href="./staff.html" data-i18n="common.nav.staff">Staff</a></li>
-        <li><a href="./services.html" aria-current="page" data-i18n="common.nav.services">Services</a></li>
+        <li><a href="./services.html" data-i18n="common.nav.services">Services</a></li>
         <li><a href="./blog.html" data-i18n="common.nav.blog">Blog</a></li>
         <li><a href="./contact.html" data-i18n="common.nav.contact">Contact</a></li>
       </ul>
@@ -57,26 +57,17 @@
 </header>
 
 <main id="main">
-  <section class="hero">
-    <div class="wrap">
-      <figure class="anchor-photo">
-        <img src="./assets/img/anchors/services-hero.jpg" alt="" data-i18n-attr="alt:common.media.alts.servicesHero">
-        <figcaption data-i18n="common.media.captions.servicesHero">A gentle therapy moment · Placeholder via Picsum.</figcaption>
-      </figure>
-      <h1 data-i18n="services.hero.title">Services</h1>
-      <p class="lede" data-i18n="services.hero.subtitle"></p>
+  <article class="section">
+    <div class="wrap" style="max-width:var(--content-max)">
+      <p class="section-eyebrow">Promo</p>
+      <h1>Our Annual Year End Promo &amp; First Intake Special Deals</h1>
+      <p><small>2025-12-01 · Promo</small></p>
+      <p><strong>Our Annual Year End Promo! Full assessment at 20% off.</strong></p>
+      <p><strong>Special Deals — First Intake — bundle packages 25% off! Contact 013-249 0069.</strong></p>
+      <p>⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p><a class="btn btn--primary" href="./contact.html">Contact us</a> <a class="btn btn--secondary" href="./blog.html">Back to the blog</a></p>
     </div>
-  </section>
-  <section class="section">
-    <div class="wrap" id="services-blocks"></div>
-  </section>
-  <section class="section section--alt">
-    <div class="wrap">
-      <h2 data-i18n="services.programmes.heading">Our Programmes</h2>
-      <p data-i18n="services.programmes.intro"></p>
-      <div class="grid-3" id="programmes-grid"></div>
-    </div>
-  </section>
+  </article>
 </main>
 
 <footer class="site-footer">
@@ -120,63 +111,19 @@ import "./assets/js/nav.js";
 import "./assets/js/icons.js";
 import "./assets/js/page-load.js";
 import "./assets/js/cursor.js";
-import "./assets/js/parallax.js";
 import "./assets/js/chatbot.js";
-import "./assets/js/yt-embed.js";
 
-const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-
-async function renderServices() {
+async function renderChrome() {
   const locale = getLocale();
-  const [services, common] = await Promise.all([
-    fetch(`./content/${locale}/services.json`).then(r => r.json()),
-    fetch(`./content/${locale}/common.json`).then(r => r.json())
-  ]);
+  const common = await fetch(`./content/${locale}/common.json`).then(r => r.json());
 
   const fhrs = document.getElementById("footer-hours");
   if (fhrs) fhrs.replaceChildren(...(common.footer?.hours || []).map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
 
-  const root = document.getElementById("services-blocks");
-  root.replaceChildren(...(services.items || []).map((item, i) => {
-    const sec = document.createElement("article");
-    sec.className = "service-block fade-in-up";
-    sec.id = item.key;
-    // Trust-beat (C1 propagation, T11): first service-block on the page acts
-    // as the per-service intro and takes viewport-minus-header height.
-    if (i === 0) sec.dataset.trustBeat = "service-intro";
-    const moodImage = i < 3
-      ? `<figure class="anchor-photo">
-           <img src="./assets/img/anchors/service-mood-${i + 1}.jpg" alt="" data-i18n-attr="alt:common.media.alts.serviceMood${i + 1}">
-           <figcaption data-i18n="common.media.captions.serviceMood${i + 1}">Considered atmosphere · Placeholder via Picsum.</figcaption>
-         </figure>`
-      : "";
-    sec.innerHTML = `
-      ${moodImage}
-      <h2>${esc(item.title)}</h2>
-      ${item.whatItIs ? `<p><strong>What it is:</strong> ${esc(item.whatItIs)}</p>` : ""}
-      ${item.whoItsFor ? `<p><strong>Who it's for:</strong> ${esc(item.whoItsFor)}</p>` : ""}
-      ${item.whatToExpect ? `<p><strong>What to expect:</strong> ${esc(item.whatToExpect)}</p>` : ""}
-      ${(item.faqs || []).map(f => `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}
-      <a class="btn btn--primary" href="./contact.html?service=${encodeURIComponent(item.key)}">${esc(item.cta || "Enquire")}</a>`;
-    return sec;
-  }));
-
-  const pg = document.getElementById("programmes-grid");
-  if (pg) pg.replaceChildren(...(services.programmes?.items || []).map(p => {
-    const c = document.createElement("article");
-    c.className = "card";
-    c.innerHTML = `<div class="card-inner"><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></div>`;
-    return c;
-  }));
-
   await translatePage(locale);
-  // Re-observe newly-rendered .fade-in-up elements for scroll-reveal.
-  const reveal = () => window.__rerunScrollReveal?.();
-  if (window.__rerunScrollReveal) reveal();
-  else document.addEventListener("DOMContentLoaded", reveal, { once: true });
 }
-renderServices();
-document.addEventListener("i18n:changed", renderServices);
+renderChrome();
+document.addEventListener("i18n:changed", renderChrome);
 </script>
 </body>
 </html>

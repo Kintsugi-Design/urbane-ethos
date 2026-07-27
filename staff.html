@@ -133,8 +133,11 @@ async function renderStaff() {
     c.className = "staff-card";
     c.id = m.id;
     const initials = (m.name || "").split(/\s+/).map(x => x[0]).filter(Boolean).slice(0, 2).join("");
+    const photoHtml = (m.photo && m.photoInterim)
+      ? `<img class="staff-photo staff-photo--img" src="./${m.photo}" alt="${m.name}" loading="lazy">`
+      : `<div class="staff-photo" role="img" aria-label="[REAL PHOTO REQUIRED] ${m.name}">${initials}</div>`;
     c.innerHTML = `
-      <div class="staff-photo" role="img" aria-label="[REAL PHOTO REQUIRED] ${m.name}">${initials}</div>
+      ${photoHtml}
       <div class="staff-body">
         <p class="staff-greeting">${m.greeting || ""}</p>
         <p class="staff-role">${m.role || ""}</p>
