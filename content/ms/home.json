@@ -18,7 +18,11 @@
     "personalization.ageNotes.child": true,
     "personalization.ageNotes.teen": true,
     "personalization.ageNotes.adult": true,
-    "personalization.ageNotes.olderAdult": true
+    "personalization.ageNotes.olderAdult": true,
+    "personalization.locked.eyebrow": true,
+    "personalization.locked.heading": true,
+    "personalization.locked.body": true,
+    "personalization.locked.cta": true
   },
   "hero": {
     "eyebrow": "Urbane Ethos",
@@ -62,7 +66,13 @@
       "olderAdult": "Untuk warga emas, kami menawarkan terapi individu, rangsangan kognitif, serta sokongan kehidupan seharian dan pemulihan."
     },
     "submit": "Tunjukkan apa yang berkaitan",
-    "skip": "Langkau"
+    "skip": "Langkau",
+    "locked": {
+      "eyebrow": "Peribadikan",
+      "heading": "Lihat apa yang paling berkaitan dengan anda",
+      "body": "Hidupkan pemperibadian dan kami akan menyesuaikan halaman ini untuk anda — kami menyusun semula perkhidmatan mengikut kebimbangan utama anda dan menyerlahkan apa yang sesuai. Ia pilihan, dan anda boleh menukar pilihan kuki pada bila-bila masa.",
+      "cta": "Hidupkan pemperibadian"
+    }
   },
   "location": {
     "eyebrow": "Datang bertemu kami",
