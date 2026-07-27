@@ -84,7 +84,7 @@ module BlogGen
       fm, body = parse(File.read(path))
       require_fields!(fm, File.basename(path))
       assert_categories!(fm, categories, File.basename(path))
-      body_html = Kramdown::Document.new(body, input: "GFM").to_html
+      body_html = Kramdown::Document.new(body).to_html
       [fm, body_html]
     end
 
