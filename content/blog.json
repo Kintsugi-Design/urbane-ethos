@@ -9,9 +9,12 @@
   "categories": [
     "All",
     "Parenting",
-    "Career",
     "Development",
-    "Speech",
+    "Speech & Language",
+    "Occupational Therapy",
+    "Career",
+    "Events",
+    "Notices",
     "Promo"
   ],
   "posts": [
@@ -80,6 +83,448 @@
         "speech therapy"
       ],
       "localUrl": "./post-an-opportunity-to-learn-grow.html"
+    },
+    {
+      "id": "the-stigma-around-mental-illness-and-its-impact-on-men-a-scoping-review",
+      "title": "The Stigma Around Mental Illness and Its Impact on Men: A Scoping Review",
+      "date": "2024-06-27",
+      "category": "Development",
+      "excerpt": "A look at how mental illness stigma shapes men's experiences and blocks help-seeking, drawing on McKenzie et al.'s 2022 scoping review.",
+      "thumbnail": "assets/img/blog/the-stigma-around-mental-illness-and-its-impact-on-men-a-scoping-review/01.png",
+      "tags": [
+        "mental health",
+        "men's health",
+        "stigma"
+      ],
+      "localUrl": "./post-the-stigma-around-mental-illness-and-its-impact-on-men-a-scoping-review.html"
+    },
+    {
+      "id": "mental-health-awareness-on-secondary-school-students",
+      "title": "Mental Health Awareness on Secondary School Students",
+      "date": "2024-06-07",
+      "category": "Development",
+      "excerpt": "How familiarity, media exposure, knowledge and attitude shape mental health awareness among secondary school students, and the pivotal role schools can play.",
+      "thumbnail": "assets/img/blog/mental-health-awareness-on-secondary-school-students/01.png",
+      "tags": [
+        "mental health",
+        "schools",
+        "youth"
+      ],
+      "localUrl": "./post-mental-health-awareness-on-secondary-school-students.html"
+    },
+    {
+      "id": "understanding-improving-mental-health-services-for-people-with-disabilities-pwd",
+      "title": "Understanding & Improving Mental Health Services for People With Disabilities (PWD)",
+      "date": "2024-05-31",
+      "category": "Development",
+      "excerpt": "A look at mental health in Malaysia, the barriers people with disabilities face in accessing care, and practical strategies to make health services accessible to all.",
+      "thumbnail": "assets/img/blog/understanding-improving-mental-health-services-for-people-with-disabilities-pwd/01.png",
+      "tags": [
+        "mental health",
+        "disability",
+        "malaysia"
+      ],
+      "localUrl": "./post-understanding-improving-mental-health-services-for-people-with-disabilities-pwd.html"
+    },
+    {
+      "id": "empower-young-minds-join-our-compassionate-team-and-together-let-us-make-a-difference",
+      "title": "Empower Young Minds: Join Our Compassionate Team and together let us Make a Difference!",
+      "date": "2023-10-19",
+      "category": "Career",
+      "excerpt": "Urbane Ethos Early Intervention Center is hiring part-time and full-time therapists, teachers, and support staff to work with children and teenagers with special needs.",
+      "thumbnail": "assets/img/blog/empower-young-minds-join-our-compassionate-team-and-together-let-us-make-a-difference/01.png",
+      "tags": [
+        "careers",
+        "recruitment",
+        "early intervention"
+      ],
+      "localUrl": "./post-empower-young-minds-join-our-compassionate-team-and-together-let-us-make-a-difference.html"
+    },
+    {
+      "id": "eip-2023-group-is-full",
+      "title": "EIP 2023 Group is FULL",
+      "date": "2023-09-18",
+      "category": "Notices",
+      "excerpt": "Our morning and afternoon EIP therapy groups are full — thank you to our therapists and congratulations to the families on their children's progress.",
+      "thumbnail": "assets/img/blog/eip-2023-group-is-full/01.jpg",
+      "tags": [
+        "eip",
+        "announcement"
+      ],
+      "localUrl": "./post-eip-2023-group-is-full.html"
+    },
+    {
+      "id": "occupational-therapist-wanted",
+      "title": "Occupational Therapist Wanted!",
+      "date": "2020-07-05",
+      "category": "Career",
+      "excerpt": "Urbane Ethos is hiring a full-time occupational therapist to join a multidisciplinary team; fresh graduates are welcome to apply.",
+      "thumbnail": "assets/img/blog/occupational-therapist-wanted/01.jpg",
+      "tags": [
+        "occupational therapy",
+        "hiring"
+      ],
+      "localUrl": "./post-occupational-therapist-wanted.html"
+    },
+    {
+      "id": "reviews",
+      "title": "Reviews",
+      "date": "2020-07-05",
+      "category": "Notices",
+      "excerpt": "A thank-you to families for their continued support and feedback for Urbane Ethos.",
+      "thumbnail": "assets/img/blog/reviews/01.jpg",
+      "tags": [
+        "reviews",
+        "testimonials"
+      ],
+      "localUrl": "./post-reviews.html"
+    },
+    {
+      "id": "importance-of-feedback",
+      "title": "Importance of Feedback",
+      "date": "2020-06-19",
+      "category": "Notices",
+      "excerpt": "Parent feedback helps us continuously improve our services and maintain a safe, fun learning environment for every child.",
+      "thumbnail": "assets/img/blog/importance-of-feedback/01.jpg",
+      "tags": [
+        "feedback",
+        "testimonials"
+      ],
+      "localUrl": "./post-importance-of-feedback.html"
+    },
+    {
+      "id": "thank-you-for-your-support-and-feedback",
+      "title": "Thank you for your support and feedback!",
+      "date": "2020-06-19",
+      "category": "Notices",
+      "excerpt": "Parents share feedback on their journey to better understand and support their special needs child with Urbane Ethos.",
+      "thumbnail": "assets/img/blog/thank-you-for-your-support-and-feedback/01.jpg",
+      "tags": [
+        "testimonials",
+        "feedback"
+      ],
+      "localUrl": "./post-thank-you-for-your-support-and-feedback.html"
+    },
+    {
+      "id": "happy-mother-s-day-salam-nuzul-quran",
+      "title": "Happy Mother's Day & Salam Nuzul Quran",
+      "date": "2020-05-10",
+      "category": "Notices",
+      "excerpt": "A Mother's Day and Salam Nuzul Quran greeting to the mothers we care for, with a promise to walk alongside them and their children.",
+      "thumbnail": "assets/img/blog/happy-mother-s-day-salam-nuzul-quran/01.jpg",
+      "tags": [
+        "mothers day",
+        "greetings"
+      ],
+      "localUrl": "./post-happy-mother-s-day-salam-nuzul-quran.html"
+    },
+    {
+      "id": "ramadhan-kareem-everyone",
+      "title": "Ramadhan Kareem everyone :-)",
+      "date": "2020-04-23",
+      "category": "Notices",
+      "excerpt": "A Ramadhan greeting from Urbane Ethos, staying closed during the extended covid-19 movement restriction until it is safe for all.",
+      "thumbnail": null,
+      "tags": [
+        "ramadhan",
+        "greeting"
+      ],
+      "localUrl": "./post-ramadhan-kareem-everyone.html"
+    },
+    {
+      "id": "free-consultation-session",
+      "title": "Free consultation session!",
+      "date": "2020-04-20",
+      "category": "Events",
+      "excerpt": "A free online sharing session with our therapists where parents can share concerns and queries about their child's development.",
+      "thumbnail": "assets/img/blog/free-consultation-session/01.jpg",
+      "tags": [
+        "consultation",
+        "child development"
+      ],
+      "localUrl": "./post-free-consultation-session.html"
+    },
+    {
+      "id": "great-news-let-us-help-you-and-your-child-in-the-comfort-of-your-home-through-teletherapy",
+      "title": "Great news! Let us help you and your child in the comfort of your home through teletherapy.",
+      "date": "2020-04-18",
+      "category": "Promo",
+      "excerpt": "A special introductory offer for integrated teletherapy sessions from 20th to 30th April — speech, occupational therapy, and special needs support at home.",
+      "thumbnail": "assets/img/blog/great-news-let-us-help-you-and-your-child-in-the-comfort-of-your-home-through-teletherapy/01.jpg",
+      "tags": [
+        "teletherapy",
+        "promotion"
+      ],
+      "localUrl": "./post-great-news-let-us-help-you-and-your-child-in-the-comfort-of-your-home-through-teletherapy.html"
+    },
+    {
+      "id": "free-consultation-we-care-you-share-during-this-covid19-rmo",
+      "title": "FREE Consultation - We Care, You Share during this Covid19 RMO",
+      "date": "2020-04-16",
+      "category": "Events",
+      "excerpt": "Urbane Ethos therapists offer a free online consultation for worried parents during the Covid-19 movement control order.",
+      "thumbnail": "assets/img/blog/free-consultation-we-care-you-share-during-this-covid19-rmo/01.jpg",
+      "tags": [
+        "covid-19",
+        "consultation",
+        "online"
+      ],
+      "localUrl": "./post-free-consultation-we-care-you-share-during-this-covid19-rmo.html"
+    },
+    {
+      "id": "who-is-an-occupational-therapists-ot-3-misconceptions",
+      "title": "WHO IS AN OCCUPATIONAL THERAPIST (OT)? 3 MISCONCEPTIONS",
+      "date": "2020-04-16",
+      "category": "Occupational Therapy",
+      "excerpt": "Three common misconceptions about occupational therapists, and how Urbane Ethos OTs support your child's development.",
+      "thumbnail": "assets/img/blog/who-is-an-occupational-therapists-ot-3-misconceptions/01.jpg",
+      "tags": [
+        "occupational therapy",
+        "child development"
+      ],
+      "localUrl": "./post-who-is-an-occupational-therapists-ot-3-misconceptions.html"
+    },
+    {
+      "id": "e-coaching-module-2",
+      "title": "e-Coaching Module 2",
+      "date": "2020-04-06",
+      "category": "Events",
+      "excerpt": "Registration is open for the second e-Coaching module, covering gross and fine motor skills and play-and-copy language building.",
+      "thumbnail": "assets/img/blog/e-coaching-module-2/01.jpg",
+      "tags": [
+        "e-coaching",
+        "motor skills",
+        "language"
+      ],
+      "localUrl": "./post-e-coaching-module-2.html"
+    },
+    {
+      "id": "register-now-for-e-coaching",
+      "title": "Register now for e-Coaching",
+      "date": "2020-04-03",
+      "category": "Events",
+      "excerpt": "Parents share glowing feedback on our e-Coaching sessions, and registration is now open to continue therapy at home or on screen.",
+      "thumbnail": "assets/img/blog/register-now-for-e-coaching/01.jpg",
+      "tags": [
+        "e-coaching",
+        "teletherapy"
+      ],
+      "localUrl": "./post-register-now-for-e-coaching.html"
+    },
+    {
+      "id": "world-autism-awareness-day",
+      "title": "World Autism Awareness Day",
+      "date": "2020-04-03",
+      "category": "Notices",
+      "excerpt": "A World Autism Awareness Day greeting to our friends, followers and everyone on the autism spectrum.",
+      "thumbnail": "assets/img/blog/world-autism-awareness-day/01.png",
+      "tags": [
+        "autism",
+        "awareness"
+      ],
+      "localUrl": "./post-world-autism-awareness-day.html"
+    },
+    {
+      "id": "we-are-launching-our-e-coaching-sessions",
+      "title": "We are launching our e-Coaching sessions!",
+      "date": "2020-04-02",
+      "category": "Events",
+      "excerpt": "Urbane Ethos is bringing therapy to your screens with a new e-Coaching program available in two sessions.",
+      "thumbnail": "assets/img/blog/we-are-launching-our-e-coaching-sessions/01.jpg",
+      "tags": [
+        "e-coaching",
+        "home therapy"
+      ],
+      "localUrl": "./post-we-are-launching-our-e-coaching-sessions.html"
+    },
+    {
+      "id": "sharing-progress",
+      "title": "Apraxia of Speech: Current Progress of AR!",
+      "date": "2019-12-17",
+      "category": "Notices",
+      "excerpt": "A testimonial sharing the year-after-year progress of AR, a past client diagnosed with apraxia of speech, and gratitude to his devoted family.",
+      "thumbnail": null,
+      "tags": [
+        "apraxia",
+        "speech therapy",
+        "testimonial"
+      ],
+      "localUrl": "./post-sharing-progress.html"
+    },
+    {
+      "id": "watching-you-bloom-and-grow",
+      "title": "Watching you bloom and grow....",
+      "date": "2019-12-16",
+      "category": "Notices",
+      "excerpt": "A heartfelt thank-you to Rafiq, celebrating how far he has come in defying the challenges of developmental delays.",
+      "thumbnail": null,
+      "tags": [
+        "testimonial",
+        "gratitude"
+      ],
+      "localUrl": "./post-watching-you-bloom-and-grow.html"
+    },
+    {
+      "id": "eip-group-parenting-class-dec-2019",
+      "title": "EIP Group Parenting Class Dec 2019",
+      "date": "2019-12-10",
+      "category": "Events",
+      "excerpt": "Parents came together at our EIP parenting class to learn about sensory integration processing and fine motor skills, and to plan home activities for their child.",
+      "thumbnail": "assets/img/blog/eip-group-parenting-class-dec-2019/01.jpg",
+      "tags": [
+        "parenting",
+        "eip",
+        "sensory integration"
+      ],
+      "localUrl": "./post-eip-group-parenting-class-dec-2019.html"
+    },
+    {
+      "id": "registrations-eip-2020-are-now-open",
+      "title": "Registrations EIP 2020 are now open!",
+      "date": "2019-12-08",
+      "category": "Events",
+      "excerpt": "Registrations for the 2020 Early Intervention Program, a highly individualised, therapy-based group program for children, are now open.",
+      "thumbnail": "assets/img/blog/registrations-eip-2020-are-now-open/01.jpg",
+      "tags": [
+        "eip",
+        "early intervention"
+      ],
+      "localUrl": "./post-registrations-eip-2020-are-now-open.html"
+    },
+    {
+      "id": "final-2019-free-screening-for-epic-eip-state-of-selangor",
+      "title": "Final 2019 Free Screening for EPIC EIP State of Selangor",
+      "date": "2019-11-17",
+      "category": "Events",
+      "excerpt": "Urbane Ethos wraps up its 8th and final free developmental screening for Selangor, having screened over 500 children across four years of the programme.",
+      "thumbnail": "assets/img/blog/final-2019-free-screening-for-epic-eip-state-of-selangor/01.jpg",
+      "tags": [
+        "free screening",
+        "early intervention",
+        "selangor"
+      ],
+      "localUrl": "./post-final-2019-free-screening-for-epic-eip-state-of-selangor.html"
+    },
+    {
+      "id": "congratulations-to-a-new-beginning",
+      "title": "Congratulations to a new beginning",
+      "date": "2019-11-16",
+      "category": "Notices",
+      "excerpt": "A heartfelt congratulations as a few of our early-intervention kiddos prepare to head into mainstream elementary school in January 2020.",
+      "thumbnail": "assets/img/blog/congratulations-to-a-new-beginning/01.jpg",
+      "tags": [
+        "milestones",
+        "eip"
+      ],
+      "localUrl": "./post-congratulations-to-a-new-beginning.html"
+    },
+    {
+      "id": "saturdays-at-ue",
+      "title": "Saturdays at UE",
+      "date": "2019-10-19",
+      "category": "Events",
+      "excerpt": "A packed Saturday at UE — a guest AAC session with a speech-language pathologist, a TV3 drama shoot collaboration, and the final 2019 Free EIP Screening sessions.",
+      "thumbnail": "assets/img/blog/saturdays-at-ue/01.jpg",
+      "tags": [
+        "speech therapy",
+        "event",
+        "special needs"
+      ],
+      "localUrl": "./post-saturdays-at-ue.html"
+    },
+    {
+      "id": "do-you-know-the-warning-signs",
+      "title": "Do you know the warning signs?",
+      "date": "2019-10-18",
+      "category": "Development",
+      "excerpt": "Know the early warning signs of developmental delay and reach out to Urbane Ethos for support.",
+      "thumbnail": "assets/img/blog/do-you-know-the-warning-signs/01.jpg",
+      "tags": [
+        "warning signs",
+        "early intervention"
+      ],
+      "localUrl": "./post-do-you-know-the-warning-signs.html"
+    },
+    {
+      "id": "apa-itu-aac",
+      "title": "Apa itu AAC?",
+      "date": "2019-10-18",
+      "category": "Speech & Language",
+      "excerpt": "Sesi perbincangan mengenai AAC di Urbane Ethos, Denai Alam pada 19 Oktober 2019 bersama Lauren Reyes-Yu.",
+      "thumbnail": "assets/img/blog/apa-itu-aac/01.jpg",
+      "tags": [
+        "aac",
+        "speech therapy"
+      ],
+      "localUrl": "./post-apa-itu-aac.html"
+    },
+    {
+      "id": "free-screening-for-development-delays",
+      "title": "Free Screening for Development Delays",
+      "date": "2019-09-22",
+      "category": "Events",
+      "excerpt": "Free monthly developmental-delay screening for children aged 3 and below from lower-income Selangor families, run with MBI Selangor and Persatuan Taska Negeri Selangor.",
+      "thumbnail": "assets/img/blog/free-screening-for-development-delays/01.jpg",
+      "tags": [
+        "free screening",
+        "developmental delays",
+        "events"
+      ],
+      "localUrl": "./post-free-screening-for-development-delays.html"
+    },
+    {
+      "id": "happy-malaysia-day",
+      "title": "Happy Malaysia Day!",
+      "date": "2019-09-16",
+      "category": "Notices",
+      "excerpt": "A Malaysia Day greeting celebrating unity and harmony, with a note that the centre is closed for the holiday and resumes on 17 September 2019.",
+      "thumbnail": "assets/img/blog/happy-malaysia-day/01.jpg",
+      "tags": [
+        "malaysia day",
+        "holiday"
+      ],
+      "localUrl": "./post-happy-malaysia-day.html"
+    },
+    {
+      "id": "can-my-child-benefit-from-aac",
+      "title": "Can My Child Benefit From AAC?",
+      "date": "2019-09-10",
+      "category": "Speech & Language",
+      "excerpt": "A talk with Lauren Reyes-Yu on the different communication methods available for children with communication disorders, including AAC.",
+      "thumbnail": "assets/img/blog/can-my-child-benefit-from-aac/01.jpg",
+      "tags": [
+        "aac",
+        "speech therapy",
+        "event"
+      ],
+      "localUrl": "./post-can-my-child-benefit-from-aac.html"
+    },
+    {
+      "id": "happy-merdeka-day",
+      "title": "Happy Merdeka Day!",
+      "date": "2019-09-02",
+      "category": "Notices",
+      "excerpt": "A Merdeka Day greeting to all Malaysians, with a reminder that UE Center will be closed for the celebrations.",
+      "thumbnail": "assets/img/blog/happy-merdeka-day/01.jpg",
+      "tags": [
+        "merdeka",
+        "holiday"
+      ],
+      "localUrl": "./post-happy-merdeka-day.html"
+    },
+    {
+      "id": "selamat-hari-raya",
+      "title": "Selamat Hari Raya!",
+      "date": "2019-06-09",
+      "category": "Notices",
+      "excerpt": "A festive Selamat Hari Raya greeting from the Urbane Ethos team, wishing everyone a blessed retreat with loved ones and a safe journey home.",
+      "thumbnail": "assets/img/blog/selamat-hari-raya/01.jpg",
+      "tags": [
+        "hari raya",
+        "holiday",
+        "notice"
+      ],
+      "localUrl": "./post-selamat-hari-raya.html"
     }
   ],
   "featured": [
