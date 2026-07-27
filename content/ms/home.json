@@ -7,7 +7,6 @@
     "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent'). BM rendering produced fresh as live site does not currently serve BM. LOREM placeholder strings copied byte-identically from EN (see _placeholder map)."
   },
   "_placeholder": {
-    "hero.headline": true,
     "staffFeatured.0.personalLine": true,
     "staffFeatured.1.personalLine": true,
     "staffFeatured.2.personalLine": true,
@@ -16,7 +15,7 @@
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Pusat Intervensi Awal Urbane Ethos",
-    "headline": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet.",
+    "headline": "Terapi untuk setiap peringkat kehidupan",
     "subtitle": "Kami menawarkan pemulihan dan terapi berpusatkan klien untuk perkembangan motor, integrasi sensori, terapi pertuturan-bahasa serta rangsangan sosial dan kognitif bagi individu neurodivergen daripada bayi, kanak-kanak, dewasa hingga warga emas.",
     "primaryCta": "Ketahui Lebih Lanjut",
     "secondaryCta": "Tonton pengenalan kami"
