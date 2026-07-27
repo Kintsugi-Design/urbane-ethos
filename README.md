@@ -110,6 +110,16 @@ bin/check-i18n-parity.rb
 
 Exit 0 = all keys mirrored between `content/en/` and `content/ms/` (9 namespaces). The `_placeholder` maps **are** walked and must mirror key-for-key; only `_meta` / `_draft` / `_correction` are skipped. `blog.json` and `careers.json` are root-level and intentionally EN-only (parity-exempt).
 
+## Blog posts
+
+Blog articles are authored as Markdown in `content/blog/posts/*.md` (YAML frontmatter + body) and generated to static `post-<slug>.html` pages plus the `content/blog.json` `posts[]` index by:
+
+```
+ruby bin/build-blog.rb
+```
+
+Requires the `kramdown` dev gem (`bundle install`). The generator is authoring-time only — deployment serves the committed `post-*.html` as-is; no build runs in CI. To add a post: drop a new `.md` in `content/blog/posts/`, run the generator, commit the generated files. Bodies render in their source language (EN, plus one BM post) and stay parity-exempt.
+
 ## Known a11y gaps
 
 Axe-core 4.11 reports **0 violations** on the production pages. Target: 0 across all **10** pages (`/`, about, staff, services, blog, contact, analytics, privacy, careers, post-year-end-promo). Residual items not covered by the automated sweep:

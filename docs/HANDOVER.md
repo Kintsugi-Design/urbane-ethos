@@ -19,6 +19,16 @@ Just landed (Phase 2): **photography + YouTube scaffolding** — `.anchor-photo`
 
 Just landed (Phase 3 prep): **Pages deployment infrastructure (GitHub + GitLab)** — all absolute paths converted to relative (`/foo` → `./foo`) across 8 HTML files + 5 JS modules so the prototype works identically at root, custom-domain root, OR repo-subpath (e.g. `username.github.io/urbane-ethos/`). Added `.github/workflows/pages.yml` (GitHub Pages) and `.gitlab-ci.yml` (GitLab Pages) — both run an `i18n parity` gate then rsync-stage an artifact with the same exclusion list (no `docs/`, `bin/`, `test/`, `Gemfile*`, internal plans/scrapes, `.DS_Store`). Same content publishes to both targets. Added `.nojekyll` (disable Jekyll on GH), custom `404.html` matching the brand idiom, and `.gitignore` entries for `_brief/`, `_site/`, `public/`, `node_modules/`. axe-core still: 0 serious/critical across all 8 pages + 404. Local `bin/server` workflow unchanged.
 
+## Blog generator — landed 2026-07-28
+
+Branch `feat/blog-generator`. The 4 live-site blog articles that previously `externalUrl`-deep-linked off the prototype are now **local static pages**, and blog posts are authored from Markdown through one shared template.
+
+- **New generator:** `bin/build-blog.rb` reads `content/blog/posts/*.md` (YAML frontmatter + Markdown body), renders each through `content/blog/_post.html.erb` (chrome identical to the old hand-authored promo page), writes `post-<slug>.html` at the repo root, and rebuilds the `posts[]` array of `content/blog.json` (localUrl, sorted by date desc, preserving `hero`/`categories`/`featured`/`_meta`). Idempotent — re-running produces no diff.
+- **kramdown** added as a Gemfile `:development`-group gem (authoring-time only; `bin/server` and the Pages deploy never run the generator — they serve committed static HTML). Plain kramdown parser, not GFM (GFM needs an extra gem and buys us nothing here).
+- **5 posts** now local: 4 scraped from the live site (`what-does-sensory-have-to-do-with-my-feelings`, `anak-dah-masuk-sekolah` [BM], `a-fulfilling-career-awaits`, `an-opportunity-to-learn-grow`) + the existing promo migrated into the same Markdown/template pipeline (`post-year-end-promo.html` filename preserved). BM post renders `<html lang="ms">`; bodies stay in source language and parity-exempt.
+- **No CI/deploy change.** `blog.html` already routed `localUrl` → same tab, so cards now open locally with zero markup change. New `common.cta.backToBlog` key added to both locales.
+- Verified: unit tests green (`ruby test/blog-generator/test_generator.rb`, 4 runs/24 assertions), generator idempotent, i18n parity 0, all 5 posts curl 200, **axe-core 0 violations on all 5 post pages**. Spec: `docs/superpowers/specs/2026-07-28-blog-generator-design.md`; plan: `docs/superpowers/plans/2026-07-28-blog-generator.md`.
+
 ## Design pass — therapy-centre positioning — landed 2026-07-27
 
 Branch `design/therapy-centre-positioning`. Design-review pass on top of the existing Lavender design system, driven by co-director Nasirah's positioning ("highlight that we are a therapy center"; ages 0–20 expanding to elderly).

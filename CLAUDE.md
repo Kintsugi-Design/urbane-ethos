@@ -45,7 +45,9 @@ There is no `npm test` / `bundle exec rspec` — the only automated check is `bi
 
 Ten HTML files at the repo root are the production pages: `index.html`, `about.html`, `staff.html`, `services.html`, `blog.html`, `contact.html`, `analytics.html`, `privacy.html`, `careers.html`, `post-year-end-promo.html`, plus `404.html`. Each `<body>` carries a page-class (`home` / `about` / `services` / etc.) used by CSS and JS for contextual targeting.
 
-`careers.html` is deliberately **direct-URL only** — unlinked from nav, index, and footer (client decision on placement pending). `post-year-end-promo.html` is the **first local static blog article** (previous blog cards deep-link out to live-site articles).
+`careers.html` is deliberately **direct-URL only** — unlinked from nav, index, and footer (client decision on placement pending). `post-year-end-promo.html` is the **first local static blog article**.
+
+Blog article pages (`post-*.html`) are **generated** from `content/blog/posts/*.md` by `bin/build-blog.rb` (kramdown, dev-group gem) through `content/blog/_post.html.erb`. Do not hand-edit `post-*.html` or the `posts[]` array in `content/blog.json` — edit the Markdown source and re-run the generator (`ruby bin/build-blog.rb`). The blog cards in `blog.html` route `localUrl` posts to the same tab and `externalUrl` posts to a new tab; all 5 posts are now local. Blog bodies are single-language per source (EN, plus one BM post) and remain parity-exempt. Blog article pages are **not** part of the "10 production pages" canggih/axe accounting (the promo page never was either).
 
 `design/directions/v{1-quiet,2-warm,3-bold}/` are **internal design-direction comparison artifacts**, not linked from production routing. v2-warm is the committed direction; v1 and v3 are kept as comparison material. They're intentionally excluded from the WCAG AA target and from the Pages deploy.
 
