@@ -37,6 +37,6 @@ Learn more about how sensory processing and emotional regulation is linked from 
 
 ### References
 
-- Drndarević, N., Protić, S., & Mestre, J. M. (2021). Sensory-Processing Sensitivity and Pathways to Depression and Aggression: The Mediating Role of Trait Emotional Intelligence and Decision-Making Style—A Pilot Study. _International Journal of Environmental Research and Public Health, 18_(24), 13202. https://doi.org/10.3390/ijerph182413202
+- Drndarević, N., Protić, S., & Mestre, J. M. (2021). Sensory-Processing Sensitivity and Pathways to Depression and Aggression: The Mediating Role of Trait Emotional Intelligence and Decision-Making Style—A Pilot Study. _International Journal of Environmental Research and Public Health, 18_(24), 13202. <https://doi.org/10.3390/ijerph182413202>
 - Hong, E., & Hong, S. (2016). The Relationship Between Sensory Processing and Emotional Regulation: A Literature Review. _Journal of Korean Society of Sensory Integration Therapists, 14_, 50-59. 10.18064/JKASI.2016.14.1.050.
-- Sperati, A., Acevedo, B. P., Dellagiulia, A., Fasolo, M., Spinelli, M., D'Urso, G., & Lionetti, F. (2024). The contribution of Sensory Processing Sensitivity and internalized attachment representations on emotion regulation competencies in school-age children. _Frontiers in Psychology, 15_, 1357808. https://doi.org/10.3389/fpsyg.2024.1357808
+- Sperati, A., Acevedo, B. P., Dellagiulia, A., Fasolo, M., Spinelli, M., D'Urso, G., & Lionetti, F. (2024). The contribution of Sensory Processing Sensitivity and internalized attachment representations on emotion regulation competencies in school-age children. _Frontiers in Psychology, 15_, 1357808. <https://doi.org/10.3389/fpsyg.2024.1357808>

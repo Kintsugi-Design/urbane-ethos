@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title><%= fm["title"] %> — Urbane Ethos</title>
+<title><%= ERB::Util.h(fm["title"]) %> — Urbane Ethos</title>
 <link rel="stylesheet" href="./assets/css/tokens.css">
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/components.css">
@@ -59,12 +59,12 @@
 <main id="main">
   <article class="section">
     <div class="wrap" style="max-width:var(--content-max)">
-      <p class="section-eyebrow"><%= fm["category"] %></p>
-      <h1><%= fm["title"] %></h1>
-      <p><small><%= fm["date"] %> · <%= fm["read_time"] %></small></p>
+      <p class="section-eyebrow"><%= ERB::Util.h(fm["category"]) %></p>
+      <h1><%= ERB::Util.h(fm["title"]) %></h1>
+      <p><small><%= ERB::Util.h(fm["date"]) %><% unless fm["read_time"].to_s.strip.empty? %> · <%= ERB::Util.h(fm["read_time"]) %><% end %></small></p>
 <% if fm["hero_image"] && !fm["hero_image"].to_s.empty? -%>
       <figure class="anchor-photo">
-        <img src="./<%= fm["hero_image"] %>" alt="" loading="lazy">
+        <img src="./<%= ERB::Util.h(fm["hero_image"]) %>" alt="" loading="lazy">
       </figure>
 <% end -%>
       <%= body_html %>

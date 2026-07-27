@@ -98,9 +98,11 @@ module BlogGen
     end
 
     # Rebuild posts[] sorted by date desc; preserve every other top-level key.
-    entries = parsed.map { |fm, _| index_entry(fm) }
-                    .sort_by { |e| e["date"] }.reverse
-    blog["posts"] = entries
+    by_date = parsed.sort_by { |fm, _| fm["date"].to_s }.reverse
+    blog["posts"] = by_date.map { |fm, _| index_entry(fm) }
+    # Derive featured[] from the `featured: true` frontmatter flag (date desc),
+    # so the flag is authoritative instead of a silent no-op.
+    blog["featured"] = by_date.map { |fm, _| index_entry(fm)["id"] if fm["featured"] }.compact
     File.write(BLOG_JSON, JSON.pretty_generate(blog) + "\n")
     puts "wrote content/blog.json (#{entries.size} posts)"
   end
