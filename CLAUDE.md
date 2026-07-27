@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A **static, no-build, bilingual HTML/CSS/JS prototype** for the urbaneethos.center revamp (a Malaysian early-intervention centre). Eight production pages, three internal design-direction comparison demos, EN content scraped verbatim from the live site, draft Bahasa Malaysia translations. No framework, no transpile, no bundler — every `.html` and `assets/*` file is served exactly as it is on disk.
+A **static, no-build, bilingual HTML/CSS/JS prototype** for the urbaneethos.center revamp (a Malaysian early-intervention centre). Ten production pages, three internal design-direction comparison demos, EN content scraped verbatim from the live site, draft Bahasa Malaysia translations. No framework, no transpile, no bundler — every `.html` and `assets/*` file is served exactly as it is on disk.
 
 **Status: Phase 2 prototype, not production.** Several items are deliberately mocked: chatbot replies (scripted decision tree, no LLM), personalization rules (hard-coded `concern → service` map), staff videos, analytics data, contact form submission (`mailto:` only). See `README.md` § "What's real vs draft vs mocked" before changing anything that looks production-shaped.
 
@@ -29,13 +29,13 @@ axe-core a11y sweep (manual; not gated in CI — heavy):
 
 ```bash
 bin/server &
-for p in "" about.html staff.html services.html blog.html contact.html analytics.html privacy.html; do
+for p in "" about.html staff.html services.html blog.html contact.html analytics.html privacy.html careers.html post-year-end-promo.html; do
   echo "=== /$p ==="
   npx -y @axe-core/cli "http://localhost:8080/$p" --tags wcag2a,wcag2aa,wcag22aa 2>&1 | tail -5
 done
 ```
 
-axe-core CLI needs a ChromeDriver matching the locally installed Chrome major version — see `docs/A11Y_NOTES.md` § "Tooling" for the exact incantation. **Target: 0 violations on all 8 production pages.**
+axe-core CLI needs a ChromeDriver matching the locally installed Chrome major version — see `docs/A11Y_NOTES.md` § "Tooling" for the exact incantation. **Target: 0 violations on all 10 production pages.**
 
 There is no `npm test` / `bundle exec rspec` — the only automated check is `bin/check-i18n-parity.rb` (gated in both `.github/workflows/pages.yml` and `.gitlab-ci.yml`). `test/parity-fixtures/` are inputs for that script; `test/smoke/` are browser-runnable smoke pages — open them in `bin/server` and click around.
 
@@ -43,7 +43,9 @@ There is no `npm test` / `bundle exec rspec` — the only automated check is `bi
 
 ### Pages and routing
 
-Eight HTML files at the repo root are the production pages: `index.html`, `about.html`, `staff.html`, `services.html`, `blog.html`, `contact.html`, `analytics.html`, `privacy.html`, plus `404.html`. Each `<body>` carries a page-class (`home` / `about` / `services` / etc.) used by CSS and JS for contextual targeting.
+Ten HTML files at the repo root are the production pages: `index.html`, `about.html`, `staff.html`, `services.html`, `blog.html`, `contact.html`, `analytics.html`, `privacy.html`, `careers.html`, `post-year-end-promo.html`, plus `404.html`. Each `<body>` carries a page-class (`home` / `about` / `services` / etc.) used by CSS and JS for contextual targeting.
+
+`careers.html` is deliberately **direct-URL only** — unlinked from nav, index, and footer (client decision on placement pending). `post-year-end-promo.html` is the **first local static blog article** (previous blog cards deep-link out to live-site articles).
 
 `design/directions/v{1-quiet,2-warm,3-bold}/` are **internal design-direction comparison artifacts**, not linked from production routing. v2-warm is the committed direction; v1 and v3 are kept as comparison material. They're intentionally excluded from the WCAG AA target and from the Pages deploy.
 
@@ -63,7 +65,7 @@ ESM only, loaded via `<script type="module">` in each HTML page. Eleven modules 
 - `consent.js` — PDPA consent banner, three save paths (Accept all / Necessary only / Customize+Save).
 - `sage-stamp.js` — sage-ink stamp+checkmark microinteraction used by consent save and personalization save (Phase 1 craft moment).
 - `personalization.js` — home micro-survey reorders the services grid via a rules table keyed off locale-agnostic slugs (`speech`, `motor-skills`, `behaviour`, `learning`, `not-sure`). Chip `<input value>` carries the slug; the chip's label translates via i18n. Rules fire identically in EN and BM; `sessionStorage` is locale-stable across toggles.
-- `nav.js` — hamburger toggle for the primary nav below 768px. Click opens, Escape / click-outside / re-click closes; focus trap while open; viewport-resize past 768px auto-closes. `aria-label` syncs to `common.nav.menu` / `menuClose` via i18n.t. Wired on all 8 production pages via the canggih layer convention. No-ops on pages without a `.nav-toggle` (analytics + privacy have no primary nav).
+- `nav.js` — hamburger toggle for the primary nav below 768px. Click opens, Escape / click-outside / re-click closes; focus trap while open; viewport-resize past 768px auto-closes. `aria-label` syncs to `common.nav.menu` / `menuClose` via i18n.t. Wired on all 10 production pages via the canggih layer convention. No-ops on pages without a `.nav-toggle` (analytics + privacy have no primary nav).
 - `chatbot.js` — scripted decision tree (no LLM), bilingual, lazy-builds the panel on launcher click. Voice in via Web Speech API + TTS via SpeechSynthesis where available.
 - `a11y.js` — skip-link focus management, font-size cycle (`data-fs-cycle` button → `<html data-fs="N">`), focus-visible polishing.
 - `analytics-demo-data.js` — seeds the `/analytics.html` demo dashboard with fake data. Not real telemetry.
@@ -72,13 +74,22 @@ ESM only, loaded via `<script type="module">` in each HTML page. Eleven modules 
 
 ### Canggih layer wiring rule (Phase 4)
 
-Any module that participates in the always-on canggih layer **must be imported in every one of the 8 HTML pages**. The convention: insert the import immediately after `./assets/js/a11y.js`. Pages without a11y.js (`privacy.html`, `analytics.html`) anchor on the next stable import (`consent.js` on privacy, `analytics-demo-data.js` on analytics).
+Any module that participates in the always-on canggih layer **must be imported in every one of the 10 HTML pages**. The convention: insert the import immediately after `./assets/js/a11y.js`. Pages without a11y.js (`privacy.html`, `analytics.html`) anchor on the next stable import (`consent.js` on privacy, `analytics-demo-data.js` on analytics).
 
-If a new canggih module ships without wiring to all 8 pages, it silently appears only where it was added. Smoke check after wiring changes:
+If a new canggih module ships without wiring to all 10 pages, it silently appears only where it was added. Smoke check after wiring changes:
 
 ```bash
-grep -c "<module-name>.js" *.html | paste -sd+ | bc   # must equal 8
+grep -c "<module-name>.js" *.html | paste -sd+ | bc   # must equal 10
 ```
+
+Not every module is on all 10 pages — only the always-on canggih modules are. Expected per-module import counts (verify after wiring changes):
+
+```bash
+for m in nav icons page-load cursor i18n consent a11y chatbot parallax; do printf "%-14s" $m; grep -l "assets/js/$m.js" *.html | wc -l; done
+# nav 10 · icons 10 · page-load 10 · cursor 10 · i18n 9 · consent 9 · a11y 8 · chatbot 8 · parallax 3
+```
+
+`i18n`/`consent` skip one page each, `a11y`/`chatbot` skip two (analytics + privacy have no primary nav/skip-link surface), and `parallax` is hero-only (3 pages).
 
 ### Content / i18n
 
@@ -86,16 +97,20 @@ grep -c "<module-name>.js" *.html | paste -sd+ | bc   # must equal 8
 content/
   en/   ms/      9 mirrored JSON files: home, about, staff, services, contact, privacy, common, consent, chatbot
   blog.json      EN-only (blog cards deep-link out to live-site articles)
+  careers.json   EN-only (root-level, parity-exempt like blog.json — feeds the unlinked careers.html)
   glossary.md    EN → BM fixed-term glossary (apply before translating)
   scraped-raw/   gitignored cache of HTML scraped from urbaneethos.center
 ```
 
+Root-level `content/*.json` (`blog.json`, `careers.json`) are EN-only and **exempt** from the parity gate — the parity script only globs `content/en/` against `content/ms/`.
+
 i18n key shape is `<namespace>.<dot.path>`, where `<namespace>` is the JSON filename. `content/{en,ms}/<namespace>.json` must have identical key trees (excluding `_meta`, `_draft`, `_correction` markers) — enforced by `bin/check-i18n-parity.rb`. CI gates on this.
 
-Special metadata keys (stripped from i18n parity checks, never rendered):
+Special metadata keys — `_meta.*`, `_draft`, and `_correction` are **stripped** from i18n parity checks and never rendered; `_placeholder` is **not stripped** (it is walked like any other key — see below):
 - `_meta.scrapedAt`, `_meta.reviewedBy`, `_meta._note` — provenance.
 - `_draft: true` (or a map of `{ "dot.path": true }`) — flags strings drafted to fill live-site gaps; needs client review and replacement before launch.
 - `_correction` — translation reviewer notes.
+- `_placeholder` — a sibling top-level map `{ "dot.path": true }` marking strings whose visible value is Latin lorem ipsum prefixed with the sentinel `⟪PLACEHOLDER⟫ ` (greppable for `⟪PLACEHOLDER⟫`), pending a real source. **Unlike `_meta`/`_draft`/`_correction`, `bin/check-i18n-parity.rb` DOES walk `_placeholder`** — so each EN `_placeholder` map must be reproduced key-identical in its MS mirror, or parity fails. Keys use the same dot-path convention as `_draft`. Do not modify the parity script to exempt it.
 
 `content/ms/*.json` currently all carry `_meta.reviewedBy: null` — Bahasa Malaysia translations are machine-generated with the glossary applied. **`privacy.html` MS especially needs human + legal review before launch.**
 
@@ -105,8 +120,9 @@ Every photo that needs a real shot pre-launch is flagged in two ways:
 
 1. `aria-label="[REAL PHOTO REQUIRED] <subject>"` on the placeholder element — greppable for `[REAL PHOTO REQUIRED]`.
 2. Picsum-derived seeded JPGs in `assets/img/anchors/` for the considered-photo `<figure class="anchor-photo">` slots and YouTube thumbnails.
+3. `assets/img/staff-pdf/` — 8 **low-res interim headshots** extracted from the company-profile PDF, one per PDF-confirmed team member (filenames match the `photo` paths in `content/en/staff.json`, each flagged `"photoInterim": true`). The 9th member (Nur Ain Nabila, Administrator) has no PDF photo — she keeps the initials placeholder and stays flagged `[REAL PHOTO REQUIRED]`.
 
-**Pre-launch swap workflow:** replace JPGs in `assets/img/anchors/` keeping the same filenames; update `data-yt-id` on each `<div class="yt-embed">` with real YouTube IDs. No markup changes needed.
+**Pre-launch swap workflow:** replace JPGs in `assets/img/anchors/` and `assets/img/staff-pdf/` keeping the same filenames (staff-pdf swaps also warrant clearing the `photoInterim` flags after a proper shoot + consent); update `data-yt-id` on each `<div class="yt-embed">` with real YouTube IDs. No markup changes needed.
 
 ## Conventions and gotchas
 
@@ -114,7 +130,7 @@ Every photo that needs a real shot pre-launch is flagged in two ways:
 - **Modern-browser only.** Don't add polyfills or transpile steps. If a feature can't be expressed in raw modern CSS/JS, raise it rather than adding tooling.
 - **No build step.** Everything is served as-is. There is no `dist/` or `_site/` to commit — `_site/` and `public/` are deploy-time artifacts and are gitignored.
 - **Don't generalize aggressively.** Phase 1 motion, Phase 2 media, and Phase 4 canggih landed via deliberate plans; each phase has its own design doc. Read the relevant plan in `docs/superpowers/plans/` before touching the systems it shipped.
-- **axe-core ratchet: 0 violations on all 8 production pages.** Any change that risks regressing this should be re-audited locally before pushing. CI does not gate on axe.
+- **axe-core ratchet: 0 violations on all 10 production pages.** Any change that risks regressing this should be re-audited locally before pushing. CI does not gate on axe.
 
 ## Deployment
 
