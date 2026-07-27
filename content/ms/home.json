@@ -1,14 +1,13 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "translatedBy": "claude-opus-4-7",
-    "translatedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-8",
+    "translatedAt": "2026-07-27",
     "reviewedBy": null,
-    "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent'). BM rendering produced fresh as live site does not currently serve BM."
+    "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent'). BM rendering produced fresh as live site does not currently serve BM. LOREM placeholder strings copied byte-identically from EN (see _placeholder map)."
   },
-  "_draft": {
-    "hero.subtitle": true,
-    "services.items.3.blurb": true,
+  "_placeholder": {
+    "hero.headline": true,
     "staffFeatured.0.personalLine": true,
     "staffFeatured.1.personalLine": true,
     "staffFeatured.2.personalLine": true,
@@ -17,8 +16,8 @@
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Pusat Intervensi Awal Urbane Ethos",
-    "headline": "Intervensi awal, yang lebih manusiawi.",
-    "subtitle": "Kemahiran motor, pertuturan & bahasa, pembelajaran & pengurusan tingkah laku. Pasukan Shah Alam yang menemani keluarga sejak 2005.",
+    "headline": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet.",
+    "subtitle": "Kami menawarkan pemulihan dan terapi berpusatkan klien untuk perkembangan motor, integrasi sensori, terapi pertuturan-bahasa serta rangsangan sosial dan kognitif bagi individu neurodivergen daripada bayi, kanak-kanak, dewasa hingga warga emas.",
     "primaryCta": "Ketahui Lebih Lanjut",
     "secondaryCta": "Tonton pengenalan kami"
   },
@@ -43,11 +42,12 @@
   "location": {
     "eyebrow": "Datang bertemu kami",
     "title": "Lawati kami",
-    "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "address": "No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor",
     "mapLabel": "peta / lokasi",
     "hours": [
-      "Monday: 12PM – 6PM",
-      "Tuesday – Saturday: 9AM – 6PM"
+      "Monday: 12PM – 5PM",
+      "Tuesday – Saturday: 9AM – 6PM",
+      "Closed Sunday & Public Holidays"
     ]
   },
   "services": {
@@ -56,8 +56,8 @@
     "items": [
       {
         "key": "screening",
-        "title": "Saringan atau Penilaian",
-        "blurb": "Pemerhatian anak di sekolah atau di rumah semasa waktu bermain. Penilaian penuh terhadap peringkat perkembangan bahasa anak."
+        "title": "Saringan & Penilaian",
+        "blurb": "Dua perkhidmatan berasingan: saringan (Terapi Carakerja — motor halus, kesediaan sekolah; Psikologi Klinikal — emosi, tingkah laku) dan penilaian holistik 3-dalam-1 yang merangkumi Terapi Carakerja, Bahasa-Pertuturan dan Komunikasi, serta Psikologi Klinikal."
       },
       {
         "key": "ot",
@@ -71,13 +71,12 @@
       },
       {
         "key": "specialed",
-        "title": "Pendidikan Khas",
-        "blurb": "Pengajaran satu-dengan-satu untuk anak yang belajar mengikut kadar mereka sendiri. Kami bertemu anak anda di tahap mereka sekarang dan membina dari situ.",
-        "_note": "Special Education has no standalone description on services page; covered within the EIP programs. Blurb is drafted (see _draft map)."
+        "title": "Cognitive Therapy & Special Education",
+        "blurb": "Terapi kognitif dan pendidikan khas yang disampaikan oleh pasukan kami yang berlesen profesional sebagai sebahagian daripada penyediaan pelbagai disiplin yang bersepadu."
       },
       {
         "key": "eip",
-        "title": "Program Intervensi Awal",
+        "title": "IEP & Program Intervensi Awal",
         "blurb": "Program berkumpulan berasaskan terapi yang dijalankan setiap hari oleh Ahli Terapi Carakerja, Ahli Terapi Pertuturan/Pakar Linguistik Klinikal serta Guru Pendidikan Khas kami yang bertauliah."
       },
       {
@@ -109,25 +108,24 @@
     {
       "id": "dr-norizan-rajak",
       "greeting": "Hai, saya Norizan",
-      "personalLine": "Saya pulang dari Syracuse untuk membina pusat seperti yang saya idamkan ketika menjadi penyelidik muda dalam linguistik."
+      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
     },
     {
       "id": "ms-liyana-tarmizi",
       "greeting": "Hai, saya Liyana",
-      "personalLine": "Saya duduk bersama keluarga melalui soalan-soalan tersukar terlebih dahulu, sebelum kami bercakap tentang apa-apa pun."
+      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
     },
     {
       "id": "mrs-norizzati-afiqah",
       "greeting": "Hai, saya Norizzati",
-      "personalLine": "Saya telah menghabiskan lebih sedekad bersama anak-anak yang memerlukan seseorang untuk memperlahankan langkah dan memerhatikan apa yang sudah pun mereka mampu lakukan."
+      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
     }
   ],
   "events": {
     "eyebrow": "Acara",
     "heading": "Bengkel kecil, perjumpaan yang tenang",
-    "blurb": "Kami mengadakan bengkel kecil untuk ibu bapa dan perjumpaan mesra sensori yang tenang sepanjang tahun. Topiknya berubah mengikut apa yang keluarga tanyakan kepada kami.",
-    "cta": "Hubungi kami",
-    "_note": "Events section heading exists on home, but no event details / blurb are present on the live site. Blurb is drafted (see _draft map)."
+    "blurb": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "cta": "Hubungi kami"
   },
   "recommendedRail": {
     "heading": "Disyorkan untuk anda",

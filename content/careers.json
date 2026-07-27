@@ -1,0 +1,42 @@
+{
+  "_meta": {
+    "source": "UE Company Profile PDF (2026-05-24), Benefits section",
+    "createdAt": "2026-07-27",
+    "_note": "EN-only, exempt from i18n parity (root-level, like blog.json). Page is deliberately unlinked from nav/index — direct URL only, pending client decision on placement."
+  },
+  "_placeholder": {
+    "hero.subtitle": true,
+    "outro.body": true
+  },
+  "hero": {
+    "title": "Careers",
+    "subtitle": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  "benefits": {
+    "heading": "Benefits",
+    "items": [
+      {
+        "title": "Comprehensive Mental Health Coverage",
+        "body": "Including medical insurance and mental health support."
+      },
+      {
+        "title": "Professional Development",
+        "body": "Access to training programs, workshops, and conferences to enhance skills."
+      },
+      {
+        "title": "Work-life Balance",
+        "body": "More than 12 annual leave days per year, sick leave, and overtime is discouraged."
+      },
+      {
+        "title": "Supportive Work Environment",
+        "body": "A collaborative and respectful workplace culture that values each team member's contributions."
+      }
+    ]
+  },
+  "outro": {
+    "heading": "How to apply",
+    "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "cta": "Contact us",
+    "email": "urbaneethos@yahoo.com"
+  }
+}

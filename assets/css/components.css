@@ -631,6 +631,7 @@
   .staff-grid { display: grid; gap: var(--space-12); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   .staff-card { background: var(--color-cream-soft); border-radius: var(--radius-3); overflow: hidden; box-shadow: var(--shadow-1); }
   .staff-photo { background: var(--color-line); aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; color: var(--color-ink-soft); font-size: 0.75rem; text-align: center; padding: var(--space-4); }
+  .staff-photo--img { padding: 0; object-fit: cover; width: 100%; }
   .staff-body { padding: var(--space-6); }
   .staff-greeting { font-family: var(--font-serif); font-size: 1.5rem; margin: 0 0 var(--space-2); }
   .staff-role { color: var(--color-ink-muted); margin: 0 0 var(--space-3); }

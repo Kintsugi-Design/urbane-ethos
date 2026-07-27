@@ -1,6 +1,6 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-06-10 (after Phase 3 Pages prep landed; GitHub target: `Kintsugi-Design/urbane-ethos`)
+**Last updated:** 2026-07-27 (authoritative content replacement landed on branch `content/authoritative-replacement`; GitHub target: `Kintsugi-Design/urbane-ethos`)
 **HEAD:** on `main`
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 **Pages deploy (immediate):** push `main` to `git@github.com:Kintsugi-Design/urbane-ethos.git`. GitLab Pages workflow (`.gitlab-ci.yml`) is committed but deferred — instance Pages enablement pending. See Workstream 2.
@@ -18,6 +18,47 @@ Just landed (Phase 4): **canggih layer** — atmospheric depth (A1 page-load ink
 Just landed (Phase 2): **photography + YouTube scaffolding** — `.anchor-photo` figure component for considered photo placeholders + lazy click-to-load `.yt-embed` component for video slots. 6 anchor photos + 2 custom YouTube thumbnails seeded via picsum.photos in `assets/img/anchors/`. New `media.*` i18n namespace mirrored EN + MS (MS marked `_draft: true` for translator review). Home hero replaces the "Watch our intro" CTA with a yt-embed; contact page adds a centre-tour yt-embed below the address block. Anchor photos on home, about, services heroes + mood images on first 3 service blocks. Real photos + real YouTube IDs swap in pre-launch by filename / data-yt-id replacement only — zero markup changes. axe-core still: 0 serious/critical across all 8 pages.
 
 Just landed (Phase 3 prep): **Pages deployment infrastructure (GitHub + GitLab)** — all absolute paths converted to relative (`/foo` → `./foo`) across 8 HTML files + 5 JS modules so the prototype works identically at root, custom-domain root, OR repo-subpath (e.g. `username.github.io/urbane-ethos/`). Added `.github/workflows/pages.yml` (GitHub Pages) and `.gitlab-ci.yml` (GitLab Pages) — both run an `i18n parity` gate then rsync-stage an artifact with the same exclusion list (no `docs/`, `bin/`, `test/`, `Gemfile*`, internal plans/scrapes, `.DS_Store`). Same content publishes to both targets. Added `.nojekyll` (disable Jekyll on GH), custom `404.html` matching the brand idiom, and `.gitignore` entries for `_brief/`, `_site/`, `public/`, `node_modules/`. axe-core still: 0 serious/critical across all 8 pages + 404. Local `bin/server` workflow unchanged.
+
+## Authoritative content replacement — landed 2026-07-27
+
+Branch `content/authoritative-replacement`. Plan: `docs/superpowers/plans/2026-07-27-authoritative-content-replacement.md`. Spec: `docs/superpowers/specs/2026-07-27-authoritative-content-replacement-design.md`.
+
+Replaced generated/invented EN copy with **authoritative sources** — the live Wix scrape, the company-profile **PDF (2026-05-24)**, the printed **brochure**, and **co-director Nasirah's** WhatsApp corrections. Anything no source covers is now a greppable lorem sentinel rather than a plausible-looking invention.
+
+**Per-namespace REAL upgrades (EN):**
+
+- **about** — invented "values band" replaced by the PDF **Vision & Mission** band; `mission` slot now carries the PDF About-Us paragraph (heading "About us"); `story` enriched with the PDF "Since 2005…" sentence; `about.html` renamed `values.*` → `visionMission.*`.
+- **services** — `items` went 6 → **7**: `screening` split into separate **Screening** + **Assessment** services (Nasirah: distinct services). New top-level **`programmes`** block (4 programmes, brochure). Retitles: `Cognitive Therapy & Special Education` (PDF #05), `IEP & Early Intervention Program` (PDF #04). EIP corrected to **ages ≤12** (Beginners 2–5 / Intermediate 6–8 framing removed everywhere). `whoItsFor` columns for OT/Speech/Psych from the brochure concerns checklist. New programmes section rendered in `services.html`.
+- **staff** — real roster confirmed against the PDF (8 members) + Nur Ain (Wix-only). Hero gets the PDF "professionally licensed" line. Wix bios kept for the first 4 members.
+- **home** — real positioning subtitle (Nasirah), corrected hours/address, service-card retitles (Screening & Assessment / Cognitive Therapy & Special Education / IEP & EIP). Home staff-card **greetings kept real** (controller override); their personal lines lorem'd.
+- **contact + common** — real email **urbaneethos@yahoo.com**, full address, corrected hours (**Mon 12PM–5PM, Tue–Sat 9AM–6PM, closed Sun & PH**). Email row added to `contact.html`. (Footer email wired across the 8 contact-bearing pages in a later task — privacy & analytics have no contact block.)
+- **privacy** — §0 "Who we are" real (full address + real email/phone); §1–§9 bodies are lorem pending a counsel-reviewed notice. The fake `hello@urbaneethos.center` is gone.
+- **chatbot** — screening/specialed/eip `say` answers upgraded from PDF + corrections; pricing answer stays a sentinel.
+
+**The `⟪PLACEHOLDER⟫` / `_placeholder` mechanic:** every generated string resolves to REAL (sourced, `_draft` entry removed), **LOREM** (visible value = Latin lorem prefixed with the `⟪PLACEHOLDER⟫` sentinel, key moved into a sibling top-level `_placeholder` map), or **KEEP** (functional scaffold, untouched). `bin/check-i18n-parity.rb` skips only `_meta`/`_draft`/`_correction` — **`_placeholder` IS walked**, so every MS mirror reproduces each `_placeholder` key exactly. Find every lorem slot:
+
+```bash
+grep -rn "⟪PLACEHOLDER⟫" content/ *.html
+```
+
+**Legitimate `_draft` survivors (not leaks):** `consent.json` (whole file, EN+MS — KEEP-functional PDPA scaffold) and `contact.json` `form.fields.tellUsMore*` (EN+MS — functional form labels, unsourced). Everything else's `_draft` was resolved.
+
+**Two new pages (now 10 production pages):**
+
+- `careers.html` + `content/careers.json` (root-level, EN-only, parity-exempt like `blog.json`). **Unlinked** from nav/index/footer — direct URL only, pending a client placement decision.
+- `post-year-end-promo.html` — the **first local static blog article**. Pattern: root-level static HTML + a `localUrl` field on the blog entry (opens same-tab); `externalUrl` entries still deep-link out in a new tab. `blog.json` gained the `localUrl` field + a "Promo" category.
+
+MS was re-mirrored for all 9 namespaces; parity is green; `reviewedBy` is still `null` (machine MT). Canggih layer wired to all **10** pages.
+
+### Deferred flags (client-facing, from this pass)
+
+- **Real staff photo shoot + parental/staff consent workflow** — interim low-res PDF headshots in `assets/img/staff-pdf/` are placeholders; the face↔name mapping needs a human eyeball; **Nur Ain has no photo** (still an initials `[REAL PHOTO REQUIRED]` placeholder).
+- **Real pricing** — chatbot price answer is a `⟪PLACEHOLDER⟫` sentinel (charges list never supplied).
+- **Legal/privacy review** — privacy §1–§9 bodies are intentional lorem pending a counsel-reviewed notice.
+- **Careers page placement + real copy** — currently unlinked, direct-URL only.
+- **Concerns-checklist / screening-vs-assessment decision tree as real interactive tools** — currently prose in the services copy + the chatbot script.
+- **BM human + legal review** — carried over; `content/ms/*.json` all `reviewedBy: null`.
+- **Blog promo date** (`2025-12-01`) is approximate — confirm with client.
 
 ## What's open
 
@@ -250,19 +291,28 @@ urbane-ethos/
 ## Verification one-liners
 
 ```bash
-# Everything serves 200
-for p in "" about.html staff.html services.html blog.html contact.html analytics.html privacy.html; do
+# Everything serves 200 (10 production pages)
+for p in "" about.html staff.html services.html blog.html contact.html analytics.html privacy.html careers.html post-year-end-promo.html; do
   echo "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8080/$p")  /$p"
 done
 
-# i18n parity holds
+# i18n parity holds (9 namespaces)
 bin/check-i18n-parity.rb
+
+# Placeholder sentinel inventory — every hit must be an intentional lorem slot
+grep -rn "⟪PLACEHOLDER⟫" content/ *.html
+
+# Only legitimate _draft survivors are consent.json (whole) + contact.json tellUsMore* (EN+MS)
+grep -rln '"_draft"' content/en/ content/ms/
+
+# Canggih layer wired to all 10 pages (pick any always-on module)
+grep -l "page-load.js" *.html | wc -l   # must equal 10
 
 # No literal old durations
 grep -nE '\b(180ms|320ms)\b' assets/css/components.css assets/css/motion.css assets/css/base.css || echo "(clean)"
 
-# axe-core full sweep (needs npx)
-for p in "" about.html staff.html services.html blog.html contact.html analytics.html privacy.html; do
+# axe-core full sweep (needs npx) — target 0 violations across all 10 pages
+for p in "" about.html staff.html services.html blog.html contact.html analytics.html privacy.html careers.html post-year-end-promo.html; do
   echo "=== /$p ==="
   npx -y @axe-core/cli "http://localhost:8080/$p" --tags wcag2a,wcag2aa,wcag22aa 2>&1 | tail -n 5
 done

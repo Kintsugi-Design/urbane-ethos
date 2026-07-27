@@ -1,14 +1,13 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "translatedBy": "claude-opus-4-7",
-    "translatedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-8",
+    "translatedAt": "2026-07-27",
     "reviewedBy": null,
-    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries below were extracted verbatim from /services where present (ot, speech, eip, psych). Screening and Special Education summaries were drafted to match the warm tone of the rest of the tree."
+    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries upgraded from PDF + co-director corrections 2026-07-27 (screening, specialed, eip now REAL). Pricing (price.show) intentionally placeholder — Nasirah's charges list was cut off."
   },
-  "_draft": {
-    "flow.service.screening.say": true,
-    "flow.service.specialed.say": true
+  "_placeholder": {
+    "flow.price.show.say": true
   },
   "ui": {
     "launchAria": "Buka pembantu sembang",
@@ -50,7 +49,7 @@
       ]
     },
     "service.screening": {
-      "say": "Saringan ialah lawatan satu jam di mana kami memerhati anak anda bermain dan menjalankan beberapa pemeriksaan ringkas. Anda pulang dengan ringkasan bertulis dan satu cadangan — tiada tekanan untuk menempah apa-apa lagi.",
+      "say": "Saringan dan penilaian ialah perkhidmatan yang berasingan. Saringan meliputi dua bidang: Terapi Carakerja (motor halus, kesediaan sekolah) dan Psikologi Klinikal (emosi, tingkah laku). Jika anda mempunyai lebih banyak kebimbangan, kami menyediakan penilaian holistik 3-in-1 — Terapi Carakerja, Bahasa-Pertuturan dan Komunikasi, serta Psikologi Klinikal — biasanya sekitar 1-2 jam bergantung pada keperluan anak.",
       "next": "start"
     },
     "service.ot": {
@@ -62,11 +61,11 @@
       "next": "start"
     },
     "service.specialed": {
-      "say": "Pendidikan Khas ialah pengajaran satu-dengan-satu yang disesuaikan untuk anak yang belajar mengikut kadar mereka sendiri. Kami bekerja pada bacaan, penulisan, dan nombor dalam langkah kecil yang anak anda boleh benar-benar lakukan.",
+      "say": "Terapi Kognitif & Pendidikan Khas — disampaikan oleh Guru Pendidikan Khas kami yang berlesen secara profesional sebagai sebahagian daripada persediaan bersepadu dan pelbagai disiplin kami, disesuaikan secara individu mengikut keperluan anak anda.",
       "next": "start"
     },
     "service.eip": {
-      "say": "Program berkumpulan berasaskan terapi yang dijalankan setiap hari oleh Ahli Terapi Carakerja, Ahli Terapi Pertuturan/Pakar Linguistik Klinikal serta Guru Pendidikan Khas kami yang bertauliah. Kumpulan Permulaan (2–5) dan Kumpulan Pertengahan (6–8) tersedia.",
+      "say": "Program EIP hanya untuk kanak-kanak berumur 12 tahun ke bawah: program kesediaan sekolah (6-12 tahun, sesi pagi, 4 jam) dan kumpulan permainan (3-5 tahun, sesi petang, 2 jam), dijalankan oleh Ahli Terapi Carakerja, Ahli Terapi Pertuturan/Pakar Linguistik Klinikal serta Guru Pendidikan Khas kami yang bertauliah.",
       "next": "start"
     },
     "service.psych": {
@@ -99,7 +98,7 @@
       ]
     },
     "price.show": {
-      "say": "Berdasarkan itu, julat biasa ialah <RM_RANGE_PLACEHOLDER — VERIFY WITH CENTER>. Ingin sahkan dengan pasukan?",
+      "say": "⟪PLACEHOLDER⟫ Based on that, the typical range is RM___–RM___ (pricing to be confirmed with the centre). Want to confirm with the team?",
       "options": [
         { "label": "Ya, sahkan dengan pasukan", "next": "human" },
         { "label": "Belum lagi", "next": "start" }

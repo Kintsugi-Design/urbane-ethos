@@ -24,13 +24,15 @@
     "values": ["A", "A+", "A++"]
   },
   "footer": {
-    "address": "4, Jalan Elektron U16/E, Denai Alam, 40160 Shah Alam",
+    "address": "No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor",
     "phone1": "+603-7734 3044",
     "phone2": "+6013-249 0069",
+    "email": "urbaneethos@yahoo.com",
     "hoursLabel": "Hours",
     "hours": [
-      "Monday: 12PM – 6PM",
-      "Tuesday – Saturday: 9AM – 6PM"
+      "Monday: 12PM – 5PM",
+      "Tuesday – Saturday: 9AM – 6PM",
+      "Closed Sunday & Public Holidays"
     ],
     "social": { "facebook": "Facebook", "instagram": "Instagram" },
     "rights": "© Urbane Ethos Early Intervention Center",

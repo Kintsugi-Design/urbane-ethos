@@ -1,45 +1,33 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "translatedBy": "claude-opus-4-7",
-    "translatedAt": "2026-06-08",
+    "translatedBy": "claude-opus-4-7; claude-opus-4-8 (2026-07-27 re-mirror)",
+    "translatedAt": "2026-07-27",
     "reviewedBy": null,
-    "_note": "Live About page has no hero subtitle, no 'Mission' section (only 'Our Vision' which is mapped to mission), and no Values / 'What we stand for' section."
-  },
-  "_draft": {
-    "hero.subtitle": true,
-    "values.items": true
+    "_note": "Mirror of final EN about.json. The invented 'What we stand for' values band was replaced by the PDF Vision & Mission band on 2026-07-27; the mission slot now carries the PDF About-Us paragraph and the story is enriched with the PDF 'Since 2005…' sentence."
   },
   "hero": {
     "title": "TENTANG KAMI",
-    "subtitle": "Kami pasukan intervensi awal di Shah Alam, menemani keluarga sejak 2005."
+    "subtitle": "Sebuah pusat terapi untuk individu neurodivergen — kami memberi khidmat kepada mereka yang berumur 0–20 tahun dan sedang berkembang kepada pesakit yang lebih dewasa dan warga emas."
   },
   "mission": {
-    "heading": "Visi kami",
-    "body": "Pusat Intervensi Awal Urbane Ethos menyediakan intervensi awal yang khusus untuk gangguan bahasa dan pertuturan, gangguan perkembangan dan untuk ketidakupayaan pembelajaran. Kami menyediakan sesi terapi satu-dengan-satu, dan sesi berkumpulan, konsultasi dan latihan ibu bapa serta program saringan sekolah. Program kami diperibadikan atau dirancang khas untuk disesuaikan dengan keupayaan, matlamat, dan minat anak."
+    "heading": "Tentang kami",
+    "body": "Di Pusat Intervensi Awal Urbane Ethos, kami percaya bahawa pendekatan terapi yang holistik, digerakkan oleh kerjasama transdisiplinari, adalah kunci untuk merungkai potensi penuh setiap klien. Pasukan kami, yang terdiri daripada Ahli Linguistik Klinikal, Ahli Terapi Bahasa-Pertuturan, Ahli Terapi Carakerja, Ahli Psikologi Klinikal dan Guru Pendidikan Khas, bekerjasama dengan lancar untuk menyediakan penjagaan menyeluruh dan berasaskan bukti yang disesuaikan dengan keperluan individu."
   },
   "story": {
     "heading": "Kisah kami",
-    "body": "20 tahun pengalaman dalam menyediakan terapi berfokus klien dan intervensi awal dalam pembelajaran, pertuturan, terapi carakerja, fisioterapi dan kini psikologi klinikal dalam sesi individu dan berkumpulan. Pusat Intervensi Awal Urbane Ethos memulakan pusat pelbagai disiplin yang pertama pada tahun 2005 di Shah Alam dan sejak itu telah membantu anak-anak, remaja dan ibu bapa mencapai pencapaian perkembangan dan mengatasi ketidakupayaan atau gangguan mereka demi kualiti hidup yang lebih baik."
+    "body": "Sejak 2005, kami mempunyai lebih 20 tahun pengalaman menyediakan intervensi berfokuskan klien untuk gangguan bahasa dan pertuturan, gangguan perkembangan, gangguan kesihatan mental dan untuk ketidakupayaan pembelajaran. Pusat Intervensi Awal Urbane Ethos memulakan pusat pelbagai disiplin yang pertama pada tahun 2005 yang berpangkalan di Shah Alam dan sejak itu telah membantu kanak-kanak, remaja dan ibu bapa mencapai pencapaian perkembangan serta mengatasi ketidakupayaan atau gangguan mereka demi kualiti hidup yang lebih baik."
   },
-  "values": {
-    "heading": "Apa yang kami pegang",
+  "visionMission": {
+    "heading": "Visi & Misi",
     "items": [
       {
-        "title": "Mendengar dahulu",
-        "body": "Sebelum kami mencadangkan apa-apa, kami duduk bersama anda dan bertanya tentang anak anda. Cerita yang anda bawa lebih bermakna daripada mana-mana borang."
+        "title": "Visi",
+        "body": "1. Menyediakan perkhidmatan pemulihan dan terapeutik pada standard antarabangsa dalam konteks tempatan. 2. Memperkasakan individu daripada semua peringkat umur untuk mencapai potensi sepenuhnya melalui perkhidmatan terapi yang penuh belas kasihan, berasaskan bukti, dan bersifat kolaboratif."
       },
       {
-        "title": "Mengikut kadar anak",
-        "body": "Perkembangan bukanlah perlumbaan. Kami mengikut apa yang anak anda sudah bersedia, dan menyesuaikan rancangan apabila anak memberi isyarat."
-      },
-      {
-        "title": "Keluarga dalam bilik",
-        "body": "Ibu bapa dan penjaga adalah sebahagian daripada setiap sesi, bukan menunggu di luar. Kami berkongsi apa yang kami lihat dan belajar daripada apa yang anda lihat di rumah."
-      },
-      {
-        "title": "Berasaskan bukti",
-        "body": "Pasukan kami sentiasa berlatih dan merujuk kepada penyelidikan terkini. Kami akan kata 'kami belum tahu lagi' apabila itulah jawapan yang jujur."
+        "title": "Misi",
+        "body": "1. Menyediakan perkhidmatan terapi yang berkesan, berkualiti dan mudah diakses. 2. Menyediakan perkhidmatan terapi dan intervensi yang holistik, diperibadikan, dan transdisiplinari yang menyokong kesejahteraan perkembangan, komunikasi, dan psikologi klien kami."
       }
     ]
   },

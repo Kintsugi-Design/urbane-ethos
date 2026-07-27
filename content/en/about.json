@@ -1,42 +1,30 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "Live About page has no hero subtitle, no 'Mission' section (only 'Our Vision' which is mapped to mission), and no Values / 'What we stand for' section."
-  },
-  "_draft": {
-    "hero.subtitle": true,
-    "values.items": true
+    "_note": "Live About page has no hero subtitle. The invented 'What we stand for' values band was replaced by the PDF Vision & Mission band on 2026-07-27; the mission slot now carries the PDF About-Us paragraph and the story is enriched with the PDF 'Since 2005…' sentence."
   },
   "hero": {
     "title": "ABOUT US",
-    "subtitle": "We're an early intervention team in Shah Alam, working alongside families since 2005."
+    "subtitle": "A therapy centre for neurodivergent individuals — we cater between 0–20 years old and expanding to older and elderly patients."
   },
   "mission": {
-    "heading": "Our vision",
-    "body": "Urbane Ethos Early Intervention Center provides individualized early intervention for language and speech disorders, developmental disorders and for learning disabilities. We provide one-to-one therapy sessions, and group sessions, parent consultations and trainings along with school screening programs. Our programs are personalized or specially catered to fit the child's abilities, goals, and interests."
+    "heading": "About us",
+    "body": "At Urbane Ethos Early Intervention Center, we believe that a holistic approach to therapy, driven by transdisciplinary collaboration, is the key to unlocking each client's full potential. Our team, comprised of Clinical Linguists, Speech-Language Therapists, Occupational Therapist, Clinical Psychologist and Special Education Teacher, work seamlessly together to provide comprehensive, evidence-based care tailored to individual needs."
   },
   "story": {
     "heading": "Our story",
-    "body": "20 years of experience in providing client-centered therapy and early intervention in learning, speech, occupational therapy, physiotherapy and now clinical psychology in individual and group sessions. Urbane Ethos Early Intervention Center started up the first multi-displinary center in 2005 based in Shah Alam and has since aided children, adolescents and parents in achieving developmental milestones and overcoming their disability or disorder to achieve a greater quality of life."
+    "body": "Since 2005, we have had over 20 years of experience providing client-centered intervention for language and speech disorders, developmental disorders, mental health disorders and for learning disabilities. Urbane Ethos Early Intervention Center started up the first multi-displinary center in 2005 based in Shah Alam and has since aided children, adolescents and parents in achieving developmental milestones and overcoming their disability or disorder to achieve a greater quality of life."
   },
-  "values": {
-    "heading": "What we stand for",
+  "visionMission": {
+    "heading": "Vision & Mission",
     "items": [
       {
-        "title": "Listening first",
-        "body": "Before we recommend anything, we sit with you and ask about your child. The story you bring matters more than any form."
+        "title": "Vision",
+        "body": "1. To provide rehabilitative and therapeutic services at an international standard in the local context. 2. To empower individuals of all ages to achieve their fullest potential through compassionate, evidence-based, and collaborative therapy services."
       },
       {
-        "title": "Child-led pace",
-        "body": "Progress is not a race. We follow what your child is ready for, and adjust the plan when the child tells us to."
-      },
-      {
-        "title": "Family in the room",
-        "body": "Parents and caregivers are part of every session, not waiting outside. We share what we see and learn from what you see at home."
-      },
-      {
-        "title": "Evidence-grounded",
-        "body": "Our team trains continuously and draws on current research. We say 'we don't know yet' when that's the honest answer."
+        "title": "Mission",
+        "body": "1. To provide effective, quality and accessible therapy services. 2. To provide holistic, individualized, and transdisciplinary therapy and intervention services that support the developmental, communicative, and psychological well-being of our clients."
       }
     ]
   },

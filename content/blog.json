@@ -1,11 +1,21 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "4 blog posts found on /blog. categories[] taken from live filter labels (trimmed to spec's broad buckets where they map cleanly; full live filter list noted in _meta.liveFilters)."
+    "_note": "4 blog posts found on /blog. categories[] taken from live filter labels (trimmed to spec's broad buckets where they map cleanly; full live filter list noted in _meta.liveFilters). Local-article pattern (2026-07-27): posts with a `localUrl` field are statically-generated pages at the repo root (e.g. ./post-year-end-promo.html) that open in the same tab; posts with `externalUrl` deep-link to the live site in a new tab."
   },
   "hero": { "title": "From the blog" },
-  "categories": ["All", "Parenting", "Career", "Development", "Speech"],
+  "categories": ["All", "Parenting", "Career", "Development", "Speech", "Promo"],
   "posts": [
+    {
+      "id": "year-end-promo-first-intake-deals",
+      "title": "Our Annual Year End Promo & First Intake Special Deals",
+      "date": "2025-12-01",
+      "category": "Promo",
+      "excerpt": "Our Annual Year End Promo! Full assessment at 20% off — plus First Intake bundle packages at 25% off. Contact 013-249 0069.",
+      "thumbnail": null,
+      "tags": ["urbaneethos", "promo"],
+      "localUrl": "./post-year-end-promo.html"
+    },
     {
       "id": "anak-dah-masuk-sekolah",
       "title": "Anak Dah Masuk Sekolah! Tips Mengekalkan Minat Anak ke Sekolah Daripada Pakar Klinikal Psikologi",
