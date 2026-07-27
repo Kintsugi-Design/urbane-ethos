@@ -2,9 +2,9 @@
   "_meta": {
     "scrapedAt": "2026-06-08",
     "translatedBy": "claude-opus-4-7",
-    "translatedAt": "2026-06-08",
+    "translatedAt": "2026-07-27",
     "reviewedBy": null,
-    "_note": "No Google Maps iframe and no contact email present on live contact page. Live contact form has 8 fields (Parent Name, Email, Phone, Child Name, Child's DOB, Diagnosis Yes/No, If yes where, What are your concerns?); per spec we keep 4 visible fields + one optional 'Tell us more' textarea that absorbs the live site's intake extras."
+    "_note": "Contact email now sourced from PDF company profile (2026-05-24). No Google Maps iframe on live contact page. Live contact form has 8 fields (Parent Name, Email, Phone, Child Name, Child's DOB, Diagnosis Yes/No, If yes where, What are your concerns?); per spec we keep 4 visible fields + one optional 'Tell us more' textarea that absorbs the live site's intake extras."
   },
   "_draft": {
     "form.fields.tellUsMoreLabel": true,
@@ -16,18 +16,20 @@
   },
   "address": {
     "heading": "Pusat kami",
-    "line1": "4, Jalan Elektron U16/E",
-    "line2": "Denai Alam, 40160 Shah Alam",
+    "line1": "No. 4, Jalan Elektron E U16/E, Seksyen U16",
+    "line2": "E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor",
     "mapEmbedSrc": null,
-    "_note": "No embedded Google Maps iframe on live site."
+    "_note": "Full address per PDF company profile (2026-05-24). No embedded Google Maps iframe on live site."
   },
+  "email": "urbaneethos@yahoo.com",
   "phones": [
     { "label": "Penyambut tetamu", "number": "+603-7734 3044" },
     { "label": "WhatsApp", "number": "+6013-249 0069" }
   ],
   "hours": [
-    "Monday: 12PM – 6PM",
-    "Tuesday – Saturday: 9AM – 6PM"
+    "Monday: 12PM – 5PM",
+    "Tuesday – Saturday: 9AM – 6PM",
+    "Closed Sunday & Public Holidays"
   ],
   "form": {
     "heading": "Hantar mesej kepada kami",
