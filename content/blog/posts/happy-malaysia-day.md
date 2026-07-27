@@ -24,7 +24,3 @@ What does Malaysia Day mean to you? Let us know in the comments below!
 We are closed today to celebrate Malaysia Day! Operations resume as usual on Tuesday, 17th September 2019
 
 #urbaneethos #urbaneethosearlyinterventioncenter #holiday
-
-- urbaneethos
-- urbaneethoseic
-- holiday

@@ -34,7 +34,3 @@ For more information, contact us at (+603) 7734 3044, WhatsApp us at (+6013) 249
 \*\* Bahasa Malaysia translations are provided upon request
 
 \#urbaneethos #urbaneethosearlyinterventioncenter #speechtherapy #specialneeds #event
-
-- urbaneethos
-- urbaneethoseic
-- special needs

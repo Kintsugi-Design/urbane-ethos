@@ -25,7 +25,3 @@ With love,
 UE Team
 
 \#urbaneethos #urbaneethosearlyinterventioncenter #holiday
-
-- urbaneethos
-- urbaneethoseic
-- notice

@@ -34,7 +34,3 @@ First come and first serve basis only so quickly register now at this link. Sila
 #urbaneethos #urbaneethosearlyinterventioncenter #event #specialneeds
 
 #freescreening
-
-- urbaneethos
-- urbaneethoseic
-- special needs

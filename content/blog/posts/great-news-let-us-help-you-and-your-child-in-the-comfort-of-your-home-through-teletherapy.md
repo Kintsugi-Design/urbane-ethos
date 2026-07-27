@@ -14,7 +14,3 @@ featured: false
 ---
 
 Please contact us at 013 249 0069 or fill in the contact form to make an appointment with our Drs and therapists. Special introductory for integrated sessions only for between 20th April - 30th April. We are here to help you and your child.
-
-- speech therapy
-- occupational therapy
-- special needs

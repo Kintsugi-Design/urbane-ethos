@@ -28,7 +28,3 @@ Happy holidays and we wish everyone a safe trip back home this weekend!
 Note: UE Center will be closed Today and on Monday, 2/9/2019 for celebrations
 
 #urbaneethos #urbaneethosearlyinterventioncenter #holiday
-
-- urbaneethos
-- urbaneethoseic
-- notice
