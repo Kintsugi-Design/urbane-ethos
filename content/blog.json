@@ -3,8 +3,17 @@
     "scrapedAt": "2026-06-08",
     "_note": "4 blog posts found on /blog. categories[] taken from live filter labels (trimmed to spec's broad buckets where they map cleanly; full live filter list noted in _meta.liveFilters). Local-article pattern (2026-07-27): posts with a `localUrl` field are statically-generated pages at the repo root (e.g. ./post-year-end-promo.html) that open in the same tab; posts with `externalUrl` deep-link to the live site in a new tab."
   },
-  "hero": { "title": "From the blog" },
-  "categories": ["All", "Parenting", "Career", "Development", "Speech", "Promo"],
+  "hero": {
+    "title": "From the blog"
+  },
+  "categories": [
+    "All",
+    "Parenting",
+    "Career",
+    "Development",
+    "Speech",
+    "Promo"
+  ],
   "posts": [
     {
       "id": "year-end-promo-first-intake-deals",
@@ -13,7 +22,10 @@
       "category": "Promo",
       "excerpt": "Our Annual Year End Promo! Full assessment at 20% off — plus First Intake bundle packages at 25% off. Contact 013-249 0069.",
       "thumbnail": null,
-      "tags": ["urbaneethos", "promo"],
+      "tags": [
+        "urbaneethos",
+        "promo"
+      ],
       "localUrl": "./post-year-end-promo.html"
     },
     {
@@ -21,40 +33,53 @@
       "title": "Anak Dah Masuk Sekolah! Tips Mengekalkan Minat Anak ke Sekolah Daripada Pakar Klinikal Psikologi",
       "date": "2025-03-13",
       "category": "Parenting",
-      "excerpt": "Apabila anak sudah mula bersekolah, cabaran seterusnya bagi ibu bapa ialah mengekalkan semangat dan minat mereka untuk terus belajar dan...",
+      "excerpt": "Apabila anak sudah mula bersekolah, cabaran seterusnya bagi ibu bapa ialah mengekalkan semangat dan minat mereka untuk terus belajar.",
       "thumbnail": "assets/img/scraped/blog-anak-dah-masuk-sekolah.webp",
-      "tags": ["urbaneethos", "Parenting Workshop"],
-      "externalUrl": "https://www.urbaneethos.center/post/anak-dah-masuk-sekolah-tips-mengekalkan-minat-anak-ke-sekolah-daripada-pakar-klinikal-psikologi"
+      "tags": [
+        "urbaneethos",
+        "Parenting Workshop"
+      ],
+      "localUrl": "./post-anak-dah-masuk-sekolah.html"
     },
     {
       "id": "a-fulfilling-career-awaits",
       "title": "A Fulfilling Career Awaits: Join Us as a Special Education Teacher!",
       "date": "2025-01-23",
       "category": "Career",
-      "excerpt": "Are you passionate about making a difference in the lives of neurodiverse children and individuals with special needs? Do you thrive in a...",
+      "excerpt": "Are you passionate about making a difference in the lives of neurodiverse children and individuals with special needs? We have the perfect opportunity for you.",
       "thumbnail": "assets/img/scraped/blog-a-fulfilling-career-awaits.jpg",
-      "tags": ["urbaneethos", "special needs"],
-      "externalUrl": "https://www.urbaneethos.center/post/a-fulfilling-career-awaits-join-us-as-a-special-education-teacher"
+      "tags": [
+        "urbaneethos",
+        "special needs"
+      ],
+      "localUrl": "./post-a-fulfilling-career-awaits.html"
     },
     {
       "id": "what-does-sensory-have-to-do-with-my-feelings",
       "title": "What does Sensory have to do with my feelings?",
       "date": "2024-11-04",
       "category": "Development",
-      "excerpt": "Sensory processing and emotional regulation are deeply interconnected aspects of human development, and together they play a significant...",
+      "excerpt": "Sensory processing and emotional regulation are deeply interconnected aspects of human development, and together they play a significant role in shaping how we manage emotions.",
       "thumbnail": "assets/img/scraped/blog-what-does-sensory-have-to-do-with-my-feelings.webp",
-      "tags": ["urbaneethos", "occupational therapy", "development"],
-      "externalUrl": "https://www.urbaneethos.center/post/what-does-sensory-have-to-do-with-my-feelings"
+      "tags": [
+        "urbaneethos",
+        "occupational therapy",
+        "development"
+      ],
+      "localUrl": "./post-what-does-sensory-have-to-do-with-my-feelings.html"
     },
     {
       "id": "an-opportunity-to-learn-grow",
       "title": "An Opportunity to Learn & Grow: On the Search for Speech-Language Therapists",
       "date": "2024-06-28",
       "category": "Career",
-      "excerpt": "Are you passionate about making a difference in people's lives? We're excited to welcome fresh graduates and experienced professionals to...",
+      "excerpt": "We're excited to welcome fresh graduates and experienced professionals to join our multidisciplinary team of speech-language therapists.",
       "thumbnail": "assets/img/scraped/blog-an-opportunity-to-learn-grow.webp",
-      "tags": ["urbaneethos", "speech therapy"],
-      "externalUrl": "https://www.urbaneethos.center/post/an-opportunity-to-learn-grow-on-the-search-for-speech-language-therapists"
+      "tags": [
+        "urbaneethos",
+        "speech therapy"
+      ],
+      "localUrl": "./post-an-opportunity-to-learn-grow.html"
     }
   ],
   "featured": [
