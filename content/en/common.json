@@ -47,7 +47,8 @@
     "talkToUs": "Talk to us",
     "viewServices": "View services",
     "meetStaff": "Meet our team",
-    "contactUs": "Contact us"
+    "contactUs": "Contact us",
+    "backToBlog": "Back to the blog"
   },
   "a11y": {
     "openChatbot": "Open chat assistant",
