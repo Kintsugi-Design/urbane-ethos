@@ -108,7 +108,7 @@
 <button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot"><span data-icon="chat"></span></button>
 
 <script type="module">
-import { getLocale, translatePage } from "./assets/js/i18n.js";
+import { getLocale, translatePage, stripPlaceholder } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/a11y.js";
 import "./assets/js/nav.js";
@@ -137,14 +137,16 @@ async function renderStaff() {
     const photoHtml = (m.photo && m.photoInterim)
       ? `<img class="staff-photo staff-photo--img" src="./${m.photo}" alt="${m.name}" loading="lazy">`
       : `<div class="staff-photo" role="img" aria-label="[REAL PHOTO REQUIRED] ${m.name}">${initials}</div>`;
+    const personalLine = stripPlaceholder(m.personalLine);
+    const bio = stripPlaceholder(m.bio);
     c.innerHTML = `
       ${photoHtml}
       <div class="staff-body">
         <p class="staff-greeting">${m.greeting || ""}</p>
         <p class="staff-role">${m.role || ""}</p>
         <p><small>${(m.credentials || []).join(" · ")}</small></p>
-        <p>${m.personalLine || ""}</p>
-        <p>${m.bio || ""}</p>
+        ${personalLine ? `<p>${personalLine}</p>` : ""}
+        ${bio ? `<p>${bio}</p>` : ""}
         <button class="staff-video-btn" data-video data-i18n="common.a11y.playVideoPlaceholder">Play intro video</button>
       </div>`;
     return c;

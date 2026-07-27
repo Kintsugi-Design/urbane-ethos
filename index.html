@@ -243,7 +243,7 @@
 <button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot"><span data-icon="chat"></span></button>
 
 <script type="module">
-import { getLocale, translatePage } from "./assets/js/i18n.js";
+import { getLocale, translatePage, stripPlaceholder } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/a11y.js";
 import "./assets/js/nav.js";
@@ -270,8 +270,9 @@ async function renderHome() {
 
   // Hero headline — accent the final word (works in EN + BM regardless of word order).
   const headlineEl = document.getElementById("hero-headline");
-  if (headlineEl && home.hero?.headline) {
-    const words = home.hero.headline.trim().split(/\s+/);
+  const headlineText = stripPlaceholder(home.hero?.headline);
+  if (headlineEl && headlineText) {
+    const words = headlineText.trim().split(/\s+/);
     const last = words.pop();
     headlineEl.innerHTML = `${words.join(" ")} <span class="hero-accent">${last}</span>`;
   }
@@ -354,12 +355,13 @@ async function renderHome() {
       const initials = m.name.split(/\s+/).filter(Boolean).map(s => s[0]).slice(0, 2).join("");
       const card = document.createElement("article");
       card.className = "staff-card";
+      const personalLine = stripPlaceholder(f.personalLine);
       card.innerHTML = `
         <div class="staff-avatar" role="img" aria-label="${m.name}">${initials}</div>
         <div class="staff-body">
           <p class="staff-greeting">${f.greeting}</p>
           <p class="staff-role">${m.role}</p>
-          <p>${f.personalLine}</p>
+          ${personalLine ? `<p>${personalLine}</p>` : ""}
         </div>`;
       return card;
     }));

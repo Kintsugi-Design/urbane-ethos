@@ -114,7 +114,7 @@
 <button class="chatbot-launcher" aria-label="Open chat assistant" data-i18n-attr="aria-label:common.a11y.openChatbot"><span data-icon="chat"></span></button>
 
 <script type="module">
-import { getLocale, translatePage } from "./assets/js/i18n.js";
+import { getLocale, translatePage, stripPlaceholder } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/a11y.js";
 import "./assets/js/nav.js";
@@ -151,13 +151,17 @@ async function renderServices() {
            <figcaption data-i18n="common.media.captions.serviceMood${i + 1}">Considered atmosphere · Placeholder via Picsum.</figcaption>
          </figure>`
       : "";
+    const whatItIs = stripPlaceholder(item.whatItIs);
+    const whoItsFor = stripPlaceholder(item.whoItsFor);
+    const whatToExpect = stripPlaceholder(item.whatToExpect);
+    const faqs = (item.faqs || []).filter(f => stripPlaceholder(f.q) && stripPlaceholder(f.a));
     sec.innerHTML = `
       ${moodImage}
       <h2>${esc(item.title)}</h2>
-      ${item.whatItIs ? `<p><strong>What it is:</strong> ${esc(item.whatItIs)}</p>` : ""}
-      ${item.whoItsFor ? `<p><strong>Who it's for:</strong> ${esc(item.whoItsFor)}</p>` : ""}
-      ${item.whatToExpect ? `<p><strong>What to expect:</strong> ${esc(item.whatToExpect)}</p>` : ""}
-      ${(item.faqs || []).map(f => `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}
+      ${whatItIs ? `<p><strong>What it is:</strong> ${esc(whatItIs)}</p>` : ""}
+      ${whoItsFor ? `<p><strong>Who it's for:</strong> ${esc(whoItsFor)}</p>` : ""}
+      ${whatToExpect ? `<p><strong>What to expect:</strong> ${esc(whatToExpect)}</p>` : ""}
+      ${faqs.map(f => `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}
       <a class="btn btn--primary" href="./contact.html?service=${encodeURIComponent(item.key)}">${esc(item.cta || "Enquire")}</a>`;
     return sec;
   }));
