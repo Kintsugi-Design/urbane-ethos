@@ -509,7 +509,7 @@ featured: true
 
 Sensory processing and emotional regulation are deeply interconnected aspects of human development, and together they play a significant role in shaping how individuals understand, react to, and manage their emotions. Sensory processing refers to the ways in which we receive and respond to sensory information—sights, sounds, smells, tastes, and textures—from our environment. Emotional regulation, meanwhile, is controlled by parts of the brain such as the amygdala, which plays a central role in emotional responses. When sensory processing works smoothly, it supports emotional balance; but when challenges arise in processing sensory information, it can impact one's ability to regulate emotions effectively.
 
-_Illustrator | Credit @ Elise Gravel_
+_Illustrator \| Credit @ Elise Gravel_
 
 Here are some ways that sensory processing and emotional intelligence are connected:
 
