@@ -271,9 +271,10 @@ module BlogGen
     end
 
     # Rebuild posts[] sorted by date desc; preserve every other top-level key.
-    entries = parsed.map { |fm, _| index_entry(fm) }
-                    .sort_by { |e| e["date"] }.reverse
-    blog["posts"] = entries
+    by_date = parsed.sort_by { |fm, _| fm["date"].to_s }.reverse
+    blog["posts"] = by_date.map { |fm, _| index_entry(fm) }
+    # Derive featured[] from the `featured: true` frontmatter flag (date desc).
+    blog["featured"] = by_date.map { |fm, _| index_entry(fm)["id"] if fm["featured"] }.compact
     File.write(BLOG_JSON, JSON.pretty_generate(blog) + "\n")
     puts "wrote content/blog.json (#{entries.size} posts)"
   end
@@ -314,7 +315,7 @@ Create `content/blog/_post.html.erb`. The `<header>`, `<footer>`, chatbot button
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title><%= fm["title"] %> — Urbane Ethos</title>
+<title><%= ERB::Util.h(fm["title"]) %> — Urbane Ethos</title>
 <link rel="stylesheet" href="./assets/css/tokens.css">
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/components.css">
@@ -370,12 +371,12 @@ Create `content/blog/_post.html.erb`. The `<header>`, `<footer>`, chatbot button
 <main id="main">
   <article class="section">
     <div class="wrap" style="max-width:var(--content-max)">
-      <p class="section-eyebrow"><%= fm["category"] %></p>
-      <h1><%= fm["title"] %></h1>
-      <p><small><%= fm["date"] %> · <%= fm["read_time"] %></small></p>
+      <p class="section-eyebrow"><%= ERB::Util.h(fm["category"]) %></p>
+      <h1><%= ERB::Util.h(fm["title"]) %></h1>
+      <p><small><%= ERB::Util.h(fm["date"]) %><% unless fm["read_time"].to_s.strip.empty? %> · <%= ERB::Util.h(fm["read_time"]) %><% end %></small></p>
 <% if fm["hero_image"] && !fm["hero_image"].to_s.empty? -%>
       <figure class="anchor-photo">
-        <img src="./<%= fm["hero_image"] %>" alt="" loading="lazy">
+        <img src="./<%= ERB::Util.h(fm["hero_image"]) %>" alt="" loading="lazy">
       </figure>
 <% end -%>
       <%= body_html %>
@@ -531,9 +532,9 @@ Learn more about how sensory processing and emotional regulation is linked from 
 
 ### References
 
-- Drndarević, N., Protić, S., & Mestre, J. M. (2021). Sensory-Processing Sensitivity and Pathways to Depression and Aggression: The Mediating Role of Trait Emotional Intelligence and Decision-Making Style—A Pilot Study. _International Journal of Environmental Research and Public Health, 18_(24), 13202. https://doi.org/10.3390/ijerph182413202
+- Drndarević, N., Protić, S., & Mestre, J. M. (2021). Sensory-Processing Sensitivity and Pathways to Depression and Aggression: The Mediating Role of Trait Emotional Intelligence and Decision-Making Style—A Pilot Study. _International Journal of Environmental Research and Public Health, 18_(24), 13202. <https://doi.org/10.3390/ijerph182413202>
 - Hong, E., & Hong, S. (2016). The Relationship Between Sensory Processing and Emotional Regulation: A Literature Review. _Journal of Korean Society of Sensory Integration Therapists, 14_, 50-59. 10.18064/JKASI.2016.14.1.050.
-- Sperati, A., Acevedo, B. P., Dellagiulia, A., Fasolo, M., Spinelli, M., D'Urso, G., & Lionetti, F. (2024). The contribution of Sensory Processing Sensitivity and internalized attachment representations on emotion regulation competencies in school-age children. _Frontiers in Psychology, 15_, 1357808. https://doi.org/10.3389/fpsyg.2024.1357808
+- Sperati, A., Acevedo, B. P., Dellagiulia, A., Fasolo, M., Spinelli, M., D'Urso, G., & Lionetti, F. (2024). The contribution of Sensory Processing Sensitivity and internalized attachment representations on emotion regulation competencies in school-age children. _Frontiers in Psychology, 15_, 1357808. <https://doi.org/10.3389/fpsyg.2024.1357808>
 ```
 
 - [ ] **Step 2: Write `anak-dah-masuk-sekolah.md`** (BM, `lang: ms`)
