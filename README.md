@@ -74,15 +74,15 @@ docs/
 
 EN content resolves to one of three states:
 
-- **REAL (sourced).** Copy quoted from an authoritative source: the live **Wix** scrape, the **company-profile PDF** (2026-05-24), the printed **brochure**, and **co-director Nasirah's** WhatsApp corrections. This includes: the About-Us paragraph + Vision & Mission band; the 7 service items (screening and assessment are now **separate** services) + the four-programme block; the real staff roster (names, roles, credentials) + the Wix-sourced bios for the first four members; the corrected contact block — real email **urbaneethos@yahoo.com**, full address (`No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor`), and corrected hours (**Mon 12PM–5PM, Tue–Sat 9AM–6PM, closed Sun & public holidays**); the home positioning line; the careers/benefits copy; the year-end promo article; and the upgraded chatbot service answers.
+- **REAL (sourced).** Copy quoted from an authoritative source: the live **Wix** scrape, the **company-profile PDF** (2026-05-24), the printed **brochure**, and **co-director Nasirah's** WhatsApp corrections. This includes: the About-Us paragraph + Vision & Mission band; the 7 service items (screening and assessment are now **separate** services) + the four-programme block; the real staff roster (names, roles, credentials) + the Wix-sourced bios for the first four members; the corrected contact block — real email **urbaneethos@yahoo.com**, full address (`No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor`), and corrected hours (**Mon 12PM–5PM, Tue–Sat 9AM–6PM, closed Sun & public holidays**); the home positioning line + hero headline ("Therapy for every stage of life", distilled from the co-director's all-ages therapy-centre directive); the careers/benefits copy; the year-end promo article; and the upgraded chatbot service answers.
 
-- **⟪PLACEHOLDER⟫ lorem (greppable).** Any slot no source covers is filled with Latin lorem ipsum prefixed by the `⟪PLACEHOLDER⟫` sentinel, and its key is moved into a sibling `_placeholder` map (parity-walked, so mirrored EN↔MS). Find every one:
+- **⟪PLACEHOLDER⟫ lorem (greppable, never rendered).** Any slot no source covers carries Latin lorem ipsum prefixed by the `⟪PLACEHOLDER⟫` sentinel, with its key in a sibling `_placeholder` map (parity-walked, so mirrored EN↔MS). The sentinel is a **tracking marker, not display copy**: `stripPlaceholder()` in `assets/js/i18n.js` suppresses it at the render layer, so a placeholder slot shows as empty (its block is skipped) instead of "Lorem ipsum". The markers stay in the JSON for the pre-launch swap — find every one:
 
   ```
-  grep -rn "⟪PLACEHOLDER⟫" content/ *.html
+  grep -rn "⟪PLACEHOLDER⟫" content/
   ```
 
-  Current lorem slots: 5 staff bios + all 9 staff personal lines; 8 service sub-fields (incl. drafted FAQ pairs); the home hero headline, 3 home staff-card personal lines, and events blurb; privacy sections §1–§9 bodies; the chatbot pricing answer; two careers slots; and one line in the promo article.
+  Current lorem slots: 5 staff bios + all 9 staff personal lines; 8 service sub-fields (incl. drafted FAQ pairs); 3 home staff-card personal lines + events blurb; privacy sections §1–§9 bodies; the chatbot pricing answer; two careers slots. (The hero headline is now real — see below.)
 
 - **KEEP-functional scaffold.** Functional UI copy that isn't marketing prose and stays as-is: the PDPA **consent banner** (whole `consent.json`, still `_draft`), the **chatbot** decision-tree structure, contact **form labels** (`contact.json` `form.fields.tellUsMore*` stay `_draft` — functional, unsourced), and **nav / ARIA** strings. The only legitimate `_draft` survivors in the tree are these two files (EN + MS each).
 

@@ -1,6 +1,6 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-07-27 (authoritative content replacement landed on branch `content/authoritative-replacement`; GitHub target: `Kintsugi-Design/urbane-ethos`)
+**Last updated:** 2026-07-27 (authoritative content replacement + therapy-centre design pass; GitHub target: `Kintsugi-Design/urbane-ethos`)
 **HEAD:** on `main`
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 **Pages deploy (immediate):** push `main` to `git@github.com:Kintsugi-Design/urbane-ethos.git`. GitLab Pages workflow (`.gitlab-ci.yml`) is committed but deferred — instance Pages enablement pending. See Workstream 2.
@@ -18,6 +18,15 @@ Just landed (Phase 4): **canggih layer** — atmospheric depth (A1 page-load ink
 Just landed (Phase 2): **photography + YouTube scaffolding** — `.anchor-photo` figure component for considered photo placeholders + lazy click-to-load `.yt-embed` component for video slots. 6 anchor photos + 2 custom YouTube thumbnails seeded via picsum.photos in `assets/img/anchors/`. New `media.*` i18n namespace mirrored EN + MS (MS marked `_draft: true` for translator review). Home hero replaces the "Watch our intro" CTA with a yt-embed; contact page adds a centre-tour yt-embed below the address block. Anchor photos on home, about, services heroes + mood images on first 3 service blocks. Real photos + real YouTube IDs swap in pre-launch by filename / data-yt-id replacement only — zero markup changes. axe-core still: 0 serious/critical across all 8 pages.
 
 Just landed (Phase 3 prep): **Pages deployment infrastructure (GitHub + GitLab)** — all absolute paths converted to relative (`/foo` → `./foo`) across 8 HTML files + 5 JS modules so the prototype works identically at root, custom-domain root, OR repo-subpath (e.g. `username.github.io/urbane-ethos/`). Added `.github/workflows/pages.yml` (GitHub Pages) and `.gitlab-ci.yml` (GitLab Pages) — both run an `i18n parity` gate then rsync-stage an artifact with the same exclusion list (no `docs/`, `bin/`, `test/`, `Gemfile*`, internal plans/scrapes, `.DS_Store`). Same content publishes to both targets. Added `.nojekyll` (disable Jekyll on GH), custom `404.html` matching the brand idiom, and `.gitignore` entries for `_brief/`, `_site/`, `public/`, `node_modules/`. axe-core still: 0 serious/critical across all 8 pages + 404. Local `bin/server` workflow unchanged.
+
+## Design pass — therapy-centre positioning — landed 2026-07-27
+
+Branch `design/therapy-centre-positioning`. Design-review pass on top of the existing Lavender design system, driven by co-director Nasirah's positioning ("highlight that we are a therapy center"; ages 0–20 expanding to elderly).
+
+- **FINDING-001 — hero H1 was lorem.** The 72px home headline rendered `⟪PLACEHOLDER⟫ Lorem ipsum` (the single biggest element on the page). Replaced with a real headline distilled from Nasirah's directive: EN **"Therapy for every stage of life"** / MS **"Terapi untuk setiap peringkat kehidupan"** (leads with "Therapy", "every stage of life" = all ages). Reword freely — it's one key in `content/{en,ms}/home.json`.
+- **FINDING-002 — the prototype rendered raw lorem to viewers.** Staff cards, events, service fields, careers and the promo post showed literal "Lorem ipsum" to anyone reviewing the site (incl. the co-director). Added `stripPlaceholder()` to `assets/js/i18n.js`, applied at the render layer (data-i18n text + the inline render loops on home/staff/services/privacy/careers; static lorem line dropped from the promo post). Placeholder-flagged copy now renders **empty** (its block skipped), while the `⟪PLACEHOLDER⟫` markers stay in the JSON for the pre-launch swap. Privacy §1–§9 (still lorem) are skipped entirely, leaving §0 + the prototype disclaimer.
+- Verified: axe 0 violations on all changed pages; parity green; no `⟪PLACEHOLDER⟫` renders anywhere (grep the JSON, not the DOM, to find remaining slots).
+- **Still deferred (needs real assets, not fixable in code):** placeholder imagery — the hero "therapy room photo", the map/location tile, blog thumbnails, and per-service mood images are all diagonal-stripe Picsum placeholders. They read as unfinished and need real photography (same shoot + consent workflow as the staff headshots).
 
 ## Authoritative content replacement — landed 2026-07-27
 
