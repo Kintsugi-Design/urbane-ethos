@@ -19,9 +19,18 @@ Just landed (Phase 2): **photography + YouTube scaffolding** — `.anchor-photo`
 
 Just landed (Phase 3 prep): **Pages deployment infrastructure (GitHub + GitLab)** — all absolute paths converted to relative (`/foo` → `./foo`) across 8 HTML files + 5 JS modules so the prototype works identically at root, custom-domain root, OR repo-subpath (e.g. `username.github.io/urbane-ethos/`). Added `.github/workflows/pages.yml` (GitHub Pages) and `.gitlab-ci.yml` (GitLab Pages) — both run an `i18n parity` gate then rsync-stage an artifact with the same exclusion list (no `docs/`, `bin/`, `test/`, `Gemfile*`, internal plans/scrapes, `.DS_Store`). Same content publishes to both targets. Added `.nojekyll` (disable Jekyll on GH), custom `404.html` matching the brand idiom, and `.gitignore` entries for `_brief/`, `_site/`, `public/`, `node_modules/`. axe-core still: 0 serious/critical across all 8 pages + 404. Local `bin/server` workflow unchanged.
 
-## Blog generator — landed 2026-07-28
+## Blog generator + full blog migration — landed 2026-07-28
 
-Branch `feat/blog-generator`. The 4 live-site blog articles that previously `externalUrl`-deep-linked off the prototype are now **local static pages**, and blog posts are authored from Markdown through one shared template.
+Branch `feat/blog-generator`. **All 37 live-site blog posts** (enumerated from the Wix `blog-posts-sitemap.xml`) are now **local static pages with their images**, authored from Markdown through one shared template. Previously only 4 were local and the rest `externalUrl`-deep-linked off the prototype.
+
+- **Scale:** 38 local pages total = 37 migrated blog posts + the local-only year-end promo. Content scraped from the live site (Wix server-renders post bodies, so `curl` worked; one JS-only post recovered via the browse daemon), authored into `content/blog/posts/*.md` by a fan-out of 33 subagents (Fable-orchestrated / subagent-driven), each inferring category + language and placing local images.
+- **Images:** 51 hero/inline images downloaded from Wix, capped to 1400px into `assets/img/blog/<slug>/` (~7.8 MB total; one 17 MB animated GIF flattened to a 184 KB JPG). Inline images embedded in-body; hero rendered by the template. All have alt text — axe 0 violations on sampled pages.
+- **Categories:** `blog.json` expanded to Parenting / Development / Speech & Language / Occupational Therapy / Career / Events / Notices / Promo. Category is inferred per post (not in the source data); a few were hand-corrected in review.
+- **Open items:** ~10 posts are dated greetings / expired one-off announcements (Happy Merdeka, Selamat Hari Raya, "Registrations EIP 2020 open", etc.) — migrated faithfully per client request ("all of them"), prune later if desired. `register-now-for-e-coaching` had no server-rendered content; its date (2020-04-03) came from the sitemap `lastmod` and is flagged `date_inferred`. Machine-inferred categories/language on the 33 authored posts still want a human skim.
+
+### Earlier this session (same branch): the generator itself
+
+The 4 live-site blog articles that previously `externalUrl`-deep-linked off the prototype are now **local static pages**, and blog posts are authored from Markdown through one shared template.
 
 - **New generator:** `bin/build-blog.rb` reads `content/blog/posts/*.md` (YAML frontmatter + Markdown body), renders each through `content/blog/_post.html.erb` (chrome identical to the old hand-authored promo page), writes `post-<slug>.html` at the repo root, and rebuilds the `posts[]` array of `content/blog.json` (localUrl, sorted by date desc, preserving `hero`/`categories`/`featured`/`_meta`). Idempotent — re-running produces no diff.
 - **kramdown** added as a Gemfile `:development`-group gem (authoring-time only; `bin/server` and the Pages deploy never run the generator — they serve committed static HTML). Plain kramdown parser, not GFM (GFM needs an extra gem and buys us nothing here).

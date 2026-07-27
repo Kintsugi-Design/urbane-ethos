@@ -118,7 +118,9 @@ Blog articles are authored as Markdown in `content/blog/posts/*.md` (YAML frontm
 ruby bin/build-blog.rb
 ```
 
-Requires the `kramdown` dev gem (`bundle install`). The generator is authoring-time only — deployment serves the committed `post-*.html` as-is; no build runs in CI. To add a post: drop a new `.md` in `content/blog/posts/`, run the generator, commit the generated files. Bodies render in their source language (EN, plus one BM post) and stay parity-exempt.
+Requires the `kramdown` dev gem (`bundle install`). The generator is authoring-time only — deployment serves the committed `post-*.html` as-is; no build runs in CI. To add a post: drop a new `.md` in `content/blog/posts/`, put any images in `assets/img/blog/<slug>/` (reference them with `hero_image:` frontmatter + inline `![](./assets/img/blog/<slug>/…)`), run the generator, commit the generated files. Bodies render in their source language (mostly EN, some BM) and stay parity-exempt.
+
+All 37 live-site posts have been migrated to local pages (38 total incl. the year-end promo); `content/blog.json` `categories` is the filter set and each post's `category` lives in its frontmatter.
 
 ## Known a11y gaps
 
