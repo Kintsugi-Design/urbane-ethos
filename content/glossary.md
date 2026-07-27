@@ -38,11 +38,20 @@ Fixed translations applied before per-string translation. Do not translate these
 - Submit → Hantar
 
 ## Concerns
-- Speech → Pertuturan
-- Motor skills → Kemahiran motor
-- Behaviour → Tingkah laku
-- Learning → Pembelajaran
+- Speech & communication → Pertuturan & komunikasi
+- Movement & motor skills → Pergerakan & kemahiran motor
+- Behaviour & emotions → Tingkah laku & emosi
+- Learning & cognition → Pembelajaran & kognitif
+- Daily living & independence → Kehidupan seharian & berdikari
 - Not sure → Tidak pasti
+
+## Age bands
+- Early years → Awal kanak-kanak
+- Preschool → Prasekolah
+- School age → Usia sekolah
+- Teenager → Remaja
+- Adult → Dewasa
+- Older adult → Warga emas
 
 ## Stages
 - Just exploring → Sekadar melihat-lihat

@@ -12,6 +12,14 @@
     "staffFeatured.2.personalLine": true,
     "events.blurb": true
   },
+  "_draft": {
+    "personalization.heading": true,
+    "personalization.subheading": true,
+    "personalization.ageNotes.child": true,
+    "personalization.ageNotes.teen": true,
+    "personalization.ageNotes.adult": true,
+    "personalization.ageNotes.olderAdult": true
+  },
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Pusat Intervensi Awal Urbane Ethos",
@@ -21,20 +29,38 @@
     "secondaryCta": "Tonton pengenalan kami"
   },
   "personalization": {
-    "heading": "Ceritakan sedikit tentang anak anda",
-    "subheading": "Langkau jika anda lebih suka melihat-lihat sendiri.",
-    "ageLabel": "Umur anak",
-    "ageOptions": ["0–2", "3–5", "6–9", "10+"],
+    "heading": "Ceritakan sedikit tentang orang yang memerlukan sokongan",
+    "subheading": "Anda, anak anda, atau orang yang anda sayangi — pada sebarang usia. Langkau jika anda lebih suka melihat-lihat sendiri.",
+    "ageLabel": "Kumpulan umur",
+    "ageOptions": [
+      { "value": "early-years", "label": "0–3 · Awal kanak-kanak" },
+      { "value": "preschool", "label": "4–6 · Prasekolah" },
+      { "value": "school-age", "label": "7–12 · Usia sekolah" },
+      { "value": "teen", "label": "13–17 · Remaja" },
+      { "value": "adult", "label": "18–59 · Dewasa" },
+      { "value": "older-adult", "label": "60+ · Warga emas" }
+    ],
     "concernLabel": "Bidang utama yang membimbangkan",
     "concernOptions": [
-      { "value": "speech", "label": "Pertuturan" },
-      { "value": "motor-skills", "label": "Kemahiran motor" },
-      { "value": "behaviour", "label": "Tingkah laku" },
-      { "value": "learning", "label": "Pembelajaran" },
+      { "value": "speech", "label": "Pertuturan & komunikasi" },
+      { "value": "motor-skills", "label": "Pergerakan & kemahiran motor" },
+      { "value": "behaviour", "label": "Tingkah laku & emosi" },
+      { "value": "learning", "label": "Pembelajaran & kognitif" },
+      { "value": "daily-living", "label": "Kehidupan seharian & berdikari" },
       { "value": "not-sure", "label": "Tidak pasti" }
     ],
     "stageLabel": "Anda berada di peringkat mana?",
-    "stageOptions": ["Sekadar melihat-lihat", "Ingin membuat penilaian", "Sedia untuk menempah"],
+    "stageOptions": [
+      "Sekadar melihat-lihat",
+      "Ingin membuat penilaian",
+      "Sedia untuk menempah"
+    ],
+    "ageNotes": {
+      "child": "Untuk kanak-kanak 12 tahun ke bawah, tanya kami tentang Program Intervensi Awal — sesi kesediaan sekolah (umur 6–12) dan kumpulan bermain (umur 3–5).",
+      "teen": "Untuk remaja, kami menjalankan kumpulan kemahiran sosial (13–18), latihan kemahiran vokasional (15+) dan kumpulan Aktiviti Kehidupan Seharian (ADL) untuk remaja, di samping terapi individu.",
+      "adult": "Dewasa juga dialu-alukan — sesi individu Terapi Carakerja, terapi pertuturan-bahasa, Psikologi Klinikal dan rangsangan kognitif.",
+      "olderAdult": "Untuk warga emas, kami menawarkan terapi individu, rangsangan kognitif, serta sokongan kehidupan seharian dan pemulihan."
+    },
     "submit": "Tunjukkan apa yang berkaitan",
     "skip": "Langkau"
   },

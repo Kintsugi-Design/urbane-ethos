@@ -9,6 +9,14 @@
     "staffFeatured.2.personalLine": true,
     "events.blurb": true
   },
+  "_draft": {
+    "personalization.heading": true,
+    "personalization.subheading": true,
+    "personalization.ageNotes.child": true,
+    "personalization.ageNotes.teen": true,
+    "personalization.ageNotes.adult": true,
+    "personalization.ageNotes.olderAdult": true
+  },
   "hero": {
     "eyebrow": "Urbane Ethos",
     "title": "Urbane Ethos Early Intervention Center",
@@ -18,20 +26,38 @@
     "secondaryCta": "Watch our intro"
   },
   "personalization": {
-    "heading": "Tell us a little about your child",
-    "subheading": "Skip if you'd rather browse on your own.",
-    "ageLabel": "Child's age",
-    "ageOptions": ["0–2", "3–5", "6–9", "10+"],
+    "heading": "Tell us a little about the person who needs support",
+    "subheading": "You, your child, or someone you care for — any age. Skip if you'd rather browse on your own.",
+    "ageLabel": "Age group",
+    "ageOptions": [
+      { "value": "early-years", "label": "0–3 · Early years" },
+      { "value": "preschool", "label": "4–6 · Preschool" },
+      { "value": "school-age", "label": "7–12 · School age" },
+      { "value": "teen", "label": "13–17 · Teenager" },
+      { "value": "adult", "label": "18–59 · Adult" },
+      { "value": "older-adult", "label": "60+ · Older adult" }
+    ],
     "concernLabel": "Main area of concern",
     "concernOptions": [
-      { "value": "speech", "label": "Speech" },
-      { "value": "motor-skills", "label": "Motor skills" },
-      { "value": "behaviour", "label": "Behaviour" },
-      { "value": "learning", "label": "Learning" },
+      { "value": "speech", "label": "Speech & communication" },
+      { "value": "motor-skills", "label": "Movement & motor skills" },
+      { "value": "behaviour", "label": "Behaviour & emotions" },
+      { "value": "learning", "label": "Learning & cognition" },
+      { "value": "daily-living", "label": "Daily living & independence" },
       { "value": "not-sure", "label": "Not sure" }
     ],
     "stageLabel": "What stage are you at?",
-    "stageOptions": ["Just exploring", "Looking to assess", "Ready to book"],
+    "stageOptions": [
+      "Just exploring",
+      "Looking to assess",
+      "Ready to book"
+    ],
+    "ageNotes": {
+      "child": "For children 12 and below, ask us about the Early Intervention Programme — school-readiness sessions (ages 6–12) and play group (ages 3–5).",
+      "teen": "For teens we run social-skills groups (13–18), vocational skills training (15+) and an ADL group for adolescents, alongside individual therapy.",
+      "adult": "Adults are welcome too — individual occupational therapy, speech-language therapy, clinical psychology and cognitive stimulation sessions.",
+      "olderAdult": "For older adults we offer individual therapy, cognitive stimulation, and daily-living and rehabilitation support."
+    },
     "submit": "Show me what's relevant",
     "skip": "Skip"
   },
