@@ -59,12 +59,17 @@
 <main id="main">
   <section class="hero">
     <div class="wrap">
-      <figure class="anchor-photo">
-        <img src="./assets/img/anchors/services-hero.jpg" alt="" data-i18n-attr="alt:common.media.alts.servicesHero">
-        <figcaption data-i18n="common.media.captions.servicesHero">A hands-on early-literacy session.</figcaption>
-      </figure>
-      <h1 data-i18n="services.hero.title">Services</h1>
-      <p class="lede" data-i18n="services.hero.subtitle"></p>
+      <div class="hero-grid">
+        <div>
+          <h1 data-i18n="services.hero.title">Services</h1>
+          <p class="lede" data-i18n="services.hero.subtitle"></p>
+          <nav class="service-jump" id="service-jump" data-i18n-attr="aria-label:common.nav.services"></nav>
+        </div>
+        <figure class="anchor-photo">
+          <img src="./assets/img/anchors/services-hero.jpg" alt="" data-i18n-attr="alt:common.media.alts.servicesHero">
+          <figcaption data-i18n="common.media.captions.servicesHero">A hands-on early-literacy session.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
   <section class="section">
@@ -142,6 +147,14 @@ async function renderServices() {
   const fhrs = document.getElementById("footer-hours");
   if (fhrs) fhrs.replaceChildren(...(common.footer?.hours || []).map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
 
+  const jump = document.getElementById("service-jump");
+  if (jump) jump.replaceChildren(...(services.items || []).map(item => {
+    const a = document.createElement("a");
+    a.href = `#${item.key}`;
+    a.textContent = item.title;
+    return a;
+  }));
+
   const root = document.getElementById("services-blocks");
   root.replaceChildren(...(services.items || []).map((item, i) => {
     const sec = document.createElement("article");
@@ -150,24 +163,37 @@ async function renderServices() {
     // Trust-beat (C1 propagation, T11): first service-block on the page acts
     // as the per-service intro and takes viewport-minus-header height.
     if (i === 0) sec.dataset.trustBeat = "service-intro";
+    // Blocks without a shot mood photo get the design's stripe-fill
+    // "photo coming here" placeholder so the head column never sits empty.
+    const stripes = ["blue", "green", "pink", "primary"];
     const moodImage = i < 3
       ? `<figure class="anchor-photo">
            <img src="./assets/img/anchors/service-mood-${i + 1}.jpg" alt="" data-i18n-attr="alt:common.media.alts.serviceMood${i + 1}">
            <figcaption data-i18n="common.media.captions.serviceMood${i + 1}">A considered learning moment.</figcaption>
          </figure>`
-      : "";
+      : `<div class="stripe-fill stripe-fill--${stripes[i % stripes.length]}" role="img" aria-label="[REAL PHOTO REQUIRED] ${esc(item.title)} session photo">
+           <span class="stripe-label">photo coming here</span>
+         </div>`;
     const whatItIs = stripPlaceholder(item.whatItIs);
     const whoItsFor = stripPlaceholder(item.whoItsFor);
     const whatToExpect = stripPlaceholder(item.whatToExpect);
     const faqs = (item.faqs || []).filter(f => stripPlaceholder(f.q) && stripPlaceholder(f.a));
+    // W9 layout: two-column grid ≥768px — sticky head (title + mood photo)
+    // beside a measure-capped copy column; stacks on mobile.
     sec.innerHTML = `
-      ${moodImage}
-      <h2>${esc(item.title)}</h2>
-      ${whatItIs ? `<p><strong>What it is:</strong> ${esc(whatItIs)}</p>` : ""}
-      ${whoItsFor ? `<p><strong>Who it's for:</strong> ${esc(whoItsFor)}</p>` : ""}
-      ${whatToExpect ? `<p><strong>What to expect:</strong> ${esc(whatToExpect)}</p>` : ""}
-      ${faqs.map(f => `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}
-      <a class="btn btn--primary" href="./contact.html?service=${encodeURIComponent(item.key)}">${esc(item.cta || "Enquire")}</a>`;
+      <div class="service-layout${moodImage ? " service-layout--media" : ""}">
+        <div class="service-head">
+          <h2>${esc(item.title)}</h2>
+          ${moodImage}
+        </div>
+        <div class="service-copy">
+          ${whatItIs ? `<p><strong>What it is:</strong> ${esc(whatItIs)}</p>` : ""}
+          ${whoItsFor ? `<p><strong>Who it's for:</strong> ${esc(whoItsFor)}</p>` : ""}
+          ${whatToExpect ? `<p><strong>What to expect:</strong> ${esc(whatToExpect)}</p>` : ""}
+          ${faqs.map(f => `<details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}
+          <a class="btn btn--primary" href="./contact.html?service=${encodeURIComponent(item.key)}">${esc(item.cta || "Enquire")}</a>
+        </div>
+      </div>`;
     return sec;
   }));
 

@@ -915,3 +915,48 @@
   }
   .yt-embed--compact[data-yt-state="playing"] { display: block; aspect-ratio: 16/9; padding: 0; }
 }
+
+/* ── W9 — services page responsive content layout ─────────────────────────
+   Mobile: single column (title → photo → copy → FAQs → CTA).
+   ≥768px: two-column grid per service — sticky head (title + mood photo)
+   left, measure-capped copy right — so the 7-block page scans instead of
+   scrolling as one monotonous column. Jump-nav chips in the hero deep-link
+   to each block (scroll-margin clears the sticky header). Programmes grid
+   caps at 2-up ≥880px for a readable card measure (4 items → clean 2×2). */
+@layer components {
+  .service-jump { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+  .service-jump a {
+    background-image: none;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background: var(--color-cream-soft);
+    color: var(--color-ink);
+    font: 500 var(--type-small) var(--font-sans);
+    transition: border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+  }
+  .service-jump a:hover, .service-jump a:focus-visible { border-color: var(--color-primary-deep); color: var(--color-primary-deep); }
+
+  .service-block { scroll-margin-top: calc(var(--canggih-header-h) + var(--space-4)); }
+  .service-layout { display: grid; gap: var(--space-6); align-items: start; }
+  .service-head { display: grid; gap: var(--space-5); align-content: start; }
+  .service-head h2 { margin: 0; }
+  .service-head .anchor-photo { margin: 0; }
+  .service-head .stripe-fill { aspect-ratio: 4 / 3; border-radius: var(--radius-2); }
+  .service-copy > p { max-width: var(--content-max); }
+  .service-copy .faq { max-width: var(--content-max); border-bottom: 1px solid var(--color-line); }
+  .service-copy .faq:first-of-type { border-top: 1px solid var(--color-line); margin-top: var(--space-6); }
+  .service-copy .faq > p { color: var(--color-ink-soft); padding-bottom: var(--space-4); margin: 0; }
+  .service-copy > .btn { margin-top: var(--space-6); }
+
+  @media (min-width: 768px) {
+    .service-layout { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-10); }
+    .service-head { position: sticky; top: calc(var(--canggih-header-h) + var(--space-6)); }
+  }
+  @media (min-width: 1024px) {
+    .service-layout { gap: var(--space-16); }
+  }
+  @media (min-width: 880px) {
+    .services #programmes-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+}
