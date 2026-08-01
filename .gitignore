@@ -12,3 +12,8 @@ node_modules/
 
 # Local responsive-sweep screenshots (W6.6) — see docs/HANDOVER.md
 docs/responsive-sweep/
+
+# Raw source imagery — multi-MB originals kept locally only. The served site
+# uses the optimized derivatives in assets/img/anchors/ (built via ImageMagick).
+assets/img/photos/
+assets/img/artworks/

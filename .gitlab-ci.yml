@@ -56,6 +56,8 @@ pages:
       --exclude='_site/'
       --exclude='public/'
       --exclude='README.md'
+      --exclude='assets/img/photos/'
+      --exclude='assets/img/artworks/'
       --exclude='.DS_Store'
       ./ public/
     - ls -la public/ | head -20

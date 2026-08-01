@@ -59,30 +59,31 @@
     "mapTitle": "Google Map showing the Urbane Ethos centre in Denai Alam, Shah Alam"
   },
   "media": {
-    "_note": "Real photos with parental consent + real centre-tour video are pre-launch swaps. Replace the JPGs in assets/img/anchors/ keeping the same filenames, and update the data-yt-id attributes on each <div class=\"yt-embed\"> with the real YouTube IDs. The visible captions below stay as-is until launch.",
+    "_note": "Anchor JPGs now hold interim imagery: real, face-hidden centre photos (about/services/service-mood) plus on-brand illustrations (home hero, intro-video thumb). PENDING before launch: (1) yt-thumb-centre-tour.jpg shows identifiable children — confirm parental consent or swap; (2) replace illustrations with real consented photos where a real shot is preferred; (3) set real data-yt-id on each <div class=\"yt-embed\">. Keep the same filenames when swapping.",
     "playButton": "Play video",
     "captions": {
-      "homeHero": "Therapy room interior, warm light · Placeholder via Picsum.",
-      "aboutHero": "Parent and child at the centre · Placeholder via Picsum.",
-      "servicesHero": "A gentle therapy moment · Placeholder via Picsum.",
-      "serviceMood1": "Considered atmosphere · Placeholder via Picsum.",
-      "serviceMood2": "Considered atmosphere · Placeholder via Picsum.",
-      "serviceMood3": "Considered atmosphere · Placeholder via Picsum.",
-      "ytHomeIntro": "Our intro · Placeholder.",
-      "ytCentreTour": "Centre tour · Placeholder."
+      "homeHero": "Our sensory play space.",
+      "aboutHero": "Children learning side by side at the centre.",
+      "servicesHero": "A hands-on early-literacy session.",
+      "serviceMood1": "Letter-formation practice, one stroke at a time.",
+      "serviceMood2": "Writing and colouring, side by side.",
+      "serviceMood3": "Matching sounds to letters.",
+      "ytHomeIntro": "Our intro.",
+      "ytCentreTour": "A look around our centre."
     },
     "videoTitles": {
       "ytHomeIntro": "Urbane Ethos — introduction (placeholder)",
       "ytCentreTour": "Urbane Ethos — centre tour (placeholder)"
     },
     "alts": {
-      "homeHero": "Warm interior with natural light",
-      "homeHeroIntroVideo": "Centre intro video — sage-toned placeholder thumbnail",
-      "aboutHero": "A parent and child together in soft daylight",
-      "servicesHero": "A calm therapy session, no faces visible",
-      "serviceMood1": "Calm interior detail",
-      "serviceMood2": "Soft natural materials",
-      "serviceMood3": "Considered light study"
+      "homeHero": "Illustration of a bright sensory play room with soft blocks and a play mat",
+      "homeHeroIntroVideo": "Illustration of a sunlit classroom with children's tables and a reading corner",
+      "aboutHero": "Two children writing in their notebooks at a table, seen from behind",
+      "servicesHero": "Children matching pictures to vowel sounds with coloured pencils",
+      "serviceMood1": "A child's hand practising letter formation in a workbook",
+      "serviceMood2": "A child writing while another colours a worksheet",
+      "serviceMood3": "Coloured pencils beside a vowel-matching worksheet",
+      "centreTour": "Two children chatting on a bench by the centre's painted dinosaur mural"
     }
   }
 }

@@ -354,6 +354,7 @@
     box-shadow: var(--shadow-3);
   }
   .media-card .stripe-fill { aspect-ratio: 4/3; }
+  .media-card img { width: 100%; height: auto; display: block; }
   .media-card figcaption { padding: 14px 18px; font-size: 0.84rem; color: var(--color-ink-muted); margin: 0; }
 
   /* Blog cards carry a striped image top (design idiom), cycling palette tints. */
