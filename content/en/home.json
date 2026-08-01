@@ -41,7 +41,7 @@
       { "value": "adult", "label": "18–59 · Adult" },
       { "value": "older-adult", "label": "60+ · Older adult" }
     ],
-    "concernLabel": "Main area of concern",
+    "concernLabel": "Main areas of concern — choose any that apply",
     "concernOptions": [
       { "value": "speech", "label": "Speech & communication" },
       { "value": "motor-skills", "label": "Movement & motor skills" },

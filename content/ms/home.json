@@ -44,7 +44,7 @@
       { "value": "adult", "label": "18–59 · Dewasa" },
       { "value": "older-adult", "label": "60+ · Warga emas" }
     ],
-    "concernLabel": "Bidang utama yang membimbangkan",
+    "concernLabel": "Bidang utama yang membimbangkan — pilih mana-mana yang berkaitan",
     "concernOptions": [
       { "value": "speech", "label": "Pertuturan & komunikasi" },
       { "value": "motor-skills", "label": "Pergerakan & kemahiran motor" },

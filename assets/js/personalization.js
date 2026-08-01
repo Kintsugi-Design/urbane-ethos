@@ -52,6 +52,13 @@ const RULES = {
 const ADULT_BANDS = new Set(["adult", "older-adult"]);
 const AGE_GATED_SERVICE_KEYS = ["eip"]; // children ≤12 only
 
+// "concern" is multi-select: the survey stores an array of slugs. Older
+// sessions (or a single-select fallback) may hold a bare string — normalize
+// both to a slug array so every consumer can treat concern uniformly.
+export function asConcerns(concern) {
+  return Array.isArray(concern) ? concern.filter(Boolean) : (concern ? [concern] : []);
+}
+
 export function read() {
   if (!isAllowed("personalization")) return null;
   try { return JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch { return null; }
@@ -72,13 +79,16 @@ export function reset() {
 
 export function reorderServices(container) {
   const data = read();
-  if (!data?.concern) return;
+  const concerns = asConcerns(data?.concern);
+  if (!concerns.length) return;
   const cards = [...container.querySelectorAll("[data-service-key]")];
-  const priorityKey = RULES.concernToService[data.concern];
-  const priority = cards.find(c => c.dataset.serviceKey === priorityKey);
-  if (priority && container.firstElementChild !== priority) {
-    container.prepend(priority);
-  }
+  // Prepend the matched service for each concern. Dedupe by service key, then
+  // prepend in reverse so the first-selected concern's service lands at front.
+  const keys = [...new Set(concerns.map(c => RULES.concernToService[c]).filter(Boolean))];
+  keys.reverse().forEach(priorityKey => {
+    const priority = cards.find(c => c.dataset.serviceKey === priorityKey);
+    if (priority) container.prepend(priority);
+  });
   // Adults / older adults never see age-gated (children-only) services first.
   if (ADULT_BANDS.has(data.age)) {
     AGE_GATED_SERVICE_KEYS.forEach(key => {
@@ -89,17 +99,17 @@ export function reorderServices(container) {
 }
 
 export function recommendedBlog(posts) {
-  const data = read();
-  if (!data?.concern) return posts.slice(0, 3);
-  const tags = RULES.concernToBlogTags[data.concern] || [];
+  const concerns = asConcerns(read()?.concern);
+  if (!concerns.length) return posts.slice(0, 3);
+  const tags = [...new Set(concerns.flatMap(c => RULES.concernToBlogTags[c] || []))];
   const tagged = posts.filter(p => p.tags?.some(t => tags.includes(t)));
   return tagged.length ? tagged.slice(0, 2) : posts.slice(0, 2);
 }
 
-export function recommendedStaffId() {
-  const data = read();
-  if (!data?.concern) return null;
-  return RULES.concernToStaff[data.concern] || null;
+// One staff match per selected concern, deduped, in selection order.
+export function recommendedStaffIds() {
+  const concerns = asConcerns(read()?.concern);
+  return [...new Set(concerns.map(c => RULES.concernToStaff[c]).filter(Boolean))];
 }
 
 // Returns the home.json path (relative to the loaded namespace object) of the
@@ -121,7 +131,7 @@ function attachSurvey(form) {
     const data = new FormData(form);
     write({
       age: data.get("age"),
-      concern: data.get("concern"),
+      concern: data.getAll("concern"),
       stage: data.get("stage")
     });
     const feedback = form.querySelector("[data-personalize-feedback]");
