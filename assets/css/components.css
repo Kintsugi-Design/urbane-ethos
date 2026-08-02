@@ -408,9 +408,11 @@
 
   /* Staff — small gradient avatar circles (home featured cards). */
   .staff-avatar {
-    width: 74px; height: 74px; border-radius: 50%;
+    /* Scale with the card: grows on wide 3-up desktop cards, floors at 96px
+       when the grid stacks 1-up on mobile. */
+    width: clamp(96px, 9vw, 132px); height: clamp(96px, 9vw, 132px); border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-serif); font-weight: 600; font-size: 1.4rem;
+    font-family: var(--font-serif); font-weight: 600; font-size: clamp(1.4rem, 2.6vw, 2rem);
     color: var(--color-ink); margin-bottom: var(--space-4);
     background: linear-gradient(135deg, var(--av-a), var(--color-primary-soft));
   }

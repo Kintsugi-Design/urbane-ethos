@@ -69,7 +69,7 @@
     "_note": "JPG anchor kini memuatkan imej sementara: foto pusat sebenar tanpa wajah (about/services/service-mood) serta ilustrasi mengikut jenama (hero laman utama, lakaran video pengenalan). PERLU sebelum pelancaran: (1) yt-thumb-centre-tour.jpg menunjukkan kanak-kanak yang boleh dikenali — sahkan kebenaran ibu bapa atau ganti; (2) ganti ilustrasi dengan foto sebenar berkebenaran jika foto lebih sesuai; (3) tetapkan data-yt-id sebenar pada setiap <div class=\"yt-embed\">. Kekalkan nama fail yang sama semasa menggantikan.",
     "playButton": "Mainkan video",
     "captions": {
-      "homeHero": "Ruang permainan deria kami.",
+      "homeHero": "Berkembang di setiap peringkat.",
       "aboutHero": "Kanak-kanak belajar bersama di pusat.",
       "servicesHero": "Sesi literasi awal secara amali.",
       "serviceMood1": "Latihan membentuk huruf, satu coretan pada satu masa.",
@@ -83,7 +83,7 @@
       "ytCentreTour": "Urbane Ethos — lawatan pusat (placeholder)"
     },
     "alts": {
-      "homeHero": "Ilustrasi bilik permainan deria yang cerah dengan blok lembut dan tikar permainan",
+      "homeHero": "Ilustrasi keluarga dan ahli terapi pelbagai usia bekerjasama di bawah sebuah pokok besar",
       "homeHeroIntroVideo": "Ilustrasi bilik darjah yang terang dengan meja kanak-kanak dan sudut bacaan",
       "aboutHero": "Dua kanak-kanak menulis dalam buku nota di meja, dilihat dari belakang",
       "servicesHero": "Seorang guru membimbing kanak-kanak di papan putih sementara rakan lain bekerja di meja",
