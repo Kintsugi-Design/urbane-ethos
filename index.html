@@ -77,8 +77,8 @@
         </div>
         <div class="hero-media">
           <figure class="media-card">
-            <img src="./assets/img/anchors/home-hero.jpg" alt="" data-i18n-attr="alt:common.media.alts.homeHero" width="1600" height="900">
-            <figcaption data-i18n="common.media.captions.homeHero">Our sensory play space.</figcaption>
+            <img src="./assets/img/artworks/header_4.png" alt="" data-i18n-attr="alt:common.media.alts.homeHero" width="1600" height="900">
+            <figcaption data-i18n="common.media.captions.homeHero">Grow through every stage.</figcaption>
           </figure>
           <!-- Single intro-video entry — design's redundant "Watch our intro" button dropped. -->
           <div class="yt-embed yt-embed--compact"
@@ -211,7 +211,7 @@
     <div class="wrap">
       <h2 data-i18n="home.blog.heading">From the blog</h2>
       <div class="grid-3" id="home-blog"></div>
-      <p><a class="link-arrow" href="./blog.html" data-i18n="home.blog.viewAll">View all articles</a></p>
+      <p class="section-more"><a class="link-arrow" href="./blog.html" data-i18n="home.blog.viewAll">View all articles</a></p>
     </div>
   </section>
 </main>
@@ -410,8 +410,13 @@ async function renderHome() {
       const card = document.createElement("article");
       card.className = "staff-card";
       const personalLine = stripPlaceholder(f.personalLine);
+      // Show the person's real (interim) headshot when we have one; otherwise
+      // fall back to the initials avatar. Mirrors staff.html's photo gate.
+      const avatar = (m.photo && m.photoInterim)
+        ? `<img class="staff-avatar staff-avatar--img" src="./${m.photo}" alt="${m.name}" loading="lazy" width="74" height="74">`
+        : `<div class="staff-avatar" role="img" aria-label="${m.name}">${initials}</div>`;
       card.innerHTML = `
-        <div class="staff-avatar" role="img" aria-label="${m.name}">${initials}</div>
+        ${avatar}
         <div class="staff-body">
           <p class="staff-greeting">${f.greeting}</p>
           <p class="staff-role">${m.role}</p>

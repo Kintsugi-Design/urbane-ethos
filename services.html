@@ -163,10 +163,20 @@ async function renderServices() {
     // Trust-beat (C1 propagation, T11): first service-block on the page acts
     // as the per-service intro and takes viewport-minus-header height.
     if (i === 0) sec.dataset.trustBeat = "service-intro";
+    // Bespoke per-service illustration takes priority over the index-based
+    // mood photo / stripe placeholder. Extend serviceArt as more land.
+    const serviceArt = {
+      specialed: { src: "./assets/img/anchors/service-specialed.jpg", altKey: "common.media.alts.serviceArtSpecialed" }
+    };
     // Blocks without a shot mood photo get the design's stripe-fill
     // "photo coming here" placeholder so the head column never sits empty.
     const stripes = ["blue", "green", "pink", "primary"];
-    const moodImage = i < 3
+    const art = serviceArt[item.key];
+    const moodImage = art
+      ? `<figure class="anchor-photo">
+           <img src="${art.src}" alt="" data-i18n-attr="alt:${art.altKey}" loading="lazy">
+         </figure>`
+      : i < 3
       ? `<figure class="anchor-photo">
            <img src="./assets/img/anchors/service-mood-${i + 1}.jpg" alt="" data-i18n-attr="alt:common.media.alts.serviceMood${i + 1}">
            <figcaption data-i18n="common.media.captions.serviceMood${i + 1}">A considered learning moment.</figcaption>

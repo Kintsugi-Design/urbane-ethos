@@ -416,6 +416,9 @@
   }
   .staff-grid .staff-card:nth-child(3n+2) .staff-avatar { background: linear-gradient(135deg, var(--av-b), var(--color-blue)); }
   .staff-grid .staff-card:nth-child(3n+3) .staff-avatar { background: linear-gradient(135deg, var(--av-c), var(--color-green)); }
+  /* Real (interim) headshot fills the avatar circle instead of initials;
+     top-biased crop keeps faces in frame for portrait headshots. */
+  .staff-avatar--img { object-fit: cover; object-position: center top; }
 
   /* Events — soft gradient band with the CTA on the right. */
   .events-band {
@@ -540,6 +543,9 @@
     font: 600 var(--type-body) var(--font-sans); color: var(--color-primary-deep);
     background: none; /* opt out of the global ink-draw underline */
   }
+  /* Trailing "view all / more" link under a section's card grid — the <p>'s
+     default 0 top-margin otherwise leaves it hugging the cards. */
+  .section-more { margin-top: var(--space-8); }
   .link-arrow::after { content: "\2192"; transition: transform 220ms var(--ease-out); }
   .link-arrow:hover { color: var(--color-primary); }
   .link-arrow:hover::after { transform: translateX(4px); }
