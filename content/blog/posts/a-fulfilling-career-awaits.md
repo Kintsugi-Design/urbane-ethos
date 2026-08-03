@@ -6,7 +6,7 @@ date: 2025-01-23
 category: Career
 read_time: 2 min read
 tags: [urbaneethos, special needs]
-hero_image: assets/img/scraped/blog-a-fulfilling-career-awaits.jpg
+hero_image: assets/img/blog/a-fulfilling-career-awaits/hero.webp
 lang: en
 source_url: https://www.urbaneethos.center/post/a-fulfilling-career-awaits-join-us-as-a-special-education-teacher
 excerpt: Are you passionate about making a difference in the lives of neurodiverse children and individuals with special needs? We have the perfect opportunity for you.

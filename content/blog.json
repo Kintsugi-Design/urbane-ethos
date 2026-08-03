@@ -24,7 +24,7 @@
       "date": "2025-12-01",
       "category": "Promo",
       "excerpt": "Our Annual Year End Promo! Full assessment at 20% off — plus First Intake bundle packages at 25% off. Contact 013-249 0069.",
-      "thumbnail": null,
+      "thumbnail": "assets/img/blog/year-end-promo/hero.webp",
       "tags": [
         "urbaneethos",
         "promo"
@@ -50,7 +50,7 @@
       "date": "2025-01-23",
       "category": "Career",
       "excerpt": "Are you passionate about making a difference in the lives of neurodiverse children and individuals with special needs? We have the perfect opportunity for you.",
-      "thumbnail": "assets/img/scraped/blog-a-fulfilling-career-awaits.jpg",
+      "thumbnail": "assets/img/blog/a-fulfilling-career-awaits/hero.webp",
       "tags": [
         "urbaneethos",
         "special needs"

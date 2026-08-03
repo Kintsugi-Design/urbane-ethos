@@ -271,6 +271,7 @@ import "./assets/js/personalization.js";
 import "./assets/js/chatbot.js";
 
 async function fetchJson(path) { return (await fetch(path)).json(); }
+const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
 async function renderHome() {
   const locale = getLocale();
@@ -440,9 +441,10 @@ async function renderHome() {
       recGrid.replaceChildren();
       recBlog.forEach(p => {
         const a = document.createElement("a");
-        a.href = p.externalUrl;
+        a.href = p.localUrl || p.externalUrl;
+        if (!p.localUrl) { a.target = "_blank"; a.rel = "noopener"; }
         a.className = "card";
-        a.innerHTML = `<div class="card-inner"><h3>${p.title}</h3><p>${p.excerpt}</p></div>`;
+        a.innerHTML = `<div class="card-inner"><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p></div>`;
         recGrid.append(a);
       });
       recStaff.forEach(m => {
@@ -457,14 +459,18 @@ async function renderHome() {
     }
   }
 
-  // Blog (3 latest)
+  // Blog (3 latest) — link to the local post page and show its real hero image.
   const blogWrap = document.getElementById("home-blog");
   if (blogWrap && Array.isArray(blog.posts)) {
     blogWrap.replaceChildren(...blog.posts.slice(0, 3).map(p => {
       const a = document.createElement("a");
-      a.href = p.externalUrl;
+      a.href = p.localUrl || p.externalUrl;
       a.className = "card card--media";
-      a.innerHTML = `<div class="stripe-fill card-media" aria-hidden="true"></div><div class="card-inner"><small>${p.date} &middot; ${p.category}</small><h3>${p.title}</h3><p>${p.excerpt}</p></div>`;
+      if (!p.localUrl) { a.target = "_blank"; a.rel = "noopener"; }
+      const media = p.thumbnail
+        ? `<img class="card-media" src="./${esc(p.thumbnail)}" alt="${esc(p.title)}" loading="lazy" decoding="async">`
+        : `<div class="stripe-fill card-media" aria-hidden="true"></div>`;
+      a.innerHTML = `${media}<div class="card-inner"><small>${esc(p.date)} &middot; ${esc(p.category)}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p></div>`;
       return a;
     }));
   }
