@@ -168,7 +168,7 @@
     align-items: center;
     box-sizing: border-box;
   }
-  .locale-toggle { padding: 3px; gap: 2px; }
+  .locale-toggle { padding: 4px; gap: 2px; }
   .fs-toggle {
     padding: 0 var(--space-3);
     gap: var(--space-1);
@@ -185,8 +185,8 @@
     color: var(--color-ink);
     border-radius: var(--radius-pill);
     font: inherit;
-    height: 100%;
-    min-block-size: 0;          /* override W6.5 floor — wrapper provides height */
+    align-self: stretch;        /* fill wrapper content-box so the pill insets evenly */
+    min-block-size: 0;          /* override W6.5 floor — wrapper provides the 40px touch target */
     display: inline-flex;
     align-items: center;
   }
@@ -360,6 +360,7 @@
   /* Blog cards carry a striped image top (design idiom), cycling palette tints. */
   .card--media { padding: 0; overflow: hidden; }
   .card--media .card-media { aspect-ratio: 16/10; display: block; }
+  .card--media img.card-media { width: 100%; object-fit: cover; object-position: center top; background: var(--color-cream-soft); }
   .card--media .card-inner { padding: var(--space-6); }
   .grid-3 .card--media:nth-child(3n+1) .card-media { --stripe: var(--svc-1); }
   .grid-3 .card--media:nth-child(3n+2) .card-media { --stripe: var(--svc-2); }
@@ -474,13 +475,14 @@
      Bump primary interactive controls to a comfortable 40+ so they're
      easy to tap on phones. Chip-pills stay slightly tighter (32px) to
      fit two-row layouts on narrow viewports. */
-  .locale-toggle button,
   .fs-toggle,
   .chatbot-launcher,
   .yt-embed .yt-play,
   .nav-toggle {
     min-block-size: 2.5rem;   /* 40px at default rem */
   }
+  /* .locale-toggle button intentionally omitted: the 40px wrapper is the touch
+     target; each button fills its width and stays ≥24px (WCAG 2.5.8 AA). */
   .nav-list a {
     min-block-size: 2.25rem;
     display: inline-flex;

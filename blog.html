@@ -150,7 +150,10 @@ async function renderBlog() {
       a.href = p.localUrl || p.externalUrl;
       a.className = "card card--media";
       if (!p.localUrl) { a.target = "_blank"; a.rel = "noopener"; }
-      a.innerHTML = `<div class="stripe-fill card-media" aria-hidden="true"></div><div class="card-inner"><small>${esc(p.date)} &middot; ${esc(p.category)}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p></div>`;
+      const media = p.thumbnail
+        ? `<img class="card-media" src="./${esc(p.thumbnail)}" alt="${esc(p.title)}" loading="lazy" decoding="async">`
+        : `<div class="stripe-fill card-media" aria-hidden="true"></div>`;
+      a.innerHTML = `${media}<div class="card-inner"><small>${esc(p.date)} &middot; ${esc(p.category)}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p></div>`;
       return a;
     }));
   }
