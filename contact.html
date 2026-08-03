@@ -59,64 +59,81 @@
 <main id="main">
   <section class="hero hero--banner"><div class="wrap"><div class="hero-panel"><h1 data-i18n="contact.hero.title">Get in touch</h1><p class="lede" data-i18n="contact.hero.subtitle"></p></div></div></section>
   <section class="section">
-    <div class="wrap grid-2">
-      <div>
+    <div class="wrap contact-layout">
+      <div class="contact-info">
         <h2 data-i18n="contact.address.heading">Our centre</h2>
-        <address>
+        <address class="contact-row contact-row--address">
+          <span data-icon="map-pin"></span>
           <p><span data-i18n="contact.address.line1"></span><br><span data-i18n="contact.address.line2"></span></p>
         </address>
-        <ul id="contact-phones"></ul>
-        <p><a href="mailto:urbaneethos@yahoo.com" data-i18n="contact.email">urbaneethos@yahoo.com</a></p>
-        <ul id="contact-hours"></ul>
-        <iframe id="map" loading="lazy" title="Map of Urbane Ethos centre" width="100%" height="260" style="border:0;border-radius:var(--radius-2);" hidden></iframe>
+        <ul id="contact-phones" class="contact-rows"></ul>
+        <div class="contact-row contact-row--email">
+          <span data-icon="envelope"></span>
+          <span class="contact-row-label" data-i18n="contact.form.fields.emailLabel">Email</span>
+          <a href="mailto:urbaneethos@yahoo.com" data-i18n="contact.email">urbaneethos@yahoo.com</a>
+        </div>
+        <p class="contact-hours-label" data-i18n="common.footer.hoursLabel">Hours</p>
+        <ul id="contact-hours" class="hours-rows"></ul>
+      </div>
+      <div class="contact-form-col">
+        <div class="card contact-form-card">
+          <h2 data-i18n="contact.form.heading">Send us a message</h2>
+          <p data-i18n="contact.form.subheading"></p>
+          <form id="contact-form" novalidate>
+            <div class="form-duo">
+              <div class="form-field">
+                <label for="cf-name" data-i18n="contact.form.fields.nameLabel">Your name</label>
+                <input id="cf-name" name="name" required aria-describedby="cf-name-err" data-i18n-attr="placeholder:contact.form.fields.namePlaceholder">
+                <p class="form-error" id="cf-name-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.nameRequired"></p>
+              </div>
+              <div class="form-field">
+                <label for="cf-email" data-i18n="contact.form.fields.emailLabel">Email</label>
+                <input id="cf-email" name="email" type="email" required aria-describedby="cf-email-err" data-i18n-attr="placeholder:contact.form.fields.emailPlaceholder">
+                <p class="form-error" id="cf-email-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.emailRequired"></p>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="cf-phone" data-i18n="contact.form.fields.phoneLabel">Phone (optional)</label>
+              <input id="cf-phone" name="phone" type="tel" data-i18n-attr="placeholder:contact.form.fields.phonePlaceholder">
+            </div>
+            <div class="form-field">
+              <label for="cf-concern" data-i18n="contact.form.fields.concernLabel">What's on your mind?</label>
+              <textarea id="cf-concern" name="concern" rows="5" required aria-describedby="cf-concern-err" data-i18n-attr="placeholder:contact.form.fields.concernPlaceholder"></textarea>
+              <p class="form-error" id="cf-concern-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.concernRequired"></p>
+            </div>
+            <div class="form-field">
+              <label for="cf-tellmore" data-i18n="contact.form.fields.tellUsMoreLabel">Anything else we should know? (Optional)</label>
+              <textarea id="cf-tellmore" name="tellmore" rows="3" data-i18n-attr="placeholder:contact.form.fields.tellUsMorePlaceholder"></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn--primary" data-i18n="contact.form.fields.submit">Send</button>
+              <small data-i18n="contact.form.successNote"></small>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="contact-media">
         <div class="yt-embed"
              data-yt-id="PLACEHOLDER_CENTRE_TOUR"
-             data-yt-title-key="common.media.videoTitles.ytCentreTour"
-             style="margin-top: var(--space-6);">
+             data-yt-title-key="common.media.videoTitles.ytCentreTour">
           <img src="./assets/img/anchors/yt-thumb-centre-tour.jpg" alt="" data-i18n-attr="alt:common.media.alts.centreTour">
           <p class="yt-caption" data-i18n="common.media.captions.ytCentreTour">Centre tour · Placeholder.</p>
           <button class="yt-play" aria-label="Play video" data-i18n-attr="aria-label:common.media.playButton">▶</button>
         </div>
       </div>
-      <div>
-        <h2 data-i18n="contact.form.heading">Send us a message</h2>
-        <p data-i18n="contact.form.subheading"></p>
-        <form id="contact-form" novalidate>
-          <div class="form-field">
-            <label for="cf-name" data-i18n="contact.form.fields.nameLabel">Your name</label>
-            <input id="cf-name" name="name" required aria-describedby="cf-name-err" data-i18n-attr="placeholder:contact.form.fields.namePlaceholder">
-            <p class="form-error" id="cf-name-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.nameRequired"></p>
-          </div>
-          <div class="form-field">
-            <label for="cf-email" data-i18n="contact.form.fields.emailLabel">Email</label>
-            <input id="cf-email" name="email" type="email" required aria-describedby="cf-email-err" data-i18n-attr="placeholder:contact.form.fields.emailPlaceholder">
-            <p class="form-error" id="cf-email-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.emailRequired"></p>
-          </div>
-          <div class="form-field">
-            <label for="cf-phone" data-i18n="contact.form.fields.phoneLabel">Phone (optional)</label>
-            <input id="cf-phone" name="phone" type="tel" data-i18n-attr="placeholder:contact.form.fields.phonePlaceholder">
-          </div>
-          <div class="form-field">
-            <label for="cf-concern" data-i18n="contact.form.fields.concernLabel">What's on your mind?</label>
-            <textarea id="cf-concern" name="concern" rows="5" required aria-describedby="cf-concern-err" data-i18n-attr="placeholder:contact.form.fields.concernPlaceholder"></textarea>
-            <p class="form-error" id="cf-concern-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.concernRequired"></p>
-          </div>
-          <div class="form-field">
-            <label for="cf-tellmore" data-i18n="contact.form.fields.tellUsMoreLabel">Anything else we should know? (Optional)</label>
-            <textarea id="cf-tellmore" name="tellmore" rows="3" data-i18n-attr="placeholder:contact.form.fields.tellUsMorePlaceholder"></textarea>
-          </div>
-          <button class="btn btn--primary" data-i18n="contact.form.fields.submit">Send</button>
-        </form>
-        <p style="margin-top:var(--space-4)"><small data-i18n="contact.form.successNote"></small></p>
-      </div>
+      <iframe id="map" class="contact-map" loading="lazy" title="Map of Urbane Ethos centre" hidden></iframe>
     </div>
   </section>
 
-  <section class="section section--alt">
-    <div class="wrap" style="max-width:var(--content-max)">
-      <h2 data-i18n="contact.chatbotCta.heading">Prefer to chat?</h2>
-      <p data-i18n="contact.chatbotCta.body"></p>
-      <button class="btn btn--primary chatbot-launcher-inline" data-i18n="contact.chatbotCta.button">Chat with us</button>
+  <section class="section">
+    <div class="wrap">
+      <div class="events-band">
+        <div class="events-copy">
+          <h2 data-i18n="contact.chatbotCta.heading">Prefer to chat?</h2>
+          <p data-i18n="contact.chatbotCta.body"></p>
+        </div>
+        <button class="btn btn--primary chatbot-launcher-inline" data-i18n="contact.chatbotCta.button">Chat with us</button>
+      </div>
     </div>
   </section>
 </main>
@@ -165,7 +182,7 @@ import { getLocale, translatePage } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/a11y.js";
 import "./assets/js/nav.js";
-import "./assets/js/icons.js";
+import { renderIcons } from "./assets/js/icons.js";
 import "./assets/js/page-load.js";
 import "./assets/js/cursor.js";
 import "./assets/js/chatbot.js";
@@ -187,10 +204,21 @@ async function renderContact() {
   };
   ul("#contact-phones", data.phones || [], p => {
     const li = document.createElement("li");
-    li.innerHTML = `${p.label}: <a href="tel:${p.number.replace(/\s/g,"")}">${p.number}</a>`;
+    li.className = "contact-row";
+    const icon = /whatsapp/i.test(p.label) ? "chat" : "phone";
+    li.innerHTML = `<span data-icon="${icon}"></span><span class="contact-row-label">${p.label}</span><a href="tel:${p.number.replace(/\s/g,"")}">${p.number}</a>`;
     return li;
   });
-  ul("#contact-hours", data.hours || [], s => { const li = document.createElement("li"); li.textContent = s; return li; });
+  ul("#contact-hours", data.hours || [], s => {
+    const li = document.createElement("li");
+    li.className = "hour-row";
+    const i = s.indexOf(":");
+    li.innerHTML = i > -1
+      ? `<span class="hour-label">${s.slice(0, i)}</span><span class="hour-value">${s.slice(i + 1).trim()}</span>`
+      : `<span class="hour-label">${s}</span>`;
+    return li;
+  });
+  renderIcons();
 
   const map = document.getElementById("map");
   const mapSrc = common.mapEmbedSrc || data.address?.mapEmbedSrc;
