@@ -790,13 +790,14 @@
   }
 
   /* Per-page banner artwork (see `.hero--banner` above). Relative paths so the
-     prototype works at any deploy root. PNGs are ~2MB each — swap to optimised
-     webp/jpg pre-launch (same filenames) if hero payload matters. */
-  body.about    .hero--banner { background-image: url("../img/artworks/header_about.png"); }
-  body.staff    .hero--banner { background-image: url("../img/artworks/header-meet-the-team.png"); }
-  body.services .hero--banner { background-image: url("../img/artworks/header-our-services.png"); }
-  body.blog     .hero--banner { background-image: url("../img/artworks/header-blog.png"); }
-  body.contact  .hero--banner { background-image: url("../img/artworks/header-contact-us.png"); }
+     prototype works at any deploy root. Optimised webp derivatives in anchors/
+     (tracked + deployed); ~150-200KB each, from ~2MB PNG masters kept locally
+     in the gitignored artworks/ dir. */
+  body.about    .hero--banner { background-image: url("../img/anchors/header_about.webp"); }
+  body.staff    .hero--banner { background-image: url("../img/anchors/header-meet-the-team.webp"); }
+  body.services .hero--banner { background-image: url("../img/anchors/header-our-services.webp"); }
+  body.blog     .hero--banner { background-image: url("../img/anchors/header-blog.webp"); }
+  body.contact  .hero--banner { background-image: url("../img/anchors/header-contact-us.webp"); }
 
   /* Trust-beat blocks — one per page per P3.
      Home: values band (data-trust-beat="values").

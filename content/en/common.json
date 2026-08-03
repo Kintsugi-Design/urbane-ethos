@@ -84,7 +84,10 @@
       "serviceMood2": "A child working through a vowel-matching worksheet with coloured pencils",
       "serviceMood3": "Children matching pictures to vowel sounds with coloured pencils",
       "centreTour": "Two children chatting on a bench by the centre's painted dinosaur mural",
-      "serviceArtSpecialed": "Illustration of a cognitive-therapy and special-education session around a table beneath a stylised tree"
+      "serviceArtSpecialed": "Illustration of a cognitive-therapy and special-education session around a table beneath a stylised tree",
+      "serviceArtSpeech": "Illustration of a therapist using a picture communication board with a young child during a speech-language session",
+      "serviceArtEip": "Illustration of two children practising handwriting at a table during an early-intervention session",
+      "serviceArtPsych": "Illustration of children working through picture-and-letter worksheets together at a shared table"
     }
   }
 }
