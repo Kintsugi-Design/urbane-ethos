@@ -357,6 +357,45 @@
   .media-card img { width: 100%; height: auto; display: block; }
   .media-card figcaption { padding: 14px 18px; font-size: 0.84rem; color: var(--color-ink-muted); margin: 0; }
 
+  /* ── Banner heroes ────────────────────────────────────────────────────────
+     Interior pages (about, staff, services, blog, contact) carry a soft
+     pastel header artwork as a full-bleed backdrop. Heading text rides inside
+     a frosted `.hero-panel` so ink stays WCAG AA-readable no matter what sits
+     under it (panel ~90% opaque over a light illustration → ink ≈ 10:1). The
+     artwork per page is set on the body-class rules further down. */
+  .hero--banner {
+    background: none;                 /* drop the cream gradient from .hero */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .hero-panel {
+    max-width: var(--content-max);
+    padding: var(--space-8) var(--space-10);
+    border-radius: var(--radius-3);
+    background: color-mix(in srgb, var(--color-cream-soft) 90%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid color-mix(in srgb, var(--color-line) 70%, transparent);
+    box-shadow: var(--shadow-2);
+  }
+  .hero-panel > :last-child { margin-bottom: 0; }
+  @media (max-width: 640px) {
+    .hero-panel { padding: var(--space-6) var(--space-5); }
+  }
+  /* Anchor-photo captions inside a banner would otherwise float as muted
+     italic over the mural (fails contrast). Give them the same frosted chip
+     as the panel and lift the colour to ink-soft (5.6:1 worst case). */
+  .hero--banner .anchor-photo figcaption {
+    align-self: start;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-cream-soft) 90%, transparent);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color: var(--color-ink-soft);
+  }
+
   /* Blog cards carry a striped image top (design idiom), cycling palette tints. */
   .card--media { padding: 0; overflow: hidden; }
   .card--media .card-media { aspect-ratio: 16/10; display: block; }
@@ -749,6 +788,15 @@
     flex-direction: column;
     justify-content: center;
   }
+
+  /* Per-page banner artwork (see `.hero--banner` above). Relative paths so the
+     prototype works at any deploy root. PNGs are ~2MB each — swap to optimised
+     webp/jpg pre-launch (same filenames) if hero payload matters. */
+  body.about    .hero--banner { background-image: url("../img/artworks/header_about.png"); }
+  body.staff    .hero--banner { background-image: url("../img/artworks/header-meet-the-team.png"); }
+  body.services .hero--banner { background-image: url("../img/artworks/header-our-services.png"); }
+  body.blog     .hero--banner { background-image: url("../img/artworks/header-blog.png"); }
+  body.contact  .hero--banner { background-image: url("../img/artworks/header-contact-us.png"); }
 
   /* Trust-beat blocks — one per page per P3.
      Home: values band (data-trust-beat="values").
