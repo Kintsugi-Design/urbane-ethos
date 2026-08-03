@@ -6,7 +6,7 @@ date: 2024-06-28
 category: Career
 read_time: 1 min read
 tags: [urbaneethos, speech therapy]
-hero_image: assets/img/scraped/blog-an-opportunity-to-learn-grow.webp
+hero_image: assets/img/blog/blog-an-opportunity-to-learn-grow.webp
 lang: en
 source_url: https://www.urbaneethos.center/post/an-opportunity-to-learn-grow-on-the-search-for-speech-language-therapists
 excerpt: We're excited to welcome fresh graduates and experienced professionals to join our multidisciplinary team of speech-language therapists.

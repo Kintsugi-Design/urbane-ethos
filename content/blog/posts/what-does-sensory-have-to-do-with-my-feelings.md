@@ -6,7 +6,7 @@ date: 2024-11-04
 category: Development
 read_time: 3 min read
 tags: [urbaneethos, occupational therapy, development]
-hero_image: assets/img/scraped/blog-what-does-sensory-have-to-do-with-my-feelings.webp
+hero_image: assets/img/blog/blog-what-does-sensory-have-to-do-with-my-feelings.webp
 lang: en
 source_url: https://www.urbaneethos.center/post/what-does-sensory-have-to-do-with-my-feelings
 excerpt: Sensory processing and emotional regulation are deeply interconnected aspects of human development, and together they play a significant role in shaping how we manage emotions.

@@ -6,7 +6,7 @@ date: 2025-03-13
 category: Parenting
 read_time: 2 min read
 tags: [urbaneethos, Parenting Workshop]
-hero_image: assets/img/scraped/blog-anak-dah-masuk-sekolah.webp
+hero_image: assets/img/blog/blog-anak-dah-masuk-sekolah.webp
 lang: ms
 source_url: https://www.urbaneethos.center/post/anak-dah-masuk-sekolah-tips-mengekalkan-minat-anak-ke-sekolah-daripada-pakar-klinikal-psikologi
 excerpt: Apabila anak sudah mula bersekolah, cabaran seterusnya bagi ibu bapa ialah mengekalkan semangat dan minat mereka untuk terus belajar.
