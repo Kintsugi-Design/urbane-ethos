@@ -3,9 +3,7 @@
     "scrapedAt": "2026-06-08",
     "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries upgraded from PDF + co-director corrections 2026-07-27 (screening, specialed, eip now REAL). Pricing (price.show) intentionally placeholder — Nasirah's charges list was cut off."
   },
-  "_placeholder": {
-    "flow.price.show.say": true
-  },
+  "_placeholder": {},
   "ui": {
     "launchAria": "Open chat assistant",
     "panelTitle": "Urbane Ethos Assistant",
@@ -95,7 +93,7 @@
       ]
     },
     "price.show": {
-      "say": "⟪PLACEHOLDER⟫ Based on that, the typical range is RM___–RM___ (pricing to be confirmed with the centre). Want to confirm with the team?",
+      "say": "Fees vary by service, the child's needs, and how often you visit, so the team shares current charges directly. You can call +603-7734 3044 or send us a message. Want to get in touch?",
       "options": [
         { "label": "Yes, confirm with the team", "next": "human" },
         { "label": "Not yet", "next": "start" }

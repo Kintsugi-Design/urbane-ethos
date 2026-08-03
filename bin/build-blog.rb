@@ -104,7 +104,7 @@ module BlogGen
     # so the flag is authoritative instead of a silent no-op.
     blog["featured"] = by_date.map { |fm, _| index_entry(fm)["id"] if fm["featured"] }.compact
     File.write(BLOG_JSON, JSON.pretty_generate(blog) + "\n")
-    puts "wrote content/blog.json (#{entries.size} posts)"
+    puts "wrote content/blog.json (#{parsed.size} posts)"
   end
 end
 

@@ -58,6 +58,10 @@
     "videoUnavailable": "Video coming soon",
     "mapTitle": "Google Map showing the Urbane Ethos centre in Denai Alam, Shah Alam"
   },
+  "map": {
+    "load": "Load map",
+    "notice": "Shows our location on Google Maps. Loading it shares your device's IP address with Google — see our privacy notice."
+  },
   "media": {
     "_note": "Anchor JPGs now hold interim imagery: real, face-hidden centre photos (about/services/service-mood) plus on-brand illustrations (home hero, intro-video thumb). PENDING before launch: (1) yt-thumb-centre-tour.jpg shows identifiable children — confirm parental consent or swap; (2) replace illustrations with real consented photos where a real shot is preferred; (3) set real data-yt-id on each <div class=\"yt-embed\">. Keep the same filenames when swapping.",
     "playButton": "Play video",

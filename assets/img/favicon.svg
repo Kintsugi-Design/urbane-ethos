@@ -1,0 +1,9 @@
+<!-- INTERIM favicon — plum-lavender "UE" monogram in the Lavender design-system
+     colour (--color-primary #8B73D4). Replace with the real Urbane Ethos logo
+     mark pre-launch (keep this filename + also add a .png fallback if wide
+     legacy support is needed). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Urbane Ethos">
+  <rect width="64" height="64" rx="14" fill="#8B73D4"/>
+  <text x="32" y="43" text-anchor="middle" font-family="Georgia, 'Source Serif 4', serif"
+        font-size="30" font-weight="600" fill="#F4F0FB" letter-spacing="1">UE</text>
+</svg>

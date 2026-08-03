@@ -1,4 +1,4 @@
-import { getLocale } from "./i18n.js";
+import { getLocale, stripPlaceholder } from "./i18n.js";
 import { isAllowed } from "./consent.js";
 
 const TRANSCRIPT_KEY = "urbane-ethos:chatbot-transcript";
@@ -63,8 +63,13 @@ function go(nodeId) {
   const node = flow.flow[nodeId];
   if (!node) { appendBubble(`(missing node: ${nodeId})`, "bot"); return; }
   state.node = nodeId;
-  appendBubble(node.say, "bot");
-  speak(node.say);
+  // Never surface an unsourced ⟪PLACEHOLDER⟫ sentinel to a visitor (i18n.js
+  // strips it in the DOM render path, but the chatbot writes textContent
+  // directly, so strip here too). Nodes whose copy is still a placeholder
+  // carry a real fallback in chatbot.json instead of a blanked bubble.
+  const say = stripPlaceholder(node.say);
+  appendBubble(say, "bot");
+  speak(say);
   if (node.options) renderOptions(node.options);
   else clearOptions();
   if (node.input === "free" || node.input === "name+phone") {

@@ -3,19 +3,9 @@
     "scrapedAt": "2026-06-08",
     "lastUpdated": "2026-07-27",
     "version": "0.1-prototype",
-    "_note": "10-section PDPA privacy notice scaffold. Section 0 (\"Who we are\") is REAL with the full PDF address, phone and email; sections 1–9 bodies are intentionally lorem (see _placeholder map) pending a real, counsel-reviewed notice before production launch."
+    "_note": "10-section PDPA privacy notice. Section 0 (\"Who we are\") is REAL with the full PDF address, phone and email; sections 1–9 are now drafted with a real PDPA notice pending external legal review before production launch."
   },
-  "_placeholder": {
-    "sections.1.body": true,
-    "sections.2.body": true,
-    "sections.3.body": true,
-    "sections.4.body": true,
-    "sections.5.body": true,
-    "sections.6.body": true,
-    "sections.7.body": true,
-    "sections.8.body": true,
-    "sections.9.body": true
-  },
+  "_placeholder": {},
   "header": {
     "title": "Privacy notice",
     "lastUpdated": "Last updated: 27 July 2026",
@@ -28,39 +18,39 @@
     },
     {
       "heading": "Data we collect",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "We collect only what you choose to give us. When you contact us — through the enquiry form, email, phone, WhatsApp, or the chat assistant — we receive your name, contact details, and whatever you tell us about the person who needs support. If you book or attend a session, we also keep the records needed to provide care, such as assessment notes, session history, and the age or developmental information you share. When you browse this website we store small preferences on your device (language, text size, cookie choices, and — only if you opt in — personalisation answers and chat history); see \"Cookies &amp; storage\" below."
     },
     {
       "heading": "Why we collect it",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "We use your information to respond to your enquiry, arrange and deliver therapy and early-intervention services, keep proper clinical and administrative records, and — where you have agreed — to personalise what you see on this site. We do not sell your personal data, and we do not use it for advertising."
     },
     {
       "heading": "Sensitive personal data",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Early-intervention work often involves sensitive personal data, including information about a child's health, development, and diagnoses. Under Malaysia's Personal Data Protection Act 2010 (PDPA) we treat this information with extra care and process it only with your explicit consent, or where the law otherwise permits. Where the data concerns a child, consent is given by the parent or legal guardian."
     },
     {
       "heading": "Retention",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "We keep personal data only for as long as we need it for the purposes above, or as required by Malaysian law and professional record-keeping standards. Clinical records are retained for the period appropriate to continuing care; enquiry messages that do not lead to services are kept for a shorter period and then deleted. Preferences stored on your device remain until you clear them or withdraw consent."
     },
     {
       "heading": "Third parties",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "We share personal data only where necessary — for example with the therapists and staff involved in your care, or where we are legally required to do so. This website also uses a small number of third-party services: an embedded Google Map (loaded only when you choose to open it) and click-to-play YouTube videos served through youtube-nocookie.com. When you load these, your request goes to Google, which handles it under its own <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">privacy policy</a>. We do not run third-party advertising or analytics trackers on this site."
     },
     {
       "heading": "Your rights",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Under the PDPA you have the right to ask what personal data we hold about you, to correct it if it is inaccurate, to withdraw your consent, and to limit how we use it. To exercise any of these rights, contact us using the details in \"Who we are\" above and we will respond within a reasonable time. You can learn more about your rights from the <a href=\"https://www.pdp.gov.my/\" target=\"_blank\" rel=\"noopener noreferrer\">Department of Personal Data Protection (JPDP)</a>."
     },
     {
       "heading": "Withdrawing consent",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "You may withdraw your consent at any time. For services, contact us and we will stop the relevant processing, though this may affect our ability to continue providing care. For this website, use the \"Manage cookies\" link in the footer to change or withdraw your cookie choices; clearing your browser storage removes the preferences saved on your device."
     },
     {
       "heading": "Cookies & storage",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "This site does not use tracking cookies. It stores a few small items in your browser to make the site work and remember your choices: your language and text-size preference, your cookie-consent selection, and — only if you opt in — your personalisation answers and chat-assistant history. These stay on your device and are not sent to any server. You control optional storage through the cookie banner and the \"Manage cookies\" link."
     },
     {
       "heading": "Complaints",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "If you have a concern about how we handle your personal data, please contact us first using the details in \"Who we are\" — we would like the chance to put things right. You also have the right to lodge a complaint with the <a href=\"https://www.pdp.gov.my/\" target=\"_blank\" rel=\"noopener noreferrer\">Department of Personal Data Protection, Malaysia</a>."
     }
   ]
 }

@@ -4,10 +4,51 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title data-i18n="contact.hero.title">Contact — Urbane Ethos</title>
+<meta name="description" content="Visit or contact Urbane Ethos Early Intervention Center in Denai Alam, Shah Alam. Call +603-7734 3044, email urbaneethos@yahoo.com, or send us a message.">
+<link rel="canonical" href="https://urbaneethos.center/contact.html">
+<meta name="theme-color" content="#8B73D4">
+<link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Urbane Ethos Early Intervention Center">
+<meta property="og:title" content="Contact — Urbane Ethos">
+<meta property="og:description" content="Visit or contact Urbane Ethos Early Intervention Center in Denai Alam, Shah Alam. Call +603-7734 3044, email urbaneethos@yahoo.com, or send us a message.">
+<meta property="og:url" content="https://urbaneethos.center/contact.html">
+<meta property="og:image" content="https://urbaneethos.center/assets/img/anchors/header-contact-us.webp">
+<meta property="og:locale" content="en_MY">
+<meta property="og:locale:alternate" content="ms_MY">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact — Urbane Ethos">
+<meta name="twitter:description" content="Visit or contact Urbane Ethos Early Intervention Center in Denai Alam, Shah Alam. Call +603-7734 3044, email urbaneethos@yahoo.com, or send us a message.">
+<meta name="twitter:image" content="https://urbaneethos.center/assets/img/anchors/header-contact-us.webp">
 <link rel="stylesheet" href="./assets/css/tokens.css">
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/components.css">
 <link rel="stylesheet" href="./assets/css/motion.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  "name": "Urbane Ethos Early Intervention Center",
+  "description": "Licensed early-intervention therapy centre offering speech, occupational, cognitive and special-education support in Shah Alam, Selangor.",
+  "url": "https://urbaneethos.center/",
+  "logo": "https://urbaneethos.center/assets/img/favicon.svg",
+  "image": "https://urbaneethos.center/assets/img/anchors/home-hero.webp",
+  "telephone": "+603-7734 3044",
+  "email": "urbaneethos@yahoo.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam",
+    "addressLocality": "Shah Alam",
+    "addressRegion": "Selangor",
+    "postalCode": "40160",
+    "addressCountry": "MY"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "12:00", "closes": "17:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "18:00" }
+  ]
+}
+</script>
 </head>
 <body class="contact">
 <a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
@@ -57,14 +98,14 @@
 </header>
 
 <main id="main">
-  <section class="hero hero--banner"><div class="wrap"><div class="hero-panel"><h1 data-i18n="contact.hero.title">Get in touch</h1><p class="lede" data-i18n="contact.hero.subtitle"></p></div></div></section>
+  <section class="hero hero--banner"><div class="wrap"><div class="hero-panel"><h1 data-i18n="contact.hero.title">Get in touch</h1><p class="lede" data-i18n="contact.hero.subtitle">Contact Us</p></div></div></section>
   <section class="section">
     <div class="wrap contact-layout">
       <div class="contact-info">
         <h2 data-i18n="contact.address.heading">Our centre</h2>
         <address class="contact-row contact-row--address">
           <span data-icon="map-pin"></span>
-          <p><span data-i18n="contact.address.line1"></span><br><span data-i18n="contact.address.line2"></span></p>
+          <p><span data-i18n="contact.address.line1">No. 4, Jalan Elektron E U16/E, Seksyen U16</span><br><span data-i18n="contact.address.line2">E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor</span></p>
         </address>
         <ul id="contact-phones" class="contact-rows"></ul>
         <div class="contact-row contact-row--email">
@@ -78,7 +119,7 @@
       <div class="contact-form-col">
         <div class="card contact-form-card">
           <h2 data-i18n="contact.form.heading">Send us a message</h2>
-          <p data-i18n="contact.form.subheading"></p>
+          <p data-i18n="contact.form.subheading">Or chat with us live — bottom right.</p>
           <form id="contact-form" novalidate>
             <div class="form-duo">
               <div class="form-field">
@@ -107,7 +148,7 @@
             </div>
             <div class="form-actions">
               <button class="btn btn--primary" data-i18n="contact.form.fields.submit">Send</button>
-              <small data-i18n="contact.form.successNote"></small>
+              <small data-i18n="contact.form.successNote">Your default mail app will open with this message ready to send.</small>
             </div>
           </form>
         </div>
@@ -121,7 +162,13 @@
           <button class="yt-play" aria-label="Play video" data-i18n-attr="aria-label:common.media.playButton">▶</button>
         </div>
       </div>
-      <iframe id="map" class="contact-map" loading="lazy" title="Map of Urbane Ethos centre" hidden></iframe>
+      <figure class="media-card contact-map-embed map-embed" data-map-embed>
+        <div class="map-embed-facade">
+          <span data-icon="map-pin" aria-hidden="true"></span>
+          <p class="map-embed-note" data-i18n="common.map.notice">Shows our location on Google Maps. Loading it shares your device's IP address with Google — see our privacy notice.</p>
+          <button type="button" class="btn btn--secondary map-embed-load" data-i18n="common.map.load">Load map</button>
+        </div>
+      </figure>
     </div>
   </section>
 
@@ -130,7 +177,7 @@
       <div class="events-band">
         <div class="events-copy">
           <h2 data-i18n="contact.chatbotCta.heading">Prefer to chat?</h2>
-          <p data-i18n="contact.chatbotCta.body"></p>
+          <p data-i18n="contact.chatbotCta.body">Our assistant can give you a price indication in a minute or two.</p>
         </div>
         <button class="btn btn--primary chatbot-launcher-inline" data-i18n="contact.chatbotCta.button">Chat with us</button>
       </div>
@@ -187,6 +234,7 @@ import "./assets/js/page-load.js";
 import "./assets/js/cursor.js";
 import "./assets/js/chatbot.js";
 import "./assets/js/yt-embed.js";
+import "./assets/js/map-embed.js";
 
 async function renderContact() {
   const locale = getLocale();
@@ -219,16 +267,6 @@ async function renderContact() {
     return li;
   });
   renderIcons();
-
-  const map = document.getElementById("map");
-  const mapSrc = common.mapEmbedSrc || data.address?.mapEmbedSrc;
-  if (map && mapSrc) {
-    map.src = mapSrc;
-    if (common.a11y?.mapTitle) map.title = common.a11y.mapTitle;
-    map.hidden = false;
-  } else if (map) {
-    map.hidden = true;
-  }
 
   const form = document.getElementById("contact-form");
   form.addEventListener("submit", e => {

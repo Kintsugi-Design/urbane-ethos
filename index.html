@@ -4,10 +4,51 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Urbane Ethos — Early Intervention Center</title>
+<meta name="description" content="Urbane Ethos is a licensed Malaysian early-intervention therapy centre in Denai Alam, Shah Alam — speech, occupational, cognitive and special-education support for every stage of life.">
+<link rel="canonical" href="https://urbaneethos.center/">
+<meta name="theme-color" content="#8B73D4">
+<link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Urbane Ethos Early Intervention Center">
+<meta property="og:title" content="Urbane Ethos — Early Intervention Center, Shah Alam">
+<meta property="og:description" content="Urbane Ethos is a licensed Malaysian early-intervention therapy centre in Denai Alam, Shah Alam — speech, occupational, cognitive and special-education support for every stage of life.">
+<meta property="og:url" content="https://urbaneethos.center/">
+<meta property="og:image" content="https://urbaneethos.center/assets/img/anchors/home-hero.webp">
+<meta property="og:locale" content="en_MY">
+<meta property="og:locale:alternate" content="ms_MY">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Urbane Ethos — Early Intervention Center, Shah Alam">
+<meta name="twitter:description" content="Urbane Ethos is a licensed Malaysian early-intervention therapy centre in Denai Alam, Shah Alam — speech, occupational, cognitive and special-education support for every stage of life.">
+<meta name="twitter:image" content="https://urbaneethos.center/assets/img/anchors/home-hero.webp">
 <link rel="stylesheet" href="./assets/css/tokens.css">
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/components.css">
 <link rel="stylesheet" href="./assets/css/motion.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  "name": "Urbane Ethos Early Intervention Center",
+  "description": "Licensed early-intervention therapy centre offering speech, occupational, cognitive and special-education support in Shah Alam, Selangor.",
+  "url": "https://urbaneethos.center/",
+  "logo": "https://urbaneethos.center/assets/img/favicon.svg",
+  "image": "https://urbaneethos.center/assets/img/anchors/home-hero.webp",
+  "telephone": "+603-7734 3044",
+  "email": "urbaneethos@yahoo.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam",
+    "addressLocality": "Shah Alam",
+    "addressRegion": "Selangor",
+    "postalCode": "40160",
+    "addressCountry": "MY"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "12:00", "closes": "17:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "18:00" }
+  ]
+}
+</script>
 </head>
 <body class="home">
 <a class="skip-link" href="#main" data-i18n="common.nav.skipToContent">Skip to content</a>
@@ -135,11 +176,21 @@
       <div>
         <p class="section-eyebrow" data-i18n="home.location.eyebrow">Come say hello</p>
         <h2 data-i18n="home.location.title">Visit us</h2>
-        <p data-i18n="home.location.address"></p>
-        <div class="hours-rows" id="home-hours"></div>
+        <!-- SEO static fallback: mirrors content/en/home.json location.address; JS re-renders on load. Keep in sync. -->
+        <p data-i18n="home.location.address">No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor</p>
+        <!-- SEO static fallback: mirrors content/en/home.json location.hours; JS re-renders on load. Keep in sync. -->
+        <div class="hours-rows" id="home-hours">
+          <div class="hour-row"><span class="hour-label">Monday</span><span class="hour-value">12PM – 5PM</span></div>
+          <div class="hour-row"><span class="hour-label">Tuesday – Saturday</span><span class="hour-value">9AM – 6PM</span></div>
+          <div class="hour-row"><span class="hour-label">Closed Sunday &amp; Public Holidays</span><span class="hour-value"></span></div>
+        </div>
       </div>
-      <figure class="media-card visit-map">
-        <iframe class="map-frame" id="home-map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of the Urbane Ethos centre"></iframe>
+      <figure class="media-card visit-map map-embed" data-map-embed>
+        <div class="map-embed-facade">
+          <span data-icon="map-pin" aria-hidden="true"></span>
+          <p class="map-embed-note" data-i18n="common.map.notice">Shows our location on Google Maps. Loading it shares your device's IP address with Google — see our privacy notice.</p>
+          <button type="button" class="btn btn--secondary map-embed-load" data-i18n="common.map.load">Load map</button>
+        </div>
       </figure>
     </div>
   </section>
@@ -149,23 +200,37 @@
       <p class="section-eyebrow" data-i18n="home.services.eyebrow">Our services</p>
       <h2 data-i18n="home.services.heading">How we can help</h2>
       <p class="section-note" data-personalize-age-note hidden></p>
-      <div class="grid-3" data-services-grid id="home-services"></div>
+      <!-- SEO static fallback: mirrors content/en/home.json services.items; JS re-renders on load. Keep in sync. -->
+      <div class="grid-3" data-services-grid id="home-services">
+        <a href="./services.html#screening" class="card" data-service-key="screening"><div class="card-inner"><span class="card-chip" aria-hidden="true"></span><h3>Screening &amp; Assessment</h3><p>Two separate services: screening (Occupational Therapy — fine motor, school readiness; Clinical Psychology — emotional, behavioural) and a holistic 3-in-1 assessment covering Occupational Therapy, Speech-Language and Communication, and Clinical Psychology.</p></div></a>
+        <a href="./services.html#ot" class="card" data-service-key="ot"><div class="card-inner"><span class="card-chip" aria-hidden="true"></span><h3>Occupational Therapy</h3><p>Paediatric occupational therapy focuses on helping children develop the skills they need to grow into functional, independent adults.</p></div></a>
+        <a href="./services.html#speech" class="card" data-service-key="speech"><div class="card-inner"><span class="card-chip" aria-hidden="true"></span><h3>Speech Therapy</h3><p>Speech therapists handle speech issues such as stuttering or lisps, as well as helping other kinds of problems with spoken and written language such as dyslexia, dyspraxia, and auditory processing disorder.</p></div></a>
+        <a href="./services.html#specialed" class="card" data-service-key="specialed"><div class="card-inner"><span class="card-chip" aria-hidden="true"></span><h3>Cognitive Therapy &amp; Special Education</h3><p>Cognitive therapy and special education delivered by our professionally licensed team as part of an integrated, multidisciplinary set up.</p></div></a>
+        <a href="./services.html#eip" class="card" data-service-key="eip"><div class="card-inner"><span class="card-chip" aria-hidden="true"></span><h3>IEP &amp; Early Intervention Program</h3><p>Therapy-based group program conducted daily by our certified Occupational Therapist, Speech Therapist/Clinical Linguist as well as our Special Education Teacher.</p></div></a>
+        <a href="./services.html#psych" class="card" data-service-key="psych"><div class="card-inner"><span class="card-chip" aria-hidden="true"></span><h3>Clinical Psychology</h3><p>Clinical psychologists meet with clients to identify problems - emotional, mental, and behavioural - in their lives. Through observation, interviews, and tests, the psychologist will diagnose any existing or potential disorders.</p></div></a>
+      </div>
     </div>
   </section>
 
   <section class="section section--alt">
     <div class="wrap testimonial-block" style="max-width:48rem">
       <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
-      <blockquote class="testimonial-quote" data-i18n="home.testimonial.quote">[quote]</blockquote>
-      <p class="testimonial-attr" data-i18n="home.testimonial.attribution">[attribution]</p>
+      <blockquote class="testimonial-quote" data-i18n="home.testimonial.quote">Yes. They are very helpful during and after sessions. therapists can further help to explain what can be done to assist the patient in meeting a specific target /milestone/goal for the next session. A checklist would be great to help parents to monitor the progress of the patient.</blockquote>
+      <p class="testimonial-attr" data-i18n="home.testimonial.attribution">En S, Parent</p>
     </div>
   </section>
 
   <section class="section fade-in-up" data-trust-beat="values">
     <div class="wrap" style="max-width:var(--content-max)">
       <h2 data-i18n="home.whatWeDo.heading">What can we do for you?</h2>
-      <p data-i18n="home.whatWeDo.intro"></p>
-      <div class="wwd-points" id="home-wwd-points"></div>
+      <!-- SEO static fallback: mirrors content/en/home.json whatWeDo.intro; JS re-renders on load. Keep in sync. -->
+      <p data-i18n="home.whatWeDo.intro">Urbane Ethos provides early intervention for language and speech disorders, motor, cognitive and learning difficulties. Our support comes in three shapes:</p>
+      <!-- SEO static fallback: mirrors content/en/home.json whatWeDo.points; JS re-renders on load. Keep in sync. -->
+      <div class="wwd-points" id="home-wwd-points">
+        <div class="wwd-point"><span class="wwd-num">1</span><p>Individual one-to-one and group therapy sessions, with parent consultations alongside the therapists.</p></div>
+        <div class="wwd-point"><span class="wwd-num">2</span><p>Parent and teacher training, seminars and workshops throughout the year.</p></div>
+        <div class="wwd-point"><span class="wwd-num">3</span><p>Assessment and screening programs, in-clinic and at schools, by certified allied-health professionals.</p></div>
+      </div>
     </div>
   </section>
 
@@ -174,10 +239,41 @@
       <div class="people-intro">
         <p class="section-eyebrow" data-i18n="home.staff.eyebrow">The people</p>
         <h2 data-i18n="home.staff.title">Meet the people who'll be there</h2>
-        <p class="people-lede" data-i18n="home.staff.intro"></p>
+        <!-- SEO static fallback: mirrors content/en/home.json staff.intro; JS re-renders on load. Keep in sync. -->
+        <p class="people-lede" data-i18n="home.staff.intro">A small team, on purpose. Your child works with the same familiar faces from the first screening onward.</p>
         <a class="btn btn--primary" href="./staff.html" data-i18n="home.staff.cta">Meet everyone</a>
       </div>
-      <div class="people-list" id="home-staff"></div>
+      <!-- SEO static fallback: mirrors content/en/home.json staffFeatured (+ content/en/staff.json members); JS re-renders on load. Keep in sync. -->
+      <div class="people-list" id="home-staff">
+        <div class="person-row">
+          <img class="person-avatar" src="./assets/img/staff-pdf/dr-norizan-rajak.jpg" alt="Dr Norizan Binti Rajak, Ph.D" loading="lazy" width="64" height="64">
+          <div class="person-id">
+            <p class="person-name">Hi, I'm Norizan</p>
+            <p class="person-role">Director &amp; Clinical Linguist</p>
+          </div>
+          <p class="person-quote">I sit with families through the hardest questions first.</p>
+        </div>
+        <div class="person-row">
+          <img class="person-avatar" src="./assets/img/staff-pdf/ms-liyana-tarmizi.jpg" alt="Ms. Liyana Binti Tarmizi" loading="lazy" width="64" height="64">
+          <div class="person-id">
+            <p class="person-name">Hi, I'm Liyana</p>
+            <p class="person-role">Clinical Psychologist</p>
+          </div>
+          <p class="person-quote">I help children put big feelings into words they can hold.</p>
+        </div>
+        <div class="person-row">
+          <img class="person-avatar" src="./assets/img/staff-pdf/mrs-norizzati-afiqah.jpg" alt="Mrs Norizzati Afiqah, OTR/L" loading="lazy" width="64" height="64">
+          <div class="person-id">
+            <p class="person-name">Hi, I'm Norizzati</p>
+            <p class="person-role">Head of Occupational Therapy Department</p>
+          </div>
+          <p class="person-quote">Play is how I find out what a child is ready to learn next.</p>
+        </div>
+        <div class="person-row person-row--more">
+          <div class="person-stack" aria-hidden="true"><span class="person-stack-av person-stack-av--1">NB</span><span class="person-stack-av person-stack-av--2">MT</span><span class="person-stack-av person-stack-av--3">ME</span></div>
+          <p class="person-more">…and 6 more of us who'll say hello. <a href="./staff.html">Meet everyone →</a></p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -206,7 +302,12 @@
   <section class="section">
     <div class="wrap">
       <h2 data-i18n="home.blog.heading">From the blog</h2>
-      <div class="grid-3" id="home-blog"></div>
+      <!-- SEO static fallback: mirrors content/blog.json posts (first 3); JS re-renders on load. Keep in sync. -->
+      <div class="grid-3" id="home-blog">
+        <a href="./post-year-end-promo.html" class="card card--media"><img class="card-media" src="./assets/img/blog/year-end-promo/hero.webp" alt="Our Annual Year End Promo &amp; First Intake Special Deals" loading="lazy" decoding="async"><div class="card-inner"><small>2025-12-01 &middot; Promo</small><h3>Our Annual Year End Promo &amp; First Intake Special Deals</h3><p>Our Annual Year End Promo! Full assessment at 20% off — plus First Intake bundle packages at 25% off. Contact 013-249 0069.</p></div></a>
+        <a href="./post-anak-dah-masuk-sekolah.html" class="card card--media"><img class="card-media" src="./assets/img/scraped/blog-anak-dah-masuk-sekolah.webp" alt="Anak Dah Masuk Sekolah! Tips Mengekalkan Minat Anak ke Sekolah Daripada Pakar Klinikal Psikologi" loading="lazy" decoding="async"><div class="card-inner"><small>2025-03-13 &middot; Parenting</small><h3>Anak Dah Masuk Sekolah! Tips Mengekalkan Minat Anak ke Sekolah Daripada Pakar Klinikal Psikologi</h3><p>Apabila anak sudah mula bersekolah, cabaran seterusnya bagi ibu bapa ialah mengekalkan semangat dan minat mereka untuk terus belajar.</p></div></a>
+        <a href="./post-a-fulfilling-career-awaits.html" class="card card--media"><img class="card-media" src="./assets/img/blog/a-fulfilling-career-awaits/hero.webp" alt="A Fulfilling Career Awaits: Join Us as a Special Education Teacher!" loading="lazy" decoding="async"><div class="card-inner"><small>2025-01-23 &middot; Career</small><h3>A Fulfilling Career Awaits: Join Us as a Special Education Teacher!</h3><p>Are you passionate about making a difference in the lives of neurodiverse children and individuals with special needs? We have the perfect opportunity for you.</p></div></a>
+      </div>
       <p class="section-more"><a class="link-arrow" href="./blog.html" data-i18n="home.blog.viewAll">View all articles</a></p>
     </div>
   </section>
@@ -260,6 +361,7 @@ import "./assets/js/icons.js";
 import "./assets/js/page-load.js";
 import "./assets/js/cursor.js";
 import "./assets/js/parallax.js";
+import "./assets/js/map-embed.js";
 import { isAllowed } from "./assets/js/consent.js";
 import { read as readPers, recommendedBlog, recommendedStaffIds, reorderServices, ageNoteKeyPath, asConcerns } from "./assets/js/personalization.js";
 import "./assets/js/personalization.js";
@@ -293,13 +395,6 @@ async function renderHome() {
     ul.replaceChildren(...items.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
   };
   fmtUl("#footer-hours", common.footer?.hours);
-
-  // Embedded Google Map (single source: common.mapEmbedSrc; lazy iframe).
-  const homeMap = document.getElementById("home-map");
-  if (homeMap && common.mapEmbedSrc) {
-    if (homeMap.src !== common.mapEmbedSrc) homeMap.src = common.mapEmbedSrc;
-    if (common.a11y?.mapTitle) homeMap.title = common.a11y.mapTitle;
-  }
 
   const hoursWrap = document.getElementById("home-hours");
   if (hoursWrap && Array.isArray(home.location?.hours)) {

@@ -45,7 +45,11 @@ jobs:
           rsync -a \
             --exclude='.git/' \
             --exclude='.github/' \
+            --exclude='.gitlab/' \
             --exclude='.gitlab-ci.yml' \
+            --exclude='design/' \
+            --exclude='content/scraped-raw/' \
+            --exclude='assets/img/scraped/' \
             --exclude='.gitignore' \
             --exclude='.gstack/' \
             --exclude='.claude/' \

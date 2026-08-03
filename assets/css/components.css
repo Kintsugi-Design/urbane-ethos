@@ -435,6 +435,23 @@
   .visit-map { align-self: center; width: 100%; }
   .map-frame { display: block; width: 100%; aspect-ratio: 4/3; border: 0; }
 
+  /* Click-to-load map facade (assets/js/map-embed.js). Holds the 4/3 box so
+     swapping in the real iframe causes no layout shift, and loads no Google
+     resource until the visitor presses "Load map". */
+  .map-embed { width: 100%; aspect-ratio: 4/3; border-radius: var(--radius-md, 12px); overflow: hidden; }
+  .map-embed .map-frame { height: 100%; aspect-ratio: auto; }
+  .map-embed-facade {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; height: 100%; padding: 24px; text-align: center;
+    /* White ground keeps the secondary-button + note text comfortably above
+       WCAG AA contrast (a lavender-soft ground dropped the button to 3.8:1);
+       the soft inset border keeps the facade visually distinct from the card. */
+    background: var(--color-cream-soft); color: var(--color-ink);
+    box-shadow: inset 0 0 0 1px var(--color-primary-soft);
+  }
+  .map-embed-facade [data-icon] { font-size: 1.6rem; color: var(--color-primary-deep); }
+  .map-embed-note { margin: 0; max-width: 34ch; font-size: 0.84rem; color: var(--color-ink-soft); }
+
   /* Testimonial — centred pull-quote with an oversized opening mark. */
   .testimonial-block { text-align: center; margin-inline: auto; }
   .testimonial-mark { display: block; font-family: var(--font-serif); font-size: 3.4rem; line-height: 1; color: var(--color-primary); }

@@ -4,6 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title data-i18n="about.hero.title">About — Urbane Ethos</title>
+<meta name="description" content="Meet Urbane Ethos — a licensed early-intervention centre in Shah Alam supporting children and families since 2005 with therapy across every stage of life.">
+<link rel="canonical" href="https://urbaneethos.center/about.html">
+<meta name="theme-color" content="#8B73D4">
+<link rel="icon" href="./assets/img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Urbane Ethos Early Intervention Center">
+<meta property="og:title" content="About — Urbane Ethos">
+<meta property="og:description" content="Meet Urbane Ethos — a licensed early-intervention centre in Shah Alam supporting children and families since 2005 with therapy across every stage of life.">
+<meta property="og:url" content="https://urbaneethos.center/about.html">
+<meta property="og:image" content="https://urbaneethos.center/assets/img/anchors/header_about.webp">
+<meta property="og:locale" content="en_MY">
+<meta property="og:locale:alternate" content="ms_MY">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About — Urbane Ethos">
+<meta name="twitter:description" content="Meet Urbane Ethos — a licensed early-intervention centre in Shah Alam supporting children and families since 2005 with therapy across every stage of life.">
+<meta name="twitter:image" content="https://urbaneethos.center/assets/img/anchors/header_about.webp">
 <link rel="stylesheet" href="./assets/css/tokens.css">
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/components.css">
@@ -65,7 +81,7 @@
       </figure>
       <div class="hero-panel">
         <h1 data-i18n="about.hero.title">About</h1>
-        <p class="lede" data-i18n="about.hero.subtitle"></p>
+        <p class="lede" data-i18n="about.hero.subtitle">A therapy centre for neurodivergent individuals — we cater between 0–20 years old and expanding to older and elderly patients.</p>
       </div>
     </div>
   </section>
@@ -73,16 +89,20 @@
   <section class="section" data-trust-beat="ethos">
     <div class="wrap" style="max-width:var(--content-max)">
       <h2 data-i18n="about.mission.heading">About us</h2>
-      <p data-i18n="about.mission.body"></p>
+      <p data-i18n="about.mission.body">At Urbane Ethos Early Intervention Center, we believe that a holistic approach to therapy, driven by transdisciplinary collaboration, is the key to unlocking each client's full potential. Our team, comprised of Clinical Linguists, Speech-Language Therapists, Occupational Therapist, Clinical Psychologist and Special Education Teacher, work seamlessly together to provide comprehensive, evidence-based care tailored to individual needs.</p>
       <h2 data-i18n="about.story.heading">Our story</h2>
-      <p data-i18n="about.story.body"></p>
+      <p data-i18n="about.story.body">Since 2005, we have had over 20 years of experience providing client-centered intervention for language and speech disorders, developmental disorders, mental health disorders and for learning disabilities. Urbane Ethos Early Intervention Center started up the first multi-displinary center in 2005 based in Shah Alam and has since aided children, adolescents and parents in achieving developmental milestones and overcoming their disability or disorder to achieve a greater quality of life.</p>
     </div>
   </section>
 
   <section class="section section--alt">
     <div class="wrap">
       <h2 data-i18n="about.visionMission.heading">Vision &amp; Mission</h2>
-      <div class="grid-3" id="about-values"></div>
+      <!-- SEO static fallback: mirrors content/en/about.json visionMission.items; JS re-renders on load. Keep in sync. -->
+      <div class="grid-3" id="about-values">
+        <article class="card"><div class="card-inner"><h3>Vision</h3><p>1. To provide rehabilitative and therapeutic services at an international standard in the local context. 2. To empower individuals of all ages to achieve their fullest potential through compassionate, evidence-based, and collaborative therapy services.</p></div></article>
+        <article class="card"><div class="card-inner"><h3>Mission</h3><p>1. To provide effective, quality and accessible therapy services. 2. To provide holistic, individualized, and transdisciplinary therapy and intervention services that support the developmental, communicative, and psychological well-being of our clients.</p></div></article>
+      </div>
     </div>
   </section>
 

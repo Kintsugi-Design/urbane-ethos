@@ -6,19 +6,9 @@
     "translatedBy": "claude-opus-4-7",
     "translatedAt": "2026-07-27",
     "reviewedBy": null,
-    "_note": "10-section PDPA privacy notice scaffold. Section 0 (\"Siapa kami\") is REAL with the full PDF address, phone and email; sections 1–9 bodies are intentionally lorem (see _placeholder map) pending a real, counsel-reviewed notice before production launch. BM rendering is machine-generated and requires native-speaker + legal review."
+    "_note": "10-section PDPA privacy notice. Section 0 (\"Siapa kami\") is REAL with the full PDF address, phone and email; sections 1–9 are now drafted with a real PDPA notice pending external legal review before production launch. BM rendering is machine-generated and requires native-speaker + legal review."
   },
-  "_placeholder": {
-    "sections.1.body": true,
-    "sections.2.body": true,
-    "sections.3.body": true,
-    "sections.4.body": true,
-    "sections.5.body": true,
-    "sections.6.body": true,
-    "sections.7.body": true,
-    "sections.8.body": true,
-    "sections.9.body": true
-  },
+  "_placeholder": {},
   "header": {
     "title": "Notis Privasi",
     "lastUpdated": "Kemas kini terakhir: 27 Julai 2026",
@@ -31,39 +21,39 @@
     },
     {
       "heading": "Data yang kami kumpul",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Kami hanya mengumpul apa yang anda pilih untuk berikan kepada kami. Apabila anda menghubungi kami — melalui borang pertanyaan, e-mel, telefon, WhatsApp, atau pembantu sembang — kami menerima nama anda, butiran hubungan, dan apa sahaja yang anda beritahu kami tentang individu yang memerlukan sokongan. Jika anda menempah atau menghadiri sesi, kami juga menyimpan rekod yang diperlukan untuk menyediakan penjagaan, seperti nota penilaian, sejarah sesi, dan maklumat umur atau perkembangan yang anda kongsi. Apabila anda melayari laman web ini, kami menyimpan sedikit keutamaan pada peranti anda (bahasa, saiz teks, pilihan kuki, dan — hanya jika anda memilih untuk menyertai — jawapan pemperibadian dan sejarah sembang); lihat \"Kuki &amp; storan\" di bawah."
     },
     {
       "heading": "Mengapa kami mengumpulnya",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Kami menggunakan maklumat anda untuk membalas pertanyaan anda, mengatur dan menyampaikan perkhidmatan terapi dan Intervensi Awal, menyimpan rekod klinikal dan pentadbiran yang sewajarnya, dan — apabila anda telah bersetuju — untuk memperibadikan apa yang anda lihat di laman ini. Kami tidak menjual data peribadi anda, dan kami tidak menggunakannya untuk pengiklanan."
     },
     {
       "heading": "Data peribadi sensitif",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Kerja Intervensi Awal seringkali melibatkan data peribadi sensitif, termasuk maklumat tentang kesihatan, perkembangan, dan diagnosis seseorang anak. Di bawah Akta Perlindungan Data Peribadi 2010 (APDP) Malaysia, kami mengendalikan maklumat ini dengan penjagaan tambahan dan memprosesnya hanya dengan persetujuan jelas anda, atau di mana undang-undang membenarkannya. Apabila data melibatkan seseorang anak, persetujuan diberikan oleh ibu bapa atau penjaga yang sah."
     },
     {
       "heading": "Pengekalan",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Kami menyimpan data peribadi hanya selagi kami memerlukannya untuk tujuan di atas, atau seperti yang dikehendaki oleh undang-undang Malaysia dan piawaian penyimpanan rekod profesional. Rekod klinikal disimpan untuk tempoh yang sesuai bagi penjagaan berterusan; mesej pertanyaan yang tidak membawa kepada perkhidmatan disimpan untuk tempoh yang lebih singkat dan kemudian dipadamkan. Keutamaan yang disimpan pada peranti anda kekal sehingga anda mengosongkannya atau menarik balik persetujuan."
     },
     {
       "heading": "Pihak ketiga",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Kami berkongsi data peribadi hanya apabila perlu — sebagai contoh dengan ahli terapi dan kakitangan yang terlibat dalam penjagaan anda, atau apabila kami dikehendaki berbuat demikian di sisi undang-undang. Laman web ini juga menggunakan sebilangan kecil perkhidmatan pihak ketiga: Peta Google terbenam (dimuatkan hanya apabila anda memilih untuk membukanya) dan video YouTube klik-untuk-main yang disampaikan melalui youtube-nocookie.com. Apabila anda memuatkan ini, permintaan anda pergi ke Google, yang mengendalikannya di bawah <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">dasar privasinya</a> sendiri. Kami tidak menjalankan penjejak pengiklanan atau analitik pihak ketiga di laman ini."
     },
     {
       "heading": "Hak anda",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Di bawah APDP, anda mempunyai hak untuk bertanya data peribadi apa yang kami simpan tentang anda, untuk membetulkannya jika ia tidak tepat, untuk menarik balik persetujuan anda, dan untuk mengehadkan cara kami menggunakannya. Untuk melaksanakan mana-mana hak ini, hubungi kami menggunakan butiran dalam \"Siapa kami\" di atas dan kami akan membalas dalam tempoh yang munasabah. Anda boleh mengetahui lebih lanjut tentang hak anda daripada <a href=\"https://www.pdp.gov.my/\" target=\"_blank\" rel=\"noopener noreferrer\">Jabatan Perlindungan Data Peribadi (JPDP)</a>."
     },
     {
       "heading": "Menarik balik persetujuan",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Anda boleh menarik balik persetujuan anda pada bila-bila masa. Bagi perkhidmatan, hubungi kami dan kami akan menghentikan pemprosesan yang berkaitan, walaupun ini mungkin menjejaskan keupayaan kami untuk terus menyediakan penjagaan. Bagi laman web ini, gunakan pautan \"Urus kuki\" di bahagian bawah untuk menukar atau menarik balik pilihan kuki anda; mengosongkan storan pelayar anda akan mengeluarkan keutamaan yang disimpan pada peranti anda."
     },
     {
       "heading": "Kuki & storan",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Laman ini tidak menggunakan kuki penjejakan. Ia menyimpan beberapa item kecil dalam pelayar anda untuk membolehkan laman berfungsi dan mengingati pilihan anda: keutamaan bahasa dan saiz teks anda, pilihan persetujuan kuki anda, dan — hanya jika anda memilih untuk menyertai — jawapan pemperibadian dan sejarah pembantu sembang anda. Ini kekal pada peranti anda dan tidak dihantar ke mana-mana pelayan. Anda mengawal storan pilihan melalui sepanduk kuki dan pautan \"Urus kuki\"."
     },
     {
       "heading": "Aduan",
-      "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "body": "Jika anda mempunyai kebimbangan tentang cara kami mengendalikan data peribadi anda, sila hubungi kami terlebih dahulu menggunakan butiran dalam \"Siapa kami\" — kami ingin peluang untuk memperbetulkan keadaan. Anda juga mempunyai hak untuk membuat aduan kepada <a href=\"https://www.pdp.gov.my/\" target=\"_blank\" rel=\"noopener noreferrer\">Jabatan Perlindungan Data Peribadi, Malaysia</a>."
     }
   ]
 }
