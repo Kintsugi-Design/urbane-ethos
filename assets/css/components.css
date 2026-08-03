@@ -369,6 +369,18 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+  /* Contact: frost the whole banner (not just the panel) to calm a busier
+     artwork. A full-bleed cream wash + blur sits above the image and below
+     the content panel (z-index:0 vs .hero > .wrap z-index:1). */
+  body.contact .hero--banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: color-mix(in srgb, var(--color-cream) 55%, transparent);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
   .hero-panel {
     max-width: var(--content-max);
     padding: var(--space-8) var(--space-10);
