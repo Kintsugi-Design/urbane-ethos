@@ -1136,7 +1136,7 @@
   .people-layout { display: grid; grid-template-columns: 360px 1fr; gap: var(--space-16); align-items: start; }
   .people-intro { position: sticky; top: calc(var(--canggih-header-h) + var(--space-6)); }
   .people-intro h2 { margin: 0 0 var(--space-4); }
-  .people-lede { margin: 0 0 var(--space-7); max-width: 34ch; color: var(--color-ink-soft); font-size: 1.0625rem; line-height: 1.6; text-wrap: pretty; }
+  .people-lede { margin: 0 0 var(--space-8); max-width: 34ch; color: var(--color-ink-soft); font-size: 1.0625rem; line-height: 1.6; text-wrap: pretty; }
 
   .people-list {
     background: var(--color-cream-soft);
