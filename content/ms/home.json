@@ -7,9 +7,6 @@
     "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent'). BM rendering produced fresh as live site does not currently serve BM. LOREM placeholder strings copied byte-identically from EN (see _placeholder map)."
   },
   "_placeholder": {
-    "staffFeatured.0.personalLine": true,
-    "staffFeatured.1.personalLine": true,
-    "staffFeatured.2.personalLine": true,
     "events.blurb": true
   },
   "_draft": {
@@ -137,23 +134,26 @@
   },
   "staff": {
     "eyebrow": "Orang di sebalik pusat",
-    "title": "Temui orang yang akan menemani anda"
+    "title": "Temui orang yang akan menemani anda",
+    "intro": "Pasukan kecil, secara sengaja. Anak anda bekerja dengan wajah yang sama dan biasa dari saringan pertama lagi.",
+    "cta": "Temui semua",
+    "more": "…dan {count} lagi daripada kami yang akan menyapa anda."
   },
   "staffFeatured": [
     {
       "id": "dr-norizan-rajak",
       "greeting": "Hai, saya Norizan",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
+      "personalLine": "Saya menemani keluarga menghadapi soalan yang paling sukar terlebih dahulu."
     },
     {
       "id": "ms-liyana-tarmizi",
       "greeting": "Hai, saya Liyana",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
+      "personalLine": "Saya membantu kanak-kanak meluahkan perasaan besar dalam kata-kata yang mereka boleh pegang."
     },
     {
       "id": "mrs-norizzati-afiqah",
       "greeting": "Hai, saya Norizzati",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
+      "personalLine": "Bermain ialah cara saya mengetahui apa yang anak sudah bersedia untuk pelajari seterusnya."
     }
   ],
   "events": {

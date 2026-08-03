@@ -178,10 +178,14 @@
   </section>
 
   <section class="section section--alt">
-    <div class="wrap">
-      <p class="section-eyebrow" data-i18n="home.staff.eyebrow">The people</p>
-      <h2 data-i18n="home.staff.title">Meet the people who'll be there</h2>
-      <div class="staff-grid" id="home-staff"></div>
+    <div class="wrap people-layout">
+      <div class="people-intro">
+        <p class="section-eyebrow" data-i18n="home.staff.eyebrow">The people</p>
+        <h2 data-i18n="home.staff.title">Meet the people who'll be there</h2>
+        <p class="people-lede" data-i18n="home.staff.intro"></p>
+        <a class="btn btn--primary" href="./staff.html" data-i18n="home.staff.cta">Meet everyone</a>
+      </div>
+      <div class="people-list" id="home-staff"></div>
     </div>
   </section>
 
@@ -402,29 +406,43 @@ async function renderHome() {
     else { ageNoteEl.hidden = true; ageNoteEl.textContent = ""; }
   }
 
-  // Staff featured cards (home.json gives id+greeting+personalLine, staff.json gives name+role+photo)
+  // People (option 1c — conversation list): featured rows + an avatar-stack
+  // footer summarising the rest of the team. home.json gives greeting +
+  // personalLine (the italic quote); staff.json gives name/role/photo.
   const homeStaff = document.getElementById("home-staff");
   if (homeStaff && Array.isArray(home.staffFeatured)) {
-    homeStaff.replaceChildren(...home.staffFeatured.map(f => {
-      const m = (staff.members || []).find(x => x.id === f.id) || { name: f.id, role: "", photo: "./assets/img/staff-placeholder.png" };
-      const initials = m.name.split(/\s+/).filter(Boolean).map(s => s[0]).slice(0, 2).join("");
-      const card = document.createElement("article");
-      card.className = "staff-card";
-      const personalLine = stripPlaceholder(f.personalLine);
-      // Show the person's real (interim) headshot when we have one; otherwise
-      // fall back to the initials avatar. Mirrors staff.html's photo gate.
+    const initialsOf = n => String(n || "").split(/\s+/).filter(Boolean).map(s => s[0]).slice(0, 2).join("").toUpperCase();
+    const rows = home.staffFeatured.map(f => {
+      const m = (staff.members || []).find(x => x.id === f.id) || { name: f.id, role: "", photo: "" };
+      const quote = stripPlaceholder(f.personalLine);
+      // Real (interim) headshot when we have one; otherwise the initials disc.
       const avatar = (m.photo && m.photoInterim)
-        ? `<img class="staff-avatar staff-avatar--img" src="./${m.photo}" alt="${m.name}" loading="lazy" width="74" height="74">`
-        : `<div class="staff-avatar" role="img" aria-label="${m.name}">${initials}</div>`;
-      card.innerHTML = `
+        ? `<img class="person-avatar" src="./${esc(m.photo)}" alt="${esc(m.name)}" loading="lazy" width="64" height="64">`
+        : `<div class="person-avatar person-avatar--initials" role="img" aria-label="${esc(m.name)}">${esc(initialsOf(m.name))}</div>`;
+      return `<div class="person-row">
         ${avatar}
-        <div class="staff-body">
-          <p class="staff-greeting">${f.greeting}</p>
-          <p class="staff-role">${m.role}</p>
-          ${personalLine ? `<p>${personalLine}</p>` : ""}
-        </div>`;
-      return card;
-    }));
+        <div class="person-id">
+          <p class="person-name">${esc(f.greeting)}</p>
+          <p class="person-role">${esc(m.role)}</p>
+        </div>
+        ${quote ? `<p class="person-quote">${esc(quote)}</p>` : ""}
+      </div>`;
+    });
+    // Footer row — decorative avatar stack of the rest + "…and N more" line.
+    const featuredIds = new Set(home.staffFeatured.map(f => f.id));
+    const rest = (staff.members || []).filter(m => !featuredIds.has(m.id));
+    let footer = "";
+    if (rest.length) {
+      const stack = rest.slice(0, 3).map((m, i) =>
+        `<span class="person-stack-av person-stack-av--${i + 1}">${esc(initialsOf(m.name))}</span>`).join("");
+      const moreText = esc((home.staff?.more || "…and {count} more of us who'll say hello.").replace("{count}", rest.length));
+      const meet = esc(home.staff?.cta || "Meet everyone");
+      footer = `<div class="person-row person-row--more">
+        <div class="person-stack" aria-hidden="true">${stack}</div>
+        <p class="person-more">${moreText} <a href="./staff.html">${meet} →</a></p>
+      </div>`;
+    }
+    homeStaff.innerHTML = rows.join("") + footer;
   }
 
   // Recommended rail (only if personalization data present)

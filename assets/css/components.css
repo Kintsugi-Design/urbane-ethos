@@ -1110,3 +1110,59 @@
     .contact-map { height: 400px; }
   }
 }
+
+/* ── Home "The people" — option 1c conversation list ──────────────────────
+   Sticky intro column (left) + one quiet card of staff rows (right):
+   headshot · name/role · italic serif quote, with an avatar-stack footer
+   row summarising the rest of the team. Stacks to one column below 880px. */
+@layer components {
+  .people-layout { display: grid; grid-template-columns: 360px 1fr; gap: var(--space-16); align-items: start; }
+  .people-intro { position: sticky; top: calc(var(--canggih-header-h) + var(--space-6)); }
+  .people-intro h2 { margin: 0 0 var(--space-4); }
+  .people-lede { margin: 0 0 var(--space-7); max-width: 34ch; color: var(--color-ink-soft); font-size: 1.0625rem; line-height: 1.6; text-wrap: pretty; }
+
+  .people-list {
+    background: var(--color-cream-soft);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-3);
+    padding: 0 var(--space-8);
+    box-shadow: var(--shadow-1);
+  }
+  .person-row { display: flex; align-items: center; gap: var(--space-6); padding: var(--space-6) 0; border-bottom: 1px solid var(--color-line); }
+  .person-row:last-child { border-bottom: 0; }
+  .person-avatar { flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: top; box-shadow: 0 0 0 4px var(--color-primary-soft); }
+  .people-list .person-row:nth-child(2) .person-avatar { box-shadow: 0 0 0 4px var(--av-b); }
+  .people-list .person-row:nth-child(3) .person-avatar { box-shadow: 0 0 0 4px var(--av-c); }
+  .person-avatar--initials {
+    display: flex; align-items: center; justify-content: center;
+    font: 600 1.25rem var(--font-serif); color: var(--color-primary-deep);
+    background: linear-gradient(135deg, var(--av-a), var(--color-primary-soft));
+  }
+  .person-id { width: 220px; flex: none; }
+  .person-name { margin: 0 0 2px; font: 600 1.25rem var(--font-serif); color: var(--color-ink); }
+  .person-role { margin: 0; font-size: 0.875rem; font-weight: 600; color: var(--color-primary-deep); }
+  .person-quote { flex: 1; margin: 0; font-family: var(--font-serif); font-style: italic; font-size: 1.03rem; line-height: 1.55; color: var(--color-ink-soft); text-wrap: pretty; }
+
+  .person-stack { display: flex; flex: none; }
+  .person-stack-av {
+    width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--color-cream-soft);
+    display: flex; align-items: center; justify-content: center;
+    font: 600 0.9375rem var(--font-serif); color: var(--color-primary-deep);
+  }
+  .person-stack-av + .person-stack-av { margin-left: -12px; }
+  .person-stack-av--1 { background: linear-gradient(135deg, var(--av-a), var(--color-primary-soft)); }
+  .person-stack-av--2 { background: linear-gradient(135deg, var(--av-b), #E0EAF8); }
+  .person-stack-av--3 { background: linear-gradient(135deg, var(--av-c), #E1EFE5); }
+  .person-more { margin: 0; color: var(--color-ink-soft); font-size: 1rem; }
+
+  @media (max-width: 879px) {
+    .people-layout { grid-template-columns: 1fr; gap: var(--space-8); }
+    .people-intro { position: static; }
+  }
+  @media (max-width: 620px) {
+    .people-list { padding: 0 var(--space-6); }
+    .person-row { flex-wrap: wrap; gap: var(--space-3) var(--space-4); }
+    .person-id { width: auto; }
+    .person-quote { flex-basis: 100%; }
+  }
+}

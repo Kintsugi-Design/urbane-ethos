@@ -4,9 +4,6 @@
     "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent')."
   },
   "_placeholder": {
-    "staffFeatured.0.personalLine": true,
-    "staffFeatured.1.personalLine": true,
-    "staffFeatured.2.personalLine": true,
     "events.blurb": true
   },
   "_draft": {
@@ -134,23 +131,26 @@
   },
   "staff": {
     "eyebrow": "The people",
-    "title": "Meet the people who'll be there"
+    "title": "Meet the people who'll be there",
+    "intro": "A small team, on purpose. Your child works with the same familiar faces from the first screening onward.",
+    "cta": "Meet everyone",
+    "more": "…and {count} more of us who'll say hello."
   },
   "staffFeatured": [
     {
       "id": "dr-norizan-rajak",
       "greeting": "Hi, I'm Norizan",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
+      "personalLine": "I sit with families through the hardest questions first."
     },
     {
       "id": "ms-liyana-tarmizi",
       "greeting": "Hi, I'm Liyana",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
+      "personalLine": "I help children put big feelings into words they can hold."
     },
     {
       "id": "mrs-norizzati-afiqah",
       "greeting": "Hi, I'm Norizzati",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet."
+      "personalLine": "Play is how I find out what a child is ready to learn next."
     }
   ],
   "events": {
