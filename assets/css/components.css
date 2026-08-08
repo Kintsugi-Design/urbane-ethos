@@ -1183,3 +1183,13 @@
     .person-quote { flex-basis: 100%; }
   }
 }
+
+/* ── Careers culture strip ────────────────────────────────────────────────
+   Photo strip on careers.html, rendered from content/careers.json into
+   .grid-3 > figure.media-card. The source photos are a mix of landscape and
+   portrait crops; normalising them to one 4:3 ratio keeps the row reading as
+   a strip instead of a ragged grid. Frame, caption and shadow come from
+   .media-card — this block only owns the crop. */
+@layer components {
+  .culture-strip img { aspect-ratio: 4 / 3; object-fit: cover; }
+}

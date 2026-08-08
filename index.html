@@ -254,12 +254,12 @@
           <p class="person-quote">I sit with families through the hardest questions first.</p>
         </div>
         <div class="person-row">
-          <img class="person-avatar" src="./assets/img/staff-pdf/ms-liyana-tarmizi.jpg" alt="Ms. Liyana Binti Tarmizi" loading="lazy" width="64" height="64">
+          <img class="person-avatar" src="./assets/img/staff/ms-robin-koh-hui-xuan.jpeg" alt="Ms. Koh Hui Xuan (Robin)" loading="lazy" width="64" height="64">
           <div class="person-id">
-            <p class="person-name">Hi, I'm Liyana</p>
+            <p class="person-name">Hi, I'm Robin</p>
             <p class="person-role">Clinical Psychologist</p>
           </div>
-          <p class="person-quote">I help children put big feelings into words they can hold.</p>
+          <p class="person-quote">I help people give a voice to their struggles, and build a life that feels like their own.</p>
         </div>
         <div class="person-row">
           <img class="person-avatar" src="./assets/img/staff-pdf/mrs-norizzati-afiqah.jpg" alt="Mrs Norizzati Afiqah, OTR/L" loading="lazy" width="64" height="64">
@@ -501,8 +501,8 @@ async function renderHome() {
     const rows = home.staffFeatured.map(f => {
       const m = (staff.members || []).find(x => x.id === f.id) || { name: f.id, role: "", photo: "" };
       const quote = stripPlaceholder(f.personalLine);
-      // Real (interim) headshot when we have one; otherwise the initials disc.
-      const avatar = (m.photo && m.photoInterim)
+      // Real headshot when we have one; otherwise the initials disc.
+      const avatar = m.photo
         ? `<img class="person-avatar" src="./${esc(m.photo)}" alt="${esc(m.name)}" loading="lazy" width="64" height="64">`
         : `<div class="person-avatar person-avatar--initials" role="img" aria-label="${esc(m.name)}">${esc(initialsOf(m.name))}</div>`;
       return `<div class="person-row">

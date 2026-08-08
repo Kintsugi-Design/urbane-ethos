@@ -80,14 +80,20 @@ Any module that participates in the always-on canggih layer **must be imported i
 
 If a new canggih module ships without wiring to all 10 pages, it silently appears only where it was added. Smoke check after wiring changes:
 
+**Scope these greps to the 10 production pages.** A bare `*.html` glob also matches the 37 generated `post-*.html` blog pages, which carry the same imports — you'll get 47/46/45 instead of 10/9/8 and think something is wrong.
+
 ```bash
-grep -c "<module-name>.js" *.html | paste -sd+ | bc   # must equal 10
+# note: literal file list, not a shell variable — zsh does not word-split unquoted vars
+grep -l "<module-name>.js" index.html about.html staff.html services.html blog.html \
+  contact.html analytics.html privacy.html careers.html post-year-end-promo.html | wc -l   # must equal 10
 ```
 
 Not every module is on all 10 pages — only the always-on canggih modules are. Expected per-module import counts (verify after wiring changes):
 
 ```bash
-for m in nav icons page-load cursor i18n consent a11y chatbot parallax; do printf "%-14s" $m; grep -l "assets/js/$m.js" *.html | wc -l; done
+for m in nav icons page-load cursor i18n consent a11y chatbot parallax; do printf "%-14s" $m; \
+  grep -l "assets/js/$m.js" index.html about.html staff.html services.html blog.html \
+  contact.html analytics.html privacy.html careers.html post-year-end-promo.html | wc -l; done
 # nav 10 · icons 10 · page-load 10 · cursor 10 · i18n 9 · consent 9 · a11y 8 · chatbot 8 · parallax 3
 ```
 
@@ -121,8 +127,16 @@ Special metadata keys — `_meta.*`, `_draft`, and `_correction` are **stripped*
 Every photo that needs a real shot pre-launch is flagged in two ways:
 
 1. `aria-label="[REAL PHOTO REQUIRED] <subject>"` on the placeholder element — greppable for `[REAL PHOTO REQUIRED]`.
-2. Picsum-derived seeded JPGs in `assets/img/anchors/` for the considered-photo `<figure class="anchor-photo">` slots and YouTube thumbnails.
-3. `assets/img/staff-pdf/` — 8 **low-res interim headshots** extracted from the company-profile PDF, one per PDF-confirmed team member (filenames match the `photo` paths in `content/en/staff.json`, each flagged `"photoInterim": true`). The 9th member (Nur Ain Nabila, Administrator) has no PDF photo — she keeps the initials placeholder and stays flagged `[REAL PHOTO REQUIRED]`.
+2. `assets/img/anchors/` — the considered-photo `<figure class="anchor-photo">` slots and YouTube thumbnails. These now hold **real client photos** (face-hidden centre shots) plus bespoke illustrations, not the original picsum seeds.
+3. `assets/img/staff-pdf/` — 6 **low-res interim headshots** extracted from the company-profile PDF, flagged `"photoInterim": true`.
+4. `assets/img/staff/` — **real, client-submitted headshots**, flagged `"photoInterim": false`. These are finished: do NOT include them in the pre-launch photo swap.
+5. `assets/img/culture/` — team/culture photos for the `careers.html` culture strip, captioned from `content/careers.json` (EN-only, parity-exempt).
+
+Nur Ain Nabila (Administrator) has `"photo": null` and renders an initials tile — that is intentional, not a missing file.
+
+**Photo governance rule (client decision, 2026-08-09):** no identifiable children's faces, and no photo where personal information is readable (client names, appointment schedules, name tags). Audit any new photo against this before wiring it in — several supplied photos were rejected for exactly these reasons. See `docs/superpowers/specs/2026-08-09-staff-refresh-and-photo-integration-design.md` § 2.4.
+
+**Gotcha:** the staff-card renderers in `staff.html` and `index.html` gate the `<img>` on `m.photo` alone. They previously gated on `m.photo && m.photoInterim`, which silently rendered a real (non-interim) photo as an initials tile. Don't reintroduce that.
 
 **Pre-launch swap workflow:** replace JPGs in `assets/img/anchors/` and `assets/img/staff-pdf/` keeping the same filenames (staff-pdf swaps also warrant clearing the `photoInterim` flags after a proper shoot + consent); update `data-yt-id` on each `<div class="yt-embed">` with real YouTube IDs. No markup changes needed.
 

@@ -104,13 +104,14 @@
         <button class="staff-video-btn" data-video data-i18n="common.a11y.playVideoPlaceholder">Play intro video</button>
       </div>
     </article>
-    <article class="staff-card" id="ms-liyana-tarmizi">
-      <img class="staff-photo staff-photo--img" src="./assets/img/staff-pdf/ms-liyana-tarmizi.jpg" alt="Ms. Liyana Binti Tarmizi" loading="lazy">
+    <article class="staff-card" id="ms-robin-koh-hui-xuan">
+      <img class="staff-photo staff-photo--img" src="./assets/img/staff/ms-robin-koh-hui-xuan.jpeg" alt="Ms. Koh Hui Xuan (Robin)" loading="lazy">
       <div class="staff-body">
-        <p class="staff-greeting">Hi, I'm Liyana</p>
+        <p class="staff-greeting">Hi, I'm Robin</p>
         <p class="staff-role">Clinical Psychologist</p>
-        <p><small>MAHPC(CP)00325</small></p>
-        <p>Clinical Psychology training completed at multiple hospitals and clinics. Works with diverse client populations and is experienced with emotional and behavioural difficulties and assessment of the neurodivergent population. Advocates a multidisciplinary approach for holistic care.</p>
+        <p><small>Master of Clinical Psychology, UCSI University · Registered Clinical Psychologist, Malaysian Allied Health Professions Council (MAHPC: CP00517) · Member, Malaysian Society of Clinical Psychology (MSCP: CP1-00619) · Trained in PEERS® for Preschoolers</small></p>
+        <p>I help people give a voice to their struggles, and build a life that feels like their own.</p>
+        <p>Robin works with children, adolescents and adults across psychological assessment, diagnosis and intervention — anxiety, depression, stress, adjustment difficulties, and neurodivergence including Autism Spectrum Disorder (ASD) and Attention-Deficit/Hyperactivity Disorder (ADHD). She practises Cognitive Behavioural Therapy (CBT) and Acceptance and Commitment Therapy (ACT) with integrated art therapy, supporting clients to build psychological flexibility and live a meaningful life. A strong advocate for mental health literacy and early intervention, she has delivered mental health talks and psychoeducation sessions in public schools for students, educators and families.</p>
         <button class="staff-video-btn" data-video data-i18n="common.a11y.playVideoPlaceholder">Play intro video</button>
       </div>
     </article>
@@ -151,12 +152,14 @@
         <button class="staff-video-btn" data-video data-i18n="common.a11y.playVideoPlaceholder">Play intro video</button>
       </div>
     </article>
-    <article class="staff-card" id="ms-nuraisyah-azman">
-      <img class="staff-photo staff-photo--img" src="./assets/img/staff-pdf/ms-nuraisyah-azman.jpg" alt="Ms. Nuraisyah Azman" loading="lazy">
+    <article class="staff-card" id="ms-farwizah">
+      <img class="staff-photo staff-photo--img" src="./assets/img/staff/ms-farwizah.jpeg" alt="Ms. Farwizah" loading="lazy">
       <div class="staff-body">
-        <p class="staff-greeting">Hi, I'm Nuraisyah</p>
+        <p class="staff-greeting">Hi, I'm Farwizah</p>
         <p class="staff-role">Special Education Teacher</p>
-        <p><small>Universiti Kebangsaan Malaysia (UKM)</small></p>
+        <p><small>Bachelor of Psychology (Hons), Universiti Pendidikan Sultan Idris (UPSI) · Diploma Pascasiswazah Pendidikan (DPP), Universiti Kebangsaan Malaysia (UKM) · Permit Mengajar JPNS.SPS-2026/PTGPP/14/0805</small></p>
+        <p>I want every child to grow into as much of themselves as they can — and to do it independently.</p>
+        <p>A special needs education teacher with a background in psychology and education, working to help children grow to the most of their potential and become independent. Also active in volunteerism — supporting those in need and contributing to children's development.</p>
         <button class="staff-video-btn" data-video data-i18n="common.a11y.playVideoPlaceholder">Play intro video</button>
       </div>
     </article>
@@ -244,7 +247,7 @@ async function renderStaff() {
     c.className = "staff-card";
     c.id = m.id;
     const initials = (m.name || "").split(/\s+/).map(x => x[0]).filter(Boolean).slice(0, 2).join("");
-    const photoHtml = (m.photo && m.photoInterim)
+    const photoHtml = m.photo
       ? `<img class="staff-photo staff-photo--img" src="./${m.photo}" alt="${m.name}" loading="lazy">`
       : `<div class="staff-photo" role="img" aria-label="[REAL PHOTO REQUIRED] ${m.name}">${initials}</div>`;
     const personalLine = stripPlaceholder(m.personalLine);

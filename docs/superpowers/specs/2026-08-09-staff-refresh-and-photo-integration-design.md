@@ -124,11 +124,10 @@ The other six anchors pass the audit and stay: `about-hero.jpg`, `service-mood-1
 | Destination | Source | Page wiring |
 |---|---|---|
 | `assets/img/anchors/about-team.jpg` | Nine-person team line-up, unmasked, in the therapy room | New `.anchor-photo` figure on `about.html` |
-| `assets/img/anchors/contact-reception.jpg` | Three staff at the branded reception counter | New `.anchor-photo` figure on `contact.html`, near the address block |
+| `assets/img/anchors/contact-reception.jpg` | Three staff at the reception counter | New `.anchor-photo` figure on `contact.html`, near the address block. Cropped to 780×760 at implementation time — the source framing cut the "U" off the counter wordmark ("RBANE ETHOS"), which read as a mistake, so the sign band is cropped out entirely. |
 | `assets/img/anchors/service-ot-room.jpg` | Sensory room: platform swing, crash mat, whale mural | New `ot` entry in the `serviceArt` map in `services.html` |
 | `assets/img/culture/team-heart.jpg` | Team making heart shapes, mural backdrop | `careers.html` culture strip |
 | `assets/img/culture/team-birthday.jpg` | Staff birthday table | `careers.html` culture strip |
-| `assets/img/culture/team-retreat.jpg` | Off-site team retreat group | `careers.html` culture strip |
 | `assets/img/culture/team-festive.jpg` | Staff at reception with festive hampers | `careers.html` culture strip |
 | `assets/img/culture/community-eip.jpg` | EIP awareness talk, ~90 attendees | `careers.html` culture strip |
 
@@ -143,6 +142,8 @@ For every photo: strip EXIF (`-strip`), convert to progressive JPEG at quality 8
 ### 2.4 Excluded, and why
 
 **Identifiable children (9):** group class photo with ~8 children; restaurant line-up; river selfie; toddler with gift bags; painting collage; night café group; two team selfies with a child in frame; cafe spaghetti-tower selfie.
+
+**Dropped during verification (1):** the off-site team retreat group was approved during design, but visual review of the processed asset found a child front-and-centre. His face is largely covered by a cap and a mask and he is looking down, so he is not readily identifiable — but the governing rule is strict, the photo was disposable culture filler, and the cost of being wrong is a child published without consent. Removed from the culture strip, which ships with four images instead of five.
 
 **Sensitive information (2):**
 - Child stepping across floor footprints — the whiteboard behind lists **real client names and appointment times** (`Hariz Naim … 10:00am–11:00am`, `Adam Rizqy (Dr)`, `Ishaq (Mr Foo)`, `Sharvin`, `Sufiyyah`). PDPA exposure. Compositionally the strongest photo in the set; a hard crop would remove the whiteboard entirely and make it publishable. Left out per the governing rule; available on request.

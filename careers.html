@@ -79,6 +79,12 @@
       <div class="grid-2" id="benefits-grid"></div>
     </div>
   </section>
+  <section class="section" id="culture-section" hidden>
+    <div class="wrap">
+      <h2 id="culture-heading">Life at the centre</h2>
+      <div class="grid-3 culture-strip" id="culture-grid"></div>
+    </div>
+  </section>
   <section class="section section--alt">
     <div class="wrap">
       <h2 id="outro-heading">How to apply</h2>
@@ -160,6 +166,28 @@ async function renderCareers() {
     c.className = "card";
     c.innerHTML = `<div class="card-inner"><h3>${esc(b.title)}</h3><p>${esc(b.body)}</p></div>`;
     return c;
+  }));
+
+  // Culture strip — real, consent-safe photos of the team. Alt text and
+  // captions live in careers.json (root-level, parity-exempt), not common.json.
+  const cultureItems = data.culture?.items || [];
+  const csec = document.getElementById("culture-section");
+  csec.hidden = cultureItems.length === 0;
+  document.getElementById("culture-heading").textContent = data.culture?.heading || "Life at the centre";
+  document.getElementById("culture-grid").replaceChildren(...cultureItems.map(p => {
+    const fig = document.createElement("figure");
+    fig.className = "media-card";
+    const img = document.createElement("img");
+    img.src = `./${String(p.src || "").replace(/^\.?\//, "")}`;
+    img.alt = p.alt || "";
+    img.loading = "lazy";
+    fig.append(img);
+    if (p.caption) {
+      const cap = document.createElement("figcaption");
+      cap.textContent = p.caption;
+      fig.append(cap);
+    }
+    return fig;
   }));
 
   document.getElementById("outro-heading").textContent = data.outro?.heading || "How to apply";

@@ -1,12 +1,11 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "9 staff members captured from live /staff page. PDF (2026-05-24) confirms all 8 practitioners; Nur Ain retained from Wix (not in PDF). PDF \"Aisyah Azman\" = repo \"Nuraisyah Azman\" (Special Education Teacher) — repo keeps the fuller name. PDF headshots are low-res interim files pending a proper shoot + consent. greeting carries the real name; personalLine and several bios are placeholder pending source."
+    "_note": "9 staff members. Robin (members[2]) and Farwizah (members[7]) joined 2026-08-09, replacing the two practitioners who left; their copy is client-supplied and their headshots are real client-submitted files in assets/img/staff/ (photoInterim: false — excluded from the pre-launch photo swap). The six other practitioners still carry low-res interim headshots extracted from the company-profile PDF (2026-05-24), pending a proper shoot + consent. Nur Ain Nabila (members[8]) has no photo and renders an initials placeholder. greeting carries the real name; personalLine and several bios are still placeholder pending source."
   },
   "_placeholder": {
     "members.0.personalLine": true,
     "members.1.personalLine": true,
-    "members.2.personalLine": true,
     "members.3.personalLine": true,
     "members.4.personalLine": true,
     "members.4.bio": true,
@@ -14,8 +13,6 @@
     "members.5.bio": true,
     "members.6.personalLine": true,
     "members.6.bio": true,
-    "members.7.personalLine": true,
-    "members.7.bio": true,
     "members.8.personalLine": true,
     "members.8.bio": true
   },
@@ -55,17 +52,21 @@
       "video": null
     },
     {
-      "id": "ms-liyana-tarmizi",
-      "name": "Ms. Liyana Binti Tarmizi",
+      "id": "ms-robin-koh-hui-xuan",
+      "name": "Ms. Koh Hui Xuan (Robin)",
       "role": "Clinical Psychologist",
-      "credentials": ["MAHPC(CP)00325"],
-      "greeting": "Hi, I'm Liyana",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet.",
-      "bio": "Clinical Psychology training completed at multiple hospitals and clinics. Works with diverse client populations and is experienced with emotional and behavioural difficulties and assessment of the neurodivergent population. Advocates a multidisciplinary approach for holistic care.",
-      "photo": "assets/img/staff-pdf/ms-liyana-tarmizi.jpg",
-      "photoInterim": true,
-      "video": null,
-      "_note": "No photo URL captured from the live page render; using a placeholder."
+      "credentials": [
+        "Master of Clinical Psychology, UCSI University",
+        "Registered Clinical Psychologist, Malaysian Allied Health Professions Council (MAHPC: CP00517)",
+        "Member, Malaysian Society of Clinical Psychology (MSCP: CP1-00619)",
+        "Trained in PEERS® for Preschoolers"
+      ],
+      "greeting": "Hi, I'm Robin",
+      "personalLine": "I help people give a voice to their struggles, and build a life that feels like their own.",
+      "bio": "Robin works with children, adolescents and adults across psychological assessment, diagnosis and intervention — anxiety, depression, stress, adjustment difficulties, and neurodivergence including Autism Spectrum Disorder (ASD) and Attention-Deficit/Hyperactivity Disorder (ADHD). She practises Cognitive Behavioural Therapy (CBT) and Acceptance and Commitment Therapy (ACT) with integrated art therapy, supporting clients to build psychological flexibility and live a meaningful life. A strong advocate for mental health literacy and early intervention, she has delivered mental health talks and psychoeducation sessions in public schools for students, educators and families.",
+      "photo": "assets/img/staff/ms-robin-koh-hui-xuan.jpeg",
+      "photoInterim": false,
+      "video": null
     },
     {
       "id": "mrs-norizzati-afiqah",
@@ -121,15 +122,19 @@
       "video": null
     },
     {
-      "id": "ms-nuraisyah-azman",
-      "name": "Ms. Nuraisyah Azman",
+      "id": "ms-farwizah",
+      "name": "Ms. Farwizah",
       "role": "Special Education Teacher",
-      "credentials": ["Universiti Kebangsaan Malaysia (UKM)"],
-      "greeting": "Hi, I'm Nuraisyah",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet.",
-      "bio": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "photo": "assets/img/staff-pdf/ms-nuraisyah-azman.jpg",
-      "photoInterim": true,
+      "credentials": [
+        "Bachelor of Psychology (Hons), Universiti Pendidikan Sultan Idris (UPSI)",
+        "Diploma Pascasiswazah Pendidikan (DPP), Universiti Kebangsaan Malaysia (UKM)",
+        "Permit Mengajar JPNS.SPS-2026/PTGPP/14/0805"
+      ],
+      "greeting": "Hi, I'm Farwizah",
+      "personalLine": "I want every child to grow into as much of themselves as they can — and to do it independently.",
+      "bio": "A special needs education teacher with a background in psychology and education, working to help children grow to the most of their potential and become independent. Also active in volunteerism — supporting those in need and contributing to children's development.",
+      "photo": "assets/img/staff/ms-farwizah.jpeg",
+      "photoInterim": false,
       "video": null
     },
     {
@@ -140,7 +145,7 @@
       "greeting": "Hi, I'm Nur Ain",
       "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet.",
       "bio": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "photo": "assets/img/placeholders/staff-mrs-nur-ain-nabila.png",
+      "photo": null,
       "photoInterim": false,
       "video": null
     }

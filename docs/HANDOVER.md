@@ -1,9 +1,44 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-08-03 (production-readiness review + gate-fix build on branch `feat/production-readiness-gate`; GitHub target: `Kintsugi-Design/urbane-ethos`)
+**Last updated:** 2026-08-09 (staff refresh + client photo integration; GitHub target: `Kintsugi-Design/urbane-ethos`)
 **HEAD:** on `main`
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 **Pages deploy (immediate):** push `main` to `git@github.com:Kintsugi-Design/urbane-ethos.git`. GitLab Pages workflow (`.gitlab-ci.yml`) is committed but deferred — instance Pages enablement pending. See Workstream 2.
+
+---
+
+## Staff refresh + client photo integration — landed 2026-08-09
+
+Spec: `docs/superpowers/specs/2026-08-09-staff-refresh-and-photo-integration-design.md`.
+
+### Staff
+Two practitioners replaced, same array positions, same roles: **Ms. Koh Hui Xuan (Robin)**, Clinical Psychologist (was Liyana Tarmizi) and **Ms. Farwizah**, Special Education Teacher (was Nuraisyah Azman). Client-supplied copy — both got real `personalLine` and `bio` text, which **retired three lorem-ipsum `_placeholder` keys** (`members.2.personalLine`, `members.7.personalLine`, `members.7.bio`) from both locales. BM translated with the glossary applied, `reviewedBy` still `null`.
+
+Their headshots are real client submissions, so they live in a **new `assets/img/staff/`** with `photoInterim: false` — deliberately outside the `staff-pdf/` interim set so the pre-launch swap workflow skips them.
+
+**Renderer bug fixed** in `staff.html` *and* `index.html`: the photo was gated on `m.photo && m.photoInterim`, so a real non-interim photo silently rendered as an initials tile. Now gated on `m.photo`. Nur Ain Nabila's `photo` is `null`, which is how she keeps her intended initials tile.
+
+Touchpoints: `content/{en,ms}/staff.json`, `content/{en,ms}/home.json` (Robin is a featured home-page face), `staff.html`, `index.html`, `assets/js/personalization.js` (`behaviour` → Robin, `learning` → Farwizah).
+
+### Photos — and a live PDPA fix
+The client supplied 41 photos (29 unique). Auditing them surfaced **two already-published images that exposed identifiable children**, one of which was flagged `PENDING` in `common.json` `media._note` back in Phase 2 and never actioned:
+
+- `services-hero.jpg` — three identifiable children + two adults, spread across all thirds (not croppable). Replaced with an overhead shot of hands arranging language cards.
+- `yt-thumb-centre-tour.jpg` — a boy's face fully visible, lit, in focus. Replaced with a child on the sensory swing shot from behind.
+
+**Governing rule (client decision, 2026-08-09): no identifiable children's faces, no readable personal information.** 11 of the 29 photos were rejected under it — including the compositionally strongest shot in the set, where the whiteboard behind lists real client names and appointment times. A hard crop would make it publishable; it is available on request.
+
+New placements: `about-team.jpg` (about), `contact-reception.jpg` (contact), `service-ot-room.jpg` (OT service block, via a new `ot` entry in the `serviceArt` map), and a new **culture strip on `careers.html`** — 4 images captioned from `content/careers.json` (EN-only, parity-exempt). New `assets/img/culture/` directory. One minimal `.culture-strip` rule added inside `@layer components`.
+
+Adding `ot` to `serviceArt` means `service-mood-3.jpg` is no longer reached. File and keys left in place; the `i < 3` code path is intact.
+
+### Verified this build
+axe-core **0 violations** on index, staff, about, services, contact, careers (wcag2a/2aa/22aa, rendered DOM); i18n parity green (9 files); no live references to the departed staff; every image `src` on the 10 production pages resolves; canggih import counts unchanged.
+
+### Still open
+- BM copy for Robin and Farwizah is machine-translated — same human-review gate as the rest.
+- The other six practitioners still carry low-res interim PDF headshots (`photoInterim: true`), and seven still have lorem-ipsum `personalLine`/`bio`.
+- `data-yt-id` values are still `PLACEHOLDER_*`.
 
 ---
 

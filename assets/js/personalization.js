@@ -32,8 +32,8 @@ const RULES = {
   concernToStaff: {
     "speech": "ms-emalin-nasuha-hachim",
     "motor-skills": "mrs-norizzati-afiqah",
-    "behaviour": "ms-liyana-tarmizi",
-    "learning": "ms-nuraisyah-azman",
+    "behaviour": "ms-robin-koh-hui-xuan",
+    "learning": "ms-farwizah",
     "daily-living": "nasirah-zulkifli",
     "not-sure": "dr-norizan-rajak"
   },

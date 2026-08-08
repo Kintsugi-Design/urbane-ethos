@@ -33,6 +33,31 @@
       }
     ]
   },
+  "culture": {
+    "heading": "Life at the centre",
+    "items": [
+      {
+        "src": "assets/img/culture/team-heart.jpg",
+        "alt": "The team making heart shapes with their hands in the therapy room",
+        "caption": "The team, in the therapy room."
+      },
+      {
+        "src": "assets/img/culture/team-birthday.jpg",
+        "alt": "Staff gathered around a table for a birthday celebration",
+        "caption": "Birthdays at the centre."
+      },
+      {
+        "src": "assets/img/culture/team-festive.jpg",
+        "alt": "Staff at the reception counter during a festive celebration",
+        "caption": "Festive season at reception."
+      },
+      {
+        "src": "assets/img/culture/community-eip.jpg",
+        "alt": "A large audience at an Urbane Ethos early-intervention awareness talk",
+        "caption": "An early-intervention awareness talk."
+      }
+    ]
+  },
   "outro": {
     "heading": "How to apply",
     "body": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
