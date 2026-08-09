@@ -1,9 +1,65 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-08-09 (staff refresh + client photo integration; GitHub target: `Kintsugi-Design/urbane-ethos`)
+**Last updated:** 2026-08-09 (enquiry capture + contact channels; GitHub target: `Kintsugi-Design/urbane-ethos`)
 **HEAD:** on `main`
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 **Pages deploy (immediate):** push `main` to `git@github.com:Kintsugi-Design/urbane-ethos.git`. GitLab Pages workflow (`.gitlab-ci.yml`) is committed but deferred — instance Pages enablement pending. See Workstream 2.
+
+---
+
+## Enquiry capture, pre-fill, and contact channels — landed 2026-08-09
+
+Spec: `docs/superpowers/specs/2026-08-09-enquiry-capture-and-channels-design.md`.
+Plan: `docs/superpowers/plans/2026-08-09-enquiry-capture-and-channels.md` (14 work-units, 4 batches).
+
+### The defect this build closed
+`contact.html` submitted **every enquiry** to `mailto:info@urbaneethos.center` — an address that appeared nowhere else in the repo and that the centre does not read. Every other surface said `urbaneethos@yahoo.com`. See "The address gate lesson" below for why the existing gate could not see it.
+
+### Two new modules (neither is a canggih-layer module — no 10-page wiring)
+- **`assets/js/storage.js`** — the single consent-aware, exception-safe storage gate. `allowed / get / set / remove / clearAll`. **Imports nothing**, deliberately: it owns `CONSENT_KEY` and `CONSENT_VERSION` and `consent.js` imports *them*, which inverts what would otherwise be an ESM cycle. Every other module migrated onto it, so `set()` returning `false` when consent is absent makes the old ungated-write defect impossible to express.
+- **`assets/js/enquiry.js`** — the only place that knows how to reach the centre. `readInterest / composeEnquiry / channels / mailtoUrl / whatsappUrl`. `channels()` derives email + WhatsApp from the already-parity-gated `contact` namespace; the `wa.me` target is **computed** (`+6013-249 0069` → `60132490069`), never stored twice. Transport message copy is intentionally **English-only and hard-coded here** — it is addressed to the centre, not the visitor, which keeps the parity surface small.
+
+### What visitors get
+- **Interest capture.** New `<select id="cf-service">` above the concern textarea, options built at render time from the seven-key `services` namespace, so both locales come free and the option set cannot drift from the services page. The message carries the human title (`Enquiry about Speech Language Therapy (SLP)`), not the slug.
+- **Pre-fill**, highest-intent first: `?service=` (no consent — user-initiated navigation, no storage read) → chatbot context → personalization survey. The `eip`-vs-adult age gate is inherited from `personalization.js`, not re-implemented. **The concern textarea is never pre-filled** (sensitive child-health free text); survey-derived context surfaces instead as a visible "We've filled some of this in… · Clear" line.
+- **A success state.** The form previously had none — a visitor with no mail handler got total silence. Submit now swaps in a `role="status"` panel offering **WhatsApp, email, and copy-to-clipboard**. Nothing navigates until the visitor picks, so no popup blocker can intercept it.
+- **WhatsApp is finally a link.** The contact row was `href="tel:"` under a chat icon (tapping "WhatsApp" placed a phone call). It now uses a real `wa.me` deep link and a distinct `whatsapp` brand icon, and WhatsApp also appears in the chatbot panel footer and the `customer.confirm` node.
+- **"Clear my data."** A footer control on every page plus an entry inside the consent modal, opening a **native `<dialog>`** (not `window.confirm()`) that enumerates the five things it wipes, then calls `clearAll()` and reloads. Labelled "data", not "cookies" — the site sets zero cookies; all state is local/sessionStorage.
+
+### Consent
+`CONSENT_VERSION` 1 → 2, so existing visitors are re-prompted rather than silently re-scoped: pre-filling a form from chat answers exceeds what the old `chatbot` description promised. **G3 rode along here** (see below) rather than becoming a second re-prompt event for the same people.
+
+### Chatbot
+`human.*` → `customer.*`; the single `input: "name+phone"` free-text blob split into two sequential capture steps (`customer.name` → `customer.phone`), since regexing a blob is locale-fragile. Context now persists to `urbane-ethos:chat-context` so a visitor who chats then navigates to `/contact.html` carries `{service, age, freq, name, phone}` with them. All response-time promises removed from copy (the centre has no dedicated customer-service line and will not commit to a reply window).
+
+### New CI gate
+**`bin/check-contact-channels.rb`** — builds its allowlist **from content, never hard-coded** (`content/en/contact.json`, `content/en/common.json`, `content/careers.json`) and scans every root `*.html` including the 38 generated posts, the blog ERB, and `content/blog/posts/*.md`. Asserts every literal `mailto:` / `tel:` / `wa.me` matches. Template expressions (`mailto:${…}`, `<%= … %>`) are skipped, not failed. Wired into **both** pipelines after the parity gate.
+
+> **The address gate lesson.** `HANDOVER.md` previously claimed the placeholder address "is gone". It was gone *from `content/`* — and the grep gate that verified it (`2026-07-27-authoritative-content-replacement.md:602`) **only scanned `content/`, never the page markup**, so a hard-coded address living in a `contact.html` inline script was structurally invisible to it. A gate that reads only the data source cannot catch a value hard-coded in the consumer. `check-contact-channels.rb` scans the *rendered surfaces* and derives its expectations from the data, which is the direction that actually catches drift.
+
+### CI
+Both pipelines now run the same two gates in the same order: `check-i18n-parity.rb` → `check-contact-channels.rb`. The GitLab job was renamed `i18n-parity` → **`content-gates`** (it no longer only checks parity); `pages: needs:` updated to match. **rsync exclusion lists unchanged** — `bin/` is already excluded from the artifact and still available in the test stage.
+
+### Two fixes found during the batch
+- **`test/smoke/i18n.html` had been silently broken.** `i18n.js` built its fetch URL relative to the *document*, so from `/test/smoke/` it 404'd; `setLocale()` rejected before the first assertion ran and the page reported **neither PASS nor FAIL** — zero assertions, looking superficially fine. Two agents hit it independently. Fixed by resolving content against **`import.meta.url`** (`assets/js/i18n.js` → `../../content/`), which is *more* robust than document-relative: the module's position relative to `content/` is fixed, so it resolves correctly at the repo root, at a custom-domain root, **and** at a repo subpath like `kintsugi-design.github.io/urbane-ethos/`. All three were verified in a real browser against a subpath-mounted server before committing, plus `/test/smoke/`. No root-absolute literal is introduced, so the relative-path rule still holds. `chatbot.js:33` had the identical defect (breaking `test/smoke/chatbot.html`) and got the identical fix.
+- **`contact.form.successNote` was stale copy.** It read "Your default mail app will open with this message ready to send." — true when submit navigated straight to a `mailto:`, false now that the mail app opens only if the visitor picks the email transport. Rewritten in both locales (and the pre-JS fallback in the markup), flagged `_draft` for client review.
+
+### Verified this build
+- `bin/check-i18n-parity.rb` → `i18n parity OK (9 files)`, exit 0.
+- `bin/check-contact-channels.rb` → `contact channels OK (87 files, 1 email(s), 2 number(s))`, exit 0.
+- `ruby bin/build-blog.rb` idempotent — `git diff --quiet` clean on re-run.
+- axe-core **0 violations on all 10 production pages** (wcag2a/2aa/22aa) + `bin/axe-chatbot.mjs` 0 violations. The two surfaces the static CLI sweep *cannot* reach were audited live under playwright and are also 0: the `role="status"` success panel (hidden until submit) and the native `<dialog>` (built lazily) — see `docs/A11Y_NOTES.md`.
+- All 9 `test/smoke/` pages load clean; `enquiry.html` reports **54 PASS / 0 FAIL**, `i18n.html` 3 PASS / 0 FAIL (it reported *nothing* before this build).
+- Canggih import matrix unchanged: `nav 10 · icons 10 · page-load 10 · cursor 10 · i18n 9 · consent 9 · a11y 8 · chatbot 8 · parallax 3`. `storage.js` and `enquiry.js` are on 1 page each, as intended.
+- No `localStorage`/`sessionStorage` call survives outside `storage.js`; no `mailto:`/`tel:`/`wa.me` literal survives in any JS module outside `enquiry.js`; no dependency manifest touched; no root-absolute internal paths.
+- Locale round-trip: EN↔BM with a pre-filled form and with the success panel visible — both survive, `{name}`/`{service}` stay substituted, and the submit handler fires **exactly once** after three toggles (it fired once per toggle before).
+
+### Still open / follow-ups
+- **`content/glossary.md:83` is now stale.** It says "Days/hours stay English (international convention in MY context)", but this build translated the BM hours (`content/ms/contact.json` → `"Isnin: 12PM – 5PM"`, `"Tutup pada hari Ahad & Cuti Umum"`, and the `common.json` footer mirror) per the design's Group C fix. The translation is the intended behaviour; **the glossary line is what needs correcting**, not the content.
+- **`content/ms/home.json` `services.items[3].title` is still English** while the same service is translated in `ms/services.json`. Pre-existing, out of scope for this build, not a parity failure (the key exists in both trees). Worth a one-line fix in the next content pass.
+- `assets/js/map-embed.js:31` still fetches `./content/…` document-relative — the same pattern fixed in `i18n.js`/`chatbot.js`. Harmless today (its only consumers, index + contact, sit at the deploy root) and it has no smoke page, so it was left alone rather than touched outside this batch's scope. Fix it if a subdirectory page ever imports it.
+- The success panel's transport copy and the `clearData.*` set are `_draft` — client review pending, like the rest of the drafted strings.
+- Still no backend. Delivery remains `mailto:` / `wa.me` / clipboard by design.
 
 ---
 
@@ -63,9 +119,11 @@ Branch `feat/production-readiness-gate`. A full production-readiness review (8 p
 axe-core **0 violations across all 11 production pages** (rendered DOM, wcag2a/2aa/22aa — one facade contrast regression was caught and fixed); i18n parity green (9 files); all pages + `sitemap.xml` + `robots.txt` serve 200; `build-blog.rb` idempotent (no drift); map network-silent pre-click.
 
 ### Still open after this build
-- **G3 — consent-banner copy (deferred to launch checklist per client).** The banner still implies control it doesn't have and the "Analytics" toggle gates nothing real; rewrite copy to match actual behaviour before launch.
+- ~~**G3 — consent-banner copy.**~~ **CLOSED 2026-08-09** by the enquiry-capture build. `consent.banner.heading` / `.body` were rewritten to match actual behaviour, the `personalization` and `chatbot` descriptions widened to cover reuse-for-enquiry, and the `analytics` description no longer implies control it doesn't have. It rode along with the `CONSENT_VERSION` 1 → 2 bump so visitors were re-prompted once, not twice.
 - **Deferred umbrellas unchanged:** logo (interim `assets/img/favicon.svg` "UE" monogram flagged for swap; also referenced as the JSON-LD `logo`), remaining EN editorial + **BM human + legal review** (privacy especially), DNS / custom domain, real analytics wiring.
-- **Backlog (LOW, not done):** heading-order polish, chatbot focus-restore on close, dead `eipepic.my` links in 2 archival posts, optional CSP `<meta>`, try/catch on storage writes, GH Action SHA-pinning. `map-embed.js` is on index + contact only (page-specific like `yt-embed.js`, not an always-on canggih module). `CLAUDE.md` still says "Eleven modules" — now 14 with `icons.js` + `map-embed.js`.
+- **Backlog (LOW, not done):** heading-order polish, chatbot focus-restore on close, dead `eipepic.my` links in 2 archival posts, optional CSP `<meta>`, GH Action SHA-pinning. `map-embed.js` is on index + contact only (page-specific like `yt-embed.js`, not an always-on canggih module).
+  - ~~try/catch on storage writes~~ — **CLOSED 2026-08-09.** Every storage access now routes through `assets/js/storage.js`, whose `get`/`set`/`remove`/`clearAll` never throw (Safari private mode, quota, parse failure all return a fallback / `false`).
+  - ~~`CLAUDE.md` still says "Eleven modules"~~ — **CLOSED 2026-08-09.** The module list is now accurate at **16**.
 
 ## Where we are
 
@@ -124,7 +182,8 @@ Replaced generated/invented EN copy with **authoritative sources** — the live 
 - **staff** — real roster confirmed against the PDF (8 members) + Nur Ain (Wix-only). Hero gets the PDF "professionally licensed" line. Wix bios kept for the first 4 members.
 - **home** — real positioning subtitle (Nasirah), corrected hours/address, service-card retitles (Screening & Assessment / Cognitive Therapy & Special Education / IEP & EIP). Home staff-card **greetings kept real** (controller override); their personal lines lorem'd.
 - **contact + common** — real email **urbaneethos@yahoo.com**, full address, corrected hours (**Mon 12PM–5PM, Tue–Sat 9AM–6PM, closed Sun & PH**). Email row added to `contact.html`. (Footer email wired across the 8 contact-bearing pages in a later task — privacy & analytics have no contact block.)
-- **privacy** — §0 "Who we are" real (full address + real email/phone); §1–§9 bodies are lorem pending a counsel-reviewed notice. The fake `hello@urbaneethos.center` is gone.
+- **privacy** — §0 "Who we are" real (full address + real email/phone); §1–§9 bodies are lorem pending a counsel-reviewed notice. ~~The fake `hello@urbaneethos.center` is gone.~~
+  > **Correction (2026-08-09).** That claim was only true of `content/`. The placeholder had been hand-substituted to **`info@urbaneethos.center`** and left hard-coded in a `contact.html` inline script, where it silently received *every* form submission until the enquiry-capture build. The grep gate that "verified" the removal (`2026-07-27-authoritative-content-replacement.md:602`) **scanned `content/` only, never the page markup** — so an address hard-coded in a consumer was structurally outside everything it looked at. A data-source-only gate cannot catch a value hard-coded in the consumer. This is exactly the drift class `bin/check-contact-channels.rb` now scans the rendered surfaces for.
 - **chatbot** — screening/specialed/eip `say` answers upgraded from PDF + corrections; pricing answer stays a sentinel.
 
 **The `⟪PLACEHOLDER⟫` / `_placeholder` mechanic:** every generated string resolves to REAL (sourced, `_draft` entry removed), **LOREM** (visible value = Latin lorem prefixed with the `⟪PLACEHOLDER⟫` sentinel, key moved into a sibling top-level `_placeholder` map), or **KEEP** (functional scaffold, untouched). `bin/check-i18n-parity.rb` skips only `_meta`/`_draft`/`_correction` — **`_placeholder` IS walked**, so every MS mirror reproduces each `_placeholder` key exactly. Find every lorem slot:

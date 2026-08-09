@@ -1,7 +1,10 @@
 # GitLab CI/CD for Urbane Ethos prototype.
 #
 # Two jobs:
-#   1. i18n-parity (test stage): verify EN/MS key parity across content JSON.
+#   1. content-gates (test stage): two Ruby stdlib checks, run in order —
+#      EN/MS key parity across content JSON, then contact-channel drift.
+#      Must stay identical (same gates, same order) to the `ci` job in
+#      .github/workflows/pages.yml so the two pipelines cannot drift.
 #   2. pages (deploy stage): rsync-stage a `public/` artifact (excluding
 #      internal dev files), GitLab Pages deploys it automatically.
 #
@@ -17,17 +20,22 @@ stages:
   - test
   - deploy
 
-i18n-parity:
+content-gates:
   stage: test
   image: ruby:3.4-alpine
   script:
     - ruby bin/check-i18n-parity.rb
+    # Asserts every mailto:/tel:/wa.me literal in the shipped HTML, the blog
+    # ERB template and the post sources matches content/en/contact.json.
+    # This is the gate that would have caught the info@urbaneethos.center
+    # drift: the previous grep gate scanned content/ only, never page markup.
+    - ruby bin/check-contact-channels.rb
 
 pages:
   stage: deploy
   image: alpine:3.20
   needs:
-    - i18n-parity
+    - content-gates
   script:
     - apk add --no-cache rsync
     # Stage only the public prototype — exclude dev-only files so internal

@@ -16,7 +16,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Lightweight gate: i18n parity check before publishing.
+  # Lightweight content gates before publishing. Both are Ruby stdlib only.
+  # Keep these two steps, in this order, identical to the GitLab `content-gates`
+  # job in .gitlab-ci.yml — the two pipelines must not drift.
   # axe-core runs locally during dev; not gated in CI to keep the workflow fast.
   ci:
     runs-on: ubuntu-latest
@@ -27,6 +29,12 @@ jobs:
           ruby-version: '3.4'
       - name: i18n parity check
         run: bin/check-i18n-parity.rb
+      # Asserts every mailto:/tel:/wa.me literal in the shipped HTML, the blog
+      # ERB template and the post sources matches content/en/contact.json.
+      # This is the gate that would have caught the info@urbaneethos.center
+      # drift: the previous grep gate scanned content/ only, never page markup.
+      - name: Contact-channel drift check
+        run: ruby bin/check-contact-channels.rb
 
   deploy:
     needs: ci

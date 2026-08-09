@@ -30,7 +30,10 @@ function text(value) {
 
 async function loadFlow() {
   const locale = getLocale();
-  const res = await fetch(`content/${locale}/chatbot.json`);
+  // Resolved against this module's URL, not the document — same reasoning as
+  // i18n.js's CONTENT_BASE. Document-relative 404s from any subdirectory page
+  // (it was silently breaking test/smoke/chatbot.html).
+  const res = await fetch(new URL(`../../content/${locale}/chatbot.json`, import.meta.url));
   flow = await res.json();
 }
 

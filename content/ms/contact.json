@@ -21,7 +21,8 @@
     "form.success.copied": true,
     "form.success.unavailable": true,
     "form.prefill.notice": true,
-    "form.prefill.clear": true
+    "form.prefill.clear": true,
+    "form.successNote": true
   },
   "meta": {
     "docTitle": "Hubungi Kami — Urbane Ethos"
@@ -65,7 +66,7 @@
       "concernPlaceholder": "Ceritakan sedikit tentang anak anda",
       "tellUsMorePlaceholder": "Umur anak anda, sebarang diagnosis, apa yang mendorong pertanyaan anda — apa-apa yang membantu kami bersedia."
     },
-    "successNote": "Aplikasi emel lalai anda akan dibuka dengan mesej ini sedia untuk dihantar.",
+    "successNote": "Belum dihantar — seterusnya anda pilih cara menghubungi kami: WhatsApp, emel, atau salin mesej.",
     "success": {
       "heading": "Terima kasih, {name}",
       "body": "Pertanyaan anda tentang {service} sedia untuk dihantar.",

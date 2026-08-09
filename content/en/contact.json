@@ -18,7 +18,8 @@
     "form.success.copied": true,
     "form.success.unavailable": true,
     "form.prefill.notice": true,
-    "form.prefill.clear": true
+    "form.prefill.clear": true,
+    "form.successNote": true
   },
   "meta": {
     "docTitle": "Contact — Urbane Ethos"
@@ -62,7 +63,7 @@
       "concernPlaceholder": "Tell us a little about your child",
       "tellUsMorePlaceholder": "Your child's age, any diagnosis, what's prompting your enquiry — whatever helps us prepare."
     },
-    "successNote": "Your default mail app will open with this message ready to send.",
+    "successNote": "Nothing is sent yet — next you'll choose how to reach us: WhatsApp, email, or copy the message.",
     "success": {
       "heading": "Thanks, {name}",
       "body": "Your enquiry about {service} is ready to send.",

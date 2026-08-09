@@ -21,11 +21,27 @@ export function stripPlaceholder(value) {
 // content/<namespace>.json regardless of current locale.
 const LOCALE_AGNOSTIC_NAMESPACES = new Set(["blog"]);
 
+// Content lives at <deploy-root>/content/. Resolve it against THIS MODULE's own
+// URL (assets/js/i18n.js → ../../content/) rather than against the document.
+//
+// A document-relative `content/…` only works for pages that sit at the deploy
+// root. Every production page does, so this was invisible — but it silently
+// 404s for any page in a subdirectory, which is why test/smoke/i18n.html has
+// been rendering zero assertions (setLocale() rejected before the first
+// check() ran, so it reported neither PASS nor FAIL).
+//
+// import.meta.url keeps the project's relative-path guarantee: the module's
+// position relative to content/ is fixed, so this resolves correctly at the
+// repo root, at a custom-domain root, AND at a repo subpath such as
+// kintsugi-design.github.io/urbane-ethos/. No root-absolute literal is
+// introduced. Verified against all three plus /test/smoke/.
+const CONTENT_BASE = new URL("../../content/", import.meta.url);
+
 async function loadNamespace(locale, namespace) {
   const isAgnostic = LOCALE_AGNOSTIC_NAMESPACES.has(namespace);
   const cacheKey = isAgnostic ? `*:${namespace}` : `${locale}:${namespace}`;
   if (cache.has(cacheKey)) return cache.get(cacheKey);
-  const url = isAgnostic ? `content/${namespace}.json` : `content/${locale}/${namespace}.json`;
+  const url = new URL(isAgnostic ? `${namespace}.json` : `${locale}/${namespace}.json`, CONTENT_BASE);
   const res = await fetch(url);
   if (!res.ok) throw new Error(`i18n: failed to load ${url} (${res.status})`);
   const data = await res.json();

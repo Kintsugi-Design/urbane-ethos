@@ -35,6 +35,37 @@ then runs axe-core scoped to the panel. Exits 1 on serious/critical
 violations. Not gated in CI — local-run convention matches the main
 axe-core sweep. Initial run: **0 violations**.
 
+### Enquiry-capture re-audit (U13, 2026-08-09)
+
+Full re-sweep after the enquiry-capture build. **0 violations on all 10 production pages** (`wcag2a,wcag2aa,wcag22aa`, axe-core 4.11.4), plus `bin/axe-chatbot.mjs` **0 violations**. The ratchet holds.
+
+**ChromeDriver note — read this before the next sweep.** `@axe-core/cli` does **not** drive the system Chrome. It drives the `browser-driver-manager`-managed *Chrome for Testing* under `~/.browser-driver-manager/chrome/`. On this machine that is **148.0.7778.178**, while system Chrome is 151 — so pairing the driver to system Chrome fails with `session not created: This version of ChromeDriver only supports Chrome version 151 / Current browser version is 148`. Match the driver to the **managed** browser, not the system one:
+
+```bash
+~/.cache/selenium/chromedriver/mac-arm64/148.0.7778.178/chromedriver --version  # must match ~/.browser-driver-manager/chrome/
+npx -y @axe-core/cli "http://localhost:8080/contact.html" \
+  --tags wcag2a,wcag2aa,wcag22aa \
+  --chromedriver-path ~/.cache/selenium/chromedriver/mac-arm64/148.0.7778.178/chromedriver
+```
+
+**Three new surfaces on `contact.html`:**
+
+1. **`<select id="cf-service">`** (interest capture, above the concern textarea) — static in the DOM, so the CLI sweep covers it. Has an explicit `<label for="cf-service">`; the leading "Not sure yet" `<option>` is the no-JS fallback and the remaining seven are appended from the `services` namespace at render time, so option text is translated, never duplicated.
+2. **`.enquiry-success`** — `role="status"`, `tabindex="-1"`, `aria-labelledby="enquiry-success-title"`, `hidden` until a valid submit. Focus moves to the panel on swap so keyboard and SR users are not stranded on the submit button.
+3. **`.clear-data-dialog`** — a **native `<dialog>` opened with `.showModal()`**, built lazily on first use. Native top layer, native focus trap, native Escape. Deliberately *not* `window.confirm()` (blocks the page) and deliberately *not* the hand-rolled `trapFocus` used elsewhere.
+
+**Surfaces 2 and 3 are invisible to the static CLI sweep** — one is `hidden` until submit, the other does not exist in the DOM until clicked. They were audited **live under playwright** (same approach as `bin/axe-chatbot.mjs`): drive the page, reach the surface, then run axe scoped to it with `.include()`. Both report **0 violations**. Also confirmed in that run:
+
+- `?service=speech` selects the human title "Speech Language Therapy (SLP)", not the slug.
+- Success heading renders `Thanks, Aisyah` and `document.activeElement` is the panel.
+- The dialog is a real `<dialog>`, `:modal` is true, and it enumerates 5 items.
+- **Escape cancels without wiping** — a seeded `urbane-ethos:*` key survives.
+- Invalid email `bob@bob` shows "That email doesn't look right." and focus lands on `#cf-email` (previously it wrongly claimed no email was supplied, and focus never moved).
+
+If you add another surface that is hidden-until-interaction, audit it this way — the CLI sweep reporting 0 does **not** mean it was checked.
+
+**Also fixed here (a11y-adjacent):** the submit handler was being re-registered on every `i18n:changed`, so a visitor who toggled language twice fired the handler three times. Now registered once; verified as exactly 1 after three toggles.
+
 ### Responsive + interaction sweeps (W6, 2026-06-11)
 
 Three additional local sweeps land in `bin/`:
@@ -47,7 +78,9 @@ Each exits non-zero on regression. All pass at handover time.
 
 ## Pages covered
 
-All 8 production pages:
+The original 2026-06-08 audit covered 8 production pages. The set is now **10**
+(`careers.html` and `post-year-end-promo.html` were added later) and the
+0-violation ratchet applies to all of them:
 
 - `/` (home)
 - `/about.html`
@@ -57,9 +90,19 @@ All 8 production pages:
 - `/contact.html`
 - `/analytics.html`
 - `/privacy.html`
+- `/careers.html` (direct-URL only — unlinked from nav/index/footer)
+- `/post-year-end-promo.html` (also a generated blog page)
+
+Plus two interaction-only sweeps that the CLI cannot reach: the chatbot panel
+(`bin/axe-chatbot.mjs`) and the `contact.html` success panel + clear-data
+dialog (see "Enquiry-capture re-audit" above).
+
+The other 37 generated `post-*.html` blog pages are **not** part of the
+10-page accounting; they share one ERB template, so auditing
+`post-year-end-promo.html` exercises that template.
 
 Final state: **0 axe-core violations on every page** (serious / critical /
-moderate / minor — all clear).
+moderate / minor — all clear). Last verified 2026-08-09.
 
 ## Resolved violations
 

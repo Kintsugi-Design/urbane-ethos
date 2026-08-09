@@ -18,10 +18,13 @@ Primary reference docs (read these before non-trivial work):
 ## Run / test commands
 
 ```bash
-bundle install          # one-time; installs WEBrick gem
-bin/server              # http://localhost:8080 (Ruby WEBrick, serves repo root)
-bin/check-i18n-parity.rb # exits non-zero if any key in content/en/*.json is missing in content/ms/*.json (or vice versa)
+bundle install               # one-time; installs WEBrick gem
+bin/server                   # http://localhost:8080 (Ruby WEBrick, serves repo root)
+bin/check-i18n-parity.rb     # exits non-zero if any key in content/en/*.json is missing in content/ms/*.json (or vice versa)
+ruby bin/check-contact-channels.rb  # exits non-zero if any mailto:/tel:/wa.me literal in the shipped pages disagrees with content/
 ```
+
+`bin/check-contact-channels.rb` builds its allowlist **from content, never hard-coded** (`content/en/contact.json` `email`/`phones[]`, `content/en/common.json` `footer.*`, `content/careers.json` `outro.email`), derives the `wa.me` E.164 target by the same rule `enquiry.js` uses, then scans every root `*.html` (including the 38 generated `post-*.html`), `content/blog/_post.html.erb`, and `content/blog/posts/*.md`. Template expressions (`mailto:${…}`, `<%= … %>`) are skipped, not failed. It exists because a `content/`-only grep gate cannot see an address hard-coded in a page's inline script — which is how `info@urbaneethos.center` silently received every form submission for weeks.
 
 `bin/server` requires **Ruby ≥ 3.1**. No Node required at runtime.
 
@@ -37,7 +40,7 @@ done
 
 axe-core CLI needs a ChromeDriver matching the locally installed Chrome major version — see `docs/A11Y_NOTES.md` § "Tooling" for the exact incantation. **Target: 0 violations on all 10 production pages.**
 
-There is no `npm test` / `bundle exec rspec` — the only automated check is `bin/check-i18n-parity.rb` (gated in both `.github/workflows/pages.yml` and `.gitlab-ci.yml`). `test/parity-fixtures/` are inputs for that script; `test/smoke/` are browser-runnable smoke pages — open them in `bin/server` and click around.
+There is no `npm test` / `bundle exec rspec`. The automated checks are `bin/check-i18n-parity.rb` and `bin/check-contact-channels.rb` — both gated, **in that order**, in `.github/workflows/pages.yml` (job `ci`) and `.gitlab-ci.yml` (job `content-gates`). Keep the two pipelines identical: same gates, same order. `test/parity-fixtures/` are inputs for the parity script; `test/smoke/` are browser-runnable smoke pages — open them in `bin/server` and click around. `test/smoke/enquiry.html` is the one that self-asserts (54 assertions; every line must read PASS).
 
 ## Architecture
 
@@ -61,9 +64,11 @@ All component blocks live inside `@layer components`. The earlier architectural 
 
 ### JS modules
 
-ESM only, loaded via `<script type="module">` in each HTML page. Eleven modules in `assets/js/`:
+ESM only, loaded via `<script type="module">` in each HTML page. **Sixteen** modules in `assets/js/` (this count was stale at "eleven" for several builds — it omitted `icons.js`, `map-embed.js`, `sage-stamp.js` and `yt-embed.js`; verify with `ls -1 assets/js/*.js | wc -l` before trusting it):
 
-- `i18n.js` — locale resolution (EN/MS), `data-i18n="ns.path"` text and `data-i18n-attr="alt:ns.path"` attribute substitution, falls back to EN when a MS key is missing. Caches namespace fetches.
+- `storage.js` — **the single storage gate.** Consent-aware and exception-safe: `allowed / get / set / remove / clearAll`. **Imports nothing, deliberately** — it owns `CONSENT_KEY` and `CONSENT_VERSION` and `consent.js` imports them, inverting what would otherwise be an ESM cycle (`consent → storage → consent`). `set()` returns `false` without writing when consent for the category is absent, so an ungated write is impossible to express. Nothing throws: private mode, quota and parse failures all degrade to a fallback. **Not a canggih-layer module** — no 10-page wiring. **No `localStorage`/`sessionStorage` call may exist anywhere else in `assets/js/`.**
+- `enquiry.js` — **the single contact-channel source.** `readInterest / composeEnquiry / channels / mailtoUrl / whatsappUrl`. `channels()` derives email + WhatsApp from the parity-gated `contact` namespace; the `wa.me` target is computed, never stored twice. `channels().email === null` means *cannot send* — callers must surface the copy fallback and must **never** substitute a hard-coded address. The transport message copy is intentionally English-only and hard-coded here (it is addressed to the centre, not the visitor), so do **not** add `contact.enquiry.*` i18n keys. **Not a canggih-layer module.**
+- `i18n.js` — locale resolution (EN/MS), `data-i18n="ns.path"` text and `data-i18n-attr="alt:ns.path"` attribute substitution, falls back to EN when a MS key is missing. Caches namespace fetches. Content URLs resolve against **`import.meta.url`** (`assets/js/` → `../../content/`), not the document, so they work from any page depth and at any deploy root — see the gotcha below.
 - `consent.js` — PDPA consent banner, three save paths (Accept all / Necessary only / Customize+Save).
 - `sage-stamp.js` — sage-ink stamp+checkmark microinteraction used by consent save and personalization save (Phase 1 craft moment).
 - `personalization.js` — home micro-survey reorders the services grid via a rules table keyed off locale-agnostic slugs (`speech`, `motor-skills`, `behaviour`, `learning`, `not-sure`). Chip `<input value>` carries the slug; the chip's label translates via i18n. Rules fire identically in EN and BM; `sessionStorage` is locale-stable across toggles.
@@ -73,6 +78,8 @@ ESM only, loaded via `<script type="module">` in each HTML page. Eleven modules 
 - `analytics-demo-data.js` — seeds the `/analytics.html` demo dashboard with fake data. Not real telemetry.
 - `yt-embed.js` — lazy click-to-load YouTube via `youtube-nocookie.com`, autoplay on click, iframe `title` from `data-yt-title`. Slots have `data-yt-id="PLACEHOLDER_*"` until real IDs swap in pre-launch.
 - `page-load.js`, `parallax.js`, `cursor.js` — Phase 4 canggih layer modules (page-load ink-bloom, hero parallax, sage ink-dot cursor).
+- `icons.js` — inline SVG sprite map (`data-icon="name"` → Heroicons outline, plus a filled `whatsapp` brand mark). All entries carry `aria-hidden="true"`.
+- `map-embed.js` — click-to-load Google Maps facade (index + contact only, page-specific like `yt-embed.js`). Zero google/gstatic requests fire before the visitor presses "Load map".
 
 ### Canggih layer wiring rule (Phase 4)
 
@@ -143,6 +150,7 @@ Nur Ain Nabila (Administrator) has `"photo": null` and renders an initials tile 
 ## Conventions and gotchas
 
 - **All paths are relative (`./foo`, not `/foo`)** so the prototype works identically at root, custom-domain root, or repo-subpath (e.g. `username.github.io/urbane-ethos/`). Keep this convention for any new module specifier, asset, or link.
+- **Fetching `content/` from a JS module: resolve against `import.meta.url`, not the document.** A bare `fetch("content/x.json")` is *document*-relative, so it only works for pages sitting at the deploy root. Every production page does, which is why this hid for months — but it silently 404s from any subdirectory, and that is precisely what broke `test/smoke/i18n.html` and `test/smoke/chatbot.html` into rendering **zero assertions** (the loader rejected before the first assertion ran, so the page reported neither PASS nor FAIL — it looked fine). Use `new URL("../../content/…", import.meta.url)` as `i18n.js` and `chatbot.js` do: the module's position relative to `content/` is fixed, so it is correct at the repo root, at a custom-domain root, and at a repo subpath, and it introduces no root-absolute literal. `map-embed.js` is the one remaining document-relative fetch (harmless — root-only consumers).
 - **Modern-browser only.** Don't add polyfills or transpile steps. If a feature can't be expressed in raw modern CSS/JS, raise it rather than adding tooling.
 - **No build step.** Everything is served as-is. There is no `dist/` or `_site/` to commit — `_site/` and `public/` are deploy-time artifacts and are gitignored.
 - **Don't generalize aggressively.** Phase 1 motion, Phase 2 media, and Phase 4 canggih landed via deliberate plans; each phase has its own design doc. Read the relevant plan in `docs/superpowers/plans/` before touching the systems it shipped.
@@ -150,12 +158,12 @@ Nur Ain Nabila (Administrator) has `"photo": null` and renders an initials tile 
 
 ## Deployment
 
-Two parallel Pages targets share an identical artifact (same exclusion list, same i18n-parity gate):
+Two parallel Pages targets share an identical artifact (same exclusion list, same two content gates):
 
 - **GitHub Pages** (immediate target): `.github/workflows/pages.yml` deploys on push to `main`. Target remote `git@github.com:Kintsugi-Design/urbane-ethos.git`, public URL `https://kintsugi-design.github.io/urbane-ethos/`. First-run Pages enablement is automated via `actions/configure-pages@v5` with `enablement: true`.
 - **GitLab Pages** (deferred): `.gitlab-ci.yml` is committed and ready; the `pages` job requires the self-hosted GitLab instance to have Pages enabled. Until then, expect a red pipeline if pushing to `origin/main` (`origin` = GitLab). Doesn't block anything else.
 
-Both pipelines run `bin/check-i18n-parity.rb` first, then rsync-stage to `_site/` (GH) or `public/` (GL). If you add a new dev-only directory, mirror the exclusion in **both** workflow files.
+Both pipelines run `bin/check-i18n-parity.rb` then `bin/check-contact-channels.rb` — same gates, same order — before rsync-staging to `_site/` (GH job `ci`) or `public/` (GL job `content-gates`). If you add a new dev-only directory, mirror the exclusion in **both** workflow files; if you add a gate, add it to both in the same position.
 
 ## Commit messages
 
