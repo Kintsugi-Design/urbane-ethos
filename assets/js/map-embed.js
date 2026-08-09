@@ -28,7 +28,9 @@ async function loadMap(embed) {
   const locale = getLocale();
   let src, title;
   try {
-    const common = await fetch(`./content/${locale}/common.json`).then(r => r.json());
+    // Resolved against this module's URL, not the document — same reasoning as
+    // i18n.js's CONTENT_BASE. Document-relative 404s from any subdirectory page.
+    const common = await fetch(new URL(`../../content/${locale}/common.json`, import.meta.url)).then(r => r.json());
     src = common.mapEmbedSrc;
     title = common.a11y?.mapTitle;
   } catch {
