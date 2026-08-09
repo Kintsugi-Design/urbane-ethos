@@ -623,13 +623,19 @@
   .link-arrow:hover::after { transform: translateX(4px); }
   @media (prefers-reduced-motion: reduce) { .link-arrow::after { transition: none; } }
 
-  /* Chatbot launcher */
+  /* Chatbot launcher.
+     The stacking ladder for the fixed bottom-right corner is:
+       .consent-banner 15 → .chatbot-launcher = .chatbot-panel 20 →
+       .consent-modal-root 50 → .clear-data-dialog (native top layer).
+     The launcher previously had no z-index at all and stacked by DOM order,
+     so the consent banner painted over it — full-bleed below 640px. */
   .chatbot-launcher {
     position: fixed; bottom: var(--space-6); right: var(--space-6);
     width: 56px; height: 56px; border-radius: var(--radius-pill);
     background: var(--color-primary-deep); color: var(--color-cream-soft); border: none;
     font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow-2);
     display: flex; align-items: center; justify-content: center;
+    z-index: 20;
   }
   .chatbot-panel {
     position: fixed; bottom: var(--space-20); right: var(--space-6);
@@ -1192,4 +1198,206 @@
    .media-card — this block only owns the crop. */
 @layer components {
   .culture-strip img { aspect-ratio: 4 / 3; object-fit: cover; }
+}
+
+/* ── Enquiry capture and contact channels ─────────────────────────────────
+   Design: docs/superpowers/specs/2026-08-09-enquiry-capture-and-channels-design.md
+   §6 send flow (success panel) · §5 pre-fill (notice band) · §7 WhatsApp
+   placement (chatbot panel footer) · §8 clear-my-data (native <dialog>).
+   Markup for these classes is emitted by contact.html, consent.js and
+   chatbot.js; this file is their only stylesheet. No new tokens. */
+@layer components {
+
+  /* 1 ── Success panel (§6) ───────────────────────────────────────────────
+     Replaces the form in place after a valid submit. Carries role="status",
+     so the default display must be stated explicitly and paired with an
+     explicit [hidden] rule — a role attribute on a non-`display:none`
+     element leaves it announced but invisible. Surface mirrors
+     .card / .contact-form-card so the swap reads as the same object. */
+  .enquiry-success {
+    display: block;
+    background: var(--color-cream-soft);
+    border-radius: var(--radius-3);
+    border-left: 3px solid var(--color-primary);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-1);
+  }
+  .enquiry-success[hidden] { display: none; }
+
+  .enquiry-success-title { margin: 0 0 var(--space-2); font-size: var(--type-h3); }
+  .enquiry-success-body { margin: 0; color: var(--color-ink-soft); text-wrap: pretty; }
+
+  /* Stacked and full-width below 640px, mirroring .form-actions .btn. */
+  .enquiry-success-actions {
+    display: flex; flex-direction: column; align-items: stretch;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+  .enquiry-success-actions .btn { width: 100%; }
+
+  /* Tertiary "copy message" control — a button that reads as a text link. */
+  .enquiry-copy {
+    appearance: none; background: none; border: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-block-size: 1.5rem; min-inline-size: 1.5rem;   /* WCAG 2.5.8 floor */
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-1);
+    font: 600 0.9rem var(--font-sans);
+    color: var(--color-primary-deep);
+    text-decoration: underline; text-underline-offset: 3px;
+    cursor: pointer;
+    transition: color var(--dur-1) var(--ease);
+  }
+  .enquiry-copy:hover { color: var(--color-ink); }
+
+  .enquiry-copy-feedback {
+    font-size: var(--type-small); font-weight: 600;
+    color: var(--color-success);
+  }
+  /* Stretched to full width inside the stacked column, so centre it under the
+     equally centred .enquiry-copy rather than letting it hang left. */
+  .enquiry-success-actions .enquiry-copy-feedback { text-align: center; }
+
+  @media (min-width: 640px) {
+    .enquiry-success-actions { flex-direction: row; flex-wrap: wrap; align-items: center; }
+    .enquiry-success-actions .btn { width: auto; }
+    .enquiry-success-actions .enquiry-copy-feedback { text-align: start; }
+  }
+  @media (max-width: 639px) {
+    .enquiry-success { padding: var(--space-6); }
+  }
+
+  /* 2 ── Service select (§5) ──────────────────────────────────────────────
+     Extends the base .form-field select rule (font, padding, border, focus
+     ring) — those are NOT restated here. This adds only what a <select>
+     inside .contact-form-card needs: the same 100% width the sibling input
+     and textarea already get, and a caret that survives appearance:none.
+     The caret is two 45°/135° gradient wedges rather than an inline SVG so
+     it stays on palette tokens with no encoded colour literal. */
+  .form-field--select select {
+    width: 100%;
+    min-width: 0;
+    appearance: none;
+    padding-inline-end: var(--space-10);
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--color-ink-soft) 50%),
+      linear-gradient(135deg, var(--color-ink-soft) 50%, transparent 50%);
+    background-repeat: no-repeat, no-repeat;
+    background-position:
+      right calc(var(--space-4) + 6px) center,
+      right var(--space-4) center;
+    background-size: 6px 6px, 6px 6px;
+  }
+
+  /* 3 ── Pre-fill notice (§5) ─────────────────────────────────────────────
+     Quiet band above the form card explaining that fields were filled from
+     earlier answers, with an inline escape hatch. Starts [hidden]; JS
+     unhides it only when something was actually filled from storage. */
+  .prefill-notice {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: var(--space-2) var(--space-3);
+    margin: 0 0 var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: color-mix(in srgb, var(--color-primary-soft) 45%, var(--color-cream-soft));
+    border-left: 3px solid var(--color-primary);
+    border-radius: var(--radius-2);
+  }
+  .prefill-notice[hidden] { display: none; }
+
+  .prefill-notice-text { font-size: 0.9rem; color: var(--color-ink-soft); flex: 1 1 16rem; }
+
+  .prefill-notice-clear {
+    appearance: none; background: none; border: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-block-size: 1.5rem; min-inline-size: 1.5rem;   /* WCAG 2.5.8 floor */
+    margin-inline-start: auto;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-1);
+    font: 600 0.9rem var(--font-sans);
+    color: var(--color-primary-deep);
+    text-decoration: underline; text-underline-offset: 3px;
+    cursor: pointer;
+    transition: color var(--dur-1) var(--ease);
+  }
+  .prefill-notice-clear:hover { color: var(--color-ink); }
+
+  /* 4 ── Clear-my-data dialog (§8) ────────────────────────────────────────
+     A native <dialog> opened with .showModal(), so it lives in the top
+     layer and needs no z-index. Surface, radius and shadow are lifted from
+     .consent-modal so the two dialogs read as one system.
+     No `display` is declared on the dialog itself — the UA's
+     dialog:not([open]) { display: none } must keep working. */
+  .clear-data-dialog {
+    border: 0;
+    padding: var(--space-8);
+    max-width: 480px;
+    width: calc(100% - var(--space-8));
+    max-height: calc(100vh - var(--space-8));
+    overflow-y: auto;
+    background: var(--color-cream-soft);
+    color: var(--color-ink);
+    border-radius: var(--radius-3);
+    box-shadow: var(--shadow-3);
+  }
+  /* Literal rgba, matching .consent-modal-backdrop: ::backdrop only inherits
+     custom properties from its originating element in browsers newer than
+     this project's Chrome 110 / Safari 16 floor, so var() here would fall
+     back to a fully transparent scrim on the oldest supported engines. */
+  .clear-data-dialog::backdrop { background: rgba(57, 51, 80, 0.45); }
+
+  .clear-data-title {
+    font-family: var(--font-serif); font-size: 1.5rem;
+    margin: 0 0 var(--space-4); line-height: 1.2;
+  }
+  .clear-data-body { margin: 0 0 var(--space-4); font-size: 0.9rem; color: var(--color-ink-soft); line-height: 1.5; }
+  .clear-data-items {
+    margin: 0 0 var(--space-6);
+    padding-inline-start: var(--space-5);
+    font-size: 0.9rem; color: var(--color-ink-soft);
+  }
+  .clear-data-items li + li { margin-top: var(--space-1); }
+  .clear-data-actions {
+    display: flex; gap: var(--space-2); justify-content: flex-end; flex-wrap: wrap;
+  }
+
+  @media (max-width: 639px) {
+    .clear-data-dialog { padding: var(--space-6); }
+    .clear-data-actions .btn { width: 100%; }
+  }
+
+  /* 5 ── Chatbot panel footer (§7) ────────────────────────────────────────
+     Persistent strip pinned under .chatbot-input, offering the same enquiry
+     as a WhatsApp hand-off. Hidden outright when channels() reports no
+     WhatsApp row — no number is ever hard-coded. The `background` shorthand
+     on .chatbot-wa deliberately clears the base-layer ink-draw underline
+     (as .link-arrow does); this is an action, not body copy. */
+  .chatbot-footer {
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--color-line);
+  }
+  .chatbot-wa {
+    display: flex; align-items: center; justify-content: center;
+    gap: var(--space-2);
+    min-block-size: 2.5rem;                            /* matches the 40px control floor */
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-primary-soft) 55%, var(--color-cream-soft));
+    color: var(--color-primary-deep);
+    font: 600 0.875rem var(--font-sans);
+    transition: background-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+  }
+  .chatbot-wa:hover {
+    background-color: var(--color-primary-deep);
+    color: var(--color-cream-soft);
+  }
+  .chatbot-wa [data-icon] { flex: 0 0 auto; width: 1.125rem; height: 1.125rem; }
+
+  /* 6 ── Reduced motion ───────────────────────────────────────────────────
+     Every transition introduced above is a colour tween on a tertiary
+     control; none of them survive a reduce preference. */
+  @media (prefers-reduced-motion: reduce) {
+    .enquiry-copy,
+    .prefill-notice-clear,
+    .chatbot-wa { transition: none; }
+  }
 }

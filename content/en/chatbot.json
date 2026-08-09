@@ -15,22 +15,24 @@
     "minimize": "Minimize",
     "close": "Close",
     "consentNotice": "Transcripts saved only if you opted in. Manage in footer.",
-    "transcriptHeading": "Conversation"
+    "transcriptHeading": "Conversation",
+    "whatsapp": "Continue on WhatsApp",
+    "whatsappAria": "Continue this conversation with our team on WhatsApp (opens in a new tab)"
   },
   "flow": {
     "start": {
-      "say": "Hi! I can help with bookings, services, pricing, or pass you to a human. Where would you like to start?",
+      "say": "Hi! I can help with bookings, services, pricing, or connect you with our team. Where would you like to start?",
       "options": [
         { "label": "Book a session", "next": "book" },
         { "label": "Ask about a service", "next": "service" },
         { "label": "Pricing indication", "next": "price.q1" },
-        { "label": "Talk to a human", "next": "human" }
+        { "label": "Talk to our team", "next": "customer" }
       ]
     },
     "book": {
-      "say": "Lovely. Tell me which service and when works for you, and we'll text you a confirmation.",
+      "say": "Lovely. Tell me which service you're interested in and when suits you best.",
       "input": "free",
-      "next": "human.collect"
+      "next": "customer.name"
     },
     "service": {
       "say": "Which service can I tell you about?",
@@ -95,22 +97,30 @@
     "price.show": {
       "say": "Fees vary by service, the child's needs, and how often you visit, so the team shares current charges directly. You can call +603-7734 3044 or send us a message. Want to get in touch?",
       "options": [
-        { "label": "Yes, confirm with the team", "next": "human" },
+        { "label": "Yes, confirm with the team", "next": "customer" },
         { "label": "Not yet", "next": "start" }
       ]
     },
-    "human": {
-      "say": "Of course. We'll WhatsApp you within 1 business day. What's your name and phone number?",
-      "input": "name+phone",
-      "next": "human.confirm"
+    "customer": {
+      "say": "Of course. Let's put together a message you can send our team on WhatsApp. First — what's your name?",
+      "input": "free",
+      "capture": "name",
+      "next": "customer.phone"
     },
-    "human.collect": {
-      "say": "Got it. To confirm, what's your name and phone number?",
-      "input": "name+phone",
-      "next": "human.confirm"
+    "customer.name": {
+      "say": "Got it. What's your name?",
+      "input": "free",
+      "capture": "name",
+      "next": "customer.phone"
     },
-    "human.confirm": {
-      "say": "Thanks! We'll be in touch shortly. (In this prototype, the message isn't actually sent.)",
+    "customer.phone": {
+      "say": "Thanks. And the best number to reach you on?",
+      "input": "free",
+      "capture": "phone",
+      "next": "customer.confirm"
+    },
+    "customer.confirm": {
+      "say": "That's everything I need. Use the WhatsApp button below to send this straight to our team.",
       "options": [{ "label": "Back to start", "next": "start" }]
     }
   }

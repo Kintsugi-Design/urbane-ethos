@@ -3,15 +3,19 @@
 // same browser session blooms both — sessionStorage is per-tab. Acceptable
 // for prototype; swap to localStorage with TTL if it bothers in review.
 
+import { get, set } from "./storage.js";
+
 const FLAG = "urbane-ethos:bloomed";
 
+// Stored as the bare string "1", so `raw: true` on both sides. storage.js
+// swallows the private-mode / quota throws that the old try/catch handled.
 function shouldBloom() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-  try { return !sessionStorage.getItem(FLAG); } catch { return false; }
+  return !get(FLAG, { scope: "session", raw: true });
 }
 
 function markBloomed() {
-  try { sessionStorage.setItem(FLAG, "1"); } catch { /* private mode */ }
+  set(FLAG, "1", { scope: "session", raw: true });
 }
 
 export function initPageLoadBloom() {

@@ -76,7 +76,7 @@ People with disabilities have the right to access quality health care services t
 
 Mental Health Awareness Month is an opportunity to highlight the importance of mental health, recognize signs that someone may need help, and learn how to support those struggling with mental health issues. By understanding key facts, concepts, determinants, and strategies for promotion and prevention, we can contribute to a more informed and supportive community. Let’s work together to ensure better mental health for all.
 
-For more information, call us at +613-249 0069 to book an appointment with our Clinical Psychologist.
+For more information, call us at +6013-249 0069 to book an appointment with our Clinical Psychologist.
 
 ### Sources:
 

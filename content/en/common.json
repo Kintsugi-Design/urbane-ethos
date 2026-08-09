@@ -1,5 +1,14 @@
 {
   "_meta": { "source": "urbaneethos.center", "scrapedAt": "2026-06-08" },
+  "_draft": {
+    "footer.clearData": true,
+    "clearData.title": true,
+    "clearData.body": true,
+    "clearData.itemsList": true,
+    "clearData.confirm": true,
+    "clearData.cancel": true,
+    "clearData.done": true
+  },
   "mapEmbedSrc": "https://www.google.com/maps?q=Urbane+Ethos+Early+Intervention+Center%2C+No.+4+Jalan+Elektron+E+U16%2FE%2C+Denai+Alam%2C+40160+Shah+Alam%2C+Selangor&output=embed",
   "nav": {
     "about": "About",
@@ -38,8 +47,23 @@
     "social": { "facebook": "Facebook", "instagram": "Instagram" },
     "rights": "© Urbane Ethos Early Intervention Center",
     "manageCookies": "Manage cookies",
+    "clearData": "Clear my data",
     "privacy": "Privacy notice",
     "analyticsDemo": "Analytics demo"
+  },
+  "clearData": {
+    "title": "Clear my data",
+    "body": "This removes everything this site has saved in your browser. It does not affect anything you have already sent us by email or WhatsApp, and it does not delete your enquiry.",
+    "itemsList": [
+      "Your language preference",
+      "Your text-size preference",
+      "Your cookie and consent choices",
+      "Your personalization answers",
+      "Your saved chat transcripts"
+    ],
+    "confirm": "Clear my data",
+    "cancel": "Cancel",
+    "done": "Cleared."
   },
   "cta": {
     "findOutMore": "Find Out More",

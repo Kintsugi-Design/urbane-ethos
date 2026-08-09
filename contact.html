@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title data-i18n="contact.hero.title">Contact — Urbane Ethos</title>
+<title data-i18n="contact.meta.docTitle">Contact — Urbane Ethos</title>
 <meta name="description" content="Visit or contact Urbane Ethos Early Intervention Center in Denai Alam, Shah Alam. Call +603-7734 3044, email urbaneethos@yahoo.com, or send us a message.">
 <link rel="canonical" href="https://urbaneethos.center/contact.html">
 <meta name="theme-color" content="#8B73D4">
@@ -121,6 +121,10 @@
         </figure>
       </div>
       <div class="contact-form-col">
+        <div class="prefill-notice" data-prefill-notice hidden>
+          <span class="prefill-notice-text">We've filled some of this in from your earlier answers</span>
+          <button type="button" class="prefill-notice-clear" data-prefill-clear>Clear</button>
+        </div>
         <div class="card contact-form-card">
           <h2 data-i18n="contact.form.heading">Send us a message</h2>
           <p data-i18n="contact.form.subheading">Or chat with us live — bottom right.</p>
@@ -128,18 +132,24 @@
             <div class="form-duo">
               <div class="form-field">
                 <label for="cf-name" data-i18n="contact.form.fields.nameLabel">Your name</label>
-                <input id="cf-name" name="name" required aria-describedby="cf-name-err" data-i18n-attr="placeholder:contact.form.fields.namePlaceholder">
+                <input id="cf-name" name="name" autocomplete="name" required aria-describedby="cf-name-err" data-i18n-attr="placeholder:contact.form.fields.namePlaceholder">
                 <p class="form-error" id="cf-name-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.nameRequired"></p>
               </div>
               <div class="form-field">
                 <label for="cf-email" data-i18n="contact.form.fields.emailLabel">Email</label>
-                <input id="cf-email" name="email" type="email" required aria-describedby="cf-email-err" data-i18n-attr="placeholder:contact.form.fields.emailPlaceholder">
+                <input id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="cf-email-err" data-i18n-attr="placeholder:contact.form.fields.emailPlaceholder">
                 <p class="form-error" id="cf-email-err" role="alert" aria-live="polite" hidden data-i18n="contact.form.errors.emailRequired"></p>
               </div>
             </div>
             <div class="form-field">
               <label for="cf-phone" data-i18n="contact.form.fields.phoneLabel">Phone (optional)</label>
-              <input id="cf-phone" name="phone" type="tel" data-i18n-attr="placeholder:contact.form.fields.phonePlaceholder">
+              <input id="cf-phone" name="phone" type="tel" autocomplete="tel" data-i18n-attr="placeholder:contact.form.fields.phonePlaceholder">
+            </div>
+            <div class="form-field form-field--select">
+              <label for="cf-service" data-i18n="contact.form.fields.serviceLabel">What is this about? (Optional)</label>
+              <select id="cf-service" name="service" data-service-select>
+                <option value="" data-i18n="contact.form.fields.serviceAny">Not sure yet</option>
+              </select>
             </div>
             <div class="form-field">
               <label for="cf-concern" data-i18n="contact.form.fields.concernLabel">What's on your mind?</label>
@@ -155,6 +165,21 @@
               <small data-i18n="contact.form.successNote">Your default mail app will open with this message ready to send.</small>
             </div>
           </form>
+          <!-- Every visible string below is written by JS: the heading and body
+               carry {name}/{service} tokens that i18n.js cannot interpolate, so
+               a data-i18n binding here would clobber the substituted text on the
+               next locale toggle (plan §1.5). The panel re-renders in place
+               instead. The English text is the pre-JS default only. -->
+          <div class="enquiry-success" data-enquiry-success role="status" tabindex="-1" aria-labelledby="enquiry-success-title" hidden>
+            <h3 class="enquiry-success-title" id="enquiry-success-title">Thanks</h3>
+            <p class="enquiry-success-body">Your enquiry is ready to send.</p>
+            <div class="enquiry-success-actions">
+              <a class="btn btn--primary" data-enquiry-action="whatsapp" target="_blank" rel="noopener" hidden><span data-icon="whatsapp"></span><span>Continue on WhatsApp</span></a>
+              <a class="btn btn--secondary" data-enquiry-action="email" hidden>Send by email instead</a>
+            </div>
+            <button type="button" class="enquiry-copy" data-enquiry-action="copy">Copy message</button>
+            <p class="enquiry-copy-feedback" hidden></p>
+          </div>
         </div>
       </div>
       <div class="contact-media">
@@ -216,6 +241,7 @@
       <ul>
         <li><a href="./privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
         <li><a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a></li>
+        <li><a href="#" data-consent-clear data-i18n="common.footer.clearData">Clear my data</a></li>
         <li><a href="./analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
       </ul>
     </div>
@@ -239,13 +265,222 @@ import "./assets/js/cursor.js";
 import "./assets/js/chatbot.js";
 import "./assets/js/yt-embed.js";
 import "./assets/js/map-embed.js";
+import { readInterest, composeEnquiry, channels, mailtoUrl, whatsappUrl } from "./assets/js/enquiry.js";
+import { reset as resetPersonalization } from "./assets/js/personalization.js";
+import { remove } from "./assets/js/storage.js";
+
+// Every address and number on this page is derived from the `contact`
+// namespace by the enquiry module. No mail or WhatsApp URL is hand-built here;
+// the sole literal is the Reception row's phone link, built from the very
+// number it displays.
+const CHAT_CONTEXT_KEY = "urbane-ethos:chat-context";
+
+const form      = document.getElementById("contact-form");
+const select    = document.getElementById("cf-service");
+const nameEl    = document.getElementById("cf-name");
+const emailEl   = document.getElementById("cf-email");
+const phoneEl   = document.getElementById("cf-phone");
+const concernEl = document.getElementById("cf-concern");
+const tellEl    = document.getElementById("cf-tellmore");
+const notice    = document.querySelector("[data-prefill-notice]");
+const panel     = document.querySelector(".enquiry-success");
+
+let strings = null;              // the `contact` namespace for the current locale
+let serviceTitles = new Map();   // services.json key → human title, per locale
+let submission = null;           // the payload behind a visible success panel
+let copyText = "";               // what [data-enquiry-action="copy"] puts on the clipboard
+let noticeActive = false;        // whether the pre-fill notice is showing
+let prefillDone = false;         // storage is read once, never on a re-render
+let prefilledControls = [];      // exactly what [data-prefill-clear] empties
+
+function readPath(obj, path) {
+  return path.split(".").reduce((acc, seg) => (acc == null ? acc : acc[seg]), obj);
+}
+
+// Reads the already-fetched namespace directly rather than through data-i18n,
+// because the strings it feeds carry {name}/{service} tokens.
+function str(path) {
+  const value = readPath(strings, path);
+  return typeof value === "string" ? value : "";
+}
+
+// i18n.js has no interpolation, so {name} and {service} are substituted here.
+function fill(template, tokens) {
+  return String(template ?? "").replace(/\{(\w+)\}/g, (match, key) => (key in tokens ? tokens[key] : match));
+}
+
+function renderNotice() {
+  if (!notice) return;
+  notice.hidden = !noticeActive;
+  if (!noticeActive) return;
+  const text = notice.querySelector(".prefill-notice-text");
+  const clear = notice.querySelector("[data-prefill-clear]");
+  if (text && str("form.prefill.notice")) text.textContent = str("form.prefill.notice");
+  if (clear && str("form.prefill.clear")) clear.textContent = str("form.prefill.clear");
+}
+
+async function renderSuccessPanel() {
+  if (!submission || !panel) return;
+  const serviceTitle = submission.serviceKey ? (serviceTitles.get(submission.serviceKey) || "") : "";
+  const message = composeEnquiry({ ...submission, serviceTitle });
+  const ch = await channels();
+  copyText = message.text;
+
+  const title = panel.querySelector(".enquiry-success-title");
+  if (title) title.textContent = fill(str("form.success.heading"), { name: submission.name });
+
+  const body = panel.querySelector(".enquiry-success-body");
+  if (body) {
+    // A null email means we genuinely cannot send — say so rather than
+    // substituting an address the enquiry module did not hand us.
+    body.textContent = ch.email
+      ? (serviceTitle ? fill(str("form.success.body"), { service: serviceTitle }) : str("form.success.bodyNoService"))
+      : str("form.success.unavailable");
+  }
+
+  const wa = panel.querySelector('[data-enquiry-action="whatsapp"]');
+  const waHref = whatsappUrl(message, ch.whatsapp?.e164);
+  if (wa) {
+    wa.hidden = !waHref;
+    if (waHref) wa.href = waHref;
+    if (wa.lastElementChild && str("form.success.whatsapp")) wa.lastElementChild.textContent = str("form.success.whatsapp");
+  }
+
+  const mail = panel.querySelector('[data-enquiry-action="email"]');
+  const mailHref = mailtoUrl(message, ch.email);
+  if (mail) {
+    mail.hidden = !mailHref;
+    if (mailHref) mail.href = mailHref;
+    if (str("form.success.email")) mail.textContent = str("form.success.email");
+  }
+
+  const copy = panel.querySelector('[data-enquiry-action="copy"]');
+  if (copy) {
+    // Never offer a control that cannot work: writeText needs a secure context.
+    copy.hidden = !navigator.clipboard?.writeText;
+    if (str("form.success.copy")) copy.textContent = str("form.success.copy");
+  }
+  const feedback = panel.querySelector(".enquiry-copy-feedback");
+  if (feedback) { feedback.hidden = true; feedback.textContent = ""; }
+
+  renderIcons(panel);
+}
+
+function applyPrefill() {
+  if (prefillDone) return;
+  prefillDone = true;
+  const interest = readInterest({ serviceKeys: [...serviceTitles.keys()] });
+  let fromStorage = false;
+  const put = (el, value, storedSource) => {
+    if (!el || !value || el.value) return;
+    el.value = value;
+    prefilledControls.push(el);
+    if (storedSource) fromStorage = true;
+  };
+  // #cf-concern is deliberately never pre-filled: it holds sensitive
+  // child-health free text, and silently re-presenting it reads as
+  // surveillance even where consent covers it (design §5.3).
+  if (interest.service && serviceTitles.has(interest.service)) {
+    put(select, interest.service, interest.serviceSource !== "param");
+  }
+  put(nameEl, interest.name, true);
+  put(phoneEl, interest.phone, true);
+  // A bare ?service= was just clicked, so it needs no "we remembered you" line.
+  noticeActive = fromStorage;
+}
+
+function setFieldError(input, errEl, valid, key) {
+  if (errEl) {
+    errEl.hidden = valid;
+    if (!valid) {
+      // Rebinding data-i18n (not just the text) keeps the message correct
+      // through a later locale toggle.
+      errEl.dataset.i18n = `contact.${key}`;
+      const message = str(key);
+      if (message) errEl.textContent = message;
+    }
+  }
+  if (input) input.setAttribute("aria-invalid", valid ? "false" : "true");
+}
+
+async function onSubmit(e) {
+  e.preventDefault();
+  const name = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const concern = concernEl.value.trim();
+
+  const nameOk = name.length > 0;
+  // A present-but-malformed address gets emailInvalid; only an empty field gets
+  // emailRequired. "bob@bob" used to be told it had supplied no email at all.
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const concernOk = concern.length > 0;
+
+  setFieldError(nameEl, document.getElementById("cf-name-err"), nameOk, "form.errors.nameRequired");
+  setFieldError(emailEl, document.getElementById("cf-email-err"), emailOk, email ? "form.errors.emailInvalid" : "form.errors.emailRequired");
+  setFieldError(concernEl, document.getElementById("cf-concern-err"), concernOk, "form.errors.concernRequired");
+
+  if (!nameOk || !emailOk || !concernOk) {
+    (!nameOk ? nameEl : !emailOk ? emailEl : concernEl).focus();
+    return;
+  }
+
+  submission = {
+    name,
+    email,
+    phone: phoneEl.value.trim(),
+    concern,
+    tellmore: tellEl.value.trim(),
+    serviceKey: select?.value || null
+  };
+  noticeActive = false;
+  renderNotice();
+  form.hidden = true;
+  panel.hidden = false;
+  await renderSuccessPanel();
+  // Nothing navigates until the visitor picks a transport.
+  panel.focus();
+}
+
+async function onCopy() {
+  const feedback = panel?.querySelector(".enquiry-copy-feedback");
+  try {
+    await navigator.clipboard.writeText(copyText);
+  } catch {
+    return; // never claim a copy that did not happen
+  }
+  if (feedback) {
+    feedback.textContent = str("form.success.copied") || "Copied.";
+    feedback.hidden = false;
+  }
+}
+
+function onClearPrefill() {
+  for (const el of prefilledControls) el.value = "";
+  prefilledControls = [];
+  resetPersonalization();
+  remove(CHAT_CONTEXT_KEY, { scope: "session" });
+  noticeActive = false;
+  renderNotice();
+  nameEl?.focus(); // the button that had focus has just been hidden
+}
+
+// Bound once, at module scope. renderContact() re-runs on every i18n:changed,
+// so binding in there made a single submit fire three times after two toggles.
+form?.addEventListener("submit", onSubmit);
+panel?.querySelector('[data-enquiry-action="copy"]')?.addEventListener("click", onCopy);
+notice?.querySelector("[data-prefill-clear]")?.addEventListener("click", onClearPrefill);
+document.querySelector(".chatbot-launcher-inline")?.addEventListener("click", () => document.querySelector(".chatbot-launcher")?.click());
 
 async function renderContact() {
   const locale = getLocale();
-  const [data, common] = await Promise.all([
+  const [data, common, services, ch] = await Promise.all([
     fetch(`./content/${locale}/contact.json`).then(r => r.json()),
-    fetch(`./content/${locale}/common.json`).then(r => r.json())
+    fetch(`./content/${locale}/common.json`).then(r => r.json()),
+    fetch(`./content/${locale}/services.json`).then(r => r.json()),
+    channels()
   ]);
+  strings = data;
+  serviceTitles = new Map((services.items || []).map(item => [item.key, item.title]));
 
   const fhrs = document.getElementById("footer-hours");
   if (fhrs) fhrs.replaceChildren(...(common.footer?.hours || []).map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
@@ -257,49 +492,65 @@ async function renderContact() {
   ul("#contact-phones", data.phones || [], p => {
     const li = document.createElement("li");
     li.className = "contact-row";
-    const icon = /whatsapp/i.test(p.label) ? "chat" : "phone";
-    li.innerHTML = `<span data-icon="${icon}"></span><span class="contact-row-label">${p.label}</span><a href="tel:${p.number.replace(/\s/g,"")}">${p.number}</a>`;
+    const isWa = /whatsapp/i.test(p.label || "");
+    const icon = document.createElement("span");
+    icon.dataset.icon = isWa ? "whatsapp" : "phone";
+    const label = document.createElement("span");
+    label.className = "contact-row-label";
+    label.textContent = p.label || "";
+    // The WhatsApp row is a wa.me deep link, not a phone call. Its URL comes
+    // from channels(); with no WhatsApp channel the number renders as plain
+    // text rather than silently reverting to a phone link.
+    const href = isWa ? (ch.whatsapp?.url ?? null) : `tel:${String(p.number || "").replace(/\s/g, "")}`;
+    const link = document.createElement(href ? "a" : "span");
+    link.textContent = p.number || "";
+    if (href) link.href = href;
+    if (isWa && href) { link.target = "_blank"; link.rel = "noopener"; }
+    li.append(icon, label, link);
     return li;
   });
   ul("#contact-hours", data.hours || [], s => {
     const li = document.createElement("li");
     li.className = "hour-row";
     const i = s.indexOf(":");
-    li.innerHTML = i > -1
-      ? `<span class="hour-label">${s.slice(0, i)}</span><span class="hour-value">${s.slice(i + 1).trim()}</span>`
-      : `<span class="hour-label">${s}</span>`;
+    const label = document.createElement("span");
+    label.className = "hour-label";
+    label.textContent = i > -1 ? s.slice(0, i) : s;
+    li.append(label);
+    if (i > -1) {
+      const value = document.createElement("span");
+      value.className = "hour-value";
+      value.textContent = s.slice(i + 1).trim();
+      li.append(value);
+    }
     return li;
   });
+
+  if (select) {
+    // Options are built from the live services namespace, so the vocabulary
+    // cannot drift from services.html and both locales come free. The visitor's
+    // current choice survives the rebuild on a locale toggle.
+    const previous = select.value;
+    let any = select.querySelector('option[value=""]');
+    if (!any) {
+      any = document.createElement("option");
+      any.value = "";
+      any.dataset.i18n = "contact.form.fields.serviceAny";
+    }
+    select.replaceChildren(any, ...(services.items || []).map(item => {
+      const opt = document.createElement("option");
+      opt.value = item.key;
+      opt.textContent = item.title;
+      return opt;
+    }));
+    select.value = previous;
+  }
+
   renderIcons();
-
-  const form = document.getElementById("contact-form");
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    let ok = true;
-    const validate = (id, errId, cond) => {
-      const err = document.getElementById(errId);
-      err.hidden = cond;
-      document.getElementById(id).setAttribute("aria-invalid", cond ? "false" : "true");
-      if (!cond) ok = false;
-    };
-    const nameOk = form.name.value.trim().length > 0;
-    const emailOk = /\S+@\S+\.\S+/.test(form.email.value);
-    const concernOk = form.concern.value.trim().length > 0;
-    validate("cf-name", "cf-name-err", nameOk);
-    validate("cf-email", "cf-email-err", emailOk);
-    validate("cf-concern", "cf-concern-err", concernOk);
-    if (!ok) return;
-    const extra = form.tellmore.value.trim();
-    const body = encodeURIComponent(
-      `Hi Urbane Ethos,\n\n${form.concern.value}\n\n${extra ? `Also: ${extra}\n\n` : ""}— ${form.name.value} (${form.email.value}${form.phone.value ? `, ${form.phone.value}` : ""})`
-    );
-    const params = new URLSearchParams(location.search);
-    const subject = params.get("service") ? `Enquiry%20about%20${encodeURIComponent(params.get("service"))}` : "Enquiry%20from%20website";
-    location.href = `mailto:info@urbaneethos.center?subject=${subject}&body=${body}`;
-  });
-
-  document.querySelector(".chatbot-launcher-inline")?.addEventListener("click", () => document.querySelector(".chatbot-launcher")?.click());
+  applyPrefill();
   await translatePage(locale);
+  renderNotice();
+  await renderSuccessPanel();
 }
 renderContact();
 document.addEventListener("i18n:changed", renderContact);

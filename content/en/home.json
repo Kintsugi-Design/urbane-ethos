@@ -49,9 +49,9 @@
     ],
     "stageLabel": "What stage are you at?",
     "stageOptions": [
-      "Just exploring",
-      "Looking to assess",
-      "Ready to book"
+      { "value": "exploring", "label": "Just exploring" },
+      { "value": "assessing", "label": "Looking to assess" },
+      { "value": "booking", "label": "Ready to book" }
     ],
     "ageNotes": {
       "child": "For children 12 and below, ask us about the Early Intervention Programme — school-readiness sessions (ages 6–12) and play group (ages 3–5).",

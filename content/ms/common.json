@@ -6,6 +6,15 @@
     "translatedAt": "2026-07-27",
     "reviewedBy": null
   },
+  "_draft": {
+    "footer.clearData": true,
+    "clearData.title": true,
+    "clearData.body": true,
+    "clearData.itemsList": true,
+    "clearData.confirm": true,
+    "clearData.cancel": true,
+    "clearData.done": true
+  },
   "mapEmbedSrc": "https://www.google.com/maps?q=Urbane+Ethos+Early+Intervention+Center%2C+No.+4+Jalan+Elektron+E+U16%2FE%2C+Denai+Alam%2C+40160+Shah+Alam%2C+Selangor&output=embed",
   "nav": {
     "about": "Tentang Kami",
@@ -37,15 +46,30 @@
     "email": "urbaneethos@yahoo.com",
     "hoursLabel": "Waktu operasi",
     "hours": [
-      "Monday: 12PM – 5PM",
-      "Tuesday – Saturday: 9AM – 6PM",
-      "Closed Sunday & Public Holidays"
+      "Isnin: 12PM – 5PM",
+      "Selasa – Sabtu: 9AM – 6PM",
+      "Tutup pada hari Ahad & Cuti Umum"
     ],
     "social": { "facebook": "Facebook", "instagram": "Instagram" },
     "rights": "© Pusat Intervensi Awal Urbane Ethos",
     "manageCookies": "Urus kuki",
+    "clearData": "Padam data saya",
     "privacy": "Notis Privasi",
     "analyticsDemo": "Demo analitik"
+  },
+  "clearData": {
+    "title": "Padam data saya",
+    "body": "Ini membuang segala yang disimpan oleh laman ini dalam pelayar anda. Ia tidak menjejaskan apa-apa yang telah anda hantar kepada kami melalui emel atau WhatsApp, dan ia tidak memadam pertanyaan anda.",
+    "itemsList": [
+      "Pilihan bahasa anda",
+      "Pilihan saiz teks anda",
+      "Pilihan kuki dan persetujuan anda",
+      "Jawapan pemperibadian anda",
+      "Transkrip sembang anda yang disimpan"
+    ],
+    "confirm": "Padam data saya",
+    "cancel": "Batal",
+    "done": "Telah dipadam."
   },
   "cta": {
     "findOutMore": "Ketahui Lebih Lanjut",

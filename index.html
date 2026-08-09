@@ -340,6 +340,7 @@
       <ul>
         <li><a href="./privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
         <li><a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a></li>
+        <li><a href="#" data-consent-clear data-i18n="common.footer.clearData">Clear my data</a></li>
         <li><a href="./analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
       </ul>
     </div>
@@ -420,10 +421,10 @@ async function renderHome() {
     }));
   }
 
-  // Personalization chips. Age + concern options are objects {value, label};
-  // stage options are plain strings. The slug-valued form keeps the
-  // <input value=> locale-stable so personalization.js rules fire identically
-  // in EN and BM.
+  // Personalization chips. Options may be plain strings or {value, label}
+  // objects; all three groups (age, concern, stage) now ship the object form.
+  // The slug-valued form keeps the <input value=> locale-stable so
+  // personalization.js rules fire identically in EN and BM.
   const chips = (group, opts, multi = false) => {
     const wrap = document.querySelector(`[data-personalize-chips="${group}"]`);
     if (!wrap || !Array.isArray(opts)) return;

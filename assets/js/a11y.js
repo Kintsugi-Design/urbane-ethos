@@ -1,8 +1,12 @@
+import { get, set } from "./storage.js";
+
 const FS_KEY = "urbane-ethos:font-size";
 const FS_VALUES = ["1", "2", "3"];
 
+// Stored as a bare "1"/"2"/"3", not JSON — `raw: true` on both sides, or an
+// existing visitor's saved step would fail to parse and silently reset.
 function readFs() {
-  const v = localStorage.getItem(FS_KEY);
+  const v = get(FS_KEY, { raw: true });
   return FS_VALUES.includes(v) ? v : "1";
 }
 
@@ -13,7 +17,7 @@ function applyFs(value) {
 export function cycleFontSize() {
   const cur = readFs();
   const next = FS_VALUES[(FS_VALUES.indexOf(cur) + 1) % FS_VALUES.length];
-  localStorage.setItem(FS_KEY, next);
+  set(FS_KEY, next, { raw: true });
   applyFs(next);
   return next;
 }

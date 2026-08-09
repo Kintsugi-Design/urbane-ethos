@@ -22,4 +22,4 @@ Lead by our trained therapists, EIP group also includes:
 - Physical and outdoor activities
 - Arts and Crafts!
 
-For more information, WhatsApp or call us now at +6013-249 0069 or email us at <urbaneethoseic@gmail.com>.
+For more information, WhatsApp or call us now at +6013-249 0069 or email us at <urbaneethos@yahoo.com>.

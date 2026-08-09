@@ -37,6 +37,6 @@ Collaborating with families ensures a holistic approach to promoting mental heal
 
 Parents, school teachers and counsellors, as well as allied health professionals must work together to help the children of today to enable them to be independent, kind and strong in the future.
 
-For more information, please get in touch with our professionals at +013-249 0069
+For more information, please get in touch with our professionals at +6013-249 0069
 
 Source: Lee J., Goh M., Yeo S. (2023). Mental health awareness of secondary schools students. Heliyon. 2023 Mar 13;9(3):e14512. PMID: 36950622; PMCID: PMC10025912. doi: 10.1016/j.heliyon.2023.e14512.

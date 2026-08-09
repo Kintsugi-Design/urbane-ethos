@@ -59,4 +59,4 @@ Hubungan yang baik antara ibu bapa dan guru dapat membantu memahami keperluan da
 
 Dengan pendekatan yang betul, ibu bapa dapat membantu mengekalkan minat anak untuk ke sekolah dan memastikan mereka terus berkembang dengan positif dalam persekitaran pembelajaran mereka. Teruskan usaha murni anda, ibu bapa sekalian 🙂
 
-Jika ada apa-apa pertanyaan, atau kalau ada masalah yang khusus yang menyebabkan kesukaran untuk belajar dan ke sekolah boleh hubungi +013-249 0069.
+Jika ada apa-apa pertanyaan, atau kalau ada masalah yang khusus yang menyebabkan kesukaran untuk belajar dan ke sekolah boleh hubungi +6013-249 0069.

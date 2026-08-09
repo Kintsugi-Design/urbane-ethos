@@ -1,3 +1,5 @@
+import { get, set } from "./storage.js";
+
 const STORAGE_KEY = "urbane-ethos:locale";
 const DEFAULT_LOCALE = "en";
 const SUPPORTED = new Set(["en", "ms"]);
@@ -69,14 +71,17 @@ async function applyToElement(el, locale) {
   }
 }
 
+// The locale is stored as a bare "en"/"ms", not JSON. `raw: true` is mandatory
+// on both sides: a JSON-decoding read of the string `en` throws, which would
+// silently reset an existing visitor's language on first load after migration.
 export function getLocale() {
-  const stored = localStorage.getItem(STORAGE_KEY);
+  const stored = get(STORAGE_KEY, { raw: true });
   return SUPPORTED.has(stored) ? stored : DEFAULT_LOCALE;
 }
 
 export async function setLocale(locale) {
   if (!SUPPORTED.has(locale)) return;
-  localStorage.setItem(STORAGE_KEY, locale);
+  set(STORAGE_KEY, locale, { raw: true });
   document.documentElement.lang = locale;
   await translatePage(locale);
   document.dispatchEvent(new CustomEvent("i18n:changed", { detail: { locale } }));

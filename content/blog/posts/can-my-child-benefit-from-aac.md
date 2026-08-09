@@ -29,7 +29,7 @@ Address: Urbane Ethos Early Intervention Center,
 4, Jalan Elektron E U16/E, Denai Alam
 40160 Shah Alam
 
-For more information, contact us at (+603) 7734 3044, WhatsApp us at (+6013) 249 0069 or <urbaneethoseic@gmail.com>
+For more information, contact us at +603-7734 3044, WhatsApp us at +6013-249 0069 or <urbaneethos@yahoo.com>
 
 \*\* Bahasa Malaysia translations are provided upon request
 

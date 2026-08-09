@@ -1,5 +1,6 @@
 import { isAllowed } from "./consent.js";
 import { renderSageStamp } from "./sage-stamp.js";
+import { get, set, remove } from "./storage.js";
 
 const KEY = "urbane-ethos:personalization";
 
@@ -59,21 +60,50 @@ export function asConcerns(concern) {
   return Array.isArray(concern) ? concern.filter(Boolean) : (concern ? [concern] : []);
 }
 
+// "stage" is the third survey answer. It is now a locale-agnostic slug, but
+// sessions predating the stageOptions reshape stored the localised display
+// string instead, so both locales' literals are accepted on read.
+//
+// This table is duplicated in enquiry.js rather than imported, for the same
+// reason concernToService is: enquiry.js is consumed by chatbot.js, and
+// importing this module would drag consent.js, sage-stamp.js and a
+// DOMContentLoaded survey binding along with it. Keep the two in step.
+const STAGE_SLUGS = new Set(["exploring", "assessing", "booking"]);
+
+const LEGACY_STAGE_LABELS = {
+  "just exploring": "exploring",
+  "looking to assess": "assessing",
+  "ready to book": "booking",
+  "sekadar melihat-lihat": "exploring",
+  "ingin membuat penilaian": "assessing",
+  "sedia untuk menempah": "booking"
+};
+
+export function asStage(value) {
+  const raw = value == null ? "" : String(value).trim();
+  if (!raw) return null;
+  if (STAGE_SLUGS.has(raw)) return raw;
+  return LEGACY_STAGE_LABELS[raw.toLowerCase()] ?? null;
+}
+
 export function read() {
-  if (!isAllowed("personalization")) return null;
-  try { return JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch { return null; }
+  const data = get(KEY, { category: "personalization", scope: "session", fallback: null });
+  if (!data || typeof data !== "object") return null;
+  return { ...data, stage: asStage(data.stage) };
 }
 
 export function write(values) {
-  if (!isAllowed("personalization")) return null;
   const next = { ...values, ts: Date.now() };
-  sessionStorage.setItem(KEY, JSON.stringify(next));
+  // set() is itself consent-gated, so an ungated write is now unexpressible.
+  // A false return (consent absent, or a quota/private-mode failure) keeps the
+  // null contract callers already expect and suppresses the change event.
+  if (!set(KEY, next, { category: "personalization", scope: "session" })) return null;
   document.dispatchEvent(new CustomEvent("personalization:changed", { detail: next }));
   return next;
 }
 
 export function reset() {
-  sessionStorage.removeItem(KEY);
+  remove(KEY, { scope: "session" });
   document.dispatchEvent(new CustomEvent("personalization:reset"));
 }
 

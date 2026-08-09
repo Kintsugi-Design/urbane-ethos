@@ -8,11 +8,27 @@
   },
   "_draft": {
     "form.fields.tellUsMoreLabel": true,
-    "form.fields.tellUsMorePlaceholder": true
+    "form.fields.tellUsMorePlaceholder": true,
+    "hero.subtitle": true,
+    "form.fields.serviceLabel": true,
+    "form.fields.serviceAny": true,
+    "form.success.heading": true,
+    "form.success.body": true,
+    "form.success.bodyNoService": true,
+    "form.success.whatsapp": true,
+    "form.success.email": true,
+    "form.success.copy": true,
+    "form.success.copied": true,
+    "form.success.unavailable": true,
+    "form.prefill.notice": true,
+    "form.prefill.clear": true
+  },
+  "meta": {
+    "docTitle": "Hubungi Kami — Urbane Ethos"
   },
   "hero": {
-    "title": "HUBUNGI",
-    "subtitle": "Hubungi Kami"
+    "title": "Hubungi kami",
+    "subtitle": "Hantar mesej kepada kami, bersembang dengan kami, atau kunjungi pusat kami."
   },
   "address": {
     "heading": "Pusat kami",
@@ -27,9 +43,9 @@
     { "label": "WhatsApp", "number": "+6013-249 0069" }
   ],
   "hours": [
-    "Monday: 12PM – 5PM",
-    "Tuesday – Saturday: 9AM – 6PM",
-    "Closed Sunday & Public Holidays"
+    "Isnin: 12PM – 5PM",
+    "Selasa – Sabtu: 9AM – 6PM",
+    "Tutup pada hari Ahad & Cuti Umum"
   ],
   "form": {
     "heading": "Hantar mesej kepada kami",
@@ -38,6 +54,8 @@
       "nameLabel": "Nama anda",
       "emailLabel": "Emel",
       "phoneLabel": "Telefon (pilihan)",
+      "serviceLabel": "Berkenaan apa? (Pilihan)",
+      "serviceAny": "Belum pasti",
       "concernLabel": "Apa yang ada di fikiran anda?",
       "tellUsMoreLabel": "Ada yang lain kami patut tahu? (Pilihan)",
       "submit": "Hantar",
@@ -48,6 +66,20 @@
       "tellUsMorePlaceholder": "Umur anak anda, sebarang diagnosis, apa yang mendorong pertanyaan anda — apa-apa yang membantu kami bersedia."
     },
     "successNote": "Aplikasi emel lalai anda akan dibuka dengan mesej ini sedia untuk dihantar.",
+    "success": {
+      "heading": "Terima kasih, {name}",
+      "body": "Pertanyaan anda tentang {service} sedia untuk dihantar.",
+      "bodyNoService": "Pertanyaan anda sedia untuk dihantar.",
+      "whatsapp": "Teruskan di WhatsApp",
+      "email": "Hantar melalui emel sebaliknya",
+      "copy": "Salin mesej",
+      "copied": "Telah disalin.",
+      "unavailable": "Kami tidak dapat memuatkan butiran hubungan kami. Salin mesej anda dan hantarkannya kepada kami."
+    },
+    "prefill": {
+      "notice": "Kami telah mengisi sebahagiannya daripada jawapan anda sebelum ini",
+      "clear": "Kosongkan"
+    },
     "errors": {
       "nameRequired": "Sila masukkan nama anda.",
       "emailRequired": "Kami perlukan emel untuk membalas.",

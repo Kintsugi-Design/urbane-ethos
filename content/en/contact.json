@@ -5,11 +5,27 @@
   },
   "_draft": {
     "form.fields.tellUsMoreLabel": true,
-    "form.fields.tellUsMorePlaceholder": true
+    "form.fields.tellUsMorePlaceholder": true,
+    "hero.subtitle": true,
+    "form.fields.serviceLabel": true,
+    "form.fields.serviceAny": true,
+    "form.success.heading": true,
+    "form.success.body": true,
+    "form.success.bodyNoService": true,
+    "form.success.whatsapp": true,
+    "form.success.email": true,
+    "form.success.copy": true,
+    "form.success.copied": true,
+    "form.success.unavailable": true,
+    "form.prefill.notice": true,
+    "form.prefill.clear": true
+  },
+  "meta": {
+    "docTitle": "Contact — Urbane Ethos"
   },
   "hero": {
-    "title": "CONTACT",
-    "subtitle": "Contact Us"
+    "title": "Get in touch",
+    "subtitle": "Send us a message, chat with us, or drop by the centre."
   },
   "address": {
     "heading": "Our centre",
@@ -35,6 +51,8 @@
       "nameLabel": "Your name",
       "emailLabel": "Email",
       "phoneLabel": "Phone (optional)",
+      "serviceLabel": "What is this about? (Optional)",
+      "serviceAny": "Not sure yet",
       "concernLabel": "What's on your mind?",
       "tellUsMoreLabel": "Anything else we should know? (Optional)",
       "submit": "Send",
@@ -45,6 +63,20 @@
       "tellUsMorePlaceholder": "Your child's age, any diagnosis, what's prompting your enquiry — whatever helps us prepare."
     },
     "successNote": "Your default mail app will open with this message ready to send.",
+    "success": {
+      "heading": "Thanks, {name}",
+      "body": "Your enquiry about {service} is ready to send.",
+      "bodyNoService": "Your enquiry is ready to send.",
+      "whatsapp": "Continue on WhatsApp",
+      "email": "Send by email instead",
+      "copy": "Copy message",
+      "copied": "Copied.",
+      "unavailable": "We couldn't load our contact details. Copy your message and send it to us."
+    },
+    "prefill": {
+      "notice": "We've filled some of this in from your earlier answers",
+      "clear": "Clear"
+    },
     "errors": {
       "nameRequired": "Please enter your name.",
       "emailRequired": "We need an email to reply to.",

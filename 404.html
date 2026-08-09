@@ -78,6 +78,16 @@ for (const sheet of ["tokens", "base", "components", "motion"]) {
 
 <footer class="site-footer">
   <div class="wrap">
+    <!-- 404.html loads no JS modules at all, so the consent-driven controls
+         ("Manage cookies", "Clear my data") are deliberately omitted here
+         rather than shipped as dead links: both need consent.js, and importing
+         it would auto-mount the consent banner (with its focus trap) on a page
+         that is intentionally script-free. Visitors reach both controls from
+         any real page's footer or from the consent modal. Links below are
+         plain English — 404.html carries no data-i18n and no i18n.js. -->
+    <p>
+      <a href="./privacy.html">Privacy notice</a>
+    </p>
     <p>&copy; Urbane Ethos Early Intervention Center</p>
   </div>
 </footer>

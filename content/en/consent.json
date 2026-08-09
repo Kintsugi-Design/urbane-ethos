@@ -1,7 +1,7 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "Scaffold copy drafted in T3 for the PDPA consent banner. Live site has no equivalent banner today; all strings here are drafted (see _draft map) and to be refined in T12."
+    "_note": "Scaffold copy drafted in T3 for the PDPA consent banner. Live site has no equivalent banner today; all strings here are drafted (see _draft map) and to be refined in T12. 2026-08-09: banner.heading/body and all three optional toggle descriptions rewritten to close HANDOVER G3 (banner implied control it did not have; the analytics toggle gates only a browser-local demo store). personalization + chatbot descriptions widened to cover reuse-for-enquiry, matching CONSENT_VERSION 1 → 2."
   },
   "_draft": {
     "banner.heading": true,
@@ -15,6 +15,7 @@
     "banner.cancel": true,
     "banner.saved": true,
     "modal.title": true,
+    "modal.clearData": true,
     "toggles.necessary.label": true,
     "toggles.necessary.description": true,
     "toggles.necessary.locked": true,
@@ -26,8 +27,8 @@
     "toggles.chatbot.description": true
   },
   "banner": {
-    "heading": "Your data choices",
-    "body": "We collect a little information to make this site work well for you. Choose what's OK.",
+    "heading": "What this site saves on your device",
+    "body": "These choices only affect what we store in your own browser. Nothing here is sent to a server or shared with an advertising network, and you can change or clear it at any time.",
     "acceptAll": "Accept all",
     "necessaryOnly": "Necessary only",
     "customize": "Customize",
@@ -38,7 +39,8 @@
     "saved": "Saved."
   },
   "modal": {
-    "title": "Customize your data choices"
+    "title": "Customize your data choices",
+    "clearData": "Clear my data"
   },
   "toggles": {
     "necessary": {
@@ -48,15 +50,15 @@
     },
     "analytics": {
       "label": "Analytics",
-      "description": "Anonymous counts of pages viewed and buttons clicked. Helps us improve the site."
+      "description": "Counts of pages viewed and buttons clicked, kept in your own browser for the on-site analytics demo. Nothing is sent to us or to any analytics provider."
     },
     "personalization": {
       "label": "Personalization",
-      "description": "Your answers to the 'tell us about your child' prompt. This includes sensitive personal data; explicit consent only."
+      "description": "Your answers to the 'tell us about your child' prompt. We use them to reorder what this site shows you, and to fill in your enquiry form if you contact us. This includes sensitive personal data; explicit consent only."
     },
     "chatbot": {
       "label": "Chat history",
-      "description": "Keep your chat transcripts between visits. Off = session only."
+      "description": "Keeps your chat transcripts between visits, and lets what you told the assistant — your name, phone number and the service you asked about — carry over into the enquiry form. Off = this visit only."
     }
   },
   "ariaLive": "Cookie banner shown."

@@ -18,22 +18,24 @@
     "minimize": "Kecilkan",
     "close": "Tutup",
     "consentNotice": "Transkrip disimpan hanya jika anda bersetuju. Urus di bahagian bawah.",
-    "transcriptHeading": "Perbualan"
+    "transcriptHeading": "Perbualan",
+    "whatsapp": "Teruskan di WhatsApp",
+    "whatsappAria": "Teruskan perbualan ini dengan pasukan kami di WhatsApp (buka dalam tab baharu)"
   },
   "flow": {
     "start": {
-      "say": "Hai! Saya boleh membantu dengan tempahan, perkhidmatan, harga, atau menyambungkan anda kepada manusia. Anda ingin mulakan di mana?",
+      "say": "Hai! Saya boleh membantu dengan tempahan, perkhidmatan, harga, atau menyambungkan anda dengan pasukan kami. Anda ingin mulakan di mana?",
       "options": [
         { "label": "Tempah sesi", "next": "book" },
         { "label": "Tanya tentang perkhidmatan", "next": "service" },
         { "label": "Anggaran harga", "next": "price.q1" },
-        { "label": "Bercakap dengan manusia", "next": "human" }
+        { "label": "Bercakap dengan pasukan kami", "next": "customer" }
       ]
     },
     "book": {
-      "say": "Bagus. Beritahu saya perkhidmatan apa dan waktu yang sesuai untuk anda, dan kami akan menghantar pengesahan melalui SMS.",
+      "say": "Bagus. Beritahu saya perkhidmatan yang anda minati dan waktu yang paling sesuai untuk anda.",
       "input": "free",
-      "next": "human.collect"
+      "next": "customer.name"
     },
     "service": {
       "say": "Perkhidmatan mana yang boleh saya ceritakan?",
@@ -98,22 +100,30 @@
     "price.show": {
       "say": "Yuran berbeza mengikut perkhidmatan, keperluan anak, dan kekerapan sesi, jadi pihak kami berkongsi kadar terkini secara terus. Anda boleh hubungi +603-7734 3044 atau hantar mesej kepada kami. Mahu berhubung dengan kami?",
       "options": [
-        { "label": "Ya, sahkan dengan pasukan", "next": "human" },
+        { "label": "Ya, sahkan dengan pasukan", "next": "customer" },
         { "label": "Belum lagi", "next": "start" }
       ]
     },
-    "human": {
-      "say": "Tentu. Kami akan WhatsApp anda dalam tempoh 1 hari bekerja. Apakah nama dan nombor telefon anda?",
-      "input": "name+phone",
-      "next": "human.confirm"
+    "customer": {
+      "say": "Tentu. Mari kita sediakan mesej yang boleh anda hantar kepada pasukan kami di WhatsApp. Pertama — apakah nama anda?",
+      "input": "free",
+      "capture": "name",
+      "next": "customer.phone"
     },
-    "human.collect": {
-      "say": "Baik. Untuk pengesahan, apakah nama dan nombor telefon anda?",
-      "input": "name+phone",
-      "next": "human.confirm"
+    "customer.name": {
+      "say": "Baik. Apakah nama anda?",
+      "input": "free",
+      "capture": "name",
+      "next": "customer.phone"
     },
-    "human.confirm": {
-      "say": "Terima kasih! Kami akan hubungi anda tidak lama lagi. (Dalam prototaip ini, mesej tidak dihantar sebenarnya.)",
+    "customer.phone": {
+      "say": "Terima kasih. Dan nombor terbaik untuk menghubungi anda?",
+      "input": "free",
+      "capture": "phone",
+      "next": "customer.confirm"
+    },
+    "customer.confirm": {
+      "say": "Itu sahaja yang saya perlukan. Gunakan butang WhatsApp di bawah untuk menghantarnya terus kepada pasukan kami.",
       "options": [{ "label": "Kembali ke mula", "next": "start" }]
     }
   }

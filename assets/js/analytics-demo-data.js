@@ -1,3 +1,7 @@
+import { get } from "./storage.js";
+
+const SESSION_EVENTS_KEY = "urbane-ethos:session-events";
+
 export const seedData = {
   totalVisits30d: 1842,
   topPages: [
@@ -32,7 +36,13 @@ export const seedData = {
   ]
 };
 
+// Read-only, and now consent-gated on the `analytics` category (plan §1.4):
+// with analytics consent absent the dashboard falls back to seedData alone.
 export function liveSessionEvents() {
-  try { return JSON.parse(sessionStorage.getItem("urbane-ethos:session-events") || "[]"); }
-  catch { return []; }
+  const events = get(SESSION_EVENTS_KEY, {
+    category: "analytics",
+    scope: "session",
+    fallback: []
+  });
+  return Array.isArray(events) ? events : [];
 }
