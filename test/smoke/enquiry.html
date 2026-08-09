@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Smoke — storage.js + enquiry.js</title>
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<style>
+  #log { list-style: none; padding: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; }
+  #log li { padding: 0.15rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  #log li.pass { color: var(--color-success); }
+  #log li.fail { color: var(--color-error); font-weight: 700; }
+  #summary { font-weight: 700; margin-top: 1rem; }
+  #summary.ok { color: var(--color-success); }
+  #summary.bad { color: var(--color-error); }
+</style>
+</head>
+<body>
+<main id="main" class="wrap">
+  <h1>Smoke — <code>storage.js</code> + <code>enquiry.js</code></h1>
+  <p>Work-unit U12 of
+    <code>docs/superpowers/plans/2026-08-09-enquiry-capture-and-channels.md</code>.
+    Every line below must read <strong>PASS</strong>, and the browser console must be
+    free of uncaught errors. The page seeds and restores Web Storage around each
+    exercise, so the assertions are order-independent and the browser's storage is
+    left exactly as it was found.</p>
+
+  <p id="summary">Running…</p>
+  <ul id="log"></ul>
+</main>
+
+<script type="module">
+/* --------------------------------------------------------------------------
+ * Harness
+ *
+ * Root-absolute /assets/… specifiers, per the test/smoke convention: these
+ * pages are served from /test/smoke/, where the production relative specifiers
+ * do not resolve.
+ *
+ * fetch shim: i18n.js resolves its relative `content/<locale>/<ns>.json` URLs
+ * against the *document* base URL, not the module URL. Production pages sit at
+ * the repo root so that lands correctly; this page sits two directories down,
+ * so the shim rewrites content/ requests to the root. It is also the lever used
+ * to force the channels() failure path in exercise 8.
+ * ----------------------------------------------------------------------- */
+
+import { CONSENT_KEY, CONSENT_VERSION, PREFIX, LEGACY_KEYS, allowed, get, set, remove, clearAll } from "/assets/js/storage.js";
+import { readInterest, composeEnquiry, channels, mailtoUrl, whatsappUrl } from "/assets/js/enquiry.js";
+import { asStage } from "/assets/js/personalization.js";
+import { t } from "/assets/js/i18n.js";
+
+// Installed before the first fetch can happen: none of the modules above fetch
+// at evaluation time (i18n.js only loads a namespace on demand, or from its
+// DOMContentLoaded translatePage(), which fires after this module body runs).
+const nativeFetch = window.fetch.bind(window);
+window.fetch = (input, init) =>
+  (typeof input === "string" && input.startsWith("content/"))
+    ? nativeFetch(`/${input}`, init)
+    : nativeFetch(input, init);
+
+const logEl = document.getElementById("log");
+const summaryEl = document.getElementById("summary");
+let passes = 0;
+let failures = 0;
+
+function line(ok, label, detail) {
+  const li = document.createElement("li");
+  li.className = ok ? "pass" : "fail";
+  li.textContent = `${ok ? "PASS" : "FAIL"} — ${label}${detail ? ` — ${detail}` : ""}`;
+  logEl.append(li);
+  if (ok) passes += 1; else failures += 1;
+}
+
+async function check(label, fn) {
+  try {
+    const detail = await fn();
+    line(true, label, detail);
+  } catch (err) {
+    line(false, label, err && err.message ? err.message : String(err));
+  }
+}
+
+function assert(cond, msg) {
+  if (!cond) throw new Error(msg);
+}
+
+function eq(actual, expected, what) {
+  const a = JSON.stringify(actual);
+  const b = JSON.stringify(expected);
+  if (a !== b) throw new Error(`${what}: expected ${b}, got ${a}`);
+}
+
+// Any uncaught error or unhandled rejection becomes a visible FAIL line rather
+// than a console-only surprise — the acceptance criterion covers both.
+let uncaught = 0;
+window.addEventListener("error", e => { uncaught += 1; line(false, "uncaught error", e.message); });
+window.addEventListener("unhandledrejection", e => { uncaught += 1; line(false, "unhandled rejection", String(e.reason)); });
+
+/* -------------------------- storage seed / restore ---------------------- */
+
+function entries(store) {
+  const out = {};
+  for (let i = 0; i < store.length; i += 1) {
+    const k = store.key(i);
+    if (k !== null) out[k] = store.getItem(k);
+  }
+  return out;
+}
+
+const dump = () => ({ local: entries(localStorage), session: entries(sessionStorage) });
+
+function load(snap) {
+  localStorage.clear();
+  sessionStorage.clear();
+  for (const [k, v] of Object.entries(snap.local)) localStorage.setItem(k, v);
+  for (const [k, v] of Object.entries(snap.session)) sessionStorage.setItem(k, v);
+}
+
+function wipe() {
+  localStorage.clear();
+  sessionStorage.clear();
+}
+
+function grant({ analytics = false, personalization = false, chatbot = false, version = CONSENT_VERSION } = {}) {
+  localStorage.setItem(CONSENT_KEY, JSON.stringify({
+    necessary: true, analytics, personalization, chatbot,
+    ts: new Date().toISOString(), version
+  }));
+}
+
+const grantAll = () => grant({ analytics: true, personalization: true, chatbot: true });
+
+const BASE_PATH = location.pathname;
+// location.pathname is absolute, so this is unaffected by any base-URL games.
+const setQuery = qs => history.replaceState(null, "", qs ? `${BASE_PATH}?${qs}` : BASE_PATH);
+
+async function withBrokenFetch(fn) {
+  const saved = window.fetch;
+  window.fetch = () => Promise.reject(new TypeError("smoke: network disabled"));
+  try { return await fn(); } finally { window.fetch = saved; }
+}
+
+/* ------------------------------- fixtures ------------------------------- */
+
+// §1.4 storage-key registry, complete.
+const PREFIXED_KEYS = [
+  "urbane-ethos:consent",
+  "urbane-ethos:locale",
+  "urbane-ethos:font-size",
+  "urbane-ethos:bloomed",
+  "urbane-ethos:personalization",
+  "urbane-ethos:chatbot-transcript",
+  "urbane-ethos:chat-context",
+  "urbane-ethos:session-events"
+];
+
+const CHAT_KEY = "urbane-ethos:chat-context";
+const SURVEY_KEY = "urbane-ethos:personalization";
+
+// The seven keys contact.html passes from services.json.
+const SERVICE_KEYS = ["screening", "assessment", "ot", "speech", "specialed", "eip", "psych"];
+
+const CHAT = { service: "ot", name: "Aina", phone: "012-345 6789" };
+const SURVEY = { age: "preschool", concern: ["speech"], stage: "booking" };
+
+function seedSources({ param = null, chat = null, survey = null, consent = "all" } = {}) {
+  wipe();
+  if (consent === "all") grantAll();
+  else if (consent && typeof consent === "object") grant(consent);
+  setQuery(param === null ? "" : `service=${encodeURIComponent(param)}`);
+  if (chat) sessionStorage.setItem(CHAT_KEY, JSON.stringify(chat));
+  if (survey) sessionStorage.setItem(SURVEY_KEY, JSON.stringify(survey));
+}
+
+/* ------------------------------ the run -------------------------------- */
+
+// Captured before anything is seeded; restored in the finally block.
+const BASELINE = dump();
+
+// Suppress the consent banner consent.js attaches at DOMContentLoaded (it is
+// imported transitively via personalization.js). A banner would fire its own
+// translatePage() fetches, which must not collide with exercise 8's broken-fetch
+// window.
+grantAll();
+
+async function domReady() {
+  if (document.readyState !== "loading") return;
+  await new Promise(res => document.addEventListener("DOMContentLoaded", res, { once: true }));
+}
+
+(async () => {
+  await domReady();
+  try {
+
+    /* === Exercise 1 — the consent gate on set()/get() ==================== */
+
+    await check("Ex1.1 set(necessary) writes even with no consent record", () => {
+      wipe();
+      const ok = set("urbane-ethos:locale", "ms", { raw: true });
+      assert(ok === true, `set returned ${ok}`);
+      eq(localStorage.getItem("urbane-ethos:locale"), "ms", "raw stored value");
+      return 'set → true; localStorage["urbane-ethos:locale"] === "ms"';
+    });
+
+    const GATED = [
+      { category: "personalization", scope: "session", key: SURVEY_KEY, value: { age: "adult" } },
+      { category: "chatbot", scope: "local", key: "urbane-ethos:chatbot-transcript", value: [{ q: "hi" }] },
+      { category: "chatbot", scope: "session", key: "session-chat", value: [{ q: "hi" }] },
+      { category: "analytics", scope: "session", key: "urbane-ethos:session-events", value: [1, 2] }
+    ];
+
+    for (const g of GATED) {
+      await check(`Ex1.2 set(${g.category}) with consent OFF returns false and writes nothing (${g.scope}:${g.key})`, () => {
+        wipe(); // no consent record at all
+        const store = g.scope === "session" ? sessionStorage : localStorage;
+        assert(allowed(g.category) === false, `allowed("${g.category}") should be false`);
+        const ok = set(g.key, g.value, { category: g.category, scope: g.scope });
+        assert(ok === false, `set returned ${ok}, expected false`);
+        assert(store.getItem(g.key) === null, `something was written: ${store.getItem(g.key)}`);
+        return "set → false; nothing written";
+      });
+
+      await check(`Ex1.3 set(${g.category}) with consent ON returns true and round-trips (${g.scope}:${g.key})`, () => {
+        wipe();
+        grantAll();
+        const ok = set(g.key, g.value, { category: g.category, scope: g.scope });
+        assert(ok === true, `set returned ${ok}, expected true`);
+        eq(get(g.key, { category: g.category, scope: g.scope, fallback: null }), g.value, "round-trip");
+        return "set → true; get round-trips";
+      });
+    }
+
+    await check("Ex1.4 consent revoked after a write: get() returns the fallback, the stored value is NOT truncated", () => {
+      wipe();
+      grantAll();
+      const transcript = [{ role: "bot", text: "one" }, { role: "user", text: "two" }];
+      assert(set("urbane-ethos:chatbot-transcript", transcript, { category: "chatbot" }) === true, "seed write failed");
+      grant({ chatbot: false }); // visitor revokes chatbot consent
+      // The old defect: a gated read returned [], the ungated write then wrote []
+      // back and silently truncated the transcript on every append.
+      eq(get("urbane-ethos:chatbot-transcript", { category: "chatbot", fallback: [] }), [], "gated read");
+      assert(set("urbane-ethos:chatbot-transcript", [], { category: "chatbot" }) === false, "gated write should be refused");
+      eq(JSON.parse(localStorage.getItem("urbane-ethos:chatbot-transcript")), transcript, "stored value after refused write");
+      return "read → fallback []; write refused; 2 stored turns intact";
+    });
+
+    await check("Ex1.5 a stale consent record (version 1) gates like no record at all", () => {
+      wipe();
+      grant({ chatbot: true, personalization: true, analytics: true, version: 1 });
+      assert(allowed("chatbot") === false, "allowed(chatbot) should be false on version 1");
+      assert(allowed("necessary") === true, "necessary must stay true");
+      const ok = set(CHAT_KEY, { service: "ot" }, { category: "chatbot", scope: "session" });
+      assert(ok === false, `set returned ${ok}`);
+      assert(sessionStorage.getItem(CHAT_KEY) === null, "something was written");
+      return `CONSENT_VERSION=${CONSENT_VERSION}; v1 record → set false, nothing written`;
+    });
+
+    await check("Ex1.6 a corrupt consent record never throws, gates everything off", () => {
+      wipe();
+      localStorage.setItem(CONSENT_KEY, "{not json");
+      assert(allowed("chatbot") === false, "allowed(chatbot)");
+      assert(allowed("necessary") === true, "allowed(necessary)");
+      eq(get(CHAT_KEY, { category: "chatbot", scope: "session", fallback: "FB" }), "FB", "get fallback");
+      return "allowed → false; get → fallback; no throw";
+    });
+
+    await check("Ex1.7 get() returns the fallback on a corrupt JSON payload, raw:true returns it verbatim", () => {
+      wipe();
+      localStorage.setItem("urbane-ethos:locale", "en");
+      eq(get("urbane-ethos:locale", { fallback: "FB" }), "FB", "JSON-decoding read of a raw string");
+      eq(get("urbane-ethos:locale", { raw: true, fallback: "FB" }), "en", "raw read");
+      return 'JSON read → fallback; raw read → "en" (the migration hazard)';
+    });
+
+    /* === Exercise 2 — clearAll() over the whole §1.4 registry ============ */
+
+    await check("Ex2.1 clearAll() removes every prefixed key in both scopes plus the unprefixed session-chat", () => {
+      wipe();
+      for (const k of PREFIXED_KEYS) {
+        localStorage.setItem(k, "seed");
+        sessionStorage.setItem(k, "seed");
+      }
+      sessionStorage.setItem("session-chat", "[]");
+      localStorage.setItem("unrelated:keep-me", "keep");
+      sessionStorage.setItem("another-keep-me", "keep");
+
+      const { removed } = clearAll();
+      const expected = [
+        ...PREFIXED_KEYS.map(k => `local:${k}`),
+        ...PREFIXED_KEYS.map(k => `session:${k}`),
+        "session:session-chat"
+      ];
+      eq([...removed].sort(), expected.sort(), "removed");
+
+      const leftLocal = Object.keys(entries(localStorage));
+      const leftSession = Object.keys(entries(sessionStorage));
+      assert(!leftLocal.some(k => k.startsWith(PREFIX)), `prefixed keys survived in local: ${leftLocal}`);
+      assert(!leftSession.some(k => k.startsWith(PREFIX)), `prefixed keys survived in session: ${leftSession}`);
+      assert(!leftSession.includes("session-chat"), "session-chat survived");
+      eq(leftLocal, ["unrelated:keep-me"], "unrelated local keys");
+      eq(leftSession, ["another-keep-me"], "unrelated session keys");
+      return `${removed.length} removed (8 prefixed × 2 scopes + session-chat); foreign keys untouched`;
+    });
+
+    await check("Ex2.2 LEGACY_KEYS are swept from localStorage too, not just session", () => {
+      wipe();
+      LEGACY_KEYS.forEach(k => { localStorage.setItem(k, "x"); sessionStorage.setItem(k, "x"); });
+      const { removed } = clearAll();
+      for (const k of LEGACY_KEYS) {
+        assert(removed.includes(`local:${k}`), `missing local:${k} in ${JSON.stringify(removed)}`);
+        assert(removed.includes(`session:${k}`), `missing session:${k} in ${JSON.stringify(removed)}`);
+      }
+      return `LEGACY_KEYS=${JSON.stringify(LEGACY_KEYS)} removed from both scopes`;
+    });
+
+    await check("Ex2.3 clearAll() on empty storage returns {removed: []} without throwing", () => {
+      wipe();
+      const res = clearAll();
+      eq(res, { removed: [] }, "result");
+      return "{removed: []}";
+    });
+
+    await check("Ex2.4 remove() is not consent-gated", () => {
+      wipe();
+      grantAll();
+      set(CHAT_KEY, { service: "ot" }, { category: "chatbot", scope: "session" });
+      grant({ chatbot: false });
+      assert(remove(CHAT_KEY, { scope: "session" }) === true, "remove returned false");
+      assert(sessionStorage.getItem(CHAT_KEY) === null, "key survived removal");
+      return "removal permitted with consent revoked";
+    });
+
+    /* === Exercise 3 — pre-fill precedence: param > chat > survey ========= */
+
+    await check("Ex3.1 param source in isolation", () => {
+      seedSources({ param: "psych" });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["psych", "param"], "service/source");
+      eq([i.name, i.phone, i.concerns, i.age, i.stage], [null, null, [], null, null], "storage-derived fields");
+      return 'service="psych", serviceSource="param", nothing from storage';
+    });
+
+    await check("Ex3.2 chat source in isolation (name/phone come only from chat)", () => {
+      seedSources({ chat: CHAT });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["ot", "chat"], "service/source");
+      eq([i.name, i.phone], ["Aina", "012-345 6789"], "name/phone");
+      eq(i.concerns, [], "concerns must not come from chat");
+      return 'service="ot", serviceSource="chat", name/phone carried';
+    });
+
+    await check("Ex3.3 survey source in isolation (concern → service via the shared table)", () => {
+      seedSources({ survey: SURVEY });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["speech", "survey"], "service/source");
+      eq([i.age, i.concerns, i.stage], ["preschool", ["speech"], "booking"], "survey fields");
+      eq([i.name, i.phone], [null, null], "name/phone must not come from the survey");
+      return 'service="speech", serviceSource="survey", age/concerns/stage carried';
+    });
+
+    await check("Ex3.4 all three present → param wins", () => {
+      seedSources({ param: "psych", chat: CHAT, survey: SURVEY });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["psych", "param"], "service/source");
+      return "param beats chat and survey";
+    });
+
+    await check("Ex3.5 chat + survey (no param) → chat wins", () => {
+      seedSources({ chat: CHAT, survey: SURVEY });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["ot", "chat"], "service/source");
+      return "chat beats survey";
+    });
+
+    await check("Ex3.6 no source at all → service null, serviceSource null", () => {
+      seedSources({});
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], [null, null], "service/source");
+      eq(i.concerns, [], "concerns");
+      return "null / null";
+    });
+
+    await check("Ex3.7 consent OFF → storage sources contribute nothing (param still works)", () => {
+      seedSources({ param: "psych", chat: CHAT, survey: SURVEY, consent: {} });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["psych", "param"], "param needs no consent");
+      eq([i.name, i.phone, i.concerns, i.age, i.stage], [null, null, [], null, null], "gated fields");
+
+      seedSources({ chat: CHAT, survey: SURVEY, consent: {} });
+      const j = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([j.service, j.serviceSource], [null, null], "chat/survey with consent off");
+      return "param unaffected; chat + survey fully suppressed";
+    });
+
+    await check("Ex3.8 locale is reported and defaults to en", () => {
+      seedSources({});
+      eq(readInterest().locale, "en", "locale with no stored preference");
+      localStorage.setItem("urbane-ethos:locale", "ms");
+      eq(readInterest().locale, "ms", "locale after setting ms");
+      return 'en → ms, read raw (no JSON decode)';
+    });
+
+    /* === Exercise 4 — unrecognised ?service= is dropped, next source wins = */
+
+    await check("Ex4.1 ?service=nonsense with serviceKeys → dropped, chat wins", () => {
+      seedSources({ param: "nonsense", chat: CHAT, survey: SURVEY });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["ot", "chat"], "service/source");
+      assert(i.service !== "nonsense", "garbage leaked into the form");
+      return 'garbage dropped; serviceSource="chat"';
+    });
+
+    await check("Ex4.2 ?service=nonsense with only a survey → survey wins", () => {
+      seedSources({ param: "nonsense", survey: SURVEY });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["speech", "survey"], "service/source");
+      return 'garbage dropped; serviceSource="survey"';
+    });
+
+    await check("Ex4.3 ?service=nonsense with no other source → null, not the garbage", () => {
+      seedSources({ param: "nonsense" });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], [null, null], "service/source");
+      return "null / null";
+    });
+
+    await check("Ex4.4 an unrecognised chat service is dropped too", () => {
+      seedSources({ chat: { service: "nonsense", name: "Aina" }, survey: SURVEY });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["speech", "survey"], "service/source");
+      eq(i.name, "Aina", "name still carried from the chat context");
+      return "chat service dropped, chat name retained, survey wins";
+    });
+
+    await check("Ex4.5 omitting serviceKeys applies no validation (chatbot.js's call shape)", () => {
+      seedSources({ param: "nonsense", chat: CHAT });
+      const i = readInterest();
+      eq([i.service, i.serviceSource], ["nonsense", "param"], "service/source");
+      return "no serviceKeys → no validation, as contracted";
+    });
+
+    await check("Ex4.6 serviceKeys accepts a Set as well as an Array", () => {
+      seedSources({ param: "nonsense", chat: CHAT });
+      const i = readInterest({ serviceKeys: new Set(SERVICE_KEYS) });
+      eq([i.service, i.serviceSource], ["ot", "chat"], "service/source");
+      return "Set honoured";
+    });
+
+    /* === Exercise 5 — the age gate: eip is never returned to an adult ==== */
+
+    await check("Ex5.1 chat says eip, survey says adult → eip suppressed, survey wins", () => {
+      seedSources({ chat: { service: "eip" }, survey: { age: "adult", concern: ["speech"] } });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      assert(i.service !== "eip", "eip was returned to an adult");
+      eq([i.service, i.serviceSource], ["speech", "survey"], "service/source");
+      return "eip suppressed for age=adult";
+    });
+
+    await check("Ex5.2 ?service=eip with age older-adult → suppressed, survey wins", () => {
+      seedSources({ param: "eip", survey: { age: "older-adult", concern: ["speech"] } });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      assert(i.service !== "eip", "eip was returned to an older adult");
+      eq([i.service, i.serviceSource], ["speech", "survey"], "service/source");
+      return "eip suppressed for age=older-adult even from the URL";
+    });
+
+    await check("Ex5.3 ?service=eip with age adult and no other source → null, not eip", () => {
+      seedSources({ param: "eip", survey: { age: "adult", concern: [] } });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], [null, null], "service/source");
+      return "null / null";
+    });
+
+    await check("Ex5.4 control: age school-age still gets eip", () => {
+      seedSources({ chat: { service: "eip" }, survey: { age: "school-age", concern: ["speech"] } });
+      const i = readInterest({ serviceKeys: SERVICE_KEYS });
+      eq([i.service, i.serviceSource], ["eip", "chat"], "service/source");
+      return "gate applies to adult bands only";
+    });
+
+    /* === Exercise 6 — asStage() tolerant read ============================ */
+
+    await check("Ex6.1 asStage() accepts the new slugs verbatim", () => {
+      eq([asStage("exploring"), asStage("assessing"), asStage("booking")],
+         ["exploring", "assessing", "booking"], "slugs");
+      return "exploring / assessing / booking";
+    });
+
+    await check("Ex6.2 asStage() normalises the legacy EN display strings", () => {
+      eq([asStage("Just exploring"), asStage("Looking to assess"), asStage("Ready to book")],
+         ["exploring", "assessing", "booking"], "EN legacy labels");
+      return "EN labels → slugs";
+    });
+
+    await check("Ex6.3 asStage() normalises the legacy BM display strings", () => {
+      eq([asStage("Sekadar melihat-lihat"), asStage("Ingin membuat penilaian"), asStage("Sedia untuk menempah")],
+         ["exploring", "assessing", "booking"], "BM legacy labels");
+      return "BM labels → slugs";
+    });
+
+    await check("Ex6.4 asStage() yields null for anything unrecognised", () => {
+      eq([asStage("banana"), asStage(""), asStage("   "), asStage(null), asStage(undefined), asStage(42)],
+         [null, null, null, null, null, null], "garbage");
+      return "garbage / empty / null / number → null";
+    });
+
+    await check("Ex6.5 asStage() is whitespace- and case-tolerant on legacy labels", () => {
+      eq([asStage("  READY TO BOOK  "), asStage("  booking  ")], ["booking", "booking"], "tolerant read");
+      return "trimmed + case-folded";
+    });
+
+    await check("Ex6.6 enquiry.js's private stage table is in step with personalization.js", () => {
+      for (const [stored, expected] of [
+        ["assessing", "assessing"],
+        ["Ingin membuat penilaian", "assessing"],
+        ["Just exploring", "exploring"],
+        ["banana", null]
+      ]) {
+        seedSources({ survey: { age: "preschool", concern: ["speech"], stage: stored } });
+        const got = readInterest({ serviceKeys: SERVICE_KEYS }).stage;
+        assert(got === expected, `readInterest().stage for ${JSON.stringify(stored)}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(got)}`);
+        assert(got === asStage(stored), `readInterest disagrees with asStage() on ${JSON.stringify(stored)}`);
+      }
+      return "4 values agree with asStage()";
+    });
+
+    /* === Exercise 7 — composeEnquiry() =================================== */
+
+    const FULL = {
+      name: "Aina Rahman",
+      email: "aina@example.com",
+      phone: "012-345 6789",
+      serviceTitle: "Speech Language Therapy (SLP)",
+      concern: "Late talker",
+      tellmore: "She is two and a half."
+    };
+
+    await check("Ex7.1 full payload: subject, every field present, no placeholders", () => {
+      const m = composeEnquiry(FULL);
+      eq(m.subject, "Enquiry about Speech Language Therapy (SLP)", "subject");
+      for (const frag of ["Aina Rahman", "aina@example.com", "012-345 6789",
+                          "Speech Language Therapy (SLP)", "Late talker", "She is two and a half."]) {
+        assert(m.text.includes(frag), `text is missing ${JSON.stringify(frag)}`);
+      }
+      assert(!/undefined|null/.test(m.subject + m.text), `"undefined"/"null" leaked: ${m.text}`);
+      assert(m.body === m.text, "body and text diverged");
+      return `subject + ${m.text.split("\n").filter(Boolean).length} non-empty lines`;
+    });
+
+    await check("Ex7.2 empty payload: fallback subject, no empty labels, no empty parenthetical", () => {
+      for (const payload of [{}, null, undefined]) {
+        const m = composeEnquiry(payload);
+        eq(m.subject, "Enquiry from website", `subject for ${JSON.stringify(payload) ?? "undefined"}`);
+        assert(m.text.length > 0, "text should still carry an opening line");
+        assert(!/undefined|null/.test(m.subject + m.text), `"undefined"/"null" leaked: ${m.text}`);
+        assert(!/\(\s*\)/.test(m.text), `empty parenthetical: ${m.text}`);
+        assert(!/^(Name|Email|Phone|Concern|More detail):/m.test(m.text), `empty field label emitted: ${m.text}`);
+        assert(!/:\s*$/m.test(m.text), `line ends in a dangling colon: ${m.text}`);
+        assert(!/\n\s*\n\s*\n/.test(m.text), `blank-line run from an omitted block: ${JSON.stringify(m.text)}`);
+        assert(m.text === m.text.trim(), "leading/trailing whitespace");
+      }
+      return '"Enquiry from website" + opening line only, for {} / null / undefined';
+    });
+
+    await check("Ex7.3 partial payload omits the missing fields entirely", () => {
+      const m = composeEnquiry({ name: "Aina", email: "", phone: null, tellmore: "   " });
+      assert(m.text.includes("Name: Aina"), `missing name line: ${m.text}`);
+      assert(!/^Email:/m.test(m.text), `blank email emitted: ${m.text}`);
+      assert(!/^Phone:/m.test(m.text), `null phone emitted: ${m.text}`);
+      assert(!/^More detail:/m.test(m.text), `whitespace-only tellmore emitted: ${m.text}`);
+      eq(m.subject, "Enquiry from website", "subject with no serviceTitle");
+      return "blank / null / whitespace-only fields dropped";
+    });
+
+    await check("Ex7.4 the same text goes to both transports", () => {
+      const m = composeEnquiry(FULL);
+      const mailto = mailtoUrl(m, "someone@example.com");
+      const wa = whatsappUrl(m, "60132490069");
+      const mailBody = decodeURIComponent(/&body=([\s\S]*)$/.exec(mailto)[1]);
+      const waText = decodeURIComponent(/\?text=([\s\S]*)$/.exec(wa)[1]);
+      eq(mailBody, m.body, "mailto body");
+      eq(waText, m.text, "whatsapp text");
+      eq(mailBody, waText, "the two transports");
+      return `${m.text.length} chars, identical on both`;
+    });
+
+    /* === Exercise 8 — channels() ======================================== */
+    //
+    // The forced-failure path runs FIRST, on purpose: i18n.js caches a namespace
+    // after a successful load, so a broken-fetch run after the happy path would
+    // be served from cache and prove nothing.
+
+    wipe(); // no stored locale ⇒ getLocale() === "en" ⇒ deterministic namespace
+
+    await check("Ex8.1 forced failure: resolves {email: null, whatsapp: null, error}, never rejects, never falls back", async () => {
+      const res = await withBrokenFetch(() => channels());
+      assert(res && typeof res === "object", `got ${JSON.stringify(res)}`);
+      assert(res.email === null, `email should be null, got ${JSON.stringify(res.email)}`);
+      assert(res.whatsapp === null, `whatsapp should be null, got ${JSON.stringify(res.whatsapp)}`);
+      assert(res.error instanceof Error, `error should be an Error, got ${JSON.stringify(res.error)}`);
+      // The defect this module exists to eliminate: no hard-coded address anywhere.
+      assert(mailtoUrl(composeEnquiry(FULL), res.email) === null, "mailtoUrl fabricated a mailto: from a null email");
+      assert(whatsappUrl(composeEnquiry(FULL), res.whatsapp?.e164) === null, "whatsappUrl fabricated a wa.me from a null number");
+      return `error=${res.error.name}; both channels null; URL builders return null`;
+    });
+
+    await check("Ex8.2 happy path: email is derived from content, never hard-coded", async () => {
+      const res = await channels();
+      assert(res.error === null, `error should be null, got ${res.error}`);
+      const fromContent = await t("contact.email");
+      assert(typeof fromContent === "string" && fromContent.length > 0, "contact.email is missing from content");
+      eq(res.email, fromContent, "email");
+      return `email=${res.email} (=== t("contact.email"))`;
+    });
+
+    await check("Ex8.3 happy path: the WhatsApp row is picked and normalised to 60132490069", async () => {
+      const res = await channels();
+      assert(res.whatsapp !== null, "whatsapp row not found");
+      eq(res.whatsapp.e164, "60132490069", "e164");
+      eq(res.whatsapp.url, "https://wa.me/60132490069", "url");
+      const phones = await t("contact.phones");
+      const row = phones.find(p => /whatsapp/i.test(p.label));
+      eq(res.whatsapp.display, row.number, "display");
+      const reception = phones.find(p => !/whatsapp/i.test(p.label));
+      assert(res.whatsapp.display !== reception.number, "picked the Reception row instead of WhatsApp");
+      return `display=${res.whatsapp.display} → e164=${res.whatsapp.e164}; url computed, not stored`;
+    });
+
+    /* === Exercise 9 — mailtoUrl / whatsappUrl round-trip ================= */
+
+    const TRICKY = composeEnquiry({
+      name: "A & B",
+      email: "a+b@example.com",
+      phone: "012-345 6789",
+      serviceTitle: "Cognitive Therapy & Special Education",
+      concern: "Why? #1 — 100% sure",
+      tellmore: "Line one\nLine two & three?"
+    });
+
+    await check("Ex9.1 mailtoUrl round-trips subject and body through encodeURIComponent", () => {
+      const url = mailtoUrl(TRICKY, "urbaneethos@example.com");
+      const m = /^mailto:([^?]*)\?subject=([^&]*)&body=([\s\S]*)$/.exec(url);
+      assert(m, `unexpected mailto shape: ${url}`);
+      eq(m[1], "urbaneethos@example.com", "address");
+      eq(decodeURIComponent(m[2]), TRICKY.subject, "subject");
+      eq(decodeURIComponent(m[3]), TRICKY.body, "body");
+      // "+" must survive as a literal, so the encoding cannot be form-encoding.
+      assert(m[3].includes("%2B"), "a literal + was not percent-encoded (would decode to a space)");
+      return "subject + body decode back byte-identical";
+    });
+
+    await check("Ex9.2 whatsappUrl round-trips text and keeps the wa.me shape", () => {
+      const url = whatsappUrl(TRICKY, "60132490069");
+      const m = /^https:\/\/wa\.me\/(\d+)\?text=([\s\S]*)$/.exec(url);
+      assert(m, `unexpected wa.me shape: ${url}`);
+      eq(m[1], "60132490069", "e164");
+      eq(decodeURIComponent(m[2]), TRICKY.text, "text");
+      return "e164 + text decode back byte-identical";
+    });
+
+    await check("Ex9.3 no raw delimiter survives into either query string", () => {
+      const mailto = mailtoUrl(TRICKY, "urbaneethos@example.com");
+      const wa = whatsappUrl(TRICKY, "60132490069");
+      const mailQuery = mailto.slice(mailto.indexOf("?") + 1);
+      const waQuery = wa.slice(wa.indexOf("?") + 1);
+      for (const [label, q, allowedAmps] of [["mailto", mailQuery, 1], ["wa.me", waQuery, 0]]) {
+        assert(!/[\n\r#\s]/.test(q), `${label} query carries a raw newline, #, or space: ${q}`);
+        assert((q.match(/&/g) || []).length === allowedAmps, `${label} query has an unexpected & count`);
+      }
+      return "newlines, #, spaces and & all percent-encoded";
+    });
+
+    await check("Ex9.4 both builders return null without an address / number", () => {
+      eq([mailtoUrl(TRICKY, null), mailtoUrl(TRICKY, ""), mailtoUrl(TRICKY, undefined)], [null, null, null], "mailtoUrl");
+      eq([whatsappUrl(TRICKY, null), whatsappUrl(TRICKY, ""), whatsappUrl(TRICKY, 0)], [null, null, null], "whatsappUrl");
+      return "null / empty / 0 → null";
+    });
+
+    await check("Ex9.5 both builders tolerate a null message", () => {
+      const mailto = mailtoUrl(null, "urbaneethos@example.com");
+      const wa = whatsappUrl(undefined, "60132490069");
+      eq(mailto, "mailto:urbaneethos@example.com?subject=&body=", "mailtoUrl(null, …)");
+      eq(wa, "https://wa.me/60132490069?text=", "whatsappUrl(undefined, …)");
+      return "empty params, no throw";
+    });
+
+  } finally {
+    /* Leave the browser's storage and the URL exactly as they were found. */
+    load(BASELINE);
+    setQuery("");
+  }
+
+  await check("Ex10 storage and URL restored to the pre-test baseline", () => {
+    // Compared as sorted pairs: Storage key order is not part of the contract.
+    const sorted = snap => ({
+      local: Object.entries(snap.local).sort(),
+      session: Object.entries(snap.session).sort()
+    });
+    eq(sorted(dump()), sorted(BASELINE), "storage snapshot");
+    eq(location.search, "", "query string");
+    return `${Object.keys(BASELINE.local).length} local + ${Object.keys(BASELINE.session).length} session keys restored`;
+  });
+
+  // Give a late unhandled rejection a tick to surface before the summary.
+  await new Promise(res => setTimeout(res, 50));
+
+  const clean = failures === 0 && uncaught === 0;
+  summaryEl.className = clean ? "ok" : "bad";
+  summaryEl.textContent = clean
+    ? `ALL PASS — ${passes} assertions, 0 failures, 0 uncaught errors.`
+    : `${failures} FAILURE(S) — ${passes} passed, ${uncaught} uncaught error(s).`;
+})();
+</script>
+</body>
+</html>

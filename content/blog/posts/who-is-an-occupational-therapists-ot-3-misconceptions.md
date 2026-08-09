@@ -48,6 +48,6 @@ Feel free to contact our occupational therapists for consultation and to make an
 
 1. <https://forms.gle/KQLB8ToSpzNHF6fh6> for assistance OR
 2. Click the chat bubble on urbane ethos website.
-3. Call or WAs us at 013 249 0069
+3. Call or WAs us at +6013-249 0069
 
 Help is within reach. We are here for you :-)

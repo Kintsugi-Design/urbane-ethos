@@ -13,4 +13,4 @@ excerpt: A special introductory offer for integrated teletherapy sessions from 2
 featured: false
 ---
 
-Please contact us at 013 249 0069 or fill in the contact form to make an appointment with our Drs and therapists. Special introductory for integrated sessions only for between 20th April - 30th April. We are here to help you and your child.
+Please contact us at +6013-249 0069 or fill in the contact form to make an appointment with our Drs and therapists. Special introductory for integrated sessions only for between 20th April - 30th April. We are here to help you and your child.

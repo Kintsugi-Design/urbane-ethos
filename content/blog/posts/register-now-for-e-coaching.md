@@ -29,6 +29,6 @@ Thank you and we hope to continue to provide quality service whether it is at ou
 
 Register here: <https://forms.gle/3sPABZRQJHfibTDt6>
 
-For more information, contact us at +6013-2490069
+For more information, contact us at +6013-249 0069
 
 Thank you!
