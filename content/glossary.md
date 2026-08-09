@@ -79,4 +79,24 @@ Fixed translations applied before per-string translation. Do not translate these
 - Manage cookies → Urus kuki
 - Read the full privacy notice → Baca notis privasi penuh
 
-## Days/hours stay English (international convention in MY context)
+## Days and hours
+
+Day names **translate**; clock times **stay in the `12PM` / `9AM – 6PM` form** (numerals + English AM/PM, the everyday convention in MY signage). An earlier version of this file said days stay English too — that was wrong, and it left `content/ms/{contact,common,home}.json` shipping "Monday: 12PM – 5PM" on the Bahasa Malaysia pages until 2026-08-09.
+
+- Monday → Isnin
+- Tuesday → Selasa
+- Wednesday → Rabu
+- Thursday → Khamis
+- Friday → Jumaat
+- Saturday → Sabtu
+- Sunday → Ahad
+- Public Holidays → Cuti Umum
+- Closed → Tutup
+
+Shipped form, for reference — keep the en dash and the spacing:
+
+```
+Isnin: 12PM – 5PM
+Selasa – Sabtu: 9AM – 6PM
+Tutup pada hari Ahad & Cuti Umum
+```
