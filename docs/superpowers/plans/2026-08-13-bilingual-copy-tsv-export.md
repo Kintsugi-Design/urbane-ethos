@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Produce `docs/copy-export-2026-08-13.tsv` — a 20-column, ~966-row key-level inventory of every EN and BM string in `content/`, attributed to page and section, for simultaneous BM translation review and client copy sign-off.
+**Goal:** Produce `docs/copy-export-2026-08-13.tsv` — a 20-column, ~962-row key-level inventory of every EN and BM string in `content/`, attributed to page and section, for simultaneous BM translation review and client copy sign-off.
 
 **Architecture:** A single throwaway Ruby script builds the sheet in one pass: walk the JSON sources into leaf rows, classify each row, pair it with its BM mirror, overlay HTML-derived page/image facts onto the statically bound keys, sort into document order, and write TSV. A minitest suite drives each stage. The script is developed under TDD but **is not committed** — per the spec, only the TSV ships.
 
@@ -47,7 +47,11 @@ The spec says "where an HTML overlay contradicts the namespace map, the overlay 
 
 ### Task 1: Leaf walker with marker exclusion
 
-Produces the row spine: every leaf string in a JSON tree, keyed by full path, with `_meta` / `_draft` / `_correction` / `_placeholder` subtrees skipped entirely.
+Produces the row spine: every leaf string in a JSON tree, keyed by full path, with **every underscore-prefixed key** skipped entirely.
+
+**Amended after Task 1 review.** The original rule named only `_meta` / `_draft` / `_correction` / `_placeholder`. That misses `_note`, which appears as a *sibling of real copy* rather than nested under `_meta`: `common.media._note`, `contact.address._note`, `contact.form._note`, `staff.members[3]._note`. Those four are internal engineering provenance ("No photo URL captured from the live page render…") and would have shipped as rows in a client sign-off sheet. The rule is now "skip any key beginning with `_`", which matches the repo's evident metadata convention and is robust to future marker names. Verified: no real copy key in any source begins with an underscore.
+
+**This changes the row count from 966 to 962.** The 966 figure came from an exploration script that shared the same blind spot.
 
 **Files:**
 - Create: `$SCRATCH/copy-export.rb`
@@ -91,6 +95,12 @@ class TestWalker < Minitest::Test
     tree = { "photo" => nil, "featured" => true, "count" => 3, "name" => "Ain" }
     assert_equal([["name", "Ain"]], CopyExport.walk(tree))
   end
+
+  def test_skips_any_underscore_key_at_any_depth
+    # `_note` sits beside real copy, not under `_meta` — e.g. common.media._note.
+    tree = { "media" => { "_note" => "internal provenance", "playButton" => "Play" } }
+    assert_equal([["media.playButton", "Play"]], CopyExport.walk(tree))
+  end
 end
 ```
 
@@ -118,13 +128,17 @@ module CopyExport
 
   module_function
 
+  # Every underscore-prefixed key is metadata, never copy. Naming only the four
+  # MARKERS would leak `_note` — which sits beside real copy, not under `_meta`.
+  def metadata_key?(key) = key.to_s.start_with?("_")
+
   # Depth-first leaf walk. Hash insertion order is preserved by Ruby, so the
   # emission order IS the JSON document order the sheet sorts on.
   def walk(obj, prefix = "")
     case obj
     when Hash
       obj.flat_map do |k, v|
-        next [] if MARKERS.include?(k)
+        next [] if metadata_key?(k)
         walk(v, prefix.empty? ? k.to_s : "#{prefix}.#{k}")
       end
     when Array
@@ -141,7 +155,7 @@ end
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `cd "$SCRATCH" && ruby test_copy_export.rb`
-Expected: `5 runs, 8 assertions, 0 failures, 0 errors`
+Expected: `6 runs, 6 assertions, 0 failures, 0 errors`
 
 - [ ] **Step 5: Sanity-check the real corpus**
 
@@ -157,13 +171,20 @@ cd "$SCRATCH" && ruby -r./copy-export -e '
   puts "leaf strings: #{total}"'
 ```
 
-Expected: `leaf strings: 966`. Any other number means the marker exclusion or the array handling is wrong — stop and fix before continuing.
+Expected: `leaf strings: 962`. Any other number means the marker exclusion or the array handling is wrong — stop and fix before continuing.
 
 ---
 
 ### Task 2: Marker flag lookup
 
 The highest-risk component. `_draft` and `_placeholder` index entries as **namespace-relative dot-index** paths (`items.2.faqs`, `members.0.personalLine`) while row keys are **namespace-qualified bracket** paths (`services.items[2].faqs.q`). And `items.2.faqs` names a subtree, not a leaf. Getting either wrong yields a flag column that is silently all-`FALSE`.
+
+**Amended after Task 1 review — markers are not only top-level, and not only EN.** Two facts the original task missed:
+
+1. **A marker can sit nested, in boolean form.** `content/ms/common.json` has `"media": { "_draft": true, … }` — flagging the whole `media` subtree rather than listing dot-paths. CLAUDE.md documents this form; exactly one instance exists today.
+2. **The MS doc carries its own markers.** That nested `_draft` is in the **MS** file only; EN's `common.json` has no `media._draft`. Reading flags from the EN doc alone reports `draft=FALSE` for all **28** `common.media.*` rows whose Bahasa Malaysia is explicitly flagged draft. For a sheet whose main job is BM review, that is precisely the wrong direction to be wrong in — it tells the reviewer to skip the strings most needing attention.
+
+So marker collection must walk **both** docs at **any** depth and union the results. Everywhere else the two locales agree: all four top-level `_draft` maps are byte-identical between EN and MS.
 
 **Files:**
 - Modify: `$SCRATCH/copy-export.rb`
@@ -203,11 +224,57 @@ class TestFlagLookup < Minitest::Test
   end
 
   def test_whole_file_draft_scalar
-    # CLAUDE.md documents `_draft: true`; no file uses it, but it must not crash.
+    # CLAUDE.md documents `_draft: true`; no file uses it at the root, but it
+    # must not crash.
     assert CopyExport.flagged?(true, "anything.at.all")
   end
 end
+
+class TestMarkerCollection < Minitest::Test
+  def test_collects_top_level_map_entries_verbatim
+    doc = { "_draft" => { "hero.title" => true, "hero.body" => false } }
+    assert_equal ["hero.title"], CopyExport.collect_marker(doc, "_draft")
+  end
+
+  def test_collects_nested_boolean_as_a_subtree_path
+    # content/ms/common.json: "media": { "_draft": true, ... }
+    doc = { "media" => { "_draft" => true, "playButton" => "Play" } }
+    assert_equal ["media"], CopyExport.collect_marker(doc, "_draft")
+  end
+
+  def test_collects_nested_map_entries_relative_to_their_parent
+    doc = { "media" => { "_draft" => { "alts.hero" => true } } }
+    assert_equal ["media.alts.hero"], CopyExport.collect_marker(doc, "_draft")
+  end
+
+  def test_root_boolean_collects_as_the_wildcard_sentinel
+    assert_equal ["*"], CopyExport.collect_marker({ "_draft" => true }, "_draft")
+  end
+
+  def test_ignores_other_marker_types
+    doc = { "_placeholder" => { "a" => true }, "_draft" => { "b" => true } }
+    assert_equal ["b"], CopyExport.collect_marker(doc, "_draft")
+  end
+
+  def test_flagged_by_accepts_a_collected_path_list
+    paths = ["media", "hero.title"]
+    assert CopyExport.flagged_by?(paths, "media.alts.hero") # subtree
+    assert CopyExport.flagged_by?(paths, "hero.title")      # exact
+    refute CopyExport.flagged_by?(paths, "mediaPlayer.x")   # segment boundary
+    refute CopyExport.flagged_by?([], "anything")           # nothing collected
+  end
+
+  def test_wildcard_flags_every_row
+    assert CopyExport.flagged_by?(["*"], "anything.at.all")
+  end
+end
 ```
+
+**Known dormant ambiguity — literal dots inside key names.** `content/{en,ms}/chatbot.json` uses dotted key *names* for its flow states: `flow["service.screening"]`, `flow["price.q1"]`, `flow["customer.name"]` — sitting beside plain `flow["service"]`, `flow["price"]` and `flow["customer"]` nodes. Flattened, `flow["service.screening"].say` and a hypothetical `flow["service"]["screening"]["say"]` are the same string, so a marker naming `flow.service` as a subtree would over-flag its dotted siblings.
+
+Verified harmless today on two counts: `chatbot.json` has no `_draft` and an empty `_placeholder`, so no marker names those paths; and the corpus flattens to **962 unique row keys with zero collisions**. It can only ever over-flag, never under-flag, so a reviewer would see extra rows rather than miss real ones. Task 7's duplicate-key assertion is the tripwire if this ever changes. Not worth a notation change now — the fix would be escaping dots throughout, which complicates every marker path for a case that does not occur.
+
+A root-level `_draft: true` would flag the whole file. Collecting it as the empty string and relying on prefix arithmetic fails — `"anything".start_with?(".")` is false — so it collects as the explicit sentinel `"*"` instead. No file uses the root form today; the sentinel keeps it from being a silent no-op if one ever does.
 
 - [ ] **Step 2: Run the test to verify it fails**
 
@@ -235,6 +302,41 @@ Add inside `module CopyExport`, after `walk`:
     marker.any? do |path, on|
       on && (rel == path || rel.start_with?("#{path}."))
     end
+  end
+
+  # Collect every occurrence of one marker type in a doc, at any depth, as a
+  # list of namespace-relative dot-index paths.
+  #
+  #   {"_draft" => {"hero.title" => true}}          -> ["hero.title"]
+  #   {"media" => {"_draft" => true}}               -> ["media"]
+  #   {"media" => {"_draft" => {"alts.hero" => 1}}} -> ["media.alts.hero"]
+  #   {"_draft" => true}                            -> ["*"]  (whole file)
+  def collect_marker(node, marker, prefix = "")
+    return [] unless node.is_a?(Hash) || node.is_a?(Array)
+
+    if node.is_a?(Array)
+      return node.each_with_index.flat_map { |v, i| collect_marker(v, marker, join_path(prefix, i.to_s)) }
+    end
+
+    node.flat_map do |k, v|
+      if k == marker
+        case v
+        when true then [prefix.empty? ? "*" : prefix]
+        when Hash then v.select { |_, on| on }.keys.map { |p| join_path(prefix, p) }
+        else []
+        end
+      elsif metadata_key?(k)
+        [] # a different marker type, or provenance
+      else
+        collect_marker(v, marker, join_path(prefix, k.to_s))
+      end
+    end
+  end
+
+  def join_path(prefix, segment) = prefix.empty? ? segment : "#{prefix}.#{segment}"
+
+  def flagged_by?(paths, rel)
+    paths.any? { |p| p == "*" || rel == p || rel.start_with?("#{p}.") }
   end
 ```
 
@@ -357,7 +459,10 @@ Add inside `module CopyExport`:
     parent = segs[0..-2].reverse.find { |s| !s.match?(/\A\d+\z/) }
 
     return "non-copy" if NON_COPY.include?(leaf)
-    return "option"   if leaf == "label" && parent == "options"
+    # Not just "options": the home survey uses ageOptions / concernOptions /
+    # stageOptions. Exact-matching "options" would type those 15 rows as plain
+    # labels. Suffix match covers all 38 option rows in the corpus.
+    return "option"   if leaf == "label" && parent.to_s.downcase.end_with?("options")
     return "heading"  if HEADINGS.include?(leaf)
     return "eyebrow"  if leaf == "eyebrow"
     return "body"     if BODIES.include?(leaf)
@@ -609,18 +714,37 @@ Expected: FAIL — `undefined method 'index_html' for CopyExport`
 
   # One entry per data-i18n key found on this page, carrying the image facts of
   # its enclosing <section>.
+  #
+  # Bindings OUTSIDE any <section> — header, nav, footer — must be indexed too.
+  # Every page carries 24-28 of them. Scanning only inside sections dropped all
+  # of careers.html's bindings (4 sections, 0 in-section keys) and, because the
+  # two section-less pages fell back to "whole document is one block", handed
+  # chrome keys like home.hero.title a page attribution of post-year-end-promo
+  # plus that page's hero image.
+  #
+  # Out-of-section keys get no image: an image belongs to a key only when both
+  # sit inside the same section. In-section wins if a key appears in both.
   def index_html(_page, html)
-    blocks = html.scan(%r{<section\b[^>]*>(.*?)</section>}m).map(&:first)
-    blocks = [html] if blocks.empty?
+    acc = {}
 
-    blocks.each_with_object({}) do |block, acc|
+    html.scan(%r{<section\b[^>]*>(.*?)</section>}m).each do |(block)|
       ref = section_image_ref(block)
-      block.scan(/data-i18n(?:-attr)?="([^"]*)"/).flatten.each do |raw|
-        raw.split(",").each do |part|
-          key = part.split(":").last.to_s.strip
-          next if key.empty?
-          acc[key] = { image_ref: ref }
-        end
+      i18n_keys(block).each { |k| acc[k] = { image_ref: ref } }
+    end
+
+    outside = html.gsub(%r{<section\b[^>]*>.*?</section>}m, "")
+    i18n_keys(outside).each { |k| acc[k] ||= { image_ref: nil } }
+
+    acc
+  end
+
+  # `data-i18n="a.b"` and `data-i18n-attr="alt:a.b,title:c.d"` both resolve to
+  # bare key paths.
+  def i18n_keys(fragment)
+    fragment.scan(/data-i18n(?:-attr)?="([^"]*)"/).flatten.flat_map do |raw|
+      raw.split(",").filter_map do |part|
+        key = part.split(":").last.to_s.strip
+        key unless key.empty?
       end
     end
   end
@@ -690,7 +814,7 @@ class TestRows < Minitest::Test
   def find(key) = rows.find { |r| r[:key] == key }
 
   def test_row_count_matches_leaf_count
-    assert_equal 966, rows.size
+    assert_equal 962, rows.size
     assert_equal rows.size, rows.map { |r| r[:key] }.uniq.size, "duplicate keys"
   end
 
@@ -799,8 +923,12 @@ Expected: FAIL — `undefined method 'build_rows' for CopyExport`
       en_doc = JSON.parse(File.read(path))
       ms_doc = en_only ? {} : JSON.parse(File.read(path.sub("/en/", "/ms/")))
       ms_map = en_only ? {} : walk(ms_doc).to_h
-      drafts = en_doc.is_a?(Hash) ? en_doc["_draft"] : nil
-      places = en_doc.is_a?(Hash) ? en_doc["_placeholder"] : nil
+
+      # Markers are collected from BOTH locales at any depth and unioned: the
+      # only nested marker in the corpus (ms/common.json media._draft) exists in
+      # MS alone, and it flags 28 rows a client would otherwise read as final.
+      drafts = (collect_marker(en_doc, "_draft")       | collect_marker(ms_doc, "_draft")).freeze
+      places = (collect_marker(en_doc, "_placeholder") | collect_marker(ms_doc, "_placeholder")).freeze
       corrs  = en_doc.is_a?(Hash) ? en_doc["_correction"] : nil
 
       walk(en_doc).map do |path_key, en|
@@ -830,8 +958,8 @@ Expected: FAIL — `undefined method 'build_rows' for CopyExport`
           ms_chars:      ms ? ms.length.to_s : "",
           len_ratio:     len_ratio(en, ms),
           glossary_hits: glossary_hits(en, glossary),
-          draft:         flagged?(drafts, rel) ? "TRUE" : "FALSE",
-          placeholder:   (flagged?(places, rel) || en.include?("⟪PLACEHOLDER⟫")) ? "TRUE" : "FALSE",
+          draft:         flagged_by?(drafts, rel) ? "TRUE" : "FALSE",
+          placeholder:   (flagged_by?(places, rel) || en.include?("⟪PLACEHOLDER⟫")) ? "TRUE" : "FALSE",
           correction:    (corrs.is_a?(Hash) ? corrs[rel].to_s : ""),
           has_image:     image ? "TRUE" : "FALSE",
           image_ref:     image.to_s
@@ -1034,7 +1162,7 @@ Expected: `~39 runs, 0 failures, 0 errors`
 cd "$SCRATCH" && ruby copy-export.rb
 ```
 
-Expected: `wrote /Users/deepsight/code/urbane-ethos/docs/copy-export-2026-08-13.tsv (966 rows)`
+Expected: `wrote /Users/deepsight/code/urbane-ethos/docs/copy-export-2026-08-13.tsv (962 rows)`
 
 - [ ] **Step 2: Run the spec's verification checklist**
 
@@ -1046,7 +1174,7 @@ cd "$UE_ROOT" && ruby -e '
   cols = head.split("\t", -1)
 
   puts "columns:  #{cols.size} (expect 20)"
-  puts "rows:     #{rows.size} (expect 966)"
+  puts "rows:     #{rows.size} (expect 962)"
   bad = rows.each_with_index.reject { |l, _| l.split("\t", -1).size == 20 }
   puts "bad rows: #{bad.size} (expect 0)"
 
@@ -1063,7 +1191,7 @@ cd "$UE_ROOT" && ruby -e '
   puts "sentinel rows: #{sent} vs placeholder-flagged: #{ph}"'
 ```
 
-Expected: 20 columns, 966 rows, 0 bad rows, 0 dupes, and **non-zero counts for `draft`, `placeholder` and `has_image`**. An all-`FALSE` flag column is the silent failure Task 2 exists to prevent — if it appears here, go back to Task 2, do not ship the file.
+Expected: 20 columns, 962 rows, 0 bad rows, 0 dupes, and **non-zero counts for `draft`, `placeholder` and `has_image`**. An all-`FALSE` flag column is the silent failure Task 2 exists to prevent — if it appears here, go back to Task 2, do not ship the file.
 
 If `sentinel rows` and `placeholder-flagged` disagree, that is real content drift between the `_placeholder` maps and the visible `⟪PLACEHOLDER⟫` sentinels. Note the delta and report it; do not "fix" it by loosening the flag.
 
@@ -1121,7 +1249,7 @@ Expected: parity OK, channels OK, and `git status` showing **only** `?? docs/cop
 ```bash
 cd "$UE_ROOT" && git add docs/copy-export-2026-08-13.tsv && git commit -m "docs: bilingual EN/BM copy inventory TSV
 
-966 key-level rows across content/{en,ms}/*.json, blog.json and careers.json.
+962 key-level rows across content/{en,ms}/*.json, blog.json and careers.json.
 20 columns: page/section attribution, item identity, content type,
 translatable flag, render path, ms_status, length metrics, glossary hits,
 and draft/placeholder/correction/image flags.
@@ -1207,11 +1335,11 @@ Report real findings in the reply as `file:line` plus the string and a proposed 
 | Check | Where | Pass condition |
 |---|---|---|
 | Unit tests | Tasks 1–9 | all green, ~39 runs |
-| Leaf count | Task 1 Step 5 | 966 |
+| Leaf count | Task 1 Step 5 | 962 |
 | Placeholder normalisation | Task 2 Step 5 | non-zero hits, all `⟪PLACEHOLDER⟫` |
 | ms_status distribution | Task 4 Step 5 | 383 translated / 189 identical / 0 missing |
 | HTML binding | Task 6 Step 5 | ~125 bound, 104 page-attributed |
-| Column + row integrity | Task 10 Step 2 | 20 cols, 966 rows, 0 dupes, flags non-zero |
+| Column + row integrity | Task 10 Step 2 | 20 cols, 962 rows, 0 dupes, flags non-zero |
 | Key coverage vs parity walk | Task 10 Step 3 | 0 missing |
 | Repo untouched | Task 10 Step 5 | both gates pass, only the TSV is new |
 
