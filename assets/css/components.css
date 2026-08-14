@@ -195,6 +195,28 @@
     color: var(--color-cream-soft);
   }
 
+  /* BM-DEFERRED — Bahasa Malaysia is drafted but unreviewed, so the site serves
+     English only and the EN/BM toggle is not offered.
+
+     Hidden in CSS rather than removed from markup for three reasons: it covers all
+     46 pages that carry the toggle (8 non-blog production pages + all 38 generated
+     post-*.html) plus content/blog/_post.html.erb without a single markup edit;
+     there is no flash of the toggle before the ES module executes; and display:none
+     takes both buttons out of the tab order AND the accessibility tree, so the
+     axe-core 0-violation ratchet is unaffected.
+
+     Placement matters: this must stay AFTER the `.locale-toggle, .fs-toggle`
+     display:inline-flex rule above, which has the same specificity.
+
+     To ship BM: delete this rule and flip LOCALES_ENABLED in assets/js/i18n.js. */
+  .locale-toggle { display: none; }
+  /* The desktop copy needs the two-class form: the @media (min-width: 880px)
+     block above sets `.header-tools .locale-toggle` to display inline-flex at
+     specificity (0,2,0), which outranks the (0,1,0) rule regardless of source
+     order. A media query adds no specificity, so this later (0,2,0) rule wins at
+     every width. Delete it alongside the rule above when BM ships. */
+  .header-tools .locale-toggle { display: none; }
+
   /* Book a session in header-tools matches the toggle height. */
   .header-tools .btn--primary {
     height: 2.5rem;
