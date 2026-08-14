@@ -115,8 +115,13 @@ SKIP now and re-arm automatically when the flag flips.
 - **`test/smoke/enquiry.html` Ex3.8** — currently writes `"ms"` to
   `urbane-ethos:locale` and asserts `readInterest().locale === "ms"`. It is
   rewritten to assert that a stored `"ms"` still reports `"en"` while BM is
-  deferred. That is a direct test of the shipped guarantee, so `enquiry.html`
-  stays at 54 assertions and every line still reads PASS.
+  deferred. That is a direct test of the shipped guarantee. It converts one
+  existing check rather than adding one, so the page's assertion count is
+  unchanged and every line still reads PASS.
+
+  (The page has 48 `await check(` calls. `CLAUDE.md` and `README.md` describe it
+  as "54 assertions" — that figure is stale and predates this work. Correcting
+  it is out of scope here; flagged for a separate pass.)
 
 ### 4. Untouched
 
@@ -142,7 +147,8 @@ No HTML file and no content file is edited.
 
 1. `bin/check-i18n-parity.rb` exits 0.
 2. `ruby bin/check-contact-channels.rb` exits 0.
-3. `test/smoke/enquiry.html` — 54 assertions, every line PASS.
+3. `test/smoke/enquiry.html` — summary line in its `ok` state, zero failures,
+   zero uncaught errors, every line PASS.
 4. `test/smoke/i18n.html` — renders assertions (non-zero), EN assertions PASS,
    BM block SKIP.
 5. Manual, in `bin/server`: on `index.html`, `localStorage.setItem(
