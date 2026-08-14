@@ -119,9 +119,9 @@ SKIP now and re-arm automatically when the flag flips.
   existing check rather than adding one, so the page's assertion count is
   unchanged and every line still reads PASS.
 
-  (The page has 48 `await check(` calls. `CLAUDE.md` and `README.md` describe it
-  as "54 assertions" — that figure is stale and predates this work. Correcting
-  it is out of scope here; flagged for a separate pass.)
+  (The page has 48 `await check(` calls. `CLAUDE.md:43` describes it as "54
+  assertions" — stale, and it predates this work. Corrected in the same docs
+  pass, since a wrong count in agent guidance reads as a regression signal.)
 
 ### 4. Untouched
 

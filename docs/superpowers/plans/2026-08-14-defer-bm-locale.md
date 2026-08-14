@@ -362,7 +362,7 @@ Replace with:
     });
 ```
 
-This stays a single `check()` call, so the page's assertion count is unchanged. (Note: the page has **48** `await check(` calls. `CLAUDE.md` and `README.md` say "54 assertions" — that figure is stale and predates this plan. Do not "correct" the code to match it.)
+This stays a single `check()` call, so the page's assertion count is unchanged. (Note: the page has **48** `await check(` calls. `CLAUDE.md:43` says "54 assertions" — that figure is stale and predates this plan. Do not "correct" the code to match it; Task 4 Step 3b corrects the doc instead.)
 
 - [ ] **Step 4: Verify statically**
 
@@ -443,6 +443,27 @@ Replace with:
 
 Consequences to keep in mind: **do not "fix" a BM string not rendering** — that is the flag, not a bug. `test/smoke/i18n.html` reports its two BM assertions as SKIP and runs three deferral assertions instead; `test/smoke/enquiry.html` Ex3.8 asserts a stored `"ms"` still reports `"en"`. Both branch on the exported flag and re-arm on flip. `content/ms/*.json` and the parity gate are deliberately untouched — **keep translating and keep the gate green.**
 ```
+
+- [ ] **Step 3b: `CLAUDE.md` — correct the stale assertion count**
+
+`CLAUDE.md:43` states `test/smoke/enquiry.html` has "54 assertions". The file
+actually has **48** `await check(` calls; the figure predates this work and would
+mislead a future agent into thinking the suite regressed. Approved as an in-scope
+fix since this task already edits the file.
+
+Find, on line 43:
+
+```markdown
+`test/smoke/enquiry.html` is the one that self-asserts (54 assertions; every line must read PASS).
+```
+
+Replace with:
+
+```markdown
+`test/smoke/enquiry.html` is the one that self-asserts (48 `check()` calls; every line must read PASS and the summary must render in its `ok` state). Verify the count with `grep -c 'await check(' test/smoke/enquiry.html` rather than trusting this number — it was stated as 54 for several builds and was wrong.
+```
+
+Do **not** change any assertion in `test/smoke/enquiry.html` to match either number.
 
 - [ ] **Step 4: `docs/HANDOVER.md` — header date**
 
