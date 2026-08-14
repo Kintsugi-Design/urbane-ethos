@@ -16,7 +16,7 @@ const CHATBOT_SESSION = { category: "chatbot", scope: "session" };
 // hand-off rather than a promise of future contact.
 const CONFIRM_NODE = "customer.confirm";
 
-let panel, log, optionsBar, inputBar, micBtn, ttsBtn, waFooter, waLink, waLabel;
+let panel, log, optionsBar, inputBar, waFooter, waLink, waLabel;
 let renderIcons = null;
 let flow = null;
 let state = { node: "start", context: {} };
@@ -91,14 +91,6 @@ function renderOptions(opts) {
     b.addEventListener("click", () => choose(opt));
     optionsBar.append(b);
   }
-}
-
-function speak(body) {
-  if (!ttsBtn.dataset.active) return;
-  if (!("speechSynthesis" in window)) return;
-  const u = new SpeechSynthesisUtterance(body);
-  u.lang = getLocale() === "ms" ? "ms-MY" : "en-US";
-  window.speechSynthesis.speak(u);
 }
 
 // Slug → display title. composeEnquiry() wants the title ("Speech Language
@@ -186,7 +178,6 @@ function go(nodeId) {
   // carry a real fallback in chatbot.json instead of a blanked bubble.
   const say = stripPlaceholder(node.say);
   appendBubble(say, "bot");
-  speak(say);
   if (node.options) renderOptions(node.options);
   else clearOptions();
   if (nodeId === CONFIRM_NODE) appendWhatsAppAction();
@@ -220,18 +211,6 @@ function submitFreeInput(value) {
   if (node?.next) go(node.next);
 }
 
-function attachVoice() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { micBtn.hidden = true; return; }
-  const rec = new SR();
-  rec.lang = getLocale() === "ms" ? "ms-MY" : "en-US";
-  rec.onresult = e => {
-    const transcript = e.results[0][0].transcript;
-    inputBar.querySelector("input").value = transcript;
-  };
-  micBtn.addEventListener("click", () => rec.start());
-}
-
 function buildPanel() {
   const wrap = document.createElement("div");
   wrap.className = "chatbot-panel";
@@ -246,14 +225,12 @@ function buildPanel() {
         <div style="font-size:0.8rem;color:var(--color-ink-muted)">${flow.ui.subtitle}</div>
       </div>
       <div class="chatbot-header-actions">
-        <button class="btn btn--icon" data-tts aria-label="${flow.ui.ttsAria}"><span data-icon="speaker"></span></button>
         <button class="btn btn--icon" data-close aria-label="${flow.ui.close}"><span data-icon="x-mark"></span></button>
       </div>
     </header>
     <div class="chatbot-log" role="log" aria-live="polite" aria-relevant="additions"></div>
     <div class="chatbot-options"></div>
     <form class="chatbot-input" hidden>
-      <button type="button" class="btn btn--icon" data-mic aria-label="${flow.ui.micAria}"><span data-icon="microphone"></span></button>
       <input type="text" aria-label="${flow.ui.inputPlaceholder}" placeholder="${flow.ui.inputPlaceholder}">
       <button type="submit" class="btn btn--primary"><span data-icon="send"></span><span class="visually-hidden">${flow.ui.send}</span></button>
     </form>
@@ -281,16 +258,9 @@ export async function initChatbot() {
   log = panel.querySelector(".chatbot-log");
   optionsBar = panel.querySelector(".chatbot-options");
   inputBar = panel.querySelector(".chatbot-input");
-  micBtn = panel.querySelector("[data-mic]");
-  ttsBtn = panel.querySelector("[data-tts]");
   waFooter = panel.querySelector(".chatbot-footer");
   waLink = panel.querySelector("[data-chatbot-wa]");
   waLabel = panel.querySelector(".chatbot-wa-label");
-
-  ttsBtn.addEventListener("click", () => {
-    ttsBtn.dataset.active = ttsBtn.dataset.active ? "" : "1";
-    ttsBtn.setAttribute("aria-pressed", ttsBtn.dataset.active ? "true" : "false");
-  });
 
   panel.querySelector("[data-close]").addEventListener("click", close);
   panel.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
@@ -310,7 +280,6 @@ export async function initChatbot() {
     });
   });
 
-  attachVoice();
   refreshWhatsApp();
   go("start");
 

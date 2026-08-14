@@ -341,7 +341,7 @@ Infrastructure landed for BOTH targets: `.github/workflows/pages.yml` (GitHub Pa
 
 **GitHub Pages activation (immediate)**
 
-Target remote: `git@github.com:Kintsugi-Design/urbane-ethos.git`. Public URL after activation: `https://kintsugi-design.github.io/urbane-ethos/`.
+Target remote: `git@github.com:Kintsugi-Design/urbane-ethos.git`. **Live public URL: `https://kintsugi.my/urbane-ethos/`** (custom domain, set in the repo's Pages settings — there is no `CNAME` file in the tree and none is needed). `https://kintsugi-design.github.io/urbane-ethos/` 301-redirects there; verification scripts hitting that host must follow redirects or they read the stub and wrongly conclude the deploy is empty.
 
 1. **Add the GitHub remote alongside the existing `origin` (GitLab).**
    ```bash

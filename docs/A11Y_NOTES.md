@@ -171,8 +171,8 @@ Initial run surfaced three distinct rule failures across the 8 pages.
 - **Chatbot panel** axe gap CLOSED 2026-06-11 via `bin/axe-chatbot.mjs`
   (see "Tooling → Chatbot panel — playwright runner" above). The panel
   is now audited live (post-click). Initial run: 0 violations. Static
-  structure already covered the basics: `data-tts`, `data-mic`,
-  `data-close` buttons carry `aria-label` from `flow.ui.*`
+  structure already covered the basics: the panel's buttons carry
+  `aria-label` from `flow.ui.*`
   (chatbot.js:119, 120, 126); `.chatbot-log` has
   `role="log" aria-live="polite" aria-relevant="additions"` so bot
   replies are announced. Focus trap + Escape close exercised in

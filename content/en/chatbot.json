@@ -10,8 +10,6 @@
     "subtitle": "Friendly, fast, no pressure.",
     "inputPlaceholder": "Type a message…",
     "send": "Send",
-    "micAria": "Speak instead of typing",
-    "ttsAria": "Read responses aloud",
     "minimize": "Minimize",
     "close": "Close",
     "consentNotice": "Transcripts saved only if you opted in. Manage in footer.",
