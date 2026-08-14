@@ -18,6 +18,16 @@
     <code>not-sure</code>) rather than EN chip labels. The chip
     <code>&lt;input value=&gt;</code> carries the slug in both locales.</p>
 
+  <p style="border-inline-start: 4px solid var(--color-ink-muted); padding: 0.75rem 1rem; background: color-mix(in srgb, var(--color-ink-muted) 8%, transparent)">
+    <strong>BM-DEFERRED (2026-08-14):</strong> Bahasa Malaysia is deferred —
+    <code>LOCALES_ENABLED = false</code> in <code>assets/js/i18n.js</code> and the
+    EN/BM toggle is hidden — so <strong>steps 1 (MS tab), 4 (BM equivalent) and 5
+    (toggle locale) cannot currently be performed</strong>. Run the EN portion of
+    steps 1–4 only; that still verifies the slug is stored locale-agnostically,
+    which is what this page exists to check. The locale half re-arms when the flag
+    flips. (Note <code>?locale=ms</code> in step 1 has never done anything — there
+    is no query-param locale handling anywhere in the codebase.)</p>
+
   <h2>Steps</h2>
   <ol>
     <li>Open the live home in two tabs:

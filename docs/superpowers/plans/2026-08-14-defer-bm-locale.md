@@ -54,13 +54,19 @@ const SUPPORTED = new Set(["en", "ms"]);
 // carries `_meta.reviewedBy: null`, and privacy.html MS is a legal surface. Until
 // that review lands, the site serves English only.
 //
-// The lock sits HERE rather than in CSS because six modules read getLocale()
-// directly — chatbot.js, map-embed.js, enquiry.js, nav.js, consent.js, yt-embed.js —
-// and the locale persists in localStorage under STORAGE_KEY. Hiding the toggle alone
-// would strand a visitor who picked BM on an earlier visit on a fully-BM site (copy,
-// chatbot, map labels) with no visible way back to English.
+// The lock sits HERE rather than in CSS because locale resolution happens in JS,
+// in three layers: the inline render script in all 46 pages that carry the toggle
+// imports getLocale() to pick content/<locale>/; chatbot.js, map-embed.js and
+// enquiry.js import it directly; and nav.js, consent.js and yt-embed.js reach it
+// through the t() / translatePage() default argument. The locale persists in
+// localStorage under STORAGE_KEY, so hiding the toggle alone would strand a
+// visitor who picked BM on an earlier visit on a fully-BM site (copy, chatbot,
+// map labels) with no visible way back to English.
 //
 // SUPPORTED keeps both locales on purpose: the BM path is described, not deleted.
+// Note this means t(key, "ms") and translatePage("ms") still resolve BM when
+// passed an EXPLICIT locale — the gate is on the stored/default locale, not on
+// the arguments. No shipped call site passes one; don't add one.
 //
 // To ship BM: flip this to true and delete the matching `.locale-toggle` rule in
 // assets/css/components.css. `grep -rn BM-DEFERRED` finds both sites.
@@ -546,7 +552,7 @@ Plan: `docs/superpowers/plans/2026-08-14-defer-bm-locale.md`.
 - `assets/js/i18n.js` exports `LOCALES_ENABLED = false`. A new `activeLocales()` helper returns `{en}` while the flag is off, and `getLocale()` / `setLocale()` test against it instead of `SUPPORTED`. `SUPPORTED` still lists both locales — the BM path is described, not deleted. `initLocaleToggle()` early-returns.
 - `assets/css/components.css` hides `.locale-toggle`.
 
-**Why the lock is in `getLocale()`, not only in CSS.** Six modules read `getLocale()` directly — `chatbot.js`, `map-embed.js`, `enquiry.js`, `nav.js`, `consent.js`, `yt-embed.js` — and the locale persists in `localStorage` under `urbane-ethos:locale`. Hiding the toggle alone would have stranded any visitor who picked BM on an earlier visit on a fully-BM site (copy, chatbot script, map facade labels) with **no visible way back to English**. The stored key is deliberately *not* cleared: it is inert while the flag is off, and it restores the visitor's preference when BM ships.
+**Why the lock is in `getLocale()`, not only in CSS.** Locale resolution happens in JS, in three layers: the **inline render script in all 46 pages** that carry the toggle imports `getLocale()` to choose `content/<locale>/`; `chatbot.js`, `map-embed.js` and `enquiry.js` import it directly; and `nav.js`, `consent.js`, `yt-embed.js` reach it through the `t()` / `translatePage()` default argument. The locale persists in `localStorage` under `urbane-ethos:locale`. Hiding the toggle alone would have stranded any visitor who picked BM on an earlier visit on a fully-BM site (copy, chatbot script, map facade labels) with **no visible way back to English**. The stored key is deliberately *not* cleared: it is inert while the flag is off, and it restores the visitor's preference when BM ships.
 
 **Why CSS, not a markup edit.** The toggle appears in 46 files — 8 non-blog production pages plus all 38 generated `post-*.html` — and in `content/blog/_post.html.erb`. One rule covers all of them with no flash before the module executes, and `display: none` removes both buttons from the tab order and the accessibility tree, so the axe-core 0-violation ratchet is unaffected.
 

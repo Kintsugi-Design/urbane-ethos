@@ -31,16 +31,20 @@ Reversal must be cheap: one boolean and one CSS rule.
 
 ## Why the lock belongs in `getLocale()`, not in CSS alone
 
-Six modules read `getLocale()` directly and fetch locale-scoped content from it:
+Locale resolution happens in JS, in three layers. The **inline render script in
+all 46 pages** that carry the toggle imports `getLocale()` to choose
+`content/<locale>/`. Three modules import it directly. Three more reach it via
+the `t()` / `translatePage()` default argument:
 
-| Module | Use |
-|---|---|
-| `chatbot.js` | fetches `content/<locale>/chatbot.json`; sets `ms-MY` on TTS and speech recognition |
-| `map-embed.js` | fetches `content/<locale>/common.json` for facade labels |
-| `enquiry.js` | reports `locale` in the composed enquiry payload |
-| `nav.js` | re-syncs the hamburger `aria-label` on `i18n:changed` |
-| `consent.js` | rebuilds the consent panel on `i18n:changed` |
-| `yt-embed.js` | localises the iframe `title` |
+| Consumer | How it reads the locale | Use |
+|---|---|---|
+| inline render script, ×46 pages | imports `getLocale` | fetches `content/<locale>/` for the page's own render |
+| `chatbot.js` | imports `getLocale` | fetches `content/<locale>/chatbot.json`; sets `ms-MY` on TTS and speech recognition |
+| `map-embed.js` | imports `getLocale` | fetches `content/<locale>/common.json` for facade labels |
+| `enquiry.js` | imports `getLocale` | reports `locale` in the composed enquiry payload |
+| `nav.js` | `t()` default arg | re-syncs the hamburger `aria-label` on `i18n:changed` |
+| `consent.js` | `translatePage()` / `t()` defaults | rebuilds the consent panel on `i18n:changed` |
+| `yt-embed.js` | `t()` default arg | localises the iframe `title` |
 
 The locale is persisted in `localStorage` under `urbane-ethos:locale`. A visitor
 who selected BM on an earlier visit therefore keeps it. Hiding only the toggle

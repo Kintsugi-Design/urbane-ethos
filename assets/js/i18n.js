@@ -8,13 +8,19 @@ const SUPPORTED = new Set(["en", "ms"]);
 // carries `_meta.reviewedBy: null`, and privacy.html MS is a legal surface. Until
 // that review lands, the site serves English only.
 //
-// The lock sits HERE rather than in CSS because six modules read getLocale()
-// directly — chatbot.js, map-embed.js, enquiry.js, nav.js, consent.js, yt-embed.js —
-// and the locale persists in localStorage under STORAGE_KEY. Hiding the toggle alone
-// would strand a visitor who picked BM on an earlier visit on a fully-BM site (copy,
-// chatbot, map labels) with no visible way back to English.
+// The lock sits HERE rather than in CSS because locale resolution happens in JS,
+// in three layers: the inline render script in all 46 pages that carry the toggle
+// imports getLocale() to pick content/<locale>/; chatbot.js, map-embed.js and
+// enquiry.js import it directly; and nav.js, consent.js and yt-embed.js reach it
+// through the t() / translatePage() default argument. The locale persists in
+// localStorage under STORAGE_KEY, so hiding the toggle alone would strand a
+// visitor who picked BM on an earlier visit on a fully-BM site (copy, chatbot,
+// map labels) with no visible way back to English.
 //
 // SUPPORTED keeps both locales on purpose: the BM path is described, not deleted.
+// Note this means t(key, "ms") and translatePage("ms") still resolve BM when
+// passed an EXPLICIT locale — the gate is on the stored/default locale, not on
+// the arguments. No shipped call site passes one; don't add one.
 //
 // To ship BM: flip this to true and delete the two matching `.locale-toggle`
 // rules in assets/css/components.css (a single-class rule plus a
