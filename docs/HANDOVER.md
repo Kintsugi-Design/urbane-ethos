@@ -7,6 +7,50 @@
 
 ---
 
+## Navbar + footer redesign — landed 2026-08-14
+
+Plan: `docs/superpowers/plans/2026-08-14-navbar-footer-redesign.md`.
+
+**Why.** The header carried no logo, the brand subtitle was bound to the wrong i18n keys on every page, the footer's opening-hours block existed as near-identical inline script copy-pasted into 8 places, and the footer's own text tints sat below comfortable reading contrast on the dark ground.
+
+**The logo mark finally lands.** `assets/img/ue-logo.png` (117×111) now renders in the header brand on all pages and again at the top of the footer's first column, seated in a new white circular plate.
+
+**Two wrong brand-subtitle bindings, one new key.** A new `common.brand.tagline` ("Early Intervention Center" / MS "Pusat Intervensi Awal") replaces both offenders: `home.hero.title` on the full-chrome pages and the blog ERB — which rendered the whole line "Urbane Ethos Early Intervention Center" *under* the wordmark — and `common.nav.about` on `privacy.html`, which rendered the word "About" as the brand subtitle. Neither was a styling bug; both were keys pointing at copy that was never written for that slot.
+
+**Responsive CTA label, no JS.** The header CTA is now two spans — "Book Now" (`common.nav.bookNow`) below 768px, "Book a session" (`common.cta.bookSession`) at 768px+ — swapped purely by CSS `display: none`. No script, no layout shift, both strings present in the DOM for i18n substitution.
+
+**Footer restructure.** The brand block (logo plate + serif cream wordmark) leads, then address / phone / email as icon rows using the existing `map-pin`, `phone` and `envelope` sprite entries. **The phone is now a real link** — `tel:+60377343044`, previously plain text a visitor could not tap. Hours became day/time label-value pairs. `common.footer.siteLabel` and `common.footer.privacyLabel` replaced hard-coded English `<h4>`s. `.footer-wordmark` moved out of the copyright bar into the brand block.
+
+**Contrast raise.** Footer text tints are now `color-mix` over `--color-cream` at 92% (body), 72% (muted labels + copyright) and 62% (icons), with hairlines at 16% — previously 82 / 58 / 16.
+
+**The "Analytics demo" footer link is gone.** Removed from every page, and `common.footer.analyticsDemo` **deleted** from both `content/en/common.json` and `content/ms/common.json` (parity stays green — deleted from both sides). `analytics.html` itself stays on disk and reachable by direct URL: the same treatment `careers.html` already has, an unlinked page rather than a deleted one.
+
+**New module: `assets/js/footer-hours.js`.** The single footer opening-hours renderer, closing an 8-way duplication (7 pages plus the blog ERB each carried a near-identical inline script). It splits `common.footer.hours` strings on the first `": "` into day/time span pairs; a string with no colon renders as a full-width muted note. Content resolves through `i18n.t` (cached, locale-aware, `import.meta.url`-safe), and it no-ops when `#footer-hours` is absent. Its import count is **10** (plus `404.html` and the blog ERB) — see the chrome-standardisation note below, which gave every page a full footer. Not a canggih-layer module.
+
+**All 38 `post-*.html` regenerated** from `content/blog/_post.html.erb` via `ruby bin/build-blog.rb`, so the blog pages carry the same header, footer and `footer-hours.js` import as the production pages.
+
+**BM stays deferred.** Both `BM-DEFERRED` `.locale-toggle` rules are untouched, and `common.brand.tagline` was added to the MS mirror alongside EN so the parity gate stays green for whenever BM ships.
+
+### Standard chrome on every page (client instruction, same day)
+
+The redesign initially left three pages on their historical cut-down chrome — `privacy.html` (brand + locale toggle only), `analytics.html` (brand-only header, **no footer at all**) and `404.html` (brand + a static nav, deliberately loading no JS whatsoever). The client asked for the standard navbar and footer on all pages, so `privacy.html` and `analytics.html` now carry the identical canonical header and footer and load the modules those need.
+
+Resulting import counts across the 10 production pages moved from `i18n 9 · consent 9 · a11y 8 · footer-hours 8` to **10 each**. `chatbot` stays at 8 and `parallax` at 3 — neither is navbar or footer, so neither was in scope.
+
+**`404.html` is the one deliberate exception: it stays script-free.** It was given the standard chrome, the consequence was surfaced, and the client chose to revert it. The reason: the standard footer's "Manage cookies" / "Clear my data" links require `consent.js`, and importing it auto-mounts the PDPA banner with its focus trap — on an error page. So 404 keeps its reduced header and short footer and loads **zero** modules. It did take the new logo mark, which is pure CSS.
+
+Two properties of that page are load-bearing and easy to break:
+- Its `<nav>` has **no `id="primary-nav"`**, and must not gain one. Every rule collapsing the nav behind the hamburger below 880px is scoped to `#primary-nav`; omitting the id is precisely what keeps the nav usable at mobile widths with no JS. Add the id and mobile 404 loses navigation entirely.
+- It carries no `data-i18n`, because it loads no `i18n.js`. Its copy is plain English on purpose.
+
+`analytics.html` also gained the standard brand subtitle ("Early Intervention Center") in place of its old "Analytics demo" wordmark subtitle; the page's prominent "Demo dashboard" notice inside `<main>` is untouched, so it still announces what it is. Its seeded stat cards and all four charts were re-verified working after the change. Note it still does not load `motion.css` (pre-existing); no header or footer rule lives in that file, so the new chrome is unaffected — flagged only so nobody discovers it cold.
+
+### On the logo asset
+
+`assets/img/ue-logo.png` is the alpha-trimmed crop of `_brief/assets/logo.png` (333×333 → exactly 117×111, which is how we know it matches the design source byte-for-byte in dimensions). **Regenerate it from the brief PNG, never by transcribing base64** — the first attempt at this landed a corrupt file whose IDAT stream failed its zlib checksum, rendering as a red arc plus noise. Browsers displayed it partially rather than erroring, so it survived two rounds of implementer review before an actual pixel inspection caught it. `_brief/assets/logo.png` verifies against its own `logo.b64` sidecar by SHA-256; use that as the source of truth. Never redraw, recolour or approximate the mark.
+
+---
+
 ## BM deferred — English-only — landed 2026-08-14
 
 Spec: `docs/superpowers/specs/2026-08-14-defer-bm-locale-design.md`.

@@ -45,8 +45,11 @@
       </svg>
     </button>
     <a class="brand" href="./">
-      <span>Urbane Ethos</span>
-      <small data-i18n="home.hero.title">Early Intervention Center</small>
+      <img class="brand-mark" src="./assets/img/ue-logo.png" alt="" width="117" height="111">
+      <span class="brand-text">
+        <span class="brand-name">Urbane Ethos</span>
+        <small data-i18n="common.brand.tagline">Early Intervention Center</small>
+      </span>
     </a>
     <nav id="primary-nav" aria-label="Primary">
       <ul class="nav-list">
@@ -70,7 +73,7 @@
         <button data-locale-set="ms">BM</button>
       </span>
       <button class="fs-toggle" data-fs-cycle aria-label="Text size"><span class="fs-toggle-letter">A</span><span data-icon="chevron-up-down"></span></button>
-      <a class="btn btn--primary" href="./contact.html" data-i18n="common.cta.bookSession">Book Now</a>
+      <a class="btn btn--primary header-cta" href="./contact.html"><span class="header-cta-label--short" data-i18n="common.nav.bookNow">Book Now</span><span class="header-cta-label--long" data-i18n="common.cta.bookSession">Book a session</span></a>
     </div>
   </div>
 </header>
@@ -94,20 +97,25 @@
 </main>
 
 <footer class="site-footer">
-  <div class="wrap grid">
-    <div>
-      <h4>Address</h4>
-      <p data-i18n="common.footer.address"></p>
-      <p data-i18n="common.footer.phone1"></p>
-      <p><a href="mailto:urbaneethos@yahoo.com" data-i18n="common.footer.email">urbaneethos@yahoo.com</a></p>
+  <div class="wrap footer-grid">
+    <div class="footer-col footer-col--brand">
+      <p class="footer-brand">
+        <span class="footer-brand-plate"><img src="./assets/img/ue-logo.png" alt="" width="117" height="111"></span>
+        <span class="footer-brand-name">Urbane Ethos</span>
+      </p>
+      <div class="footer-contact">
+        <p class="footer-line footer-line--address"><span data-icon="map-pin"></span><span data-i18n="common.footer.address">No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor</span></p>
+        <p class="footer-line"><span data-icon="phone"></span><a href="tel:+60377343044" data-i18n="common.footer.phone1">+603-7734 3044</a></p>
+        <p class="footer-line"><span data-icon="envelope"></span><a href="mailto:urbaneethos@yahoo.com" data-i18n="common.footer.email">urbaneethos@yahoo.com</a></p>
+      </div>
     </div>
-    <div>
+    <div class="footer-col footer-col--hours">
       <h4 data-i18n="common.footer.hoursLabel">Hours</h4>
-      <ul id="footer-hours"></ul>
+      <div id="footer-hours" class="footer-hours"></div>
     </div>
-    <div>
-      <h4>Site</h4>
-      <ul>
+    <div class="footer-col">
+      <h4 data-i18n="common.footer.siteLabel">Site</h4>
+      <ul class="footer-links footer-links--site">
         <li><a href="./about.html" data-i18n="common.nav.about">About</a></li>
         <li><a href="./services.html" data-i18n="common.nav.services">Services</a></li>
         <li><a href="./staff.html" data-i18n="common.nav.staff">Staff</a></li>
@@ -115,18 +123,16 @@
         <li><a href="./contact.html" data-i18n="common.nav.contact">Contact</a></li>
       </ul>
     </div>
-    <div>
-      <h4>Privacy</h4>
-      <ul>
+    <div class="footer-col">
+      <h4 data-i18n="common.footer.privacyLabel">Privacy</h4>
+      <ul class="footer-links">
         <li><a href="./privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
         <li><a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a></li>
         <li><a href="#" data-consent-clear data-i18n="common.footer.clearData">Clear my data</a></li>
-        <li><a href="./analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
       </ul>
     </div>
   </div>
   <div class="wrap footer-base">
-    <p class="footer-wordmark">Urbane Ethos</p>
     <p data-i18n="common.footer.rights">© Urbane Ethos Early Intervention Center</p>
   </div>
 </footer>
@@ -137,6 +143,7 @@
 import { getLocale, translatePage } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/a11y.js";
+import "./assets/js/footer-hours.js";
 import "./assets/js/nav.js";
 import "./assets/js/icons.js";
 import "./assets/js/page-load.js";
@@ -144,13 +151,7 @@ import "./assets/js/cursor.js";
 import "./assets/js/chatbot.js";
 
 async function renderChrome() {
-  const locale = getLocale();
-  const common = await fetch(`./content/${locale}/common.json`).then(r => r.json());
-
-  const fhrs = document.getElementById("footer-hours");
-  if (fhrs) fhrs.replaceChildren(...(common.footer?.hours || []).map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
-
-  await translatePage(locale);
+  await translatePage(getLocale());
 }
 renderChrome();
 document.addEventListener("i18n:changed", renderChrome);

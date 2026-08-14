@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "MedicalBusiness",
   "name": "Urbane Ethos Early Intervention Center",
-  "description": "Licensed early-intervention therapy centre offering speech, occupational, cognitive and special-education support in Shah Alam, Selangor.",
+  "description": "Licensed early-intervention therapy centre offering speech, occupational, cognitive and special-education support for all ages in Shah Alam, Selangor.",
   "url": "https://urbaneethos.center/",
   "logo": "https://urbaneethos.center/assets/img/favicon.svg",
   "image": "https://urbaneethos.center/assets/img/anchors/home-hero.webp",
@@ -67,8 +67,11 @@
       </svg>
     </button>
     <a class="brand" href="./">
-      <span>Urbane Ethos</span>
-      <small data-i18n="home.hero.title">Early Intervention Center</small>
+      <img class="brand-mark" src="./assets/img/ue-logo.png" alt="" width="117" height="111">
+      <span class="brand-text">
+        <span class="brand-name">Urbane Ethos</span>
+        <small data-i18n="common.brand.tagline">Early Intervention Center</small>
+      </span>
     </a>
     <nav id="primary-nav" aria-label="Primary">
       <ul class="nav-list">
@@ -92,7 +95,7 @@
         <button data-locale-set="ms">BM</button>
       </span>
       <button class="fs-toggle" data-fs-cycle aria-label="Text size"><span class="fs-toggle-letter">A</span><span data-icon="chevron-up-down"></span></button>
-      <a class="btn btn--primary" href="./contact.html" data-i18n="common.cta.bookSession">Book Now</a>
+      <a class="btn btn--primary header-cta" href="./contact.html"><span class="header-cta-label--short" data-i18n="common.nav.bookNow">Book Now</span><span class="header-cta-label--long" data-i18n="common.cta.bookSession">Book a session</span></a>
     </div>
   </div>
 </header>
@@ -110,8 +113,8 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <p class="eyebrow" data-i18n="home.hero.eyebrow">Urbane Ethos</p>
-          <h1 id="hero-headline">Early intervention, made <span class="hero-accent">human.</span></h1>
-          <p class="lede" data-i18n="home.hero.subtitle">Subtitle</p>
+          <h1 id="hero-headline">Professional therapists’ support and advice <span class="hero-accent">for every stage of life</span></h1>
+          <p class="lede" data-i18n="home.hero.subtitle">We offer client centered rehabilitation therapy for motor development, sensory disregulation, speech-language therapy, learning disabilities, behavioral and mental health support for neurodivergent individuals ranging from toddler, children, adults and elderly.</p>
           <div class="cta-row">
             <a class="btn btn--primary" href="./services.html" data-i18n="home.hero.primaryCta">Find Out More</a>
           </div>
@@ -314,20 +317,25 @@
 </main>
 
 <footer class="site-footer">
-  <div class="wrap grid">
-    <div>
-      <h4>Address</h4>
-      <p data-i18n="common.footer.address"></p>
-      <p data-i18n="common.footer.phone1"></p>
-      <p><a href="mailto:urbaneethos@yahoo.com" data-i18n="common.footer.email">urbaneethos@yahoo.com</a></p>
+  <div class="wrap footer-grid">
+    <div class="footer-col footer-col--brand">
+      <p class="footer-brand">
+        <span class="footer-brand-plate"><img src="./assets/img/ue-logo.png" alt="" width="117" height="111"></span>
+        <span class="footer-brand-name">Urbane Ethos</span>
+      </p>
+      <div class="footer-contact">
+        <p class="footer-line footer-line--address"><span data-icon="map-pin"></span><span data-i18n="common.footer.address">No. 4, Jalan Elektron E U16/E, Seksyen U16, E-Boulevard, Denai Alam, 40160 Shah Alam, Selangor</span></p>
+        <p class="footer-line"><span data-icon="phone"></span><a href="tel:+60377343044" data-i18n="common.footer.phone1">+603-7734 3044</a></p>
+        <p class="footer-line"><span data-icon="envelope"></span><a href="mailto:urbaneethos@yahoo.com" data-i18n="common.footer.email">urbaneethos@yahoo.com</a></p>
+      </div>
     </div>
-    <div>
+    <div class="footer-col footer-col--hours">
       <h4 data-i18n="common.footer.hoursLabel">Hours</h4>
-      <ul id="footer-hours"></ul>
+      <div id="footer-hours" class="footer-hours"></div>
     </div>
-    <div>
-      <h4>Site</h4>
-      <ul>
+    <div class="footer-col">
+      <h4 data-i18n="common.footer.siteLabel">Site</h4>
+      <ul class="footer-links footer-links--site">
         <li><a href="./about.html" data-i18n="common.nav.about">About</a></li>
         <li><a href="./services.html" data-i18n="common.nav.services">Services</a></li>
         <li><a href="./staff.html" data-i18n="common.nav.staff">Staff</a></li>
@@ -335,18 +343,16 @@
         <li><a href="./contact.html" data-i18n="common.nav.contact">Contact</a></li>
       </ul>
     </div>
-    <div>
-      <h4>Privacy</h4>
-      <ul>
+    <div class="footer-col">
+      <h4 data-i18n="common.footer.privacyLabel">Privacy</h4>
+      <ul class="footer-links">
         <li><a href="./privacy.html" data-i18n="common.footer.privacy">Privacy notice</a></li>
         <li><a href="#" data-consent-manage data-i18n="common.footer.manageCookies">Manage cookies</a></li>
         <li><a href="#" data-consent-clear data-i18n="common.footer.clearData">Clear my data</a></li>
-        <li><a href="./analytics.html" data-i18n="common.footer.analyticsDemo">Analytics demo</a></li>
       </ul>
     </div>
   </div>
   <div class="wrap footer-base">
-    <p class="footer-wordmark">Urbane Ethos</p>
     <p data-i18n="common.footer.rights">© Urbane Ethos Early Intervention Center</p>
   </div>
 </footer>
@@ -357,6 +363,7 @@
 import { getLocale, translatePage, stripPlaceholder } from "./assets/js/i18n.js";
 import "./assets/js/consent.js";
 import "./assets/js/a11y.js";
+import "./assets/js/footer-hours.js";
 import "./assets/js/nav.js";
 import "./assets/js/icons.js";
 import "./assets/js/page-load.js";
@@ -373,9 +380,8 @@ const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;"
 
 async function renderHome() {
   const locale = getLocale();
-  const [home, common, blog, staff] = await Promise.all([
+  const [home, blog, staff] = await Promise.all([
     fetchJson(`./content/${locale}/home.json`),
-    fetchJson(`./content/${locale}/common.json`),
     fetchJson(`./content/blog.json`),
     fetchJson(`./content/${locale}/staff.json`)
   ]);
@@ -388,14 +394,6 @@ async function renderHome() {
     const last = words.pop();
     headlineEl.innerHTML = `${words.join(" ")} <span class="hero-accent">${last}</span>`;
   }
-
-  // Footer hours stay a plain list; visit-us hours render as label/value rows.
-  const fmtUl = (sel, items) => {
-    const ul = document.querySelector(sel);
-    if (!ul || !Array.isArray(items)) return;
-    ul.replaceChildren(...items.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
-  };
-  fmtUl("#footer-hours", common.footer?.hours);
 
   const hoursWrap = document.getElementById("home-hours");
   if (hoursWrap && Array.isArray(home.location?.hours)) {

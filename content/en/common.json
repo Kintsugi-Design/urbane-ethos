@@ -29,6 +29,9 @@
     "currentLabel": "Current language",
     "blogNotice": "Site navigation translates; blog articles remain in English."
   },
+  "brand": {
+    "tagline": "Early Intervention Center"
+  },
   "fontSize": {
     "label": "Text size",
     "values": ["A", "A+", "A++"]
@@ -39,6 +42,8 @@
     "phone2": "+6013-249 0069",
     "email": "urbaneethos@yahoo.com",
     "hoursLabel": "Hours",
+    "siteLabel": "Site",
+    "privacyLabel": "Privacy",
     "hours": [
       "Monday: 12PM – 5PM",
       "Tuesday – Saturday: 9AM – 6PM",
@@ -48,8 +53,7 @@
     "rights": "© Urbane Ethos Early Intervention Center",
     "manageCookies": "Manage cookies",
     "clearData": "Clear my data",
-    "privacy": "Privacy notice",
-    "analyticsDemo": "Analytics demo"
+    "privacy": "Privacy notice"
   },
   "clearData": {
     "title": "Clear my data",

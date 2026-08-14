@@ -11,8 +11,25 @@
     padding: var(--space-4) 0;
     gap: var(--space-4);
   }
-  .brand { font-family: var(--font-serif); font-size: 1.125rem; color: var(--color-ink); text-decoration: none; line-height: 1.1; }
-  .brand small { color: var(--color-ink-muted); font-size: 0.75rem; display: block; }
+  .brand {
+    display: flex; align-items: center; gap: 0.625rem;   /* 10px; no --space token */
+    font-family: var(--font-serif); font-size: 1.125rem; color: var(--color-ink);
+    text-decoration: none; line-height: 1.1; letter-spacing: 0.01em;
+  }
+  .brand-mark { width: 34px; height: auto; flex: none; }
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-name { white-space: nowrap; }
+  /* Subtitle hidden on phones (canvas 1a omits it); appears from the tablet tier. */
+  .brand small { display: none; color: var(--color-ink-muted); font-size: 0.75rem; line-height: 1.4; }
+  @media (min-width: 768px) {
+    .brand { gap: var(--space-3); }        /* 12px */
+    .brand-mark { width: 40px; }
+    .brand small { display: block; }
+  }
+  @media (min-width: 880px) {
+    .brand { gap: 0.875rem; }              /* 14px; no --space token */
+    .brand-mark { width: 44px; }
+  }
   .nav-list { display: flex; gap: var(--space-5); list-style: none; padding: 0; margin: 0; }
   .nav-list a { color: var(--color-ink); text-decoration: none; padding: var(--space-2); }
   .nav-list a:hover, .nav-list a[aria-current="page"] { color: var(--color-primary-deep); }
@@ -220,8 +237,21 @@
   /* Book a session in header-tools matches the toggle height. */
   .header-tools .btn--primary {
     height: 2.5rem;
-    padding: 0 var(--space-5);
+    padding: 0 1.125rem;      /* 18px on phones; no --space token */
     font-size: 0.875rem;
+    white-space: nowrap;
+    flex: none;
+  }
+  @media (min-width: 768px) {
+    .header-tools .btn--primary { padding: 0 var(--space-5); }   /* 20px */
+  }
+  /* Responsive CTA label — short "Book Now" on phones, "Book a session" from
+     768px. display:none removes the hidden span from the accessibility tree,
+     so screen readers announce exactly one label. No JS involved. */
+  .header-cta .header-cta-label--long { display: none; }
+  @media (min-width: 768px) {
+    .header-cta .header-cta-label--short { display: none; }
+    .header-cta .header-cta-label--long { display: inline; }
   }
 
   /* Buttons */
@@ -556,7 +586,6 @@
   @media (max-width: 640px) {
     .grid-3, .grid-2 { gap: var(--space-5); }
     .staff-grid { gap: var(--space-8); }
-    .site-footer .grid { gap: var(--space-6); }
     .stat-grid { gap: var(--space-3); }
     .section { padding: var(--space-12) 0; }
   }
@@ -607,28 +636,109 @@
   .form-field [aria-invalid="true"] { border-color: var(--color-error); }
   .form-error { color: var(--color-error); font-size: 0.875rem; }
 
-  /* Footer */
+  /* Footer — navbar+footer redesign (2026-08-14 plan).
+     Mobile-first: single stacked column with hairline separators.
+     ≥768px: 3-col grid; the brand block spans the first row and splits
+     internally into brand | contact. ≥1024px: explicit 4-col grid.
+     Tints are STATIC color-mix over --color-cream (#F4F0FB = the canvas's
+     rgba(244,240,251,…) alphas) — never animated, so the "no animated
+     color-mix" perf rule is not in play. Link hover transitions plain
+     tokens only (--color-cream → --color-cream-soft). */
   .site-footer { background: var(--color-ink); color: var(--color-cream); padding: var(--space-16) 0 var(--space-8); }
-  .site-footer .grid { display: grid; gap: var(--space-10) var(--space-6); grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-  .site-footer h4 {
-    font: 600 var(--type-eyebrow) var(--font-sans);
-    letter-spacing: var(--tracking-loose); text-transform: uppercase;
-    color: color-mix(in srgb, var(--color-cream) 58%, transparent);
-    margin: 0 0 var(--space-4);
+  .site-footer .footer-grid { display: flex; flex-direction: column; gap: 1.75rem; }   /* 28px; no token */
+  .footer-col + .footer-col {
+    border-top: 1px solid color-mix(in srgb, var(--color-cream) 16%, transparent);
+    padding-top: var(--space-6);
   }
-  .site-footer p { margin: 0 0 var(--space-3); line-height: 1.55; color: color-mix(in srgb, var(--color-cream) 82%, transparent); }
-  .site-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
-  .site-footer li { margin: 0; }
+  .site-footer h4 {
+    font: 600 0.8125rem var(--font-sans);
+    letter-spacing: var(--tracking-loose);
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-cream) 72%, transparent);
+    margin: 0 0 var(--space-3);
+  }
+  .footer-col--hours h4 { margin-bottom: var(--space-4); }
+  .site-footer p { margin: 0 0 var(--space-3); line-height: 1.6; color: color-mix(in srgb, var(--color-cream) 92%, transparent); }
   .site-footer a { color: var(--color-cream); }
   .site-footer a:hover { color: var(--color-cream-soft); }
-  /* Bottom bar — brand anchor + copyright */
+
+  /* Column 1 — brand block */
+  .footer-brand { display: flex; align-items: center; gap: var(--space-3); margin: 0 0 var(--space-4); }
+  .footer-brand-plate {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; flex: none;
+    border-radius: var(--radius-pill); background: var(--color-cream-soft);
+  }
+  .footer-brand-plate img { width: 30px; height: auto; }
+  .footer-brand-name {
+    font-family: var(--font-serif); font-size: 1.25rem;
+    line-height: 1.15; letter-spacing: 0.01em; color: var(--color-cream);
+  }
+  .footer-contact { display: flex; flex-direction: column; gap: var(--space-2); }
+  .footer-line { display: flex; align-items: center; gap: 0.625rem; margin: 0; }
+  .footer-line--address { align-items: flex-start; }
+  .footer-line--address [data-icon] { margin-top: 0.2em; }
+  .footer-line [data-icon] {
+    width: 1.25em; height: 1.25em; flex: none;
+    color: color-mix(in srgb, var(--color-cream) 62%, transparent);
+  }
+  .footer-line a { display: inline-flex; align-items: center; min-block-size: 2.5rem; word-break: break-word; }
+
+  /* Hours — spans injected by assets/js/footer-hours.js */
+  .footer-hours { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2) var(--space-4); align-items: baseline; }
+  .footer-hours-day { color: color-mix(in srgb, var(--color-cream) 72%, transparent); }
+  .footer-hours-time { color: var(--color-cream); white-space: nowrap; }
+  .footer-hours-note { grid-column: 1 / -1; color: color-mix(in srgb, var(--color-cream) 72%, transparent); }
+
+  /* Link columns */
+  .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+  .footer-links li { margin: 0; }
+  .footer-links a { display: inline-flex; align-items: center; min-block-size: 2.5rem; }
+  .footer-links--site { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-1) var(--space-4); }
+
+  /* Copyright bar (wordmark removed — it now lives in the brand block) */
   .site-footer .footer-base {
-    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-6);
     margin-top: var(--space-12); padding-top: var(--space-6);
     border-top: 1px solid color-mix(in srgb, var(--color-cream) 16%, transparent);
   }
-  .site-footer .footer-base p { margin: 0; font-size: var(--type-small); color: color-mix(in srgb, var(--color-cream) 60%, transparent); }
-  .site-footer .footer-wordmark { font-family: var(--font-serif); font-size: 1.125rem; color: var(--color-cream); letter-spacing: 0.01em; }
+  .site-footer .footer-base p { margin: 0; font-size: var(--type-small); color: color-mix(in srgb, var(--color-cream) 72%, transparent); }
+
+  /* Tablet tier (canvas 834 frame → repo bp-md) */
+  @media (min-width: 768px) {
+    .site-footer .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-10) var(--space-12); }
+    .footer-col + .footer-col { border-top: 0; padding-top: 0; }
+    .footer-col--brand {
+      grid-column: 1 / -1;
+      display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: var(--space-10) var(--space-12); align-items: start;
+    }
+    .footer-brand { margin: 0; gap: 0.875rem; }
+    .footer-brand-plate { width: 56px; height: 56px; }
+    .footer-brand-plate img { width: 34px; }
+    .footer-brand-name { font-size: 1.375rem; }
+    .footer-line--address [data-i18n] { max-width: 34ch; }
+    .footer-line a, .footer-links a { min-block-size: 2.25rem; }
+    .footer-links { gap: 2px; }
+    .footer-links--site { display: flex; flex-direction: column; }
+    /* Hours become stacked label-over-value pairs, 12px between pairs
+       (2px flex gap + 10px margin). Cross-row column alignment (the canvas's
+       auto/1fr grid) is mobile-only: subgrid would be needed to keep li-level
+       semantics AND aligned columns, and Chrome's floor here is 110 (<117). */
+    .footer-hours { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; }
+    .footer-hours-day:not(:first-child), .footer-hours-note:not(:first-child) { margin-top: 0.625rem; }
+  }
+
+  /* Desktop tier (canvas 1440 frame → repo bp-lg) */
+  @media (min-width: 1024px) {
+    .site-footer .footer-grid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 0.9fr); }
+    .footer-col--brand { grid-column: auto; display: block; }
+    .footer-brand { margin: 0 0 var(--space-4); }
+    .footer-brand-plate { width: 60px; height: 60px; }
+    .footer-brand-plate img { width: 36px; }
+    .footer-brand-name { font-size: 1.5rem; }
+    .footer-line { gap: var(--space-3); }
+    .footer-line--address [data-i18n] { max-width: 32ch; }
+  }
 
   /* Arrow link — design-system text link with a nudging arrow (CSS ::after so
      i18n textContent swaps don't wipe it). */

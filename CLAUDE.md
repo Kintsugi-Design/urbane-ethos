@@ -48,7 +48,18 @@ There is no `npm test` / `bundle exec rspec`. The automated checks are `bin/chec
 
 Ten HTML files at the repo root are the production pages: `index.html`, `about.html`, `staff.html`, `services.html`, `blog.html`, `contact.html`, `analytics.html`, `privacy.html`, `careers.html`, `post-year-end-promo.html`, plus `404.html`. Each `<body>` carries a page-class (`home` / `about` / `services` / etc.) used by CSS and JS for contextual targeting.
 
-`careers.html` is deliberately **direct-URL only** — unlinked from nav, index, and footer (client decision on placement pending). `post-year-end-promo.html` is the **first local static blog article**.
+`careers.html` is deliberately **direct-URL only** — unlinked from nav, index, and footer (client decision on placement pending). Since 2026-08-14 `analytics.html` is **also direct-URL only**: the redesigned footer dropped the "Analytics demo" link and `common.footer.analyticsDemo` was deleted from both locales. The page is still on disk and still deploys — don't "fix" the missing link, and don't re-add the content key.
+
+`post-year-end-promo.html` is the **first local static blog article**.
+
+**Every page carries the standard header and footer except `404.html`** (2026-08-14). `analytics.html` and `privacy.html` previously had cut-down chrome; the client asked for standard chrome, so both now ship the full navbar and footer and load the modules those need.
+
+**`404.html` is the deliberate exception — it stays script-free** (client decision, 2026-08-14). It was briefly given the standard chrome and then reverted, because the standard footer's "Manage cookies" / "Clear my data" links require `consent.js`, and importing it auto-mounts the PDPA banner with its focus trap on an error page. So 404 keeps its reduced header (brand + a **static** `<nav>`) and its short footer, and loads **zero** JS modules. Two things follow, and both are load-bearing:
+
+- Its `<nav>` deliberately has **no `id="primary-nav"`**. Every rule that collapses the nav behind the hamburger below 880px is scoped to `#primary-nav`, so omitting the id is what keeps the nav visible at all widths without JS. If you add that id, mobile 404 loses its navigation entirely.
+- It carries no `data-i18n` (no `i18n.js`), so its copy is plain English by design.
+
+404 did take the new logo mark in its brand — that is pure CSS and needs no script.
 
 Blog article pages (`post-*.html`) are **generated** from `content/blog/posts/*.md` by `bin/build-blog.rb` (kramdown, dev-group gem) through `content/blog/_post.html.erb`. Do not hand-edit `post-*.html` or the `posts[]` array in `content/blog.json` — edit the Markdown source and re-run the generator (`ruby bin/build-blog.rb`). All **38** blog pages are local (37 posts migrated from the live Wix site + the year-end promo); the blog cards in `blog.html` route `localUrl` posts to the same tab. Post images live in `assets/img/blog/<slug>/` (hero via the `hero_image` frontmatter key, inline images embedded in the Markdown body). Blog bodies are single-language per source (mostly EN, some BM) and remain parity-exempt. `content/blog.json` `categories` is the filter set; category is stored per post in frontmatter. Blog article pages are **not** part of the "10 production pages" canggih/axe accounting (the promo page never was either).
 
@@ -64,7 +75,7 @@ All component blocks live inside `@layer components`. The earlier architectural 
 
 ### JS modules
 
-ESM only, loaded via `<script type="module">` in each HTML page. **Sixteen** modules in `assets/js/` (this count was stale at "eleven" for several builds — it omitted `icons.js`, `map-embed.js`, `sage-stamp.js` and `yt-embed.js`; verify with `ls -1 assets/js/*.js | wc -l` before trusting it):
+ESM only, loaded via `<script type="module">` in each HTML page. **Seventeen** modules in `assets/js/` (this count has gone stale before — it sat at "eleven" for several builds, omitting `icons.js`, `map-embed.js`, `sage-stamp.js` and `yt-embed.js`, and again at "sixteen" until `footer-hours.js` landed; verify with `ls -1 assets/js/*.js | wc -l` before trusting it):
 
 - `storage.js` — **the single storage gate.** Consent-aware and exception-safe: `allowed / get / set / remove / clearAll`. **Imports nothing, deliberately** — it owns `CONSENT_KEY` and `CONSENT_VERSION` and `consent.js` imports them, inverting what would otherwise be an ESM cycle (`consent → storage → consent`). `set()` returns `false` without writing when consent for the category is absent, so an ungated write is impossible to express. Nothing throws: private mode, quota and parse failures all degrade to a fallback. **Not a canggih-layer module** — no 10-page wiring. **No `localStorage`/`sessionStorage` call may exist anywhere else in `assets/js/`.**
 - `enquiry.js` — **the single contact-channel source.** `readInterest / composeEnquiry / channels / mailtoUrl / whatsappUrl`. `channels()` derives email + WhatsApp from the parity-gated `contact` namespace; the `wa.me` target is computed, never stored twice. `channels().email === null` means *cannot send* — callers must surface the copy fallback and must **never** substitute a hard-coded address. The transport message copy is intentionally English-only and hard-coded here (it is addressed to the centre, not the visitor), so do **not** add `contact.enquiry.*` i18n keys. **Not a canggih-layer module.**
@@ -72,9 +83,10 @@ ESM only, loaded via `<script type="module">` in each HTML page. **Sixteen** mod
 - `consent.js` — PDPA consent banner, three save paths (Accept all / Necessary only / Customize+Save).
 - `sage-stamp.js` — sage-ink stamp+checkmark microinteraction used by consent save and personalization save (Phase 1 craft moment).
 - `personalization.js` — home micro-survey reorders the services grid via a rules table keyed off locale-agnostic slugs (`speech`, `motor-skills`, `behaviour`, `learning`, `not-sure`). Chip `<input value>` carries the slug; the chip's label translates via i18n. Rules fire identically in EN and BM; `sessionStorage` is locale-stable across toggles.
-- `nav.js` — hamburger toggle for the primary nav below 768px. Click opens, Escape / click-outside / re-click closes; focus trap while open; viewport-resize past 768px auto-closes. `aria-label` syncs to `common.nav.menu` / `menuClose` via i18n.t. Wired on all 10 production pages via the canggih layer convention. No-ops on pages without a `.nav-toggle` (analytics + privacy have no primary nav).
+- `nav.js` — hamburger toggle for the primary nav below 768px. Click opens, Escape / click-outside / re-click closes; focus trap while open; viewport-resize past 768px auto-closes. `aria-label` syncs to `common.nav.menu` / `menuClose` via i18n.t. Wired on all 10 production pages via the canggih layer convention. No-ops on pages without a `.nav-toggle` — since 2026-08-14 the only such page is `404.html`, which is script-free and uses a static nav instead.
 - `chatbot.js` — scripted decision tree (no LLM), bilingual, lazy-builds the panel on launcher click. Voice in via Web Speech API + TTS via SpeechSynthesis where available.
 - `a11y.js` — skip-link focus management, font-size cycle (`data-fs-cycle` button → `<html data-fs="N">`), focus-visible polishing.
+- `footer-hours.js` — the single footer opening-hours renderer (replaces the inline per-page scripts that were duplicated across 8 page scripts). Splits `common.footer.hours` strings on the first `": "` into day/time span pairs; a no-colon string renders as a full-width muted note. Resolves content through `i18n.t` (cached, locale-aware), and no-ops when `#footer-hours` is absent. Imported on all 10 production pages plus the blog ERB — but **not** `404.html`, which is script-free by design. **Not** a canggih-layer module (it renders content, it isn't atmosphere), but its import count matches the canggih modules' 10.
 - `analytics-demo-data.js` — seeds the `/analytics.html` demo dashboard with fake data. Not real telemetry.
 - `yt-embed.js` — lazy click-to-load YouTube via `youtube-nocookie.com`, autoplay on click, iframe `title` from `data-yt-title`. Slots have `data-yt-id="PLACEHOLDER_*"` until real IDs swap in pre-launch.
 - `page-load.js`, `parallax.js`, `cursor.js` — Phase 4 canggih layer modules (page-load ink-bloom, hero parallax, sage ink-dot cursor).
@@ -98,13 +110,15 @@ grep -l "<module-name>.js" index.html about.html staff.html services.html blog.h
 Not every module is on all 10 pages — only the always-on canggih modules are. Expected per-module import counts (verify after wiring changes):
 
 ```bash
-for m in nav icons page-load cursor i18n consent a11y chatbot parallax; do printf "%-14s" $m; \
+for m in nav icons page-load cursor i18n consent a11y chatbot footer-hours parallax; do printf "%-14s" $m; \
   grep -l "assets/js/$m.js" index.html about.html staff.html services.html blog.html \
   contact.html analytics.html privacy.html careers.html post-year-end-promo.html | wc -l; done
-# nav 10 · icons 10 · page-load 10 · cursor 10 · i18n 9 · consent 9 · a11y 8 · chatbot 8 · parallax 3
+# nav 10 · icons 10 · page-load 10 · cursor 10 · i18n 10 · consent 10 · a11y 10 · chatbot 8 · footer-hours 10 · parallax 3
 ```
 
-`i18n`/`consent` skip one page each, `a11y`/`chatbot` skip two (analytics + privacy have no primary nav/skip-link surface), and `parallax` is hero-only (3 pages).
+Only `chatbot` (8) and `parallax` (3) fall short of 10. `parallax` is hero-only. `chatbot` skips analytics + privacy, which carry no assistant launcher.
+
+**These numbers changed on 2026-08-14.** `i18n`, `consent`, `a11y` and `footer-hours` used to read 9/9/8/8 because `analytics.html` and `privacy.html` carried cut-down chrome. The client asked for the standard navbar and footer, so both now load the full set. `404.html` is not in the 10-page table above and stays script-free by explicit client decision — see the note under Pages and routing before adding any module to it.
 
 ### Content / i18n
 

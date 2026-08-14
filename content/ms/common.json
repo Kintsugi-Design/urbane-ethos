@@ -35,6 +35,9 @@
     "currentLabel": "Bahasa semasa",
     "blogNotice": "Navigasi laman ini diterjemah; artikel blog kekal dalam Bahasa Inggeris."
   },
+  "brand": {
+    "tagline": "Pusat Intervensi Awal"
+  },
   "fontSize": {
     "label": "Saiz teks",
     "values": ["A", "A+", "A++"]
@@ -45,6 +48,8 @@
     "phone2": "+6013-249 0069",
     "email": "urbaneethos@yahoo.com",
     "hoursLabel": "Waktu operasi",
+    "siteLabel": "Laman",
+    "privacyLabel": "Privasi",
     "hours": [
       "Isnin: 12PM – 5PM",
       "Selasa – Sabtu: 9AM – 6PM",
@@ -54,8 +59,7 @@
     "rights": "© Pusat Intervensi Awal Urbane Ethos",
     "manageCookies": "Urus kuki",
     "clearData": "Padam data saya",
-    "privacy": "Notis Privasi",
-    "analyticsDemo": "Demo analitik"
+    "privacy": "Notis Privasi"
   },
   "clearData": {
     "title": "Padam data saya",
