@@ -8,7 +8,13 @@
   }
   .header-row {
     display: flex; align-items: center; justify-content: space-between;
-    padding: var(--space-4) 0;
+    /* padding-BLOCK only. This element is `.wrap .header-row`, and .wrap
+       supplies the horizontal gutter (24px, 32px from 768px). A `padding:
+       Ypx 0` shorthand here would reset padding-inline to 0 and win, because
+       @layer components outranks @layer base — which is exactly the bug that
+       left the navbar edge-to-edge below 1280px while the footer sat on the
+       gutter. Keep the gutter in one place: .wrap. */
+    padding-block: var(--space-4);
     gap: var(--space-4);
   }
   .brand {
