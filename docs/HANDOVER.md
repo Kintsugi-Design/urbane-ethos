@@ -30,7 +30,7 @@ Plan: `docs/superpowers/plans/2026-08-14-defer-bm-locale.md`.
 
 The plan originally specified only the single-class rule. That was a **defect**: `components.css:136` sets `.header-tools .locale-toggle { display: inline-flex }` inside `@media (min-width: 880px)` at (0,2,0), and a media query contributes no specificity — so the single-class rule loses at every width ≥880px and the desktop toggle would have stayed visible while the plan's own verification step passed. Caught during execution review.
 
-**Tests are gated, not deleted.** `test/smoke/i18n.html` reports its two BM assertions as SKIP and adds three assertions that the deferral holds (stored `"ms"` → `"en"`; `setLocale("ms")` is a no-op; the toggle computes to `display: none`). `test/smoke/enquiry.html` Ex3.8 now asserts a stored `"ms"` still reports `"en"` — a direct test of the shipped guarantee — and the page stays at 48 `check()` calls. Both branch on the exported flag, so they invert automatically on flip.
+**Tests are gated, not deleted.** `test/smoke/i18n.html` reports its two BM assertions as SKIP and adds three assertions that the deferral holds (stored `"ms"` → `"en"`; `setLocale("ms")` is a no-op; the toggle computes to `display: none`). `test/smoke/enquiry.html` Ex3.8 now asserts a stored `"ms"` still reports `"en"` — a direct test of the shipped guarantee — and the page stays at 54 runtime assertions (from 48 `await check(` call sites — a few loop). Both branch on the exported flag, so they invert automatically on flip.
 
 **Untouched on purpose.** `content/ms/*.json`, `content/en/*.json`, `bin/check-i18n-parity.rb`, both CI pipelines, all 46 HTML pages, the blog ERB, and `assets/css/motion.css`. Translation work continues against a live parity gate.
 
