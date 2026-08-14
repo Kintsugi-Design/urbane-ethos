@@ -4,6 +4,26 @@ const STORAGE_KEY = "urbane-ethos:locale";
 const DEFAULT_LOCALE = "en";
 const SUPPORTED = new Set(["en", "ms"]);
 
+// BM-DEFERRED — Bahasa Malaysia is drafted but unreviewed. Every content/ms/*.json
+// carries `_meta.reviewedBy: null`, and privacy.html MS is a legal surface. Until
+// that review lands, the site serves English only.
+//
+// The lock sits HERE rather than in CSS because six modules read getLocale()
+// directly — chatbot.js, map-embed.js, enquiry.js, nav.js, consent.js, yt-embed.js —
+// and the locale persists in localStorage under STORAGE_KEY. Hiding the toggle alone
+// would strand a visitor who picked BM on an earlier visit on a fully-BM site (copy,
+// chatbot, map labels) with no visible way back to English.
+//
+// SUPPORTED keeps both locales on purpose: the BM path is described, not deleted.
+//
+// To ship BM: flip this to true and delete the matching `.locale-toggle` rule in
+// assets/css/components.css. `grep -rn BM-DEFERRED` finds both sites.
+export const LOCALES_ENABLED = false;
+
+function activeLocales() {
+  return LOCALES_ENABLED ? SUPPORTED : new Set([DEFAULT_LOCALE]);
+}
+
 const cache = new Map();
 
 // Prototype content flags unsourced copy with this sentinel (greppable in
@@ -92,11 +112,11 @@ async function applyToElement(el, locale) {
 // silently reset an existing visitor's language on first load after migration.
 export function getLocale() {
   const stored = get(STORAGE_KEY, { raw: true });
-  return SUPPORTED.has(stored) ? stored : DEFAULT_LOCALE;
+  return activeLocales().has(stored) ? stored : DEFAULT_LOCALE;
 }
 
 export async function setLocale(locale) {
-  if (!SUPPORTED.has(locale)) return;
+  if (!activeLocales().has(locale)) return;
   set(STORAGE_KEY, locale, { raw: true });
   document.documentElement.lang = locale;
   await translatePage(locale);
@@ -114,6 +134,10 @@ export async function t(key, locale = getLocale()) {
 }
 
 export function initLocaleToggle(root = document) {
+  // BM-DEFERRED: nothing to wire while EN is the only active locale. The toggle is
+  // hidden in components.css, so its buttons are out of the tab order and the a11y
+  // tree; binding click handlers to them would be dead code.
+  if (!LOCALES_ENABLED) return;
   const buttons = root.querySelectorAll("[data-locale-set]");
   const current = getLocale();
   buttons.forEach(btn => {
