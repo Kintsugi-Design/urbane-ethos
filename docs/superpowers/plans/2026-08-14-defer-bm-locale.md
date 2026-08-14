@@ -197,7 +197,35 @@ Insert immediately **after** it (before the `/* Book a session in header-tools m
 
      To ship BM: delete this rule and flip LOCALES_ENABLED in assets/js/i18n.js. */
   .locale-toggle { display: none; }
+  /* The desktop copy needs the two-class form: the @media (min-width: 880px)
+     block above sets `.header-tools .locale-toggle` to display inline-flex at
+     specificity (0,2,0), which outranks the (0,1,0) rule regardless of source
+     order. A media query adds no specificity, so this later (0,2,0) rule wins at
+     every width. Delete it alongside the rule above when BM ships. */
+  .header-tools .locale-toggle { display: none; }
 ```
+
+> **AMENDED DURING EXECUTION — plan defect.** This task originally specified only
+> the single-class `.locale-toggle { display: none }` rule. That is **not
+> sufficient**: `components.css:136` sets `.header-tools .locale-toggle,
+> .header-tools .fs-toggle { display: inline-flex }` inside
+> `@media (min-width: 880px)` at specificity (0,2,0). A media query contributes no
+> specificity, so the (0,1,0) rule loses at every width ≥880px and the **desktop
+> toggle would have stayed visible** — while this task's own verification step
+> (which only compared source order against the same-specificity rule at line 160)
+> passed. Both rules are required, and both are load-bearing:
+>
+> | Toggle copy | Covered by |
+> |---|---|
+> | `.header-tools` (desktop, ≥880px) | `.header-tools .locale-toggle` (0,2,0) |
+> | `#primary-nav .nav-tools` (mobile menu) | `.locale-toggle` (0,1,0) |
+> | `privacy.html:34` — bare, in `.header-row`, no `.header-tools` ancestor | `.locale-toggle` (0,1,0) |
+>
+> The third copy exists because `privacy.html` has a reduced header with no
+> primary nav. The two-class rule alone would have missed it.
+>
+> Consequence for Step 2's brace check: expect **440**, not 439 — two rules, two
+> pairs.
 
 Do **not** touch `assets/css/motion.css`. Its `.locale-toggle [aria-pressed="true"]` animation becomes inert but stays for the flip back.
 
@@ -218,7 +246,7 @@ Confirm it landed inside `@layer components` (the whole block is one layer — c
 ruby -e 'src = File.read("assets/css/components.css"); abort("unbalanced braces: #{src.count("{")} open vs #{src.count("}")} close") unless src.count("{") == src.count("}"); puts "braces balanced: #{src.count("{")}"'
 ```
 
-Expected: `braces balanced: <N>` and exit 0.
+Expected: `braces balanced: 440` and exit 0 (438 before this task, plus one pair per added rule — see the amendment note above).
 
 - [ ] **Step 3: Commit**
 
@@ -464,6 +492,29 @@ Replace with:
 ```
 
 Do **not** change any assertion in `test/smoke/enquiry.html` to match either number.
+
+- [ ] **Step 3c: `assets/js/i18n.js` — correct the singular "rule"**
+
+The Task 1 comment says "delete the matching `.locale-toggle` rule in
+assets/css/components.css" — singular. Task 2 shipped **two** rules (see its
+amendment note). Find, in the `BM-DEFERRED` block near the top of
+`assets/js/i18n.js`:
+
+```js
+// To ship BM: flip this to true and delete the matching `.locale-toggle` rule in
+// assets/css/components.css. `grep -rn BM-DEFERRED` finds both sites.
+```
+
+Replace with:
+
+```js
+// To ship BM: flip this to true and delete the two matching `.locale-toggle`
+// rules in assets/css/components.css (a single-class rule plus a
+// `.header-tools` two-class rule — both are load-bearing; that file's comment
+// explains why). `grep -rn BM-DEFERRED` finds both sites.
+```
+
+Change nothing else in `i18n.js`.
 
 - [ ] **Step 4: `docs/HANDOVER.md` — header date**
 
