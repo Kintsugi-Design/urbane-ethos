@@ -1,9 +1,40 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-08-09 (enquiry capture + contact channels; GitHub target: `Kintsugi-Design/urbane-ethos`)
+**Last updated:** 2026-08-14 (BM deferred — site is English-only; GitHub target: `Kintsugi-Design/urbane-ethos`)
 **HEAD:** on `main`
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 **Pages deploy (immediate):** push `main` to `git@github.com:Kintsugi-Design/urbane-ethos.git`. GitLab Pages workflow (`.gitlab-ci.yml`) is committed but deferred — instance Pages enablement pending. See Workstream 2.
+
+---
+
+## BM deferred — English-only — landed 2026-08-14
+
+Spec: `docs/superpowers/specs/2026-08-14-defer-bm-locale-design.md`.
+Plan: `docs/superpowers/plans/2026-08-14-defer-bm-locale.md`.
+
+**Why.** Every `content/ms/*.json` carries `_meta.reviewedBy: null` — the BM strings are machine-generated with the glossary applied and have had no human or legal review. `privacy.html` MS is a legal surface. A visible EN/BM toggle was inviting visitors into unreviewed copy. BM ships when the translation work is properly done.
+
+**What changed.**
+- `assets/js/i18n.js` exports `LOCALES_ENABLED = false`. A new `activeLocales()` helper returns `{en}` while the flag is off, and `getLocale()` / `setLocale()` test against it instead of `SUPPORTED`. `SUPPORTED` still lists both locales — the BM path is described, not deleted. `initLocaleToggle()` early-returns.
+- `assets/css/components.css` hides `.locale-toggle` with two rules.
+
+**Why the lock is in `getLocale()`, not only in CSS.** Six modules read `getLocale()` directly — `chatbot.js`, `map-embed.js`, `enquiry.js`, `nav.js`, `consent.js`, `yt-embed.js` — and the locale persists in `localStorage` under `urbane-ethos:locale`. Hiding the toggle alone would have stranded any visitor who picked BM on an earlier visit on a fully-BM site (copy, chatbot script, map facade labels) with **no visible way back to English**. The stored key is deliberately *not* cleared: it is inert while the flag is off, and it restores the visitor's preference when BM ships.
+
+**Why two CSS rules, and why CSS at all.** The toggle appears in 46 files — 8 non-blog production pages plus all 38 generated `post-*.html` — and in `content/blog/_post.html.erb`. CSS covers all of them with no markup edit and no flash before the module executes, and `display: none` removes both buttons from the tab order and the accessibility tree, so the axe-core 0-violation ratchet is unaffected. Two rules are required because there are three distinct toggle copies:
+
+| Copy | Hidden by |
+|---|---|
+| `.header-tools` (desktop, ≥880px) | `.header-tools .locale-toggle` — (0,2,0) |
+| `#primary-nav .nav-tools` (mobile menu) | `.locale-toggle` — (0,1,0) |
+| `privacy.html` reduced header (bare, no `.header-tools` ancestor) | `.locale-toggle` — (0,1,0) |
+
+The plan originally specified only the single-class rule. That was a **defect**: `components.css:136` sets `.header-tools .locale-toggle { display: inline-flex }` inside `@media (min-width: 880px)` at (0,2,0), and a media query contributes no specificity — so the single-class rule loses at every width ≥880px and the desktop toggle would have stayed visible while the plan's own verification step passed. Caught during execution review.
+
+**Tests are gated, not deleted.** `test/smoke/i18n.html` reports its two BM assertions as SKIP and adds three assertions that the deferral holds (stored `"ms"` → `"en"`; `setLocale("ms")` is a no-op; the toggle computes to `display: none`). `test/smoke/enquiry.html` Ex3.8 now asserts a stored `"ms"` still reports `"en"` — a direct test of the shipped guarantee — and the page stays at 48 `check()` calls. Both branch on the exported flag, so they invert automatically on flip.
+
+**Untouched on purpose.** `content/ms/*.json`, `content/en/*.json`, `bin/check-i18n-parity.rb`, both CI pipelines, all 46 HTML pages, the blog ERB, and `assets/css/motion.css`. Translation work continues against a live parity gate.
+
+**To ship BM.** Precondition: `content/ms/*.json` carry a non-null `_meta.reviewedBy`, and `privacy.html` MS has had legal review. Then `grep -rn BM-DEFERRED` → set `LOCALES_ENABLED = true`, delete both `.locale-toggle { display: none }` rules. The gated smoke assertions re-arm on their own.
 
 ---
 

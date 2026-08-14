@@ -109,7 +109,7 @@ The form also pre-fills from signals the site already holds (`?service=` from a 
 - **Interim staff photos.** `assets/img/staff-pdf/` holds 8 low-res headshots extracted from the company-profile PDF. They are placeholders pending a proper shoot **and** parental/staff photo consent. The face↔name mapping was done by eye from the PDF grid and needs a human confirmation. Nur Ain Nabila (Administrator) has **no** PDF photo — her card still shows the initials `[REAL PHOTO REQUIRED]` placeholder.
 - **Pricing** is still placeholder — the chatbot's price answer is a `⟪PLACEHOLDER⟫` sentinel (the centre's charges list was never supplied).
 - **Privacy notice** §1–§9 bodies are intentional lorem, pending a real, counsel-reviewed notice. §0 ("Who we are") is real.
-- **BM** is machine-generated (`reviewedBy: null`) and unreviewed.
+- **BM is deferred and not served.** The translations are machine-generated (`reviewedBy: null`) and unreviewed, so as of 2026-08-14 the site is **English-only**: `LOCALES_ENABLED = false` in `assets/js/i18n.js` narrows the accepted locale set to `{en}` (a stored `"ms"` no longer validates, and `setLocale("ms")` is a no-op), and two rules in `assets/css/components.css` hide the EN/BM toggle on all 46 pages that carry it. `content/ms/*.json` and the `bin/check-i18n-parity.rb` CI gate are untouched, so translation work continues against a live guardrail. Reversal: `grep -rn BM-DEFERRED` → flip one boolean, delete two CSS rules. See `docs/superpowers/specs/2026-08-14-defer-bm-locale-design.md`.
 - **Blog promo date** (`2025-12-01`) is approximate — promos are undated; confirm with the client.
 
 ## Browser support
@@ -159,7 +159,7 @@ Full details in [`docs/A11Y_NOTES.md`](docs/A11Y_NOTES.md).
 - Real staff photo shoot + parental/staff consent workflow (interim PDF headshots in place)
 - Real service pricing (chatbot answer is a placeholder)
 - Counsel-reviewed privacy notice (§1–§9 are lorem)
-- BM human + legal review (especially `privacy.html`)
+- BM human + legal review (especially `privacy.html`) — **prerequisite for flipping `LOCALES_ENABLED` back on**
 - Careers page placement + real copy (currently unlinked, direct-URL only)
 - Turning the concerns checklist / screening-vs-assessment decision tree into real interactive tools (currently prose in the services copy + chatbot script)
 - Real chatbot LLM backend (currently a scripted decision tree)

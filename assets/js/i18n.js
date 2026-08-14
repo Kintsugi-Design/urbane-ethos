@@ -16,8 +16,10 @@ const SUPPORTED = new Set(["en", "ms"]);
 //
 // SUPPORTED keeps both locales on purpose: the BM path is described, not deleted.
 //
-// To ship BM: flip this to true and delete the matching `.locale-toggle` rule in
-// assets/css/components.css. `grep -rn BM-DEFERRED` finds both sites.
+// To ship BM: flip this to true and delete the two matching `.locale-toggle`
+// rules in assets/css/components.css (a single-class rule plus a
+// `.header-tools` two-class rule — both are load-bearing; that file's comment
+// explains why). `grep -rn BM-DEFERRED` finds both sites.
 export const LOCALES_ENABLED = false;
 
 function activeLocales() {

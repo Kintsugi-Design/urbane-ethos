@@ -40,7 +40,7 @@ done
 
 axe-core CLI needs a ChromeDriver matching the locally installed Chrome major version — see `docs/A11Y_NOTES.md` § "Tooling" for the exact incantation. **Target: 0 violations on all 10 production pages.**
 
-There is no `npm test` / `bundle exec rspec`. The automated checks are `bin/check-i18n-parity.rb` and `bin/check-contact-channels.rb` — both gated, **in that order**, in `.github/workflows/pages.yml` (job `ci`) and `.gitlab-ci.yml` (job `content-gates`). Keep the two pipelines identical: same gates, same order. `test/parity-fixtures/` are inputs for the parity script; `test/smoke/` are browser-runnable smoke pages — open them in `bin/server` and click around. `test/smoke/enquiry.html` is the one that self-asserts (54 assertions; every line must read PASS).
+There is no `npm test` / `bundle exec rspec`. The automated checks are `bin/check-i18n-parity.rb` and `bin/check-contact-channels.rb` — both gated, **in that order**, in `.github/workflows/pages.yml` (job `ci`) and `.gitlab-ci.yml` (job `content-gates`). Keep the two pipelines identical: same gates, same order. `test/parity-fixtures/` are inputs for the parity script; `test/smoke/` are browser-runnable smoke pages — open them in `bin/server` and click around. `test/smoke/enquiry.html` is the one that self-asserts (48 `check()` calls; every line must read PASS and the summary must render in its `ok` state). Verify the count with `grep -c 'await check(' test/smoke/enquiry.html` rather than trusting this number — it was stated as 54 for several builds and was wrong.
 
 ## Architecture
 
@@ -128,6 +128,10 @@ Special metadata keys — `_meta.*`, `_draft`, and `_correction` are **stripped*
 - `_placeholder` — a sibling top-level map `{ "dot.path": true }` marking strings whose visible value is Latin lorem ipsum prefixed with the sentinel `⟪PLACEHOLDER⟫ ` (greppable for `⟪PLACEHOLDER⟫`), pending a real source. **Unlike `_meta`/`_draft`/`_correction`, `bin/check-i18n-parity.rb` DOES walk `_placeholder`** — so each EN `_placeholder` map must be reproduced key-identical in its MS mirror, or parity fails. Keys use the same dot-path convention as `_draft`. Do not modify the parity script to exempt it.
 
 `content/ms/*.json` currently all carry `_meta.reviewedBy: null` — Bahasa Malaysia translations are machine-generated with the glossary applied. **`privacy.html` MS especially needs human + legal review before launch.**
+
+**BM is deferred — the site is English-only (2026-08-14).** `assets/js/i18n.js` exports `LOCALES_ENABLED = false`; `activeLocales()` narrows the accepted set to `{en}`, so `getLocale()` rejects a stored `"ms"`, `setLocale("ms")` early-returns, and `initLocaleToggle()` does not bind. `assets/css/components.css` hides `.locale-toggle` with **two** rules — a single-class one and a `.header-tools` two-class one. Both are needed: `components.css:136` sets `.header-tools .locale-toggle { display: inline-flex }` inside `@media (min-width: 880px)` at specificity (0,2,0), and a media query adds no specificity, so a single-class rule alone leaves the desktop toggle visible. The single-class rule is what covers the mobile `#primary-nav .nav-tools` copy and the bare copy in `privacy.html`'s reduced header. Both edit sites are tagged `BM-DEFERRED` — `grep -rn BM-DEFERRED` finds them.
+
+Consequences to keep in mind: **do not "fix" a BM string not rendering** — that is the flag, not a bug. `test/smoke/i18n.html` reports its two BM assertions as SKIP and runs three deferral assertions instead; `test/smoke/enquiry.html` Ex3.8 asserts a stored `"ms"` still reports `"en"`. Both branch on the exported flag and re-arm on flip. `content/ms/*.json` and the parity gate are deliberately untouched — **keep translating and keep the gate green.**
 
 ### Image placeholders
 
