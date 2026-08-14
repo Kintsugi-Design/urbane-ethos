@@ -74,7 +74,16 @@
     color: var(--color-ink);
     cursor: pointer;
     border-radius: var(--radius-1);
+    /* Hug the viewport edge below 768px. The button is 44px wide around a
+       1.5rem glyph, so it already carries ~10px of its own inset; sitting it
+       on the 24px .wrap gutter as well pushed the glyph to ~34px, visibly
+       further in than everything below it. Cancel the gutter here and let the
+       button's own padding be the optical inset. The touch target keeps its
+       full 44px — this moves the box, it does not shrink it. Reset at 768px,
+       where the tablet header keeps the full gutter. */
+    margin-inline-start: calc(var(--space-6) * -1);
   }
+  @media (min-width: 768px) { .nav-toggle { margin-inline-start: 0; } }
   .nav-toggle:focus-visible { outline-offset: 2px; }
   .nav-toggle svg {
     width: 1.5rem;
