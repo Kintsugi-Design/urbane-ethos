@@ -183,6 +183,20 @@ Two parallel Pages targets share an identical artifact (same exclusion list, sam
 
 Both pipelines run `bin/check-i18n-parity.rb` then `bin/check-contact-channels.rb` — same gates, same order — before rsync-staging to `_site/` (GH job `ci`) or `public/` (GL job `content-gates`). If you add a new dev-only directory, mirror the exclusion in **both** workflow files; if you add a gate, add it to both in the same position.
 
+### `kintsugi.my` is behind Cloudflare — a green deploy does not mean visitors see it
+
+The custom domain is proxied by Cloudflare, and **HTML and static assets are cached on different clocks**:
+
+| Resource | `cache-control` | Cloudflare | Effect |
+| --- | --- | --- | --- |
+| `*.html` | `max-age=600` (10 min) | `cf-cache-status: DYNAMIC` (not edge-cached) | new markup reaches browsers within ~10 min |
+| `assets/**` (CSS/JS/img) | `max-age=14400` (**4 hours**) | `cf-cache-status: HIT` / `REVALIDATED` (edge-cached) | old CSS/JS can be served for up to 4 hours |
+
+Two consequences, both of which have already bitten:
+
+1. **Verifying a deploy against this domain needs a cache-buster.** A plain `curl` of a stylesheet returned the *previous* commit's CSS with `cf-cache-status: HIT` and `age: 335` minutes after a successful deploy — which reads exactly like a broken deploy. Append a query string (`?cb=$RANDOM`) or check `age`/`cf-cache-status` before concluding anything. The authoritative check is a byte comparison: `curl -sL -o /tmp/x.css '<url>?cb=1' && diff assets/css/components.css /tmp/x.css`. Confirm which commit actually built with `gh run list --repo Kintsugi-Design/urbane-ethos --limit 3 --json databaseId,headSha,status,conclusion`.
+2. **There is a real HTML/asset skew window.** Because markup refreshes in ~10 minutes and stylesheets can lag ~4 hours, a returning visitor can get **new HTML against an old stylesheet**. Any change that adds markup depending on new CSS (which is most chrome work — see the 2026-08-14 navbar/footer redesign) is unstyled for that visitor until the asset cache expires. This prototype has **no filename hashing and no build step**, so there is no cache-busting mechanism to lean on. If a change must land atomically, purge the Cloudflare cache after the deploy; otherwise expect the skew and don't debug it as a code bug.
+
 ## Commit messages
 
 Per workspace policy (see `/Users/deepsight/code/CLAUDE.md`): **do not add `Co-Authored-By: Claude` trailers or "Generated with Claude Code" lines** to commits in this repo.
