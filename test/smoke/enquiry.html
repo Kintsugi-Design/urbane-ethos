@@ -48,7 +48,7 @@
 import { CONSENT_KEY, CONSENT_VERSION, PREFIX, LEGACY_KEYS, allowed, get, set, remove, clearAll } from "/assets/js/storage.js";
 import { readInterest, composeEnquiry, channels, mailtoUrl, whatsappUrl } from "/assets/js/enquiry.js";
 import { asStage } from "/assets/js/personalization.js";
-import { t } from "/assets/js/i18n.js";
+import { t, LOCALES_ENABLED } from "/assets/js/i18n.js";
 
 // Installed before the first fetch can happen: none of the modules above fetch
 // at evaluation time (i18n.js only loads a namespace on demand, or from its
@@ -397,8 +397,15 @@ async function domReady() {
       seedSources({});
       eq(readInterest().locale, "en", "locale with no stored preference");
       localStorage.setItem("urbane-ethos:locale", "ms");
-      eq(readInterest().locale, "ms", "locale after setting ms");
-      return 'en → ms, read raw (no JSON decode)';
+      if (LOCALES_ENABLED) {
+        eq(readInterest().locale, "ms", "locale after setting ms");
+        return 'en → ms, read raw (no JSON decode)';
+      }
+      // BM-DEFERRED: getLocale() rejects every non-EN locale while BM is deferred,
+      // so a stored "ms" must not reach the enquiry payload. This is a direct test
+      // of the shipped guarantee; it inverts automatically when the flag flips.
+      eq(readInterest().locale, "en", "stored ms is ignored while BM is deferred");
+      return 'en; stored "ms" ignored (BM-DEFERRED)';
     });
 
     /* === Exercise 4 — unrecognised ?service= is dropped, next source wins = */

@@ -25,7 +25,7 @@
 <ul id="assertions"></ul>
 
 <script type="module">
-import { setLocale, t } from "/assets/js/i18n.js";
+import { LOCALES_ENABLED, getLocale, setLocale, t } from "/assets/js/i18n.js";
 
 async function check(name, fn) {
   const li = document.createElement("li");
@@ -40,21 +40,56 @@ async function check(name, fn) {
   document.getElementById("assertions").append(li);
 }
 
+function skip(name, why) {
+  const li = document.createElement("li");
+  li.textContent = `SKIP — ${name}: ${why}`;
+  li.style.color = "var(--color-ink-muted)";
+  document.getElementById("assertions").append(li);
+}
+
 (async () => {
   await setLocale("en");
   await check("EN hero title is a non-empty string", async () => {
     const v = await t("home.hero.title");
     if (typeof v !== "string" || !v.length) throw new Error(`got ${JSON.stringify(v)}`);
   });
-  await setLocale("ms");
-  await check("BM hero title differs from EN", async () => {
-    const en = await t("home.hero.title", "en");
-    const ms = await t("home.hero.title", "ms");
-    if (en === ms) throw new Error("EN == MS — translation missing?");
-  });
-  await check("html lang attribute updates", async () => {
-    if (document.documentElement.lang !== "ms") throw new Error(document.documentElement.lang);
-  });
+
+  if (LOCALES_ENABLED) {
+    await setLocale("ms");
+    await check("BM hero title differs from EN", async () => {
+      const en = await t("home.hero.title", "en");
+      const ms = await t("home.hero.title", "ms");
+      if (en === ms) throw new Error("EN == MS — translation missing?");
+    });
+    await check("html lang attribute updates", async () => {
+      if (document.documentElement.lang !== "ms") throw new Error(document.documentElement.lang);
+    });
+  } else {
+    skip("BM hero title differs from EN", "LOCALES_ENABLED is false (BM-DEFERRED)");
+    skip("html lang attribute updates", "LOCALES_ENABLED is false (BM-DEFERRED)");
+
+    // These three assert the deferral itself. They are the inverse of the block
+    // above and are skipped once BM ships.
+    await check("BM-DEFERRED: a stored 'ms' still resolves to en", async () => {
+      localStorage.setItem("urbane-ethos:locale", "ms");
+      try {
+        if (getLocale() !== "en") throw new Error(`getLocale()=${getLocale()}`);
+      } finally {
+        localStorage.removeItem("urbane-ethos:locale");
+      }
+    });
+    await check("BM-DEFERRED: setLocale('ms') is a no-op", async () => {
+      await setLocale("ms");
+      if (getLocale() !== "en") throw new Error(`getLocale()=${getLocale()}`);
+      if (document.documentElement.lang !== "en") throw new Error(document.documentElement.lang);
+    });
+    await check("BM-DEFERRED: the toggle is not displayed", async () => {
+      const el = document.querySelector(".locale-toggle");
+      if (!el) throw new Error("no .locale-toggle in the fixture");
+      const display = getComputedStyle(el).display;
+      if (display !== "none") throw new Error(`display=${display}`);
+    });
+  }
 })();
 </script>
 </main>
