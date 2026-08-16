@@ -772,10 +772,11 @@
 
   /* Chatbot launcher.
      The stacking ladder for the fixed bottom-right corner is:
-       .consent-banner 15 → .chatbot-launcher = .chatbot-panel 20 →
+       .chatbot-launcher = .chatbot-panel 20 → .consent-banner 25 →
        .consent-modal-root 50 → .clear-data-dialog (native top layer).
-     The launcher previously had no z-index at all and stacked by DOM order,
-     so the consent banner painted over it — full-bleed below 640px. */
+     The consent banner sits ABOVE the launcher deliberately: it is a gate the
+     visitor must answer, and below 640px it is full-bleed, so the round
+     launcher otherwise punched a hole through its action row. */
   .chatbot-launcher {
     position: fixed; bottom: var(--space-6); right: var(--space-6);
     width: 56px; height: 56px; border-radius: var(--radius-pill);
@@ -808,14 +809,20 @@
   .consent-banner {
     position: fixed; bottom: var(--space-6); right: var(--space-6);
     width: 360px; max-width: calc(100vw - var(--space-8));
-    max-height: 30vh; overflow: auto;
+    /* Height is content-driven. The cap is only a last-resort guard for very
+       short viewports (landscape phones): it is measured off the visible
+       viewport (dvh, so a mobile URL bar cannot eat the action row) minus the
+       banner's own top+bottom inset. A fixed 30vh cap used to clip the buttons
+       off on small screens — "Accept all" was unreachable without scrolling
+       inside the banner. Never reintroduce a cap the content cannot fit in. */
+    max-height: calc(100dvh - (2 * var(--space-6))); overflow: auto;
     background: var(--color-cream-soft); color: var(--color-ink);
     border: 1px solid var(--color-line);
     border-left: 3px solid var(--color-primary-deep);
     border-radius: var(--radius-2);
     padding: var(--space-5) var(--space-5) var(--space-5) calc(var(--space-5) - 2px);
     box-shadow: var(--shadow-3);
-    z-index: 15;
+    z-index: 25;
     transition: opacity 200ms var(--ease-paper);
   }
   .consent-banner[hidden] { display: none; }
@@ -823,7 +830,9 @@
   .consent-heading { display: block; font: 600 1rem var(--font-sans); margin-bottom: var(--space-2); }
   .consent-banner .consent-body { font-size: 0.9rem; color: var(--color-ink-soft); margin: 0 0 var(--space-4); line-height: 1.5; }
   .consent-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
-  .consent-actions .btn { padding: var(--space-2) var(--space-4); font-size: 0.875rem; }
+  /* min-width:0 lets a long label wrap inside the pill instead of pushing the
+     row past the card's padding — the BM strings are longer than the EN ones. */
+  .consent-actions .btn { padding: var(--space-2) var(--space-4); font-size: 0.875rem; min-width: 0; }
   .consent-banner a { color: var(--color-ink); text-decoration-thickness: 1px; }
   .consent-banner a:hover { color: var(--color-primary-deep); }
   .consent-saved {
@@ -845,9 +854,13 @@
     .consent-banner {
       left: var(--space-4); right: var(--space-4); bottom: var(--space-4);
       width: auto; max-width: none;
+      max-height: calc(100dvh - (2 * var(--space-4)));
     }
-    .consent-actions { width: 100%; }
-    .consent-actions .btn { flex: 1 1 auto; }
+    /* Stack the three actions full-width. Side by side they overflowed the
+       card on narrow phones (~340px): the labels' min-content widths sum past
+       the available row, and flex-shrink cannot go below min-content. */
+    .consent-actions { width: 100%; flex-direction: column; align-items: stretch; }
+    .consent-actions .btn { width: 100%; }
   }
 
   /* Consent — modal sheet */
@@ -868,7 +881,9 @@
     border-radius: var(--radius-3);
     box-shadow: var(--shadow-3);
     max-width: 480px; width: 100%;
-    max-height: calc(100vh - var(--space-8));
+    /* dvh, not vh: on mobile 100vh is the LARGE viewport, so an expanded URL
+       bar would push the sheet's Save row below the visible area. */
+    max-height: calc(100dvh - var(--space-8));
     overflow-y: auto;
     padding: var(--space-8);
   }
