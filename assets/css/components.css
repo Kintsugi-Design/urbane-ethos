@@ -436,10 +436,11 @@
     background-position: center;
     background-repeat: no-repeat;
   }
-  /* Contact: frost the whole banner (not just the panel) to calm a busier
-     artwork. A full-bleed cream wash + blur sits above the image and below
-     the content panel (z-index:0 vs .hero > .wrap z-index:1). */
-  body.contact .hero--banner::before {
+  /* Frost the whole banner (not just the panel) on every page that carries
+     one, to calm the busier artworks. A full-bleed cream wash + blur sits
+     above the image and below the content panel (z-index:0 vs .hero > .wrap
+     z-index:1). */
+  .hero--banner::before {
     content: "";
     position: absolute;
     inset: 0;
