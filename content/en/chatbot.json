@@ -1,7 +1,7 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries upgraded from PDF + co-director corrections 2026-07-27 (screening, specialed, eip now REAL). Pricing (price.show) intentionally placeholder — Nasirah's charges list was cut off."
+    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries upgraded from PDF + co-director corrections 2026-07-27 (screening, specialed, eip now REAL). Pricing (price.show) intentionally placeholder — Nasirah's charges list was cut off. The screening 'say' was superseded again by the co-director's 2026-08-21 corrections (wider OT scope + SLP exclusion)."
   },
   "_placeholder": {},
   "ui": {
@@ -44,7 +44,7 @@
       ]
     },
     "service.screening": {
-      "say": "Screening and assessment are separate services. Screening covers two areas: Occupational Therapy (fine motor, school readiness) and Clinical Psychology (emotional, behavioural). If you have more concerns, we provide a holistic 3-in-1 assessment — Occupational Therapy, Speech-Language and Communication, and Clinical Psychology — usually around 1-2 hours depending on the needs of the child.",
+      "say": "Screening and assessment are separate services. Screening covers two areas: Occupational Therapy (motor development, activities of daily living, school readiness) and Clinical Psychology (emotional, behavioural concerns). It does not include Speech-Language Pathology screening — that is covered in the assessment. If you have more concerns, we provide a holistic 3-in-1 assessment — Occupational Therapy, Speech-Language and Communication, and Clinical Psychology — usually around 1-2 hours depending on the needs and readiness of the child.",
       "next": "start"
     },
     "service.ot": {

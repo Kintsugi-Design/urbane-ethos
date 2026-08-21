@@ -4,7 +4,7 @@
     "translatedBy": "claude-opus-4-8",
     "translatedAt": "2026-07-27",
     "reviewedBy": null,
-    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries upgraded from PDF + co-director corrections 2026-07-27 (screening, specialed, eip now REAL). Pricing (price.show) intentionally placeholder — Nasirah's charges list was cut off."
+    "_note": "Decision-tree skeleton drafted in T3. Per-service 'say' summaries upgraded from PDF + co-director corrections 2026-07-27 (screening, specialed, eip now REAL). Pricing (price.show) intentionally placeholder — Nasirah's charges list was cut off. The screening 'say' was superseded again by the co-director's 2026-08-21 corrections (wider OT scope + SLP exclusion)."
   },
   "_placeholder": {},
   "ui": {
@@ -47,7 +47,7 @@
       ]
     },
     "service.screening": {
-      "say": "Saringan dan penilaian ialah perkhidmatan yang berasingan. Saringan meliputi dua bidang: Terapi Carakerja (motor halus, kesediaan sekolah) dan Psikologi Klinikal (emosi, tingkah laku). Jika anda mempunyai lebih banyak kebimbangan, kami menyediakan penilaian holistik 3-in-1 — Terapi Carakerja, Bahasa-Pertuturan dan Komunikasi, serta Psikologi Klinikal — biasanya sekitar 1-2 jam bergantung pada keperluan anak.",
+      "say": "Saringan dan penilaian ialah perkhidmatan yang berasingan. Saringan meliputi dua bidang: Terapi Carakerja (perkembangan motor, aktiviti kehidupan harian, kesediaan sekolah) dan Psikologi Klinikal (kebimbangan emosi dan tingkah laku). Ia tidak termasuk saringan Patologi Bahasa Pertuturan — itu diliputi dalam penilaian. Jika anda mempunyai lebih banyak kebimbangan, kami menyediakan penilaian holistik 3-in-1 — Terapi Carakerja, Bahasa-Pertuturan dan Komunikasi, serta Psikologi Klinikal — biasanya sekitar 1-2 jam bergantung pada keperluan dan kesediaan anak.",
       "next": "start"
     },
     "service.ot": {
