@@ -1,7 +1,7 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "9 staff members. Robin (members[2]) and Farwizah (members[7]) joined 2026-08-09, replacing the two practitioners who left; their copy is client-supplied and their headshots are real client-submitted files in assets/img/staff/ (photoInterim: false — excluded from the pre-launch photo swap). The six other practitioners still carry low-res interim headshots extracted from the company-profile PDF (2026-05-24), pending a proper shoot + consent. Nur Ain Nabila (members[8]) has no photo and renders an initials placeholder. greeting carries the real name; personalLine and several bios are still placeholder pending source."
+    "_note": "7 staff members. Robin (members[2]) and Farwizah (members[6]) joined 2026-08-09; their copy is client-supplied and their headshots are real client-submitted files in assets/img/staff/ (photoInterim: false — excluded from the pre-launch photo swap). The five other practitioners still carry low-res interim headshots extracted from the company-profile PDF (2026-05-24), pending a proper shoot + consent. Two members were removed 2026-08-21 on client instruction (see docs/superpowers/specs/2026-08-21-content-refresh-and-staff-removal-design.md); every remaining member has a photo, so no card renders the initials tile. greeting carries the real name; personalLine and several bios are still placeholder pending source."
   },
   "_placeholder": {
     "members.0.personalLine": true,
@@ -10,11 +10,7 @@
     "members.4.personalLine": true,
     "members.4.bio": true,
     "members.5.personalLine": true,
-    "members.5.bio": true,
-    "members.6.personalLine": true,
-    "members.6.bio": true,
-    "members.8.personalLine": true,
-    "members.8.bio": true
+    "members.5.bio": true
   },
   "hero": {
     "title": "MEET THE TEAM",
@@ -86,18 +82,6 @@
       "_note": "No photo URL captured from the live page render; using a placeholder."
     },
     {
-      "id": "ms-tengku-sarah-nabilah",
-      "name": "Ms Tengku Sarah Nabilah, OTR/L",
-      "role": "Occupational Therapist",
-      "credentials": ["Bachelor in Occupational Therapy, Universiti Teknologi MARA (UiTM)"],
-      "greeting": "Hi, I'm Sarah",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet.",
-      "bio": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "photo": "assets/img/staff-pdf/ms-tengku-sarah-nabilah.jpg",
-      "photoInterim": true,
-      "video": null
-    },
-    {
       "id": "ms-emalin-nasuha-hachim",
       "name": "Ms Emalin Nasuha Hachim",
       "role": "Speech Therapist",
@@ -134,18 +118,6 @@
       "personalLine": "I want every child to grow into as much of themselves as they can — and to do it independently.",
       "bio": "A special needs education teacher with a background in psychology and education, working to help children grow to the most of their potential and become independent. Also active in volunteerism — supporting those in need and contributing to children's development.",
       "photo": "assets/img/staff/ms-farwizah.jpeg",
-      "photoInterim": false,
-      "video": null
-    },
-    {
-      "id": "mrs-nur-ain-nabila",
-      "name": "Mrs Nur Ain Nabila",
-      "role": "Administrator",
-      "credentials": ["Bachelor of Business Administration and Finance, Universiti Teknologi MARA (UiTM)"],
-      "greeting": "Hi, I'm Nur Ain",
-      "personalLine": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet.",
-      "bio": "⟪PLACEHOLDER⟫ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "photo": null,
       "photoInterim": false,
       "video": null
     }
