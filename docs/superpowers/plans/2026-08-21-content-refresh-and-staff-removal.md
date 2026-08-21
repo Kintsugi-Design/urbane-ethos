@@ -64,11 +64,11 @@ for loc in ['en','ms']:
 "
 ```
 
-Expected output:
+Expected output (the slice truncates mid-word — that is correct, do not "fix" it):
 
 ```
-en "1. Occupational Therapy: fine motor, school readiness. 2. Clinical Psychology: emotional, behavioural."
-ms "1. Terapi Carakerja: motor halus, kesediaan sekolah. 2. Psikologi Klinikal: emosi, tingkah laku."
+en 'nal Therapy: fine motor, school readiness. 2. Clinical Psychology: emotional, behavioural.'
+ms 'api Carakerja: motor halus, kesediaan sekolah. 2. Psikologi Klinikal: emosi, tingkah laku.'
 ```
 
 If either differs, stop and report — someone has edited this since the spec was written.
@@ -242,15 +242,26 @@ Expected: 9 members in each locale, in the same order, and both `_placeholder` m
 
 - [ ] **Step 2: Remove the members and re-index `_placeholder`**
 
-This one edit does need to rewrite the file structurally, so it *does* round-trip through `json.dump`. That is acceptable here and only here: it is applied identically to both locales, and Step 3 diffs the result. `indent=2` + `ensure_ascii=False` matches the existing file style.
+This one edit does need to rewrite the file structurally, so it *does* round-trip through `json.dumps`. That is acceptable here and only here: it is applied identically to both locales, it re-emits the file at its existing style (see the note below), and Step 3 diffs the result.
 
 The re-index is computed from the old→new index mapping rather than hard-coded, so it stays correct if the roster shifts before this runs.
 
+**Why the `write()` helper:** `json.dump(indent=2)` puts every array element on its own line, but this file
+writes **single-item** `credentials` arrays inline (`"credentials": ["Ph.D, Syracuse University, New York"],`).
+Dumping without re-collapsing them produces three spurious 3-line hunks per locale that have nothing to do with
+this change. `write()` restores the file's own style so the diff shows only the real edit.
+
 ```bash
 python3 - <<'PY'
-import json, collections
+import json, re, collections
 
 REMOVE = {"ms-tengku-sarah-nabilah", "mrs-nur-ain-nabila"}
+
+def write(path, obj):
+    """Dump at the file's house style: indent=2, literal UTF-8, single-item arrays kept inline."""
+    out = json.dumps(obj, indent=2, ensure_ascii=False)
+    out = re.sub(r'\[\n\s+("(?:[^"\\]|\\.)*")\n\s+\]', r'[\1]', out)
+    open(path, "w", encoding="utf-8").write(out + "\n")
 
 for loc in ("en", "ms"):
     path = f"content/{loc}/staff.json"
@@ -279,8 +290,7 @@ for loc in ("en", "ms"):
         new_ph[f"members.{remap[old_i]}.{tail}"] = val
     d["_placeholder"] = new_ph
 
-    json.dump(d, open(path, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
-    open(path, "a", encoding="utf-8").write("\n")
+    write(path, d)
     print(path, "->", len(d["members"]), "members,", len(new_ph), "placeholder keys")
 PY
 ```
@@ -325,22 +335,30 @@ NEW_EN = ("7 staff members. Robin (members[2]) and Farwizah (members[6]) joined 
           "client-supplied and their headshots are real client-submitted files in assets/img/staff/ "
           "(photoInterim: false — excluded from the pre-launch photo swap). The five other practitioners still "
           "carry low-res interim headshots extracted from the company-profile PDF (2026-05-24), pending a proper "
-          "shoot + consent. Ms Tengku Sarah Nabilah and Mrs Nur Ain Nabila were removed 2026-08-21 (client "
-          "instruction); every remaining member has a photo, so no card renders the initials tile. greeting "
+          "shoot + consent. Two members were removed 2026-08-21 on client instruction (see "
+          "docs/superpowers/specs/2026-08-21-content-refresh-and-staff-removal-design.md); every remaining "
+          "member has a photo, so no card renders the initials tile. greeting "
           "carries the real name; personalLine and several bios are still placeholder pending source.")
 
-import json, collections
-for loc, note in (("en", NEW_EN), ("ms", NEW_EN)):
+import json, re, collections
+
+def write(path, obj):
+    out = json.dumps(obj, indent=2, ensure_ascii=False)
+    out = re.sub(r'\[\n\s+("(?:[^"\\]|\\.)*")\n\s+\]', r'[\1]', out)
+    open(path, "w", encoding="utf-8").write(out + "\n")
+
+for loc in ("en", "ms"):
     path = f"content/{loc}/staff.json"
     d = json.load(open(path, encoding="utf-8"), object_pairs_hook=collections.OrderedDict)
-    d["_meta"]["_note"] = note
-    json.dump(d, open(path, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
-    open(path, "a", encoding="utf-8").write("\n")
+    d["_meta"]["_note"] = NEW_EN
+    write(path, d)
     print("note updated:", path)
 PY
 ```
 
 Expected: two `note updated: …` lines. (`_meta` is stripped from the parity check, so the same English note in both files is fine and matches how the file already worked.)
+
+**The note must not name either removed member.** Task 5's final sweep greps for those names and requires zero hits in any `.json` file. Reference the spec instead, as the text above does.
 
 - [ ] **Step 5: Run the gates**
 
@@ -443,16 +461,21 @@ Expected: the `grep` returns **no output** (nothing still references the file), 
 
 - [ ] **Step 5: Look at the pages**
 
+Start, check and stop the server in a **single** shell invocation — each Bash call is a fresh shell, so a
+background job started in one call cannot be `kill %1`'d from another.
+
 ```bash
-bin/server &
-sleep 2
+bin/server & SRV=$!; sleep 2
 curl -s http://localhost:8080/staff.html | grep -c '<article class="staff-card"'
 curl -s http://localhost:8080/index.html | grep -o 'and 4 more of us'
+kill $SRV
 ```
 
 Expected: `7`, then `and 4 more of us`.
 
-Then open `http://localhost:8080/staff.html` and `http://localhost:8080/` in a browser and confirm: the staff grid shows 7 cards with no empty slot or broken image, and the home "people" band shows 3 rows plus "…and 4 more of us who'll say hello." Kill the server when done (`kill %1`).
+Optionally also look at `http://localhost:8080/staff.html` and `http://localhost:8080/` in a browser (start the
+server, look, then stop it): the staff grid should show 7 cards with no empty slot or broken image, and the home
+"people" band 3 rows plus "…and 4 more of us who'll say hello."
 
 - [ ] **Step 6: Commit**
 
