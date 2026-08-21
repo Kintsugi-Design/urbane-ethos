@@ -4,7 +4,7 @@
     "translatedBy": "claude-opus-4-8",
     "translatedAt": "2026-07-27",
     "reviewedBy": null,
-    "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent'). BM rendering produced fresh as live site does not currently serve BM. LOREM placeholder strings copied byte-identically from EN (see _placeholder map)."
+    "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent'). BM rendering produced fresh as live site does not currently serve BM. LOREM placeholder strings copied byte-identically from EN (see _placeholder map). 2026-08-21: services.items[0].blurb widened to match the corrected screening OT scope in services.json; index.html's static mirror moves with it."
   },
   "_placeholder": {
     "events.blurb": true

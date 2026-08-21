@@ -1,7 +1,7 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent')."
+    "_note": "Live site has minimal home-page copy: H1 only, no hero subtitle, no per-service blurbs, no whatWeDo body separate from About. Service blurbs sourced from services.json where available; otherwise null. testimonial.attribution kept as scraped ('En S, Parent'). 2026-08-21: services.items[0].blurb widened to match the corrected screening OT scope in services.json; index.html's static mirror moves with it."
   },
   "_placeholder": {
     "events.blurb": true

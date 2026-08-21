@@ -300,8 +300,8 @@ MS was re-mirrored for all 9 namespaces; parity is green; `reviewedBy` is still 
 ### Deferred flags (client-facing, from this pass)
 
 - **Real staff photo shoot + parental/staff consent workflow** — interim low-res PDF headshots in `assets/img/staff-pdf/` are placeholders; the face↔name mapping needs a human eyeball.
-- **Real pricing** — chatbot price answer is a `⟪PLACEHOLDER⟫` sentinel (charges list never supplied).
-- **Legal/privacy review** — privacy §1–§9 bodies are intentional lorem pending a counsel-reviewed notice.
+- **Real pricing** — the charges list was never supplied. The chatbot's price answer is no longer a sentinel; it is real copy that defers to a phone call. Still open as a content gap, not as lorem.
+- **Legal/privacy review** — the privacy §1–§9 bodies are real copy now (no lorem in `content/{en,ms}/privacy.json`), but they are unreviewed. Still needs counsel sign-off, and the MS translation needs a human legal reviewer, before launch.
 - **Careers page placement + real copy** — currently unlinked, direct-URL only.
 - **Concerns-checklist / screening-vs-assessment decision tree as real interactive tools** — currently prose in the services copy + the chatbot script.
 - **BM human + legal review** — carried over; `content/ms/*.json` all `reviewedBy: null`.

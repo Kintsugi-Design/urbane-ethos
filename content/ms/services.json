@@ -4,7 +4,7 @@
     "translatedBy": "claude-opus-4-8",
     "translatedAt": "2026-07-27",
     "reviewedBy": null,
-    "_note": "2026-07-27: re-mirrored to EN after the screening/assessment split and the new top-level 'programmes' block. Structure is key-identical to content/en/services.json (7 items, programmes with 4 items, _placeholder map). LOREM slots flagged in _placeholder are copied byte-identical from EN. Machine-translated with glossary applied; reviewedBy null pending human review."
+    "_note": "2026-07-27: re-mirrored to EN after the screening/assessment split and the new top-level 'programmes' block. Structure is key-identical to content/en/services.json (7 items, programmes with 4 items, _placeholder map). LOREM slots flagged in _placeholder are copied byte-identical from EN. Machine-translated with glossary applied; reviewedBy null pending human review. 2026-08-21: Nasirah's WhatsApp corrections widened the screening OT scope (motor development, ADL/iADLs), added the SLP-exclusion sentence, described the assessment's 4th Learning component, and qualified the 1-2 hour duration with readiness. This file is the source of truth for that copy — see the 'Service copy lives in four places' gotcha in CLAUDE.md before changing it."
   },
   "_placeholder": {
     "items.2.faqs": true,

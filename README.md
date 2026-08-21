@@ -84,7 +84,7 @@ EN content resolves to one of three states:
   grep -rn "⟪PLACEHOLDER⟫" content/
   ```
 
-  Current lorem slots: 2 staff bios + 5 staff personal lines; 8 service sub-fields (incl. drafted FAQ pairs); 3 home staff-card personal lines + events blurb; privacy sections §1–§9 bodies; the chatbot pricing answer; two careers slots. (The hero headline is now real — see below.)
+  Current lorem slots: 2 staff bios + 5 staff personal lines; 8 service sub-fields (incl. drafted FAQ pairs); the home events blurb; two careers slots (`hero.subtitle`, `outro.body`). (The hero headline is now real — see below.)
 
 - **KEEP-functional scaffold.** Functional UI copy that isn't marketing prose and stays as-is: the PDPA **consent banner** (whole `consent.json`, still `_draft`), the **chatbot** decision-tree structure, contact **form labels** (`contact.json` `form.fields.tellUsMore*` stay `_draft` — functional, unsourced), and **nav / ARIA** strings. The only legitimate `_draft` survivors in the tree are these two files (EN + MS each).
 

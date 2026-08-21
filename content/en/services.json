@@ -1,7 +1,7 @@
 {
   "_meta": {
     "scrapedAt": "2026-06-08",
-    "_note": "2026-07-27: split live-site 'Screening or Assessment' into two separate services (screening + assessment) per co-director Nasirah — they are distinct offerings. Added top-level 'programmes' block (Early Intervention / Individual / Grouping / Other) sourced from the UE brochure plus Nasirah's extra groups. Screening/assessment/EIP/special-ed copy sourced from PDF company profile (2026-05-24), brochure decision-tree + concerns checklist, and Nasirah's WhatsApp corrections. Unsourced sub-fields lorem'd (see _placeholder)."
+    "_note": "2026-07-27: split live-site 'Screening or Assessment' into two separate services (screening + assessment) per co-director Nasirah — they are distinct offerings. Added top-level 'programmes' block (Early Intervention / Individual / Grouping / Other) sourced from the UE brochure plus Nasirah's extra groups. Screening/assessment/EIP/special-ed copy sourced from PDF company profile (2026-05-24), brochure decision-tree + concerns checklist, and Nasirah's WhatsApp corrections. Unsourced sub-fields lorem'd (see _placeholder). 2026-08-21: Nasirah's WhatsApp corrections widened the screening OT scope (motor development, ADL/iADLs), added the SLP-exclusion sentence, described the assessment's 4th Learning component, and qualified the 1-2 hour duration with readiness. This file is the source of truth for that copy — see the 'Service copy lives in four places' gotcha in CLAUDE.md before changing it."
   },
   "_placeholder": {
     "items.2.faqs": true,
