@@ -84,7 +84,7 @@ EN content resolves to one of three states:
   grep -rn "⟪PLACEHOLDER⟫" content/
   ```
 
-  Current lorem slots: 5 staff bios + all 9 staff personal lines; 8 service sub-fields (incl. drafted FAQ pairs); 3 home staff-card personal lines + events blurb; privacy sections §1–§9 bodies; the chatbot pricing answer; two careers slots. (The hero headline is now real — see below.)
+  Current lorem slots: 2 staff bios + 5 staff personal lines; 8 service sub-fields (incl. drafted FAQ pairs); 3 home staff-card personal lines + events blurb; privacy sections §1–§9 bodies; the chatbot pricing answer; two careers slots. (The hero headline is now real — see below.)
 
 - **KEEP-functional scaffold.** Functional UI copy that isn't marketing prose and stays as-is: the PDPA **consent banner** (whole `consent.json`, still `_draft`), the **chatbot** decision-tree structure, contact **form labels** (`contact.json` `form.fields.tellUsMore*` stay `_draft` — functional, unsourced), and **nav / ARIA** strings. The only legitimate `_draft` survivors in the tree are these two files (EN + MS each).
 
@@ -106,7 +106,7 @@ The form also pre-fills from signals the site already holds (`?service=` from a 
 
 ### Pre-launch flags
 
-- **Interim staff photos.** `assets/img/staff-pdf/` holds 8 low-res headshots extracted from the company-profile PDF. They are placeholders pending a proper shoot **and** parental/staff photo consent. The face↔name mapping was done by eye from the PDF grid and needs a human confirmation. Nur Ain Nabila (Administrator) has **no** PDF photo — her card still shows the initials `[REAL PHOTO REQUIRED]` placeholder.
+- **Interim staff photos.** `assets/img/staff-pdf/` holds 5 low-res headshots extracted from the company-profile PDF. They are placeholders pending a proper shoot **and** parental/staff photo consent. The face↔name mapping was done by eye from the PDF grid and needs a human confirmation.
 - **Pricing** is still placeholder — the chatbot's price answer is a `⟪PLACEHOLDER⟫` sentinel (the centre's charges list was never supplied).
 - **Privacy notice** §1–§9 bodies are intentional lorem, pending a real, counsel-reviewed notice. §0 ("Who we are") is real.
 - **BM is deferred and not served.** The translations are machine-generated (`reviewedBy: null`) and unreviewed, so as of 2026-08-14 the site is **English-only**: `LOCALES_ENABLED = false` in `assets/js/i18n.js` narrows the accepted locale set to `{en}` (a stored `"ms"` no longer validates, and `setLocale("ms")` is a no-op), and two rules in `assets/css/components.css` hide the EN/BM toggle on all 46 pages that carry it. `content/ms/*.json` and the `bin/check-i18n-parity.rb` CI gate are untouched, so translation work continues against a live guardrail. Reversal: `grep -rn BM-DEFERRED` → flip one boolean, delete two CSS rules. See `docs/superpowers/specs/2026-08-14-defer-bm-locale-design.md`.

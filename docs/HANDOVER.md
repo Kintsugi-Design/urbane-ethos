@@ -1,9 +1,30 @@
 # Handover — Urbane Ethos prototype
 
-**Last updated:** 2026-08-14 (BM deferred — site is English-only; GitHub target: `Kintsugi-Design/urbane-ethos`)
-**HEAD:** on `main`
+**Last updated:** 2026-08-21 (client copy refresh + roster trimmed to 7; BM still deferred — site is English-only; GitHub target: `Kintsugi-Design/urbane-ethos`)
+**HEAD:** on `content/2026-08-21-copy-refresh-and-staff-removal`
 **Live test:** `bundle install && bin/server` → http://localhost:8080
 **Pages deploy (immediate):** push `main` to `git@github.com:Kintsugi-Design/urbane-ethos.git`. GitLab Pages workflow (`.gitlab-ci.yml`) is committed but deferred — instance Pages enablement pending. See Workstream 2.
+
+---
+
+## Screening/Assessment copy refresh + roster trimmed to 7 — landed 2026-08-21
+
+Spec: `docs/superpowers/specs/2026-08-21-content-refresh-and-staff-removal-design.md`.
+
+Client corrections from co-director Nasirah (WhatsApp, 2026-08-21). Screening `whatItIs` gained the expanded OT scope (motor development, ADL/iADLs, school readiness), reworded Clinical Psychology to "To screen for emotional, behavioural concerns", and an explicit note that the package excludes SLP screening, pointing readers to the assessment section. Assessment `whatItIs` now describes the 4th Learning component (proficiency + early literacy, for children nearing or already of schooling age) and both it and `faqs[0].a` qualify the 1–2 hour duration with "and readiness". Ms Tengku Sarah Nabilah and Mrs Nur Ain Nabila were removed from the roster (9 → 7) across both locales — including a `_placeholder` index re-map — plus the `staff.html` / `index.html` static fallbacks and `assets/img/staff-pdf/` (one orphaned headshot deleted).
+
+**The same copy turned out to live in four places, and steps 1–2 only fixed one.** A mid-run code review caught three stale mirrors of the corrected Screening/Assessment text: the `services.html` SEO static fallback, the chatbot's `flow["service.screening"].say` in **both** locales, and the home teaser `home.services.items[0].blurb` in both locales plus its `index.html` mirror. All three were resynced in follow-up commits. Nothing gates this — the chatbot and home strings are hand-written compressed paraphrases with no mechanical tie to `services.json`. A new gotcha in `CLAUDE.md` § "Conventions and gotchas" ("Service copy lives in four places") now spells out the full list; read it before touching any service's `whatItIs`.
+
+Side effect worth knowing: with Nur Ain gone, **every remaining member has a photo**, so no card renders the initials tile any more. The fallback code path in `staff.html` and `index.html` is still correct and should stay — it just has no current consumer. The stale doc lines that described her missing photo were removed from `CLAUDE.md`, `README.md` and the deferred-flags list below; the dated entries under `docs/superpowers/` and the historical notes further down this file were deliberately left alone.
+
+**OPEN — two anchor photos to swap.** The client supplied replacements on 2026-08-21, but only as WhatsApp screenshots; the originals never reached the repo, so this is deferred until the real files arrive. Both are same-filename drop-ins requiring no markup change:
+
+- `assets/img/anchors/service-ot-room.jpg` → hand-over-hand fine-motor photo (child's hands stamping a caterpillar with a broccoli print; no face visible). When it lands, rewrite `common.media.alts.serviceArtOt` in EN and MS — it currently reads "The sensory room, with a platform swing, crash mat and painted underwater mural", which will no longer describe the image.
+- `assets/img/anchors/contact-reception.jpg` → team group photo in front of the painted mural. When it lands, rewrite **both** `common.media.captions.contactReception` ("Say hello at reception.") and `common.media.alts.contactReception` ("Three team members at the Urbane Ethos reception counter") in EN and MS. `about-team.jpg` on about.html stays as-is — client decision, contact page only.
+
+Both current images are going partly on photo-governance grounds (see `docs/superpowers/specs/2026-08-09-staff-refresh-and-photo-integration-design.md` § 2.4): the sensory-room shot has identifiable faces, and the reception shot has paperwork on the counter. Audit the replacements against the same rule before wiring them in. These two sit alongside the client-facing items in "Deferred flags" below.
+
+**Verified this build.** Both content gates green (`bin/check-i18n-parity.rb`, then `ruby bin/check-contact-channels.rb`); module import counts unchanged (`nav 10 · icons 10 · page-load 10 · cursor 10 · i18n 10 · consent 10 · a11y 10 · chatbot 8 · footer-hours 10 · parallax 3`); served locally — `staff.html` renders 7 staff cards, `services.html` carries the new `iADLs` copy, and the home staff teaser reads "and 4 more of us".
 
 ---
 
@@ -278,7 +299,7 @@ MS was re-mirrored for all 9 namespaces; parity is green; `reviewedBy` is still 
 
 ### Deferred flags (client-facing, from this pass)
 
-- **Real staff photo shoot + parental/staff consent workflow** — interim low-res PDF headshots in `assets/img/staff-pdf/` are placeholders; the face↔name mapping needs a human eyeball; **Nur Ain has no photo** (still an initials `[REAL PHOTO REQUIRED]` placeholder).
+- **Real staff photo shoot + parental/staff consent workflow** — interim low-res PDF headshots in `assets/img/staff-pdf/` are placeholders; the face↔name mapping needs a human eyeball.
 - **Real pricing** — chatbot price answer is a `⟪PLACEHOLDER⟫` sentinel (charges list never supplied).
 - **Legal/privacy review** — privacy §1–§9 bodies are intentional lorem pending a counsel-reviewed notice.
 - **Careers page placement + real copy** — currently unlinked, direct-URL only.
