@@ -143,7 +143,7 @@ Delete `assets/img/staff-pdf/ms-tengku-sarah-nabilah.jpg` — orphaned once the 
 Exact hits, verified 2026-08-21:
 
 - `CLAUDE.md:160` — delete the whole line ("Nur Ain Nabila (Administrator) has `"photo": null` and renders an initials tile — that is intentional, not a missing file."). Also change the `assets/img/staff-pdf/` bullet from "6 **low-res interim headshots**" to 5.
-- `README.md:87` — "all 9 staff personal lines" → 7. Re-count the "5 staff bios" figure too: Sarah and Nur Ain both carried lorem bios, so it becomes 3.
+- `README.md:87` — "5 staff bios + all 9 staff personal lines" → "2 staff bios + 5 staff personal lines". **Both figures were already stale**: the file holds 4 lorem bios and 7 lorem personal lines today (Robin and Farwizah have real ones). Removing Sarah and Nur Ain takes those to 2 and 5.
 - `README.md:109` — claims `assets/img/staff-pdf/` holds "8 low-res headshots". That is *already* stale (it predates the Robin/Farwizah swap; the directory holds 6 today, 5 after this change). Fix to 5, and delete the trailing sentence "Nur Ain Nabila (Administrator) has **no** PDF photo — her card still shows the initials `[REAL PHOTO REQUIRED]` placeholder."
 - `docs/HANDOVER.md:281` — open-items list; delete the "**Nur Ain has no photo** (still an initials `[REAL PHOTO REQUIRED]` placeholder)" clause.
 - **Leave alone:** `docs/HANDOVER.md:150` and `:257` are dated historical narrative describing what was true at the time, as are `docs/copy-export-2026-08-13.tsv` and every dated file under `docs/superpowers/{specs,plans}/`. Rewriting history there is wrong.
